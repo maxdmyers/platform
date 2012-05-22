@@ -1,0 +1,40 @@
+{
+	"name": "Default Backend Theme",
+	"description": "A default backend theme for Cartalyst",
+	"author": "Cartalyst LLC",
+	"version": 0.1,
+
+	"options": {
+		"container": {
+			"text": "Status Bar Container",
+			"group": "Header",
+			"section": "Status Bar",
+			"selector": "#status",
+			"styles": {
+				"background": "#222",
+				"height": "3em"
+			}
+		},
+		"link_colors": {
+			"text": "Link Colors",
+			"group": "Header",
+			"section": "Navigation",
+			"selector": "#status nav a",
+			"styles": {
+				"color": "#333",
+				"text-decoration": "underline"
+			}
+		},
+		"link_colors_hover": {
+			"text": "Link Colors - Hover",
+			"group": "Header",
+			"section": "Navigation",
+			"selector": "#status nav a:hover",
+			"styles": {
+				"color": "#444",
+				"text-decoration": "underline"
+			}
+		}
+	}
+
+}

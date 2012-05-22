@@ -1,0 +1,15 @@
+#status {
+	background: #004;
+	height: 3em;
+}
+
+#status nav a {
+	color: #b3b3b3;
+	text-decoration: none;
+}
+
+#status nav a:hover {
+	color: #fff000;
+	text-decoration: none;
+}
+

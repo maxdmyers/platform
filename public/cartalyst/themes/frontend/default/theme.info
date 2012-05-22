@@ -1,0 +1,9 @@
+{
+	"name": "Default Frontend Theme",
+	"description": "A default frontend theme for Cartalyst",
+	"author": "Cartalyst LLC",
+	"version": 0.1,
+
+	"options": {}
+
+}

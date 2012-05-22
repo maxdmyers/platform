@@ -1,0 +1,74 @@
+#table-wrapper {
+	position: relative;
+}
+
+.table-processing-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #777;
+	opacity: .3;
+	display: none;
+}
+
+/*.table_filters_wrapper {
+	overflow: hidden;
+}
+
+.cartaTable_filters_wrapper label {
+	float: left;
+	margin-right: 5px;
+	position: relative;
+	top: 4px;
+}*/
+
+.table-processing {
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	margin-left: -125px;
+	margin-top: -15px;
+	border: 1px solid #d3d3d3;
+	text-align: center;
+	padding: 15px 60px 15px;
+	color: #333;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: white;
+	box-shadow: 0 3px 9px #333;
+	display: none;
+}
+
+.table_processing img {
+	position: relative;
+	top: 3px;
+	margin-right: 8px;
+}
+
+#table-wrapper .sortable {
+	cursor: pointer;
+	background-image: url('/cartalyst/themes/backend/default/assets/img/table/sortable.png');
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+#table-wrapper .sortable-asc {
+	cursor: pointer;
+	background-image: url('/cartalyst/themes/backend/default/assets/img/table/sortable_asc.png');
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+#table-wrapper .sortable-desc {
+	cursor: pointer;
+	background-image: url('/cartalyst/themes/backend/default/assets/img/table/sortable_desc.png');
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+#table-pagination a.active {
+	text-decoration: none;
+	cursor: default;
+}

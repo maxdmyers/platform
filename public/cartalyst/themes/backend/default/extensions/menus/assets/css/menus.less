@@ -1,0 +1,106 @@
+// I know this file will change when the UI is done - it's
+// just there for functionality currently.
+@import "boilerplate";
+
+@import "mixins";
+
+body {
+	font-size: 13px;
+}
+
+.carta-menu {
+
+	@editor-width: 30%;
+
+	// The editor to the left
+	.editor {
+		float: left;
+		width: @editor-width;
+	}
+
+	// The menu area
+	.menu-area {
+		float: right;
+		width: 100 - @editor-width;
+	}
+}
+
+.placeholder {
+	background-color: #cfcfcf;
+}
+
+.ui-nestedSortable-error {
+	background:z#fbe3e4;
+	color:#8a1f11;
+}
+
+ol {
+	margin: 0;
+	padding: 0;
+	padding-left: 30px;
+}
+
+ol.actual-menu, ol.actual-menu ol {
+	margin: 0 0 0 25px;
+	padding: 0;
+	list-style-type: none;
+}
+
+ol.actual-menu {
+	margin: 4em 2em;
+}
+
+.actual-menu li {
+	margin: 7px 0 0 0;
+	padding: 0;
+
+	div {
+		border: 1px solid #dfdfdf;
+		.border-radius(3px);
+		margin: 0;
+
+		header, section {
+			padding: 8px;
+		}
+
+		header {
+			border: 1px solid #fff;
+			#gradient > .vertical(#f8f8f8, #ececec);
+			.border-radius(3px 3px 0 0);
+			cursor: move;
+			font-weight: bold;
+			text-shadow: 0 1px 1px #fff;
+
+			.toggle {
+				float: right;
+				cursor: pointer;
+				background-color: rgba(0,0,0,0.1);
+				.border-radius(3px);
+				.box-shadow(inset 0 0 5px rgba(0,0,0,0.2));
+				padding: 0 2px;
+				.transition(background-color 150ms);
+
+				&:hover {
+					background-color: rgba(0,0,0,0.2);
+				}
+
+				&:active {
+					background-color: rgba(0,0,0,0.3);
+				}
+			}
+		}
+
+		section {
+			display: none;
+			.clearfix();
+			.border-radius(0 0 3px 3px);
+			border-top: 1px solid #dfdfdf;
+			background-color: #f9f9f9;
+
+			.remove {
+				float: right;
+				color: #ff0000;
+			}
+		}
+	}
+}
