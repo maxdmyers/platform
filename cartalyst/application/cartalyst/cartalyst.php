@@ -1,0 +1,255 @@
+<?php
+/**
+ * Part of the Cartalyst application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the 3-clause BSD License.
+ *
+ * This source file is subject to the 3-clause BSD License that is
+ * bundled with this package in the LICENSE file.  It is also available at
+ * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
+ * @package    Cartalyst
+ * @version    1.0
+ * @author     Cartalyst LLC
+ * @license    BSD License (3-clause)
+ * @copyright  (c) 2011 - 2012, Cartalyst LLC
+ * @link       http://cartalyst.com
+ */
+
+use Extensions\Manager;
+use Laravel\Messages;
+
+class Cartalyst
+{
+
+	/**
+	 * Flag for whether Cartalyst is initalized
+	 *
+	 * @var bool
+	 */
+	protected static $initialized = false;
+
+	/**
+	 * Extensions Manager
+	 *
+	 * @var Extnesions\Manager
+	 */
+	protected static $extensions_manager = null;
+
+	/**
+	 * Handles system messages for Cartalyst
+	 *
+	 * @var Messages
+	 */
+	protected static $messages = null;
+
+	/**
+	 * Holds an array of Cartalyst Widgets
+	 *
+	 * @var array
+	 */
+	protected static $widgets = array();
+
+	/**
+	 * Holds an array of Cartalyst Plugins
+	 *
+	 * @var array
+	 */
+	protected static $plugins = array();
+
+	/**
+	 * Starts up Cartalyst necessities
+	 *
+	 * @access  public
+	 * @return  void
+	 */
+	public static function start()
+	{
+		// If we have already initalised Cartalyst
+		if (static::$initialized === true)
+		{
+			return;
+		}
+
+		// Now that we have checked if Cartalyst was initialized, we will set the variable to be true
+		$initialized = true;
+
+		// Register blade extensions
+		static::register_blade_extensions();
+
+		// Register Extensions
+		static::extensions_manager()->start_extensions();
+
+		// Install menu
+		// static::extensions_manager()->install_admin_menu();
+	}
+
+	/**
+	 * Return the Cartalyst Messages object
+	 *
+	 * @access  public
+	 * @return  Messages  Cartalyst messages object
+	 */
+	public static function messages()
+	{
+		if (static::$messages === null)
+		{
+			// Setup Messages class. Second param to persist messages to session
+			static::$messages = \Messages::instance(array(), true);
+		}
+
+		return static::$messages;
+	}
+
+	/**
+	 * Gets the Cartalyst User
+	 *
+	 * @return Sentry\User
+	 */
+	public static function user()
+	{
+		return Sentry::user();
+	}
+
+	/**
+	 * Registers Cartalyst extensions for blade
+	 *
+	 * @return  void
+	 */
+	protected static function register_blade_extensions()
+	{
+		// TODO: add error logging when widget/plugin fails
+		// register @widget with blade
+		Blade::extend(function($view)
+		{
+			$pattern = Blade::matcher('widget');
+
+			return preg_replace($pattern, '<?php echo Cartalyst::widget$2 ?>', $view);
+		});
+
+		// register @plugin with blade
+		Blade::extend(function($view)
+		{
+			$pattern = "/\s*@plugin\s*\(\s*\'(.*)\'\s*,\s*\'(.*)\'\s*\)/";
+
+			return preg_replace($pattern, '<?php $$1 = Cartalyst::plugin(\'$2\') ?>', $view);
+		});
+	}
+
+	/**
+	 * Retrieves the extensions manager instance
+	 *
+	 * @return  Extensions\Manager
+	 */
+	public static function extensions_manager()
+	{
+		if (static::$extensions_manager === null)
+		{
+			Bundle::register('extensions', array(
+				'handles' => 'extensions',
+			));
+			Bundle::start('extensions');
+
+			static::$extensions_manager = new Manager();
+		}
+
+		return static::$extensions_manager;
+	}
+
+	/**
+	 * Loads a widget
+	 *
+	 * @param   string  $name  Name of the widget
+	 * @return  mixed
+	 */
+	public static function widget($name)
+	{
+		$name = trim($name);
+
+		if (strpos($name, '::') !== false)
+		{
+			list($bundle, $action) = explode('::', strtolower($name));
+			list($class, $method) = explode('.', $action);
+		}
+
+		$class = 'Cartalyst\\'.ucfirst($bundle).'\\Widgets\\'.ucfirst($class);
+
+		if (array_key_exists($class, static::$widgets))
+		{
+			$widget = static::$widgets[$class];
+		}
+		else
+		{
+			! Bundle::started($bundle) and Bundle::start($bundle);
+
+			if ( ! class_exists($class))
+			{
+				return '';
+				throw new \Exception('Class: '.$class.' does not exist.');
+			}
+
+			$widget = new $class();
+
+			// store the object
+			static::$widgets[$class] = $widget;
+		}
+
+		if ( ! is_callable($class, $method))
+		{
+			return '';
+			throw new \Exception('Method: '.$method.' does not exist in class: '.$class);
+		}
+
+		return $widget->$method();
+	}
+
+	/**
+	 * Loads a widget
+	 *
+	 * @param   string  $name  Name of the widget
+	 * @return  mixed
+	 */
+	public static function plugin($name)
+	{
+		$name = trim($name);
+
+		if (strpos($name, '::') !== false)
+		{
+			list($bundle, $action) = explode('::', strtolower($name));
+			list($class, $method) = explode('.', $action);
+		}
+
+		$class = 'Cartalyst\\'.ucfirst($bundle).'\\Plugins\\'.ucfirst($class);
+
+		if (array_key_exists($class, static::$plugins))
+		{
+			$plugin = static::$plugins[$class];
+		}
+		else
+		{
+			! Bundle::started($bundle) and Bundle::start($bundle);
+
+			if ( ! class_exists($class))
+			{
+				return '';
+				//throw new \Exception('Class: '.$class.' does not exist.');
+			}
+
+			$plugin = new $class();
+
+			// store the object
+			static::$plugins[$class] = $plugin;
+		}
+
+		if ( ! is_callable($class, $method))
+		{
+			return '';
+			throw new \Exception('Method: '.$method.' does not exist in class: '.$class);
+		}
+
+		return $plugin->$method();
+	}
+
+}

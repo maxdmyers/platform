@@ -1,0 +1,66 @@
+<?php
+/**
+ * Part of the Cartalyst application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the 3-clause BSD License.
+ *
+ * This source file is subject to the 3-clause BSD License that is
+ * bundled with this package in the LICENSE file.  It is also available at
+ * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
+ * @package    Cartalyst
+ * @version    1.0
+ * @author     Cartalyst LLC
+ * @license    BSD License (3-clause)
+ * @copyright  (c) 2011 - 2012, Cartalyst LLC
+ * @link       http://cartalyst.com
+ */
+
+class Base_Controller extends Controller
+{
+
+	/**
+	 * Flag for whether the controller is RESTful.
+	 *
+	 * @var bool
+	 */
+	public $restful = true;
+
+	/**
+	 * Catch-all method for requests that can't be matched.
+	 *
+	 * @param  string    $method
+	 * @param  array     $parameters
+	 * @return Response
+	 */
+	public function __call($method, $parameters)
+	{
+		return Response::error('404');
+	}
+
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		Event::fire('cartalyst.controller.before');
+		return parent::before();
+	}
+
+	/**
+	 * This function is called after the action is executed.
+	 *
+	 * @param  Response  $response  Response from action
+	 * @return void
+	 */
+	public function after($response)
+	{
+		Event::fire('cartalyst.controller.after', array($response));
+		return parent::after($response);
+	}
+
+}
