@@ -20,7 +20,7 @@
 
 use Cartalyst\Users\User;
 
-class Users_API_Controller extends API_Controller
+class Users_API_Users_Controller extends API_Controller
 {
 
 	public function get_index()
@@ -161,7 +161,8 @@ class Users_API_Controller extends API_Controller
 		try
 		{
 			$user = User::find((int) Input::get('id'));
-
+			print_r($user);
+			exit;
 			// throw http not found if user does not exist
 			if ( ! $user)
 			{
@@ -291,7 +292,6 @@ class Users_API_Controller extends API_Controller
 					// user was not an admin - return false
 					return array(
 						'status'  => false,
-						'alert' => 'info',
 						'message' => Lang::line('users::users.not_admin')->get()
 					);
 				}
@@ -309,7 +309,6 @@ class Users_API_Controller extends API_Controller
 			// could not log the user in
 			return array(
 				'status'  => false,
-				'alert'   => 'error',
 				'message' => Lang::line('users::users.invalid_login')->get()
 			);
 		}
@@ -318,7 +317,6 @@ class Users_API_Controller extends API_Controller
 			// issue logging in via Sentry - lets catch the sentry error thrown
 			return array(
 				'status'  => false,
-				'alert'   => 'info',
 				'message' => $e->getMessage()
 			);
 		}

@@ -658,26 +658,6 @@ class Crud implements ArrayAccess
 	}
 
 	/**
-	 * Get the models table
-	 *
-	 * @return  string  table name
-	 */
-	public static function get_table()
-	{
-		return static::$_table;
-	}
-
-	/**
-	 * Get the models key
-	 *
-	 * @return  string  models key
-	 */
-	public static function get_key()
-	{
-		return static::$_key;
-	}
-
-	/**
 	 * Gets called before all() is executed to modify the query
 	 * Must return an array of the query object and columns array($query, $columns)
 	 *

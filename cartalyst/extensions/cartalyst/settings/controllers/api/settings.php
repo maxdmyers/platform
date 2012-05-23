@@ -20,7 +20,7 @@
 
 use Cartalyst\Settings\Model\Setting;
 
-class Settings_API_Controller extends API_Controller
+class Settings_API_Settings_Controller extends API_Controller
 {
 
 	public function get_index()
@@ -33,8 +33,8 @@ class Settings_API_Controller extends API_Controller
 		$result = Setting::all(function($query) use ($ext, $where) {
 
 			$query = $query
-				->select(Setting::get_table().'.*')
-				->join('extensions', 'extensions.id', '=', Setting::get_table().'.extension_id');
+				->select(Setting::table().'.*')
+				->join('extensions', 'extensions.id', '=', Setting::table().'.extension_id');
 
 			if ($ext !== null)
 			{
@@ -96,10 +96,10 @@ class Settings_API_Controller extends API_Controller
 			$setting = Setting::all(function($query) use($extension, $name) {
 
 				$query = $query
-					->select(Setting::get_table().'.*')
-					->join('extensions', 'extensions.id', '=', Setting::get_table().'.extension_id')
+					->select(Setting::table().'.*')
+					->join('extensions', 'extensions.id', '=', Setting::table().'.extension_id')
 					->where('extensions.slug', '=', $extension)
-					->where(Setting::get_table().'.name', '=', $name);
+					->where(Setting::table().'.name', '=', $name);
 
 				return $query;
 

@@ -32,7 +32,7 @@ class User extends Crud
 	 *
 	 * @var string
 	 */
-	public static $key = 'id';
+	public static $key = 'users.id';
 
 	/**
 	 * @var  array  $rules  Validation rules for model attributes
@@ -150,7 +150,8 @@ class User extends Crud
 		{
 			$this->before_delete(null);
 			$result = Sentry::user($this->{static::key()})->delete();
-
+			print_r($result);
+			exit;
 			return $this->after_delete($result);
 		}
 		catch(SentryException $e)

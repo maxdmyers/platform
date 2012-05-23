@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Dashboard_Admin_Controller extends Admin_Controller
+class Dashboard_Admin_Dashboard_Controller extends Admin_Controller
 {
 	public function get_index()
 	{

@@ -30,7 +30,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type='text/css'>
 
 	{{ Theme::asset('css/style.css') }}
-	@widget('themes::options.css')
+
 	@yield('links')
 
 	@yield('head_scripts')

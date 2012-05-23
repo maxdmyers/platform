@@ -38,10 +38,10 @@ return array(
 	},
 
 	'global_routes' => function() {
-		Route::any('admin/login', 'users::admin@login');
-		Route::any('admin/logout', 'users::admin@logout');
-		Route::any('admin/reset_password', 'users::admin@reset_password');
-		Route::any('admin/reset_password_confirm', 'users::admin@reset_password_confirm');
+		Route::any('admin/login', 'users::admin.users@login');
+		Route::any('admin/logout', 'users::admin.users@logout');
+		Route::any('admin/reset_password', 'users::admin.users@reset_password');
+		Route::any('admin/reset_password_confirm', 'users::admin.users@reset_password_confirm');
 	},
 
 	'rules' => array(

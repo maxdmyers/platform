@@ -20,7 +20,7 @@
 
 use Cartalyst\Themes\Theme;
 
-class Themes_API_Controller extends API_Controller
+class Themes_API_Themes_Controller extends API_Controller
 {
 
 	public function get_index()

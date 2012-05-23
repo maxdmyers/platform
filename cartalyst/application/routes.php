@@ -68,20 +68,52 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
-// Re-route admin controllers
-Route::any(ADMIN.'/(:any?)(/.*)?', array('as' => 'admin', function($bundle = 'dashboard', $uri = null)
-{
-	return Route::forward(Request::method(), $bundle.'/admin'.$uri);
-}));
+Route::any(ADMIN.'/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
+
+	// check if the controller exists
+	if (Controller::resolve($bundle, 'admin.'.$controller))
+	{
+		$action = ($action) ?: 'index';
+		$controller = $bundle.'::admin.'.$controller.'@'.$action;
+		$params = explode('/', substr($params, 1));
+	}
+	else
+	{
+		// if it doesn't, default to to bundle name as a controller
+		$params = $action.$params;
+		$action = ($controller) ?: 'index';
+		$controller = $bundle.'::admin.'.$bundle.'@'.$action;
+		$params = explode('/', $params);
+	}
+
+	return Controller::call($controller, $params);
+});
+
 
 // Re-route api controllers
-Route::any('api/(:any)(/.*)?', array('as' => 'api', function($bundle, $uri = null)
-{
-	return Route::forward(Request::method(), $bundle.'/api'.$uri);
-}));
+Route::any('api/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
+
+	// check if the controller exists
+	if (Controller::resolve($bundle, 'api.'.$controller))
+	{
+		$action = ($action) ?: 'index';
+		$controller = $bundle.'::api.'.$controller.'@'.$action;
+		$params = explode('/', substr($params, 1));
+	}
+	else
+	{
+		// if it doesn't, default to to bundle name as a controller
+		$params = $action.$params;
+		$action = ($controller) ?: 'index';
+		$controller = $bundle.'::api.'.$bundle.'@'.$action;
+		$params = explode('/', $params);
+	}
+
+	return Controller::call($controller, $params);
+});
 
 // Now detect controllers
-Route::controller(Controller::detect());
+// Route::controller(Controller::detect());
 
 /*
 |--------------------------------------------------------------------------

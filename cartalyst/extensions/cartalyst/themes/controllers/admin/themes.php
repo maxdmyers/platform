@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Themes_Admin_Controller extends Admin_Controller
+class Themes_Admin_Themes_Controller extends Admin_Controller
 {
 	/**
 	 * Default View
