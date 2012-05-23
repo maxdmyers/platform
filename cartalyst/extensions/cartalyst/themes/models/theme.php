@@ -55,9 +55,6 @@ class Theme extends Crud
 
 		foreach ($options as $id => $option)
 		{
-			echo '<pre>';
-			print_r($options);
-			exit;
 			$selector = $options[$id]['selector'];
 			$styles = '';
 			foreach ($option['styles'] as $attribute => $value)

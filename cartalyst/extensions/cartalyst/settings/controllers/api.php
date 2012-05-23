@@ -98,29 +98,12 @@ class Settings_API_Controller extends API_Controller
 				$query = $query
 					->select(Setting::get_table().'.*')
 					->join('extensions', 'extensions.id', '=', Setting::get_table().'.extension_id')
-					->where('extensions.slug', '=', $extension);
-
-				// if ( ! is_array($where) or ! is_array($where[0]))
-				// {
-				// 	$where = array($where);
-				// }
-
-				// foreach ($where as $w)
-				// {
-				// 	if (count($w) == 3)
-				// 	{
-				// 		$query = $query->where($w[0], $w[1], $w[2]);
-				// 	}
-				// }
+					->where('extensions.slug', '=', $extension)
+					->where(Setting::get_table().'.name', '=', $name);
 
 				return $query;
 
 			});
-			echo '<pre>';
-			print_r($setting);
-			exit;
-			// pass validation and labels to the model
-			$setting->set_validation($rules, $labels);
 
 			// if settings already exists - update
 			if ( ! empty($setting))
@@ -152,10 +135,13 @@ class Settings_API_Controller extends API_Controller
 
 			try
 			{
-			// now save the setting
+				// pass validation and labels to the model
+				$setting->set_validation($rules, $labels);
+
+				// now save the setting
 				if ($setting->save())
 				{
-					$updated .= $label['value'] . ' has been updated.<br />';
+					$updated .= $labels['value'] . ' has been updated.<br />';
 				}
 				else
 				{
@@ -169,9 +155,6 @@ class Settings_API_Controller extends API_Controller
 			}
 
 		}
-
-		// add to logs
-		// Logger::add(Logger::EDIT, 'settings', __('settings.log_edit'));
 
 		return array(
 			'status'  => true,

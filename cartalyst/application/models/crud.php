@@ -699,3 +699,18 @@ class Crud implements ArrayAccess
 		return $results;
 	}
 }
+
+
+/**
+ * Gets all the public vars for an object.  Use this if you need to get all the
+ * public vars of $this inside an object.
+ *
+ * @return	array
+ */
+if ( ! function_exists('get_object_public_vars'))
+{
+	function get_object_public_vars($obj)
+	{
+		return get_object_vars($obj);
+	}
+}

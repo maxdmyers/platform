@@ -148,7 +148,7 @@ Route::filter('after', function($response)
 
 Route::filter('auth', function()
 {
-	// if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
+	if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
 });
 
 Route::filter('admin_auth', function()

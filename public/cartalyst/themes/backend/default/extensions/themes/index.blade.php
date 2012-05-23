@@ -17,7 +17,7 @@
 		<a class="btn" href="{{ url(ADMIN.'/themes') }}">Front End</a> /
 		<a class="btn" href="{{ url(ADMIN.'/themes/backend') }}">Back End</a>
 	</div>
-
+@if($exists)
 	<section>
 		<header><strong>Active Theme</strong></header>
 		<div>
@@ -57,6 +57,11 @@
 		<br />
 
 	@endif
+@else
+	<section>
+		<header><strong>Theme: {{ $active['name'] }} no longer exists.</strong></header>
+	</section>
+@endif
 	<section>
 		<header><strong>Available Themes</strong></header>
 		{{ Form::open() }}
