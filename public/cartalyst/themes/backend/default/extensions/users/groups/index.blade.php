@@ -1,7 +1,7 @@
 @layout('templates/template')
 
 @section('title')
-	{{ __('users::users.title') }}
+	{{ Lang::line('users::users.title') }}
 @endsection
 
 @section('links')
@@ -14,12 +14,12 @@
 
 @section('content')
 	<section id="users" class="row-fluid">
-		<h1>{{ __('users::groups.title') }}</h1>
+		<h1>{{ Lang::line('users::groups.title') }}</h1>
 		<div id="table-actions">
 			<div class="row-fluid">
 				<div id="table-filters" class="span8"></div>
 				<div id="actions" class="span4">
-					<a class="btn-large btn-primary" href="{{ url(ADMIN.'/users/groups/create') }}">{{ __('users::groups.btn_new_group') }}</a>
+					<a class="btn-large btn-primary" href="{{ url(ADMIN.'/users/groups/create') }}">{{ Lang::line('users::groups.btn_new_group') }}</a>
 				</div>
 			</div>
 			<div class="row-fluid">

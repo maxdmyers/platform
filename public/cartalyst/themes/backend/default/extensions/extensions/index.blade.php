@@ -1,7 +1,7 @@
 @layout('templates/template')
 
 @section('title')
-	{{ __('extensions::extensions.title') }}
+	{{ Lang::line('extensions::extensions.title') }}
 @endsection
 
 @section('links')
@@ -16,18 +16,18 @@
 
 @section('content')
 	<section id="extensions" class="row-fluid">
-		<h1>{{ __('extensions::extensions.title') }}</h1>
+		<h1>{{ Lang::line('extensions::extensions.title') }}</h1>
 
 		<h2>Uninstalled Extensions</h2>
 		<div class="row-fluid">
 			<table id="uninstalled-extension-table" class="table table-bordered">
 				<thead>
 					<tr>
-						<th>{{ __('extensions::extensions.name') }}</th>
-						<th>{{ __('extensions::extensions.slug') }}</th>
-						<th>{{ __('extensions::extensions.author') }}</th>
-						<th>{{ __('extensions::extensions.description') }}</th>
-						<th>{{ __('extensions::extensions.version') }}</th>
+						<th>{{ Lang::line('extensions::extensions.name') }}</th>
+						<th>{{ Lang::line('extensions::extensions.slug') }}</th>
+						<th>{{ Lang::line('extensions::extensions.author') }}</th>
+						<th>{{ Lang::line('extensions::extensions.description') }}</th>
+						<th>{{ Lang::line('extensions::extensions.version') }}</th>
 						<th></th>
 					</tr>
 				</thead>

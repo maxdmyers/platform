@@ -1,7 +1,7 @@
 @layout('templates/template')
 
 @section('title')
-	{{ __('themes::themes.title') }}
+	{{ Lang::line('themes::themes.title') }}
 @endsection
 
 @section('links')
