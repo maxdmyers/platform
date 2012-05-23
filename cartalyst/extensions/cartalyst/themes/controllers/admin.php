@@ -177,7 +177,7 @@ class Themes_Admin_Controller extends Admin_Controller
 		));
 
 		// merge data
-		$data['active'] = $data['active'] + $active_custom['options'];
+		$data['active'] = $active_custom['options'] + $data['active'];
 
 		return $data;
 	}

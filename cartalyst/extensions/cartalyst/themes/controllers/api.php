@@ -118,7 +118,7 @@ class Themes_API_Controller extends API_Controller
 				'id'      => Input::get('id'),
 				'type'    => Input::get('type'),
 				'theme'   => Input::get('theme'),
-				'options' => array('options' => $options),
+				'options' => $options,
 				'status'  => Input::get('status')
 			));
 		}
@@ -128,7 +128,7 @@ class Themes_API_Controller extends API_Controller
 			$theme = new Theme(array(
 				'type'    => Input::get('type'),
 				'theme'   => Input::get('theme'),
-				'options' => array('options' => $options),
+				'options' => $options,
 				'status'  => Input::get('status')
 			));
 		}

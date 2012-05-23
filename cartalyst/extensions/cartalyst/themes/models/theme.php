@@ -51,7 +51,7 @@ class Theme extends Crud
 	protected function prep_attributes($attributes)
 	{
 		// generate css file contents
-		$options = $attributes['options']['options'];
+		$options = $attributes['options'];
 
 		foreach ($options as $id => $option)
 		{
@@ -68,7 +68,7 @@ class Theme extends Crud
 		static::$_filepath = path('theme_'.$attributes['type']).$attributes['theme'].DS.'assets'.DS.'css'.DS.'theme_options.css';
 
 		// encode options for db storage
-		$attributes['options'] = json_encode($attributes['options']['options']);
+		$attributes['options'] = json_encode($attributes['options']);
 
 		return $attributes;
 	}
