@@ -30,12 +30,12 @@ class Options
 	public function css()
 	{
 		// // get active theme
-		// $active = API::get('settings', array(
-		// 	'extension' => 'themes',
-		// ));
+		$active = API::get('settings', array(
+			'extension' => 'themes',
+		));
 
-		// $active = $active['settings'];
-
+		$active = $active['settings'];
+		echo Request::route()->controller;
 		// $type = (strpos(Request::route()->controller, 'Controller_Admin') === false) ? 'frontend' : 'backend';
 
 		// // get active custom theme options
