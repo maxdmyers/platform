@@ -4,7 +4,9 @@
 	$form.on('submit', function(e) {
 		e.preventDefault();
 
+		$errors.addClass('alert alert-info');
 		$errors.html('Please Wait...');
+
 		$.ajax({
 			type:     'POST',
 			url:      $form.prop('action'),
@@ -18,6 +20,8 @@
 				}
 				else
 				{
+					$errors.removeClass('alert-info');
+					$errors.addClass('alert-' + data.alert);
 					$errors.html(data.message);
 				}
 			}

@@ -276,6 +276,7 @@ class Users_Admin_Controller extends Admin_Controller
 		{
 			$data = array(
 				'status' => false,
+				'alert'  => $login['alert'],
 				'message' => $login['message']
 			);
 		}

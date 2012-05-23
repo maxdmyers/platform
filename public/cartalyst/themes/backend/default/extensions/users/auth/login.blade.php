@@ -20,10 +20,6 @@
 
 		{{ Form::open(null, 'POST', array('id' => 'login-form', 'class' => 'form-horizontal')) }}
 
-			<!-- remove this later when we get errors via js ? -->
-			<p class="errors"></p>
-			<!-- end remove -->
-
 			<input type="email" name="email" id="email" placeholder="{{ __('users::users.email') }}" autocomplete="off" />
 
 			<div class="input-append">
@@ -33,6 +29,8 @@
 			<p class="help-block"><a href="{{ url(ADMIN.'/reset_password') }}">{{ __('users::users.reset_password') }}</a></p>
 
 		{{ Form::close() }}
+
+		<p class="errors"></p>
 
 	</section>
 @endsection

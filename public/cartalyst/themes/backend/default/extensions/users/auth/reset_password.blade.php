@@ -1,7 +1,10 @@
 @layout('templates/blank')
 
+@section('links')
+	{{ Theme::asset('users::css/login.less') }}
+@endsection
+
 @section('body_scripts')
-	@parent
 	{{ Theme::asset('users::js/reset_password.js') }}
 @endsection
 
@@ -13,7 +16,7 @@
 	<section id="login">
 
 		<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst" />
-		<h1>cartalyst.settings.general.store_name</h1>
+		<h1>@get.settings.store_name</h1>
 		<h2>{{ __('users::users.reset_password') }}</h2>
 
 		{{ Form::open(null, 'POST', array('id' => 'password-reset-form', 'class' => 'form-horizontal')) }}
