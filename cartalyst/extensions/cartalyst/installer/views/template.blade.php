@@ -51,7 +51,7 @@
 		</div>
 	</div>
 
-	<?=Asset::scripts()?>
+	{{ Asset::scripts() }}
 
 </body>
 </html>
