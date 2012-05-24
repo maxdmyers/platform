@@ -33,11 +33,10 @@ class Users_Install_Users_With_Sentry
 		// Migrate Sentry
 		Command::run(array('migrate', 'sentry'));
 
-		// Remove the username column, rather
-		// pointless in eCommerce
+		// Remove the username column, we don't
+		// use it at all.
 		Schema::table('users', function($table)
 		{
-			$table->drop_unique('users_username_unique');
 			$table->drop_column('username');
 		});
 

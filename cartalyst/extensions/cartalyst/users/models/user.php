@@ -22,7 +22,7 @@ namespace Cartalyst\Users;
 
 use Crud;
 use Sentry;
-use Sentry\SentryException;
+use SentryException;
 
 class User extends Crud
 {
