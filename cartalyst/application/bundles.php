@@ -42,10 +42,6 @@ return array(
 		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
 		'auto'     => true,
 	),
-	'nesty'  => array(
-		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
-		'auto'     => true,
-	),
 	'sentry' => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'sentry',
 		'auto'     => true,
