@@ -20,7 +20,7 @@
 
 use Cartalyst\Users\User;
 
-class Users_API_Controller extends API_Controller
+class Users_API_Users_Controller extends API_Controller
 {
 
 	public function get_index()
@@ -161,7 +161,8 @@ class Users_API_Controller extends API_Controller
 		try
 		{
 			$user = User::find((int) Input::get('id'));
-
+			print_r($user);
+			exit;
 			// throw http not found if user does not exist
 			if ( ! $user)
 			{

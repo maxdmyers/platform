@@ -1,7 +1,7 @@
 @layout('templates/template')
 
 @section('title')
-	{{ __('settings::settings.title') }}
+	{{ Lang::line('settings::settings.title') }}
 @endsection
 
 @section('links')
@@ -17,15 +17,15 @@
 <section id="settings">
 
 	<header>
-		<h1 class="large">{{ __('settings::settings.title') }}</h1>
-		<p>{{ __('settings::settings.description') }}</p>
+		<h1 class="large">{{ Lang::line('settings::settings.title') }}</h1>
+		<p>{{ Lang::line('settings::settings.description') }}</p>
 	</header>
 
 	<div class="tabbable">
 
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#1" data-toggle="tab">{{ __('settings::settings.general_title') }}</a></li>
-			<li><a href="#2" data-toggle="tab">{{ __('settings::settings.localization_title') }}</a></li>
+			<li class="active"><a href="#1" data-toggle="tab">{{ Lang::line('settings::settings.general_title') }}</a></li>
+			<li><a href="#2" data-toggle="tab">{{ Lang::line('settings::settings.localization_title') }}</a></li>
 		</ul>
 
 		{{ Form::open() }}

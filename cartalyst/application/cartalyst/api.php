@@ -108,13 +108,6 @@ class API
 		$get  = ($type == 'GET')  ? $data : array();
 		$post = ($type == 'POST') ? $data : array();
 
-		//$response = Request::make($uri, $type, $data);
-
-		//$response = Request::make($type, 'admin');
-		// $response = Request::make($type, $uri, array($type => $data), array('content-type' => $format));
-		// echo '<pre>';
-		// print_r($response);
-		// exit;
 		Request::$foundation = new RequestFoundation($get, $post, array(), $_COOKIE, array(), $_SERVER);
 		Request::foundation()->setMethod($type);
 		Request::foundation()->headers->add(array('content-type' => $format));

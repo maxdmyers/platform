@@ -426,7 +426,7 @@ class Blade {
 		}
 
 		return $value;
-	}	
+	}
 
 	/**
 	 * Get the regular expression for a generic Blade function.

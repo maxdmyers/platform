@@ -20,32 +20,33 @@
 
 namespace Cartalyst\Themes\Widgets;
 
-use Sentry;
+use API;
 use Theme;
+use Request;
 
-class Themes
+class Options
 {
 
-	public function options_css()
+	public function css()
 	{
-		// get active theme
-		$active = Api::get('settings', array(
+		// // get active theme
+		$active = API::get('settings', array(
 			'extension' => 'themes',
 		));
 
 		$active = $active['settings'];
+		echo Request::route()->controller;
+		// $type = (strpos(Request::route()->controller, 'Controller_Admin') === false) ? 'frontend' : 'backend';
 
-		$type = (strpos(Request::route()->controller, 'Controller_Admin') === false) ? 'frontend' : 'backend';
+		// // get active custom theme options
+		// $active_custom = API::get('themes/options', array(
+		// 	'type'  => $type,
+		// 	'theme' => $active[$type.'_theme']['value']
+		// ));
 
-		// get active custom theme options
-		$active_custom = Api::get('themes/options', array(
-			'type'  => $type,
-			'theme' => $active[$type.'_theme']['value']
-		));
+		// $data['status'] = (isset($active_custom['options']['status'])) ? $active_custom['options']['status'] : 0;
 
-		$data['status'] = (isset($active_custom['options']['status'])) ? $active_custom['options']['status'] : 0;
-
-		return Theme::make('themes.widgets.theme_options_css', $data);
+		// return Theme::make('themes::widgets.theme_options_css', $data);
 	}
 
 }

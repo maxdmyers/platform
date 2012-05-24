@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Users_Admin_Controller extends Admin_Controller
+class Users_Admin_Users_Controller extends Admin_Controller
 {
 
 	public function __construct()

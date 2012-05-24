@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Settings_Admin_Controller extends Admin_Controller
+class Settings_Admin_Settings_Controller extends Admin_Controller
 {
 
 	/**

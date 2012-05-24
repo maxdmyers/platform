@@ -1,7 +1,7 @@
 @layout('templates/template')
 
 @section('title')
-	{{ __('themes::themes.title') }}
+	{{ Lang::line('themes::themes.title') }}
 @endsection
 
 @section('links')
@@ -17,7 +17,7 @@
 		<a class="btn" href="{{ url(ADMIN.'/themes') }}">Front End</a> /
 		<a class="btn" href="{{ url(ADMIN.'/themes/backend') }}">Back End</a>
 	</div>
-
+@if($exists)
 	<section>
 		<header><strong>Active Theme</strong></header>
 		<div>
@@ -33,7 +33,9 @@
 			<header><strong>Theme Options</strong></header>
 			{{ Form::open() }}
 				<input type="hidden" name="theme" value="{{ $active['dir'] }}" />
+				@if (isset($active['id']))
 				<input type="hidden" name="id" value="{{ $active['id'] }}" />
+				@endif
 				<div>
 					<div>
 						<label>Options:</label>
@@ -45,7 +47,7 @@
 							@foreach ($option['styles'] as $style => $value)
 								<div>
 									<label>{{ $style }}</label>
-									<input type="text" name="options['{{$id}}']['styles']['{{$style}}']" value="{{ $value }}" />
+									<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}" />
 								</div>
 							@endforeach
 						</div>
@@ -57,13 +59,18 @@
 		<br />
 
 	@endif
+@else
+	<section>
+		<header><strong>Theme: {{ $active['name'] }} no longer exists.</strong></header>
+	</section>
+@endif
 	<section>
 		<header><strong>Available Themes</strong></header>
 		{{ Form::open() }}
 			<ul>
 			@foreach ($themes as $theme)
 				<li>
-					<input type="radio" name="theme" value="{{ $theme['dir'] }}" />
+					<input type="radio" name="theme" value="{{ $theme['dir'] }}" {{ ($theme['name'] == $active['name']) ? 'checked=checked' : '' }} />
 					<div>
 						<strong>Name: </strong>{{ $theme['name'] }}  v{{ $theme['version'] }}
 						<strong>by</strong> {{ $theme['author'] }}

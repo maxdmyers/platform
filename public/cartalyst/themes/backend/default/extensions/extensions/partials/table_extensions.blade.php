@@ -7,10 +7,10 @@
 		<td>{{ $row['description'] }}</td>
 		<td>{{ $row['version'] }}</td>
 		<td>
-			{{ $row['is_core'] ? __('extensions::extensions.bool.yes') : __('extensions::extensions.bool.no') }}
+			{{ $row['is_core'] ? Lang::line('extensions::extensions.bool.yes') : Lang::line('extensions::extensions.bool.no') }}
 		</td>
 		<td>
-			{{ $row['enabled'] ? __('extensions::extensions.bool.yes') : __('extensions::extensions.bool.no') }}
+			{{ $row['enabled'] ? Lang::line('extensions::extensions.bool.yes') : Lang::line('extensions::extensions.bool.no') }}
 		</td>
 		<td>
 			@if ($row['enabled'])

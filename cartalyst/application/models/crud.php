@@ -658,26 +658,6 @@ class Crud implements ArrayAccess
 	}
 
 	/**
-	 * Get the models table
-	 *
-	 * @return  string  table name
-	 */
-	public static function get_table()
-	{
-		return static::$_table;
-	}
-
-	/**
-	 * Get the models key
-	 *
-	 * @return  string  models key
-	 */
-	public static function get_key()
-	{
-		return static::$_key;
-	}
-
-	/**
 	 * Gets called before all() is executed to modify the query
 	 * Must return an array of the query object and columns array($query, $columns)
 	 *
@@ -697,5 +677,20 @@ class Crud implements ArrayAccess
 	protected static function after_all($results)
 	{
 		return $results;
+	}
+}
+
+
+/**
+ * Gets all the public vars for an object.  Use this if you need to get all the
+ * public vars of $this inside an object.
+ *
+ * @return	array
+ */
+if ( ! function_exists('get_object_public_vars'))
+{
+	function get_object_public_vars($obj)
+	{
+		return get_object_vars($obj);
 	}
 }

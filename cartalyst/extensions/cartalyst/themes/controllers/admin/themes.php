@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Themes_Admin_Controller extends Admin_Controller
+class Themes_Admin_Themes_Controller extends Admin_Controller
 {
 	/**
 	 * Default View
@@ -51,7 +51,7 @@ class Themes_Admin_Controller extends Admin_Controller
 	public function post_frontend()
 	{
 		$this->process_post('frontend');
-		$this->get_frontend();
+		return Redirect::to(ADMIN.'/themes/frontend');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Themes_Admin_Controller extends Admin_Controller
 	public function post_backend()
 	{
 		$this->process_post('backend');
-		$this->get_frontend();
+		return Redirect::to(ADMIN.'/themes/backend');
 	}
 
 	/**
@@ -159,7 +159,16 @@ class Themes_Admin_Controller extends Admin_Controller
 		$active = $active['settings'][0];
 
 		// get active theme info and remove from array
-		$data['active'] = $data['themes'][$active['value']];
+		if ( array_key_exists($active['value'], $data['themes']))
+		{
+			$data['active'] = $data['themes'][$active['value']];
+			$data['exists'] = true;
+		}
+		else
+		{
+			$data['active']['name'] = $active['value'];
+			$data['exists'] = false;
+		}
 
 		// get active custom theme options
 		$active_custom = API::get('themes/options', array(
@@ -168,7 +177,7 @@ class Themes_Admin_Controller extends Admin_Controller
 		));
 
 		// merge data
-		$data['active'] = $data['active'] + $active_custom['options'];
+		$data['active'] = $active_custom['options'] + $data['active'];
 
 		return $data;
 	}

@@ -3,7 +3,7 @@
 
 
 	<div class="control-group">
-		<label class="control-label" for="store-brand">{{ __('settings::settings.localization_country') }}</label>
+		<label class="control-label" for="store-brand">{{ Lang::line('settings::settings.localization_country') }}</label>
 		<div class="controls">
 			<select>
 				@foreach (countries as country)

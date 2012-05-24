@@ -20,7 +20,7 @@
 
 use Cartalyst\Themes\Theme;
 
-class Themes_API_Controller extends API_Controller
+class Themes_API_Themes_Controller extends API_Controller
 {
 
 	public function get_index()
@@ -72,12 +72,16 @@ class Themes_API_Controller extends API_Controller
 				->take(1);
 		});
 
-		$theme_options = $theme_options[0];
-		$theme_options['options'] = json_decode($theme_options['options']);
+
+		if ( ! empty($theme_options))
+		{
+			$theme_options = $theme_options[0];
+			$theme_options['options'] = json_decode($theme_options['options']);
+		}
 
 		return array(
 			'status'  => true,
-			'options' => ($theme_options) ?: array()
+			'options' => $theme_options
 		);
 	}
 
@@ -114,7 +118,7 @@ class Themes_API_Controller extends API_Controller
 				'id'      => Input::get('id'),
 				'type'    => Input::get('type'),
 				'theme'   => Input::get('theme'),
-				'options' => array('options' => $options),
+				'options' => $options,
 				'status'  => Input::get('status')
 			));
 		}
@@ -124,7 +128,7 @@ class Themes_API_Controller extends API_Controller
 			$theme = new Theme(array(
 				'type'    => Input::get('type'),
 				'theme'   => Input::get('theme'),
-				'options' => array('options' => $options),
+				'options' => $options,
 				'status'  => Input::get('status')
 			));
 		}
