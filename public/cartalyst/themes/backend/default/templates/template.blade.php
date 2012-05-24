@@ -27,8 +27,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<!-- Links -->
-	<link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type='text/css'>
-
 	{{ Theme::asset('css/style.css') }}
 
 	@yield('links')
@@ -40,7 +38,8 @@
 	</title>
 
 	<!-- Favicons -->
-	<link rel="shortcut icon" href="assets/img/favicon.ico">
+
+	<link rel="shortcut icon" href="{{ HTML::image('img/smile.jpg', $alt_text); }}">
 </head>
 <body>
 

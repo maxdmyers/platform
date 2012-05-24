@@ -23,13 +23,10 @@
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
 	<!-- Links -->
-	<link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type='text/css'>
+	{{ Asset::styles() }}
 
-	<?=Asset::styles()?>
+
 
 	<title>
 	@yield('title')
@@ -51,6 +48,7 @@
 		</div>
 	</div>
 
+	<!-- Body Scripts -->
 	{{ Asset::scripts() }}
 
 </body>

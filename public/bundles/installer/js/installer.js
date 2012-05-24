@@ -14,7 +14,7 @@ $(document).ready(function() {
 	$('#database-form').find('select, input').bind('focus keyup change', function(e) {
 
 		// Count the amount of empty fields
-		$length = $('#database-form').find('select, input:not(:password)').filter(function() 
+		$length = $('#database-form').find('select, input:not(:password)').filter(function()
 		{
 			return $(this).val() == '';
 		}).length;

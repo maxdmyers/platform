@@ -2,23 +2,32 @@
 
 @section('content')
 
-<h1>Step 1</h1>
+<div id="installer" class="row-fluid">
+  <div class="span12">
+    <h1>Step 1</h1>
 
-{{ Form::open('installer/index/step_1', 'POST', array('class' => 'form-horizontal', 'id' => 'database-form')) }}
+    {{ Form::open('installer/index/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
 	<fieldset>
 		<legend>Database Credentials</legend>
+
 		<div class="control-group">
-			{{ Form::label('driver', 'Driver', array('class' => 'control-label')) }}
-			<div class="controls">
-				{{ Form::select('driver', array(null => 'Please Select') + $drivers) }}
-			</div>
-		</div>
-		<div class="control-group">
-			{{ Form::label('host', 'Host', array('class' => 'control-label')) }}
-			<div class="controls">
-				{{ Form::text('host', null, array('placeholder' => 'e.g. 127.0.0.1')) }}
-			</div>
-		</div>
+			{{ Form::label('driver', 'Driver', array('class' => 'control-label', 'for' => 'inputIcon')) }}
+         	<div class="controls">
+            	<div class="input-prepend">
+            		<span class="add-on"><i class="icon-hdd"></i></span>{{ Form::select('driver', array(null => 'Please Select') + $drivers) }}
+            	</div>
+        	</div>
+        </div>
+
+        <div class="control-group">
+			{{ Form::label('host', 'Host', array('class' => 'control-label', 'for' => 'inputIcon')) }}
+         	<div class="controls">
+            	<div class="input-prepend">
+            		<span class="add-on"><i class="icon-globe"></i></span>{{ Form::text('host', null, array('placeholder' => 'e.g. localhost')) }}
+            	</div>
+        	</div>
+        </div>
+
 		<div class="control-group">
 			{{ Form::label('username', 'Username', array('class' => 'control-label')) }}
 			<div class="controls">
@@ -50,6 +59,9 @@
 			</div>
 		</div>
 	</fieldset>
-{{ Form::close() }}
+	{{ Form::close() }}
+
+  </div>
+</div>
 
 @endsection
