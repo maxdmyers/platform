@@ -51,7 +51,7 @@ class Installer_Index_Controller extends Base_Controller
 	 */
 	public function get_step_1()
 	{
-		return View::make('installer::step_1');
+		return View::make('installer::step_1')->with('drivers', Installer::database_drivers());
 	}
 
 	/**

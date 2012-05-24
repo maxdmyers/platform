@@ -10,7 +10,7 @@
 		<div class="control-group">
 			{{ Form::label('driver', 'Driver', array('class' => 'control-label')) }}
 			<div class="controls">
-				{{ Form::text('driver', null, array('placeholder' => 'e.g. mysql')) }}
+				{{ Form::select('driver', array(null => 'Please Select') + $drivers) }}
 			</div>
 		</div>
 		<div class="control-group">

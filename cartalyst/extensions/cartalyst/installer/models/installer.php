@@ -37,6 +37,21 @@ class Installer
 {
 
 	/**
+	 * Returns an array of available database drivers
+	 *
+	 * @return  array
+	 */
+	public static function database_drivers()
+	{
+		return array(
+			'sqlite' => 'SQLite',
+			'mysql'  => 'MySQL',
+			'pgsql'  => 'PostgreSQL',
+			'sqlsrv' => 'SQL Server',
+		);
+	}
+
+	/**
 	 * Creates a database config file.
 	 *
 	 * @param   array  $config

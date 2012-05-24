@@ -11,10 +11,10 @@ $(document).ready(function() {
 	| credentials before allowing them to
 	| continue with the install process.
 	*/
-	$('#database-form').find('input').bind('focus keyup', function(e) {
+	$('#database-form').find('select, input').bind('focus keyup change', function(e) {
 
 		// Count the amount of empty fields
-		$length = $('#database-form').find('input').filter(function() 
+		$length = $('#database-form').find('select, input:not(:password)').filter(function() 
 		{
 			return $(this).val() == '';
 		}).length;
