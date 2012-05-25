@@ -48,7 +48,7 @@
 			<div id="navigation" class="span2">
 				<div class="brand">
 					<a href="{{ url(ADMIN) }}">
-						<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst" />
+						<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
 					</a>
 					<h1>Cartalyst</h1>
 				</div>
