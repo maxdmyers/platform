@@ -48,7 +48,9 @@
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<div id="confirm-db"></div>
+				<div id="confirm-db" class="alert">
+					sdf
+				</div>
 			</div>
 		</div>
 		<div class="control-group">

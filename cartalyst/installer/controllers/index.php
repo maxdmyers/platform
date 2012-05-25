@@ -27,12 +27,14 @@ class Installer_Index_Controller extends Base_Controller
 	{
 		parent::before();
 
-		// Setup assets
-		Asset::container()->bundle('installer');
-		Asset::add('bootstrap', 'css/bootstrap.min.css');
-		Asset::add('installer', 'css/installer.css');
-		Asset::add('jquery', 'js/jquery-1.7.2.min.js');
-		Asset::add('installer', 'js/installer.js', array('jquery'));
+		// Setup CSS
+		Asset::add('bootstrap', 'installer/css/bootstrap.min.css');
+		Asset::add('installer', 'installer/css/installer.css');
+
+		// Setup JS
+		Asset::add('jquery', 'installer/js/jquery.js');
+		Asset::add('bootstrap', 'installer/js/bootstrap.js', array('jquery'));
+		Asset::add('installer', 'installer/js/installer.js', array('jquery'));
 	}
 
 	/**

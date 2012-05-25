@@ -206,9 +206,9 @@ else
 {
 	// Load the installer bundle
 	Bundle::register('installer', array(
-		'handles' => 'installer',
-		'auto'    => true,
-
+		'location' => 'path: '.path('installer'),
+		'handles'  => 'installer',
+		'auto'     => true,
 	));
 	Bundle::start('installer');
 }

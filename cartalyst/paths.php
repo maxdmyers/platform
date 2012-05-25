@@ -38,6 +38,11 @@ $paths['app'] = 'application';
 $paths['sys'] = 'laravel';
 
 // --------------------------------------------------------------
+// The path to the Platform installer.
+// --------------------------------------------------------------
+$paths['installer'] = 'installer';
+
+// --------------------------------------------------------------
 // The path to the bundles directory.
 // --------------------------------------------------------------
 $paths['bundle'] = 'extensions/cartalyst';

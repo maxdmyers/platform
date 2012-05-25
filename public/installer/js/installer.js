@@ -32,7 +32,8 @@ $(document).ready(function() {
 
 					// Show success message and enable continue button
 					$('#confirm-db').html(data.message)
-					                [data.error ? 'addClass' : 'removeClass']('error')
+					                [data.error ? 'addClass' : 'removeClass']('alert-error')
+					                [data.error ? 'removeClass' : 'addClass']('alert-success')
 					                .show();
 
 					$('#database-form button:submit')[data.error ? 'attr' : 'removeAttr']('disabled', 'disabled');
