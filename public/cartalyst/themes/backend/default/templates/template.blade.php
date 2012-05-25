@@ -37,9 +37,10 @@
 	@yield('title')
 	</title>
 
-	<!-- Favicons -->
-
-	<link rel="shortcut icon" href="{{ HTML::image('img/smile.jpg', $alt_text); }}">
+	<link rel="shortcut icon" href="{{ Theme::asset('img/favicon.png') }}">
+	<link rel="apple-touch-icon-precomposed" href="{{ Theme::asset('img/apple-touch-icon-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ Theme::asset('img/apple-touch-icon-72x72-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Theme::asset('img/apple-touch-icon-114x114-precomposed.png') }}">
 </head>
 <body>
 
