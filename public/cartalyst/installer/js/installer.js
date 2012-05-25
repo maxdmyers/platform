@@ -31,7 +31,7 @@ $(document).ready(function() {
 				success  : function(data, textStatus, jqXHR) {
 
 					// Show success message and enable continue button
-					$('#confirm-db').html(data.message)
+					$('.confirm-db').html(data.message)
 					                [data.error ? 'addClass' : 'removeClass']('alert-error')
 					                [data.error ? 'removeClass' : 'addClass']('alert-success')
 					                .show();
@@ -47,7 +47,7 @@ $(document).ready(function() {
 		// Else, remove the confirm database text
 		// and disable the continue button
 		else {
-			$('#confirm-db').html('')
+			$('.confirm-db').html('')
 			                .hide();
 
 			$('#database-form button:submit').attr('disabled', 'disabled');

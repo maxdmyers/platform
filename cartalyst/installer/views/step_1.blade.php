@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="installer" class="row-fluid">
-  <div class="span12">
+  <div class="span12 well">
     <h1>Step 1</h1>
 
     {{ Form::open('installer/index/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
@@ -28,32 +28,42 @@
         	</div>
         </div>
 
-		<div class="control-group">
-			{{ Form::label('username', 'Username', array('class' => 'control-label')) }}
+        <div class="control-group">
+			{{ Form::label('username', 'Username', array('class' => 'control-label', 'for' => 'inputIcon')) }}
+         	<div class="controls">
+            	<div class="input-prepend">
+            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('username', null, array('placeholder' => '')) }}
+            	</div>
+        	</div>
+        </div>
+
+        <div class="control-group">
+			{{ Form::label('password', 'Password', array('class' => 'control-label', 'for' => 'inputIcon')) }}
+         	<div class="controls">
+            	<div class="input-prepend">
+            		<span class="add-on"><i class="icon-lock"></i></span>{{ Form::password('password', array('placeholder' => '')) }}
+            	</div>
+        	</div>
+        </div>
+
+        <div class="control-group">
+			{{ Form::label('database', 'Database', array('class' => 'control-label', 'for' => 'inputIcon')) }}
+         	<div class="controls">
+            	<div class="input-prepend">
+            		<span class="add-on"><i class="icon-briefcase"></i></span>{{ Form::text('database', null, array('placeholder' => 'e.g. cartalyst')) }}
+            	</div>
+        	</div>
+        </div>
+
+
+		<div class="control-group database">
 			<div class="controls">
-				{{ Form::text('username', null, array('placeholder' => '')) }}
-			</div>
-		</div>
-		<div class="control-group">
-			{{ Form::label('password', 'Password', array('class' => 'control-label')) }}
-			<div class="controls">
-				{{ Form::password('password', array('placeholder' => '')) }}
-			</div>
-		</div>
-		<div class="control-group">
-			{{ Form::label('database', 'Database', array('class' => 'control-label')) }}
-			<div class="controls">
-				{{ Form::text('database', null, array('placeholder' => 'e.g. cartalyst')) }}
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="controls">
-				<div id="confirm-db" class="alert">
-					sdf
+				<div class="confirm-db alert">
+
 				</div>
 			</div>
 		</div>
-		<div class="control-group">
+		<div class="control-group pager">
 			<div class="controls">
 				<button type="submit" disabled="disabled" class="btn btn-primary">
 					Continue to Step 2
