@@ -3,8 +3,6 @@
 		<li>
 			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
 
-			<pre>{{ print_r($item) }}</pre>
-
 			@if ($item['children'])
 				<ul>
 					@foreach ($item['children'] as $child)
