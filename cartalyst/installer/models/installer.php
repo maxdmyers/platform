@@ -24,7 +24,6 @@ use Bundle;
 use Cartalyst;
 use File;
 use Exception;
-use Laravel\CLI\Command;
 use Str;
 
 /**
@@ -131,30 +130,7 @@ class Installer
 	 */
 	public static function prepare_db_for_extensions()
 	{
-		// Load the extension manager singleton. Ensures
-		// the 'extensions' extension is loaded, which
-		// we need soon
-		Cartalyst::extensions_manager();
-
-		// Resolves core tasks.
-		require_once path('sys').'cli/dependencies'.EXT;
-
-		/**
-		 * @todo remove when my pull request gets accepted
-		 */
-		ob_start();
-
-		// Install the migrations table
-		Command::run(array('migrate:install'));
-
-		// Run extensions migration. This will prepare
-		// the table we need to install the core extensions
-		Command::run(array('migrate', 'extensions'));
-
-		/**
-		 * @todo remove when my pull request gets accepted
-		 */
-		ob_end_clean();
+		Cartalyst::extensions_manager()->prepare_db_for_extensions();
 	}
 
 	/**
@@ -174,21 +150,13 @@ class Installer
 		 */
 		$extensions = Cartalyst::extensions_manager()->uninstalled();
 
-		// Just push the menu to the front
-		usort($extensions, function($a, $b)
-		{
-			return $a === 'menus' ? -1 : 1;
-		});
+		// Sort dependencies.
+		$extensions = Cartalyst::extensions_manager()->sort_dependencies($extensions);
 
 		foreach ($extensions as $extension)
 		{
 			// Install AND enable every uninstalled extension
 			Cartalyst::extensions_manager()->install($extension, true);
-
-			if (in_array($extension, array('menus')))
-			{
-				Cartalyst::extensions_manager()->start($extension);
-			}
 		}
 
 		/**

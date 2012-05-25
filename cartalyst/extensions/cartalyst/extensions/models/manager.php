@@ -22,12 +22,17 @@ namespace Extensions;
 
 use Bundle;
 use Closure;
+use DB;
 use Exception;
 use Laravel\CLI\Command;
+use Laravel\Database\Schema;
 use Str;
 
 /**
  * Extension Manager class.
+ *
+ * @todo possibly tidy/refactor the extension loading
+ *       or dependencies situtation.
  *
  * @author Ben Corlett
  */
@@ -57,11 +62,6 @@ class Manager
 		// Get all enabled extensions
 		$extensions = $this->enabled();
 
-		/**
-		 * @todo, remove, this is temporary
-		 */
-		$this->start('menus')->start('users');
-
 		// Loop through and start every extension
 		foreach ($extensions as $extension)
 		{
@@ -72,7 +72,7 @@ class Manager
 	}
 
 	/**
-	 * Starts an extension object or value
+	 * Starts an extension.
 	 *
 	 * @param   string  $name
 	 * @param   mixed   $value
@@ -102,18 +102,8 @@ class Manager
 			return $this;
 		}
 
-		// Determine extension file
-		$file = path('bundle').$extension->slug.DS.'extension'.EXT;
-
-		// Check that :extension/extension.php exists.
-		// This is what sets up the Cartalyst extension.
-		if ( ! file_exists($file))
-		{
-			throw new Exception("Cartalyst Extension [{$extension->name}] doesn't exist.");
-		}
-
-		// Get the information about the extension
-		$info = require $file;
+		// Load extension info
+		$info = $this->info($extension->slug);
 
 		// Register the bundle with Laravel
 		array_key_exists('bundles', $info) and Bundle::register($extension->slug, $info['bundles']);
@@ -158,15 +148,8 @@ class Manager
 	 */
 	public function install($slug, $enable = false)
 	{
-		$file = path('bundle').$slug.DS.'extension'.EXT;
-
-		if ( ! file_exists($file))
-		{
-			throw new Exception("Cartalyst Extension [$slug] doesn't exist.");
-		}
-
 		// Get extension info
-		$info = require $file;
+		$info = $this->info($slug);
 
 		// Create a new model instance.
 		$extension = new Extension(array(
@@ -179,6 +162,14 @@ class Manager
 			'enabled'     => (int) $enable,
 		));
 		$extension->save();
+
+		// We need to start the extension, just in case
+		// the migrations that we're about to run require
+		// classes that are in the extension. Starting
+		// the extension will allow the classes to be autoloaded.
+		// An example of this is in the "menus" extension, it
+		// uses the "menus" model.
+		$this->start($extension->slug);
 
 		// Resolves core tasks.
 		require_once path('sys').'cli/dependencies'.EXT;
@@ -236,28 +227,63 @@ class Manager
 	}
 
 	/**
-	 * Installs the hard-coded admin menu.
-	 *
-	 * @todo Remove - this will be sorted into
-	 *       individual extensiosn.
+	 * Prepares the cartalyst database for extensions by insuring that
+	 * the extensions table is installed in addition to the migrations
+	 * table.
 	 *
 	 * @return  void
 	 */
-	public function install_admin_menu()
+	public function prepare_db_for_extensions()
 	{
-		// Get the admin menu
-		$admin = Menu::admin();
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_start();
 
-		// For now, just remove the entire admin menu tree
-		Menu::query()->where(Menu::nesty_col('tree'), '=', $admin->{Menu::nesty_col('tree')})->delete();
+		// Resolves core tasks.
+		require_once path('sys').'cli/dependencies'.EXT;
 
-		// Now, get a new admin menu
-		$admin = Menu::admin();
+		// Check for the migrations table
+		try
+		{
+			DB::table('laravel_migrations')->count();
+		}
+		catch (Exception $e)
+		{
+			Command::run(array('migrate:install'));
+		}
 
-		// Array of items
-		$items = Config::get('admin_menu');
+		// Check for the extensions table. The reason
+		// this isn't in a migration is simply 
+		try
+		{
+			DB::table('extensions')->count();
+		}
+		catch (Exception $e)
+		{
+			Schema::create('extensions', function($table)
+			{
+				$table->increments('id')->unsigned();
+				$table->string('name', 50);
+				$table->string('slug', 50)->unique();
+				$table->string('author', 50)->nullable();
+				$table->text('description')->nullable();
+				$table->text('version', 5);
+				$table->boolean('is_core')->nullable();
+				$table->boolean('enabled');
+			});
+		}
 
-		Menu::from_hierarchy_array($admin->{Menu::key()}, $items);
+		// Just incase the install process got interrupted, start
+		// extensions
+		$this->start_extensions();
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_end_clean();
+
+		return;
 	}
 
 	/**
@@ -382,6 +408,48 @@ class Manager
 		}
 
 		return $directories;
+	}
+
+	public function sort_dependencies(&$extensions = array())
+	{
+		// Array of extensions dependencies, where
+		// the key is the slug of the extension
+		// and the value is an array of extension slugs
+		// on which that extension depends.
+		$extensions_dependencies = array();
+
+		foreach ($extensions as $extension)
+		{
+			$info = $this->info($extension);
+
+			if ($dependencies = array_get($info, 'dependencies') and is_array($dependencies))
+			{
+				$extensions_dependencies[$extension] = $dependencies;
+			}
+			else
+			{
+				$extensions_dependencies[$extension] = array();
+			}
+		}
+
+		$extensions = Dependency::sort($extensions_dependencies);
+
+		return $extensions;
+	}
+
+	public function extension_file($slug)
+	{
+		return path('bundle').$slug.DS.'extension'.EXT;
+	}
+
+	public function info($slug)
+	{
+		if ( ! $file = $this->extension_file($slug) or ! file_exists($file))
+		{
+			throw new Exception("Cartalyst Extension [$slug] doesn't exist.");
+		}
+		
+		return require $file;
 	}
 
 }

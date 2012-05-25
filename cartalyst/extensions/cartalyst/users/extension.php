@@ -29,6 +29,10 @@ return array(
 		'is_core'        => true,
 	),
 
+	'dependencies' => array(
+		'menus',
+	),
+
 	'bundles' => array(
 		'handles' => 'users',
 	),

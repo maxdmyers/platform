@@ -18,7 +18,9 @@
  * @link       http://cartalyst.com
  */
 
-class Extensions_Install_Extensions_Table
+use Cartalyst\Menus\Menu;
+
+class Menus_Install_Admin_Menu
 {
 
 	/**
@@ -28,17 +30,36 @@ class Extensions_Install_Extensions_Table
 	 */
 	public function up()
 	{
-		Schema::create('extensions', function($table)
+		$admin = Menu::admin_menu();
+
+		// Find the system menu
+		$system = Menu::find(function($query) use ($admin)
 		{
-			$table->increments('id')->unsigned();
-			$table->string('name', 50);
-			$table->string('slug', 50)->unique();
-			$table->string('author', 50)->nullable();
-			$table->text('description')->nullable();
-			$table->text('version', 5);
-			$table->boolean('is_core')->nullable();
-			$table->boolean('enabled');
+			return $query->where('slug', '=', 'system')
+			             ->where(Menu::nesty_col('tree'), '=', $admin->{Menu::nesty_col('tree')});
 		});
+
+		if ($system === null)
+		{
+			$system = new Menu(array(
+				'name'          => 'System',
+				'slug'          => 'system',
+				'uri'           => '',
+				'user_editable' => 0,
+			));
+
+			$system->last_child_of($admin);
+		}
+
+		// "Menus" menu
+		$menus = new Menu(array(
+			'name'          => 'Menus',
+			'slug'          => 'menus',
+			'uri'           => 'menus',
+			'user_editable' => 0,
+		));
+
+		$menus->last_child_of($system);
 	}
 
 	/**
@@ -48,7 +69,7 @@ class Extensions_Install_Extensions_Table
 	 */
 	public function down()
 	{
-		Schema::drop('extensions');
+
 	}
 
 }

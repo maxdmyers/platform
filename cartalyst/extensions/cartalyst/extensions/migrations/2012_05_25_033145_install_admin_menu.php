@@ -20,7 +20,7 @@
 
 use Cartalyst\Menus\Menu;
 
-class Themes_Install_Admin_Menu
+class Extensions_Install_Admin_Menu
 {
 
 	/**
@@ -51,15 +51,15 @@ class Themes_Install_Admin_Menu
 			$system->last_child_of($admin);
 		}
 
-		// Themes menu
-		$themes = new Menu(array(
-			'name'          => 'Themes',
-			'slug'          => 'themes',
-			'uri'           => 'themes',
+		// Extension menu
+		$extensions = new Menu(array(
+			'name'          => 'Extensions',
+			'slug'          => 'extensions',
+			'uri'           => 'extensions',
 			'user_editable' => 0,
 		));
 
-		$themes->last_child_of($system);
+		$extensions->last_child_of($system);
 	}
 
 	/**
