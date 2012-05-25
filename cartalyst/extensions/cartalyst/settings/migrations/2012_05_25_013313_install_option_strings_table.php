@@ -18,9 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-use Cartalyst\Menus\Menu;
-
-class Users_Install_Admin_Menu
+class Settings_Install_Option_Strings_Table
 {
 
 	/**
@@ -30,37 +28,13 @@ class Users_Install_Admin_Menu
 	 */
 	public function up()
 	{
-		$admin = Menu::admin_menu();
-
-		// People menu
-		$people = new Menu(array(
-			'name'          => 'People',
-			'slug'          => 'people',
-			'uri'           => '',
-			'user_editable' => 0,
-		));
-
-		$people->last_child_of($admin);
-
-		// Users menu
-		$users = new Menu(array(
-			'name'          => 'Users',
-			'slug'          => 'users',
-			'uri'           => 'users',
-			'user_editable' => 0,
-		));
-
-		$users->last_child_of($people);
-
-		// Groups menu
-		$groups = new Menu(array(
-			'name'          => 'Groups',
-			'slug'          => 'users-groups',
-			'uri'           => 'users/groups',
-			'user_editable' => 0,
-		));
-
-		$groups->last_child_of($people);
+		Schema::create('option_strings', function($table)
+		{
+			$table->increments('id')->unsigned();
+			$table->string('slug');
+			$table->integer('value');
+			$table->text('text');
+		});
 	}
 
 	/**
@@ -70,7 +44,7 @@ class Users_Install_Admin_Menu
 	 */
 	public function down()
 	{
-
+		Schema::drop('option_strings');
 	}
 
 }

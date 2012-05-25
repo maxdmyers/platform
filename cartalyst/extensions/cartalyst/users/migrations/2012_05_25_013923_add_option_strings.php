@@ -20,7 +20,7 @@
 
 use Cartalyst\Menus\Menu;
 
-class Users_Install_Admin_Menu
+class Users_Add_Option_Strings
 {
 
 	/**
@@ -30,37 +30,19 @@ class Users_Install_Admin_Menu
 	 */
 	public function up()
 	{
-		$admin = Menu::admin_menu();
+		DB::table('option_strings')
+		  ->insert(array(
+		  	'slug'  => 'user_status',
+		  	'value' => 0,
+		  	'text'  => 'disabled',
+		  ));
 
-		// People menu
-		$people = new Menu(array(
-			'name'          => 'People',
-			'slug'          => 'people',
-			'uri'           => '',
-			'user_editable' => 0,
-		));
-
-		$people->last_child_of($admin);
-
-		// Users menu
-		$users = new Menu(array(
-			'name'          => 'Users',
-			'slug'          => 'users',
-			'uri'           => 'users',
-			'user_editable' => 0,
-		));
-
-		$users->last_child_of($people);
-
-		// Groups menu
-		$groups = new Menu(array(
-			'name'          => 'Groups',
-			'slug'          => 'users-groups',
-			'uri'           => 'users/groups',
-			'user_editable' => 0,
-		));
-
-		$groups->last_child_of($people);
+		DB::table('option_strings')
+		  ->insert(array(
+		  	'slug'  => 'user_status',
+		  	'value' => 1,
+		  	'text'  => 'enabled',
+		  ));
 	}
 
 	/**
@@ -70,7 +52,9 @@ class Users_Install_Admin_Menu
 	 */
 	public function down()
 	{
-
+		DB::table('option_strings')
+		  ->where('slug', '=', 'user_status')
+		  ->delete();
 	}
 
 }

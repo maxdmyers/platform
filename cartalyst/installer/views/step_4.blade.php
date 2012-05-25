@@ -5,10 +5,12 @@
 <h1>Finished!</h1>
 
 <p>
-	Congratulations - you've installed Cartalyst.
+	Congratulations - you've installed Cartalyst Platform!
 </p>
 <p>
-	This is where we'd show them the link to the frontend or the admin or whatever?
+	<a href="{{ url(ADMIN) }}" class="btn btn-primary">
+		Login to Admin
+	</a>
 </p>
 
 @endsection
