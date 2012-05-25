@@ -184,7 +184,7 @@ class Cartalyst
 		}
 		else
 		{
-			$type = null;
+			$type = $extension;
 			$name = array_shift($settings);
 		}
 
@@ -203,14 +203,7 @@ class Cartalyst
 				$settings = array();
 				foreach ($ext_settings['settings'] as $ext_setting)
 				{
-					if ( ! is_null($ext_setting['type']))
-					{
-						$settings[$ext_setting['type']][$ext_setting['name']] = $ext_setting;
-					}
-					else
-					{
-						$settings[null][$ext_setting['name']] = $ext_setting;
-					}
+					$settings[$ext_setting['type']][$ext_setting['name']] = $ext_setting;
 				}
 				static::$settings[$extension] = $settings;
 			}

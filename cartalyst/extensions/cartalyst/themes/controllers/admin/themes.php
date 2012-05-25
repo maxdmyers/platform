@@ -89,16 +89,25 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 		if (Input::get('form_themes'))
 		{
 			$result = API::post('settings', array(
-				'extension' => 'themes',
-				'settings'  => array(
-					$type.'_theme' => Input::get('theme')
+				'settings' => array(
+					'values' => array(
+						'extension' => 'themes',
+						'type'      => 'theme',
+						'name'      => $type,
+						'value'     => Input::get('theme'),
+					),
+
+					// validation
+					'validation' => array(
+						'name'  => 'required',
+						'value' => 'required',
+					),
+
+					// labels
+					'labels' => array(
+						'name' => 'Theme'
+					),
 				),
-				'validation' => array(
-					$type.'_theme' => 'required'
-				),
-				'labels' => array(
-					$type.'_theme' => 'Theme'
-				)
 			));
 
 			if ($result['status'])
@@ -152,7 +161,9 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 		$active = API::get('settings', array(
 			'extension' => 'themes',
 			'where'     => array(
-				array('configuration.name', '=', $type.'_theme')
+				array('extension', '=', 'themes'),
+				array('type', '=', 'theme'),
+				array('name', '=', $type)
 			),
 		));
 
