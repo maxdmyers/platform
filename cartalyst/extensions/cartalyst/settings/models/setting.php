@@ -33,41 +33,6 @@ class Setting extends Crud
 	protected static $_table = 'configuration';
 
 	/**
-	 * Find Extension settings
-	 */
-	public static function find_by_extension($extension, $where = array())
-	{
-		// $query = with(new static)->query();
-
-		// $query = $query
-		// 	->select(static::$_table.'.*')
-		// 	->join('extensions', 'extensions.id', '=', static::$_table.'.extension_id')
-		// 	->where('extensions.slug', '=', $extension);
-
-		// if ( ! is_array($where) or ! is_array($where[0]))
-		// {
-		// 	$where = array($where);
-		// }
-
-		// foreach ($where as $w)
-		// {
-		// 	if (count($w) == 3)
-		// 	{
-		// 		$query = $query->where($w[0], $w[1], $w[2]);
-		// 	}
-		// }
-
-		// $settings = $query->get();
-
-		// foreach ($settings as &$setting)
-		// {
-		// 	$setting = new static($setting, true);
-		// }
-
-		// return $settings;
-	}
-
-	/**
 	 * Save the model instance to the database.
 	 *
 	 * @return bool

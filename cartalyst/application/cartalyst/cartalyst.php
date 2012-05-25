@@ -147,9 +147,9 @@ class Cartalyst
 		// register @get with blade
 		Blade::extend(function($view)
 		{
-			$pattern = "/@get\.([^\.]*)\.([^\s<]*)/";
+			$pattern = "/@get\.([^\s<]*)/";
 
-			return preg_replace($pattern, '<?php echo Cartalyst::get(\'$1\', \'$2\'); ?>', $view);
+			return preg_replace($pattern, '<?php echo Cartalyst::get(\'$1\'); ?>', $view);
 		});
 	}
 
@@ -173,13 +173,28 @@ class Cartalyst
 		return static::$extensions_manager;
 	}
 
-	public static function get($extension, $setting)
+	public static function get($setting)
 	{
+		$settings = explode('.', $setting);
+		$extension = array_shift($settings);
+		if (count($settings) > 1)
+		{
+			$type = array_shift($settings);
+			$name = array_shift($settings);
+		}
+		else
+		{
+			$type = null;
+			$name = array_shift($settings);
+		}
+
 		if ( ! array_key_exists($extension, static::$settings))
 		{
 			// find all settings for requested extension
 			$ext_settings = API::get('settings', array(
-				'extension' => $extension
+				'where' => array(
+					array('extension', '=', $extension),
+				),
 			));
 
 			// add extension settings to the settings array
@@ -188,7 +203,14 @@ class Cartalyst
 				$settings = array();
 				foreach ($ext_settings['settings'] as $ext_setting)
 				{
-					$settings[$ext_setting['name']] = $ext_setting['value'];
+					if ( ! is_null($ext_setting['type']))
+					{
+						$settings[$ext_setting['type']][$ext_setting['name']] = $ext_setting;
+					}
+					else
+					{
+						$settings[null][$ext_setting['name']] = $ext_setting;
+					}
 				}
 				static::$settings[$extension] = $settings;
 			}
@@ -200,9 +222,9 @@ class Cartalyst
 		}
 
 		// find the setting value if it exists
-		if (array_key_exists($setting, static::$settings[$extension]))
+		if (isset(static::$settings[$extension][$type][$name]))
 		{
-			$value = static::$settings[$extension][$setting];
+			$value = static::$settings[$extension][$type][$name]['value'];
 		}
 
 		return isset($value) ? $value : '';

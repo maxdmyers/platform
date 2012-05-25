@@ -16,7 +16,7 @@
 	<section id="login">
 
 		<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst" />
-		<h1>@get.settings.store_name</h1>
+		<h1>@get.settings.store.name</h1>
 		<h2>{{ Lang::line('users::users.reset_password') }}</h2>
 
 		{{ Form::open(null, 'POST', array('id' => 'password-reset-form', 'class' => 'form-horizontal')) }}

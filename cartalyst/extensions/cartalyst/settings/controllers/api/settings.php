@@ -29,17 +29,7 @@ class Settings_API_Settings_Controller extends API_Controller
 		$where = Input::get('where');
 		$settings = array();
 
-
 		$result = Setting::all(function($query) use ($ext, $where) {
-
-			$query = $query
-				->select(Setting::table().'.*')
-				->join('extensions', 'extensions.id', '=', Setting::table().'.extension_id');
-
-			if ($ext !== null)
-			{
-				$query = $query->where('extensions.slug', '=', $ext);
-			}
 
 			if ( ! is_array($where) or ! is_array($where[0]))
 			{
