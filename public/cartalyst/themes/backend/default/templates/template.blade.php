@@ -54,7 +54,7 @@
 					<h1>Cartalyst</h1>
 				</div>
 				<nav>
-
+					@widget('menus::menus.nav')
 				</nav>
 				<nav>
 

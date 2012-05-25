@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Menus_Admin_Controller extends Admin_Controller
+class Menus_Admin_Menus_Controller extends Admin_Controller
 {
 
 	public function action_index()

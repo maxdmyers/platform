@@ -20,7 +20,7 @@
 
 use Extensions\Manager;
 
-class Extensions_API_Controller extends API_Controller
+class Extensions_API_Extensions_Controller extends API_Controller
 {
 
 	public function get_datatable()

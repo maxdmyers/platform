@@ -20,7 +20,7 @@
 
 use Cartalyst\Menus\Menu;
 
-class Menus_API_Controller extends API_Controller
+class Menus_API_Menus_Controller extends API_Controller
 {
 
 	/**

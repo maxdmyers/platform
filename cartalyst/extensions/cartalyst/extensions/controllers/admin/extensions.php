@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-class Extensions_Admin_Controller extends Base_Controller
+class Extensions_Admin_Extensions_Controller extends Base_Controller
 {
 
 	public function get_index()
