@@ -28,13 +28,13 @@ class Installer_Index_Controller extends Base_Controller
 		parent::before();
 
 		// Setup CSS
-		Asset::add('bootstrap', 'installer/css/bootstrap.min.css');
-		Asset::add('installer', 'installer/css/installer.css');
+		Asset::add('bootstrap', 'cartalyst/installer/css/bootstrap.min.css');
+		Asset::add('installer', 'cartalyst/installer/css/installer.css');
 
 		// Setup JS
-		Asset::add('jquery', 'installer/js/jquery.js');
-		Asset::add('bootstrap', 'installer/js/bootstrap.js', array('jquery'));
-		Asset::add('installer', 'installer/js/installer.js', array('jquery'));
+		Asset::add('jquery', 'cartalyst/installer/js/jquery.js');
+		Asset::add('bootstrap', 'cartalyst/installer/js/bootstrap.js', array('jquery'));
+		Asset::add('installer', 'cartalyst/installer/js/installer.js', array('jquery'));
 	}
 
 	/**
