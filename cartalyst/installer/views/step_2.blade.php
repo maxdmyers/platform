@@ -1,8 +1,9 @@
 @layout('installer::template')
 
 @section('content')
-
-<h1>Step 2</h1>
+<div id="installer" class="row-fluid">
+  <div class="span12 well">
+    <h1>Step 2</h1>
 
 <p>
 	This is where we would let the user choose the extensions they wish to install by default. We would show the required extensions but not let them get unticked, but still let all other extensions be unticked.
@@ -16,7 +17,7 @@
 
 	<fieldset>
 		<legend>Extensions Form</legend>
-		<div class="control-group">
+		<div class="control-group pager">
 			<div class="controls">
 				<button type="submit" class="btn btn-primary">
 					Continue to Step 3
@@ -26,5 +27,8 @@
 	</fieldset>
 
 {{ Form::close() }}
+
+  </div>
+</div>
 
 @endsection
