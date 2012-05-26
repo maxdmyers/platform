@@ -27,14 +27,14 @@
 		<div><strong>Description: </strong>{{ $active['description'] }}</div>
 	</section>
 
-	<br />
+	<br>
 	@if (count($active['options']))
 		<section>
 			<header><strong>Theme Options</strong></header>
 			{{ Form::open() }}
-				<input type="hidden" name="theme" value="{{ $active['dir'] }}" />
+				<input type="hidden" name="theme" value="{{ $active['dir'] }}">
 				@if (isset($active['id']))
-				<input type="hidden" name="id" value="{{ $active['id'] }}" />
+				<input type="hidden" name="id" value="{{ $active['id'] }}">
 				@endif
 				<div>
 					<div>
@@ -43,20 +43,20 @@
 					</div>
 					@foreach ($active['options'] as $id => $option)
 						<div>
-							<strong>{{ $option['text'] }} </strong><br />
+							<strong>{{ $option['text'] }} </strong><br>
 							@foreach ($option['styles'] as $style => $value)
 								<div>
 									<label>{{ $style }}</label>
-									<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}" />
+									<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}">
 								</div>
 							@endforeach
 						</div>
 					@endforeach
 				</div>
-				<input type="submit" name="form_options" value="Update" />
+				<input type="submit" name="form_options" value="Update">
 			{{ Form::close() }}
 		</section>
-		<br />
+		<br>
 
 	@endif
 @else
@@ -70,7 +70,7 @@
 			<ul>
 			@foreach ($themes as $theme)
 				<li>
-					<input type="radio" name="theme" value="{{ $theme['dir'] }}" {{ ($theme['name'] == $active['name']) ? 'checked=checked' : '' }} />
+					<input type="radio" name="theme" value="{{ $theme['dir'] }}" {{ ($theme['name'] == $active['name']) ? 'checked=checked' : '' }}>
 					<div>
 						<strong>Name: </strong>{{ $theme['name'] }}  v{{ $theme['version'] }}
 						<strong>by</strong> {{ $theme['author'] }}
@@ -79,7 +79,7 @@
 				</li>
 			@endforeach
 			</ul>
-			<input type="submit" name="form_themes" value="Activate" />
+			<input type="submit" name="form_themes" value="Activate">
 		{{ Form::close() }}
 	</section>
 

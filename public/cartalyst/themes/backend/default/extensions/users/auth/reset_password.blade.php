@@ -15,7 +15,7 @@
 @section('content')
 	<section id="login">
 
-		<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst" />
+		<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
 		<h1>@get.settings.store.name</h1>
 		<h2>{{ Lang::line('users::users.reset_password') }}</h2>
 
@@ -25,7 +25,7 @@
 			<p class="errors"></p>
 			<!-- end remove -->
 
-	    	<input type="email" name="email" id="email" placeholder="{{ Lang::line('users::users.email') }}" autocomplete="off" />
+	    	<input type="email" name="email" id="email" placeholder="{{ Lang::line('users::users.email') }}" autocomplete="off">
 
 	    	<div class="input-append">
 				<input type="password" name="password" id="password" placeholder="{{ Lang::line('users::users.new_password') }}" autocomplet="off"/><button class="btn append" type="submit"/>{{ Lang::line('users::users.btn_reset_password') }}</button>

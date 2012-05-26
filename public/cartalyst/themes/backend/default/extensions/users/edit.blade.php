@@ -9,24 +9,24 @@
 		<fieldset>
 			<div>
 				<label for="first_name">{{ Lang::line('users::users.first_name') }}</label>
-				<input type="text" id="first_name" name="first_name" value="{{ Input::old('metadata.first_name', $user['metadata']['first_name']); }}" />
+				<input type="text" id="first_name" name="first_name" value="{{ Input::old('metadata.first_name', $user['metadata']['first_name']); }}">
 			</div>
 			<div>
 				<label for="last_name">{{ Lang::line('users::users.last_name') }}</label>
-				<input type="text" id="last_name" name="last_name" value="{{ Input::old('metadata.last_name', $user['metadata']['last_name']); }}" />
+				<input type="text" id="last_name" name="last_name" value="{{ Input::old('metadata.last_name', $user['metadata']['last_name']); }}">
 			</div>
 			<div>
 				<label for="email">{{ Lang::line('users::users.email') }}</label>
-				<input type="text" id="email" name="email" value="{{ Input::old('email', $user['email']); }}" />
+				<input type="text" id="email" name="email" value="{{ Input::old('email', $user['email']); }}">
 
 			</div>
 			<div>
 				<label for="password">{{ Lang::line('users::users.password') }}</label>
-				<input type="password" id="password" name="password" />
+				<input type="password" id="password" name="password">
 			</div>
 			<div>
 				<label for="password_confirmation">{{ Lang::line('users::users.password_confirmation') }}</label>
-				<input type="password" id="password_confirmation" name="password_confirmation" />
+				<input type="password" id="password_confirmation" name="password_confirmation">
 			</div>
 			<div>
 				<label for="groups">{{ Lang::line('users::users.groups') }}</label>

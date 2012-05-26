@@ -186,7 +186,7 @@ if (cartalyst == undefined)
 			self.$wrapper = $('#table-wrapper');
 
 			// set table process div
-			self.$process = $('<div class="table-processing"><img src="/cartalyst/themes/backend/default/assets/img/table/loading.gif" />'+self.options.processingText+'</div>')
+			self.$process = $('<div class="table-processing"><img src="/cartalyst/themes/backend/default/assets/img/table/loading.gif">'+self.options.processingText+'</div>')
 								.prependTo(self.$wrapper);
 
 			// set table overlay dev
@@ -391,7 +391,7 @@ if (cartalyst == undefined)
 			select += '</select>';
 
 			self.$filterSelect   = $(select).appendTo(self.$filterWrapper);
-			self.$filterText     = $('<input type="text" class="table-filter-text" />').appendTo(self.$filterWrapper);
+			self.$filterText     = $('<input type="text" class="table-filter-text">').appendTo(self.$filterWrapper);
 			self.$addFilter      = $('<button '+self.options.addFilter.attributes+'>'+self.options.addFilter.text+'</button>').appendTo(self.$filterWrapper);
 			self.$refresh        = $('<button '+self.options.refresh.attributes+'>'+self.options.refresh.text+'</button>').appendTo(self.$filterWrapper);
 			self.$filtersApplied = $('#table-filters-applied');
