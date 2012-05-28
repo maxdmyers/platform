@@ -18,8 +18,27 @@
  * @link       http://cartalyst.com
  */
 
-// Route::controller(Controller::detect('manuals'));
+use Manuals\Manual;
 
-// Route the manuals
-Route::get('manuals/(:any?)', 'manuals::manuals@read');
-Route::get('manuals', 'manuals::manuals@index');
+// Reading a manual
+Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), function($manual, $chapter = null)
+{
+	// Get all chapters for the manual
+	$chapters = Manual::chapters($manual);
+
+	// Read the manual for the given manual / chapter.
+	$contents = Manual::read($manual, $chapter, function($article)
+	{
+
+	});
+
+	return View::make('manuals::view')
+	           ->with('chapters', $chapters)
+	           ->with('contents', $contents);
+});
+
+// List all manuals
+Route::get('manuals', function()
+{
+	return View::make('manuals::index');
+});

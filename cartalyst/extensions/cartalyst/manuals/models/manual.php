@@ -60,6 +60,11 @@ class Manual
 		return static::$parser->transform($string);
 	}
 
+	/**
+	 * Opens a file within a manual.
+	 *
+	 * @return  string
+	 */
 	public static function open($manual, $file = null)
 	{
 		$path = path('storage').'manuals'.DS.$manual.DS.(($file !== null) ? $file : 'toc.md');
@@ -78,6 +83,18 @@ class Manual
 	public static function chapters($manual)
 	{
 		return static::parse(static::open($manual));
+	}
+
+	/**
+	 * Reads a chapter of the given manual. Defaults back to
+	 * the 'introduction' chapter if the chapter isn't provided.
+	 *
+	 * @return  string
+	 */
+	public static function read($manual, $chapter = null)
+	{
+		// Default chapter
+		$chapter or $chapter = 'introduction';
 	}
 
 }
