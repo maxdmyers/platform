@@ -31,7 +31,8 @@ class Settings_Install_Configuration_Table
 		Schema::create('configuration', function($table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('extension_id');
+			$table->string('extension');
+			$table->string('type');
 			$table->string('name');
 			$table->text('value');
 		});
