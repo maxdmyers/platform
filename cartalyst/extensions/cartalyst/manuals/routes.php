@@ -21,4 +21,5 @@
 // Route::controller(Controller::detect('manuals'));
 
 // Route the manuals
-Route::any('manuals', 'manuals::manuals@index');
+Route::get('manuals/(:any?)', 'manuals::manuals@read');
+Route::get('manuals', 'manuals::manuals@index');

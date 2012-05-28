@@ -23,9 +23,26 @@ use Manuals\Manual;
 class Manuals_Manuals_Controller extends Base_Controller
 {
 
+	/**
+	 * Will eventually show an interface listing
+	 * all of the available manuals.
+	 *
+	 * @return  View
+	 */
 	public function get_index()
 	{
-		echo Manual::parse('test');
+		return View::make('manuals::index');
+	}
+
+	/**
+	 * Reads a manual. We look in the
+	 * URL to find which manual to read.
+	 *
+	 * @return  mixed
+	 */
+	public function get_read($manual, $chapter = null)
+	{
+		echo Manual::chapters('nesty');
 	}
 
 }
