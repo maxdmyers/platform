@@ -19,12 +19,15 @@ Thumbs.db
 .tmproj
 *.esproj
 nbproject
+
 # Dreamweaver added files
 _notes
 dwsync.xml
+
 # Komodo
 *.komodoproject
 .komodotools
+
 # Folders to ignore
 .hg
 .svn
@@ -32,4 +35,6 @@ dwsync.xml
 intermediate
 publish
 .idea
-/storage/
+
+/storage/*
+!/storage/docs
