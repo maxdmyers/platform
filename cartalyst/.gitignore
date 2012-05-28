@@ -37,4 +37,4 @@ publish
 .idea
 
 /storage/*
-!/storage/docs
+!/storage/manuals
