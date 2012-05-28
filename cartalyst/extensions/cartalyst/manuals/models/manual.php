@@ -149,6 +149,10 @@ class Manual
 		{
 			$article = static::open($manual, $chapter.DS.$article_name.'.md');
 
+			// Check the filter paramter, if it is
+			// a closure then we'll let it modify
+			// the markdown and do whatever it wants to
+			// it before we add it to our array.
 			if ($filter instanceof Closure)
 			{
 				$article = $filter($article, $manual, $chapter, $article_name);
