@@ -18,8 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-use Manuals\Manual;
+// Route::controller(Controller::detect('manuals'));
 
-Autoloader::namespaces(array(
-	'Manuals' => Bundle::path('manuals').'models',
-));
+// Route the manuals
+Route::any('manuals', 'manuals::manuals@index');

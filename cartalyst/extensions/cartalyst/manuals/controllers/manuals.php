@@ -20,6 +20,12 @@
 
 use Manuals\Manual;
 
-Autoloader::namespaces(array(
-	'Manuals' => Bundle::path('manuals').'models',
-));
+class Manuals_Manuals_Controller extends Base_Controller
+{
+
+	public function get_index()
+	{
+		echo Manual::parse('test');
+	}
+
+}

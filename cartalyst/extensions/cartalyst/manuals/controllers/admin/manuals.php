@@ -18,8 +18,12 @@
  * @link       http://cartalyst.com
  */
 
-use Manuals\Manual;
+class Manuals_Admin_Manuals_Controller extends Admin_Controller
+{
 
-Autoloader::namespaces(array(
-	'Manuals' => Bundle::path('manuals').'models',
-));
+	public function get_index()
+	{
+		echo 'sdf';
+	}
+
+}
