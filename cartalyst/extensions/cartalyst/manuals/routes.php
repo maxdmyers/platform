@@ -20,6 +20,15 @@
 
 use Manuals\Manual;
 
+// Editing a manual
+Route::get('manuals/edit/(:any?)/(:any?)/(:any?)', function($manual, $chapter, $article_name)
+{
+	return View::make('manuals::edit')
+	           ->with('manual', $manual)
+	           ->with('chapter', $chapter)
+	           ->with('article_name', $article_name);
+});
+
 // Reading a manual
 Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), function($manual, $chapter = 'introduction')
 {
