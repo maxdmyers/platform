@@ -21,12 +21,12 @@
 return array(
 
 	'info' => array(
-		'name'           => 'Themes',
-		'slug'           => 'themes',
-		'author'         => 'Cartalyst LLC',
-		'description'    => 'Manages your website themes.',
-		'version'        => '1.0',
-		'is_core'        => true,
+		'name'        => 'Themes',
+		'slug'        => 'themes',
+		'author'      => 'Cartalyst LLC',
+		'description' => 'Manages your website themes.',
+		'version'     => '1.0',
+		'is_core'     => true,
 	),
 
 	'dependencies' => array(

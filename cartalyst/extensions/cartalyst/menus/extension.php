@@ -21,12 +21,12 @@
 return array(
 
 	'info' => array(
-		'name'           => 'Menus',
-		'slug'           => 'menus',
-		'author'         => 'Cartalyst LLC',
-		'description'    => 'Manages all menus throughout the website admin.',
-		'version'        => '1.0',
-		'is_core'        => true,
+		'name'        => 'Menus',
+		'slug'        => 'menus',
+		'author'      => 'Cartalyst LLC',
+		'description' => 'Manages all menus throughout the website admin.',
+		'version'     => '1.0',
+		'is_core'     => true,
 	),
 
 	'bundles' => array(

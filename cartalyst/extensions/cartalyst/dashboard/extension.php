@@ -21,12 +21,12 @@
 return array(
 
 	'info' => array(
-		'name'           => 'Dashboard',
-		'slug'           => 'dashboard',
-		'author'         => 'Cartalyst LLC',
-		'description'    => 'The main admin screen. The center of your website\'s adminstration.',
-		'version'        => '1.0',
-		'is_core'        => true,
+		'name'        => 'Dashboard',
+		'slug'        => 'dashboard',
+		'author'      => 'Cartalyst LLC',
+		'description' => 'The main admin screen. The center of your website\'s adminstration.',
+		'version'     => '1.0',
+		'is_core'     => true,
 	),
 
 	'dependencies' => array(
@@ -35,15 +35,6 @@ return array(
 
 	'bundles' => array(
 		'handles' => 'dashboard',
-	),
-
-	'menus' => array(
-		array(
-			'name'           => 'Dashboard',
-			'slug'           => 'dashboard',
-			'uri'            => 'dashboard',
-			'first_child_of' => 'admin',
-		),
 	),
 
 );
