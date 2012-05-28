@@ -21,20 +21,25 @@
 use Manuals\Manual;
 
 // Reading a manual
-Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), function($manual, $chapter = null)
+Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), function($manual, $chapter = 'introduction')
 {
-	// Get all chapters for the manual
-	$chapters = Manual::chapters($manual);
+	// Get all chapters for the manual / chapter
+	$toc         = Manual::toc($manual);
+	$chapter_toc = Manual::chapter_toc($manual, $chapter);
 
-	// Read the manual for the given manual / chapter.
-	$contents = Manual::read($manual, $chapter, function($article)
+	$articles = Manual::articles($manual, $chapter, $chapter_toc, function($article, $manual, $chapter, $article_name)
 	{
-
+		return View::make('manuals::article')
+		           ->with('article', Manual::parse($article))
+		           ->with('manual', $manual)
+		           ->with('chapter', $chapter)
+		           ->with('article_name', $article_name);
 	});
 
 	return View::make('manuals::view')
-	           ->with('chapters', $chapters)
-	           ->with('contents', $contents);
+	           ->with('toc', Manual::parse($toc))
+	           ->with('chapter_toc', Manual::parse($chapter_toc))
+	           ->with('articles', $articles);
 });
 
 // List all manuals

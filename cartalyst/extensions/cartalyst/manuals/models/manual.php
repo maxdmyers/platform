@@ -21,6 +21,7 @@
 namespace Manuals;
 
 use Bundle;
+use Closure;
 use Exception;
 use File;
 use MarkdownExtra_Parser;
@@ -61,13 +62,32 @@ class Manual
 	}
 
 	/**
+	 * Returns the base path for a manual (or manuals
+	 * as a whole if the manual isn't provided).
+	 *
+	 * @param   string  $manual
+	 * @return  string  $path
+	 */
+	public static function path($manual = null)
+	{
+		$path = path('storage').'manuals'.DS;
+
+		if ($manual !== null)
+		{
+			$path .= $manual.DS;
+		}
+
+		return $path;
+	}
+
+	/**
 	 * Opens a file within a manual.
 	 *
 	 * @return  string
 	 */
-	public static function open($manual, $file = null)
+	public static function open($manual, $file)
 	{
-		$path = path('storage').'manuals'.DS.$manual.DS.(($file !== null) ? $file : 'toc.md');
+		$path = static::path($manual).$file;
 
 		return File::get($path, function() use ($manual, $path)
 		{
@@ -76,25 +96,68 @@ class Manual
 	}
 
 	/**
-	 * Returns the HTML of the chapters for a given manual.
+	 * Returns the Markdown of the table of contents
+	 * for a given manual.
 	 *
+	 * @param   string  $manual
+	 * @param   string  $chapter
 	 * @return  string
 	 */
-	public static function chapters($manual)
+	public static function toc($manual)
 	{
-		return static::parse(static::open($manual));
+		return static::open($manual, 'toc.md');
 	}
 
 	/**
-	 * Reads a chapter of the given manual. Defaults back to
-	 * the 'introduction' chapter if the chapter isn't provided.
+	 * Returns the Markdown of the table of contents
+	 * for a given manual / chapter.
 	 *
+	 * @param   string  $manual
+	 * @param   string  $chapter
 	 * @return  string
 	 */
-	public static function read($manual, $chapter = null)
+	public static function chapter_toc($manual, $chapter)
 	{
-		// Default chapter
-		$chapter or $chapter = 'introduction';
+		return static::open($manual, $chapter.DS.'toc.md');
+	}
+
+	/**
+	 * Returns an array of articles for the given table
+	 * of contents string. This method loops through all
+	 * of the links and looks for the file located in the
+	 * manual that matches that link.
+	 *
+	 * @param   string   $manual
+	 * @param   string   $chapter
+	 * @param   string   $chapter_toc
+	 * @param   Closure  Filter
+	 * @return  string
+	 */
+	public static function articles($manual, $chapter, $chapter_toc, $filter = null)
+	{
+		// Find articles
+		preg_match_all('/"\/manuals\/'.$manual.'\/'.$chapter.'\/([^"]*)"/', $chapter_toc	, $article_names);
+
+		// Article names to load, in order
+		$article_names = $article_names[1];
+
+		// Fallback for articles
+		$articles = array();
+
+		// Loop through article names
+		foreach ($article_names as $article_name)
+		{
+			$article = static::open($manual, $chapter.DS.$article_name.'.md');
+
+			if ($filter instanceof Closure)
+			{
+				$article = $filter($article, $manual, $chapter, $article_name);
+			}
+
+			$articles[] = $article;
+		}
+
+		return $articles;
 	}
 
 }
