@@ -10,6 +10,4 @@
 
 <p>Donec sed odio dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vestibulum id ligula porta felis euismod semper. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Vestibulum id ligula porta felis euismod semper.</p>
 
-@widget('menus::menus.nav')
-
 @endsection
