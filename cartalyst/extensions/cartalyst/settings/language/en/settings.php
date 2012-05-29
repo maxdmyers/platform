@@ -45,11 +45,6 @@ return array(
 		'general_store_zip'					=>	'Zip/Post Code',
 		'general_fieldset_store_brand'		=> 	'Store Branding',
 		'general_store_brand'				=> 	'Brand',
-		'general_'									=>	'',
-		'general_'									=>	'',
-		'general_'									=>	'',
-		'general_'									=>	'',
-
 
 		/* Form localization */
 		'localization_title'			=> 	'Localization',
