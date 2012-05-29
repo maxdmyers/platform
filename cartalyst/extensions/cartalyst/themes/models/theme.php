@@ -25,7 +25,7 @@ use Crud;
 /**
  * Product Model
  *
- * @author  Dan Horrigan
+ * @author  Daniel Petrie
  */
 class Theme extends Crud
 {

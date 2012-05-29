@@ -47,12 +47,4 @@ class Form
 		return Theme::make('settings::widgets.form.general', $data);
 	}
 
-	public function localization()
-	{
-		return 'Port ISO Package';
-		// Package::load('iso');
-		// $data['countries'] = Iso::countries();
-		// return Cartalyst::theme()->view('settings/widgets/localization', $data);
-	}
-
 }
