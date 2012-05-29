@@ -21,7 +21,7 @@ $web = true;
 // --------------------------------------------------------------
 // Set the core Laravel path constants.
 // --------------------------------------------------------------
-require '../cartalyst/paths.php';
+require '../platform/paths.php';
 
 // --------------------------------------------------------------
 // Unset the temporary web variable.
