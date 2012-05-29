@@ -195,16 +195,12 @@ class Cartalyst
 				'where' => array(
 					array('extension', '=', $extension),
 				),
+				'organize' => true
 			));
 
 			// add extension settings to the settings array
 			if ($ext_settings['status'])
 			{
-				$settings = array();
-				foreach ($ext_settings['settings'] as $ext_setting)
-				{
-					$settings[$ext_setting['type']][$ext_setting['name']] = $ext_setting;
-				}
 				static::$settings[$extension] = $settings;
 			}
 			// add to array anyways to prevent errors

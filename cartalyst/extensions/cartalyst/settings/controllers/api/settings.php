@@ -25,11 +25,10 @@ class Settings_API_Settings_Controller extends API_Controller
 
 	public function get_index()
 	{
-		$ext   = Input::get('extension');
-		$where = Input::get('where');
-		$settings = array();
+		$where    = Input::get('where');
+		$organize = Input::get('organize', false);
 
-		$result = Setting::all(function($query) use ($ext, $where) {
+		$result = Setting::all(function($query) use ($where) {
 
 			if ( ! is_array($where) or ! is_array($where[0]))
 			{
@@ -55,6 +54,17 @@ class Settings_API_Settings_Controller extends API_Controller
 				'status'  => false,
 				'message' => 'No settings found.'
 			);
+		}
+
+		if ($organize)
+		{
+			$settings = array();
+			foreach ($result as $setting)
+			{
+				$settings[$setting['type']][$setting['name']] = $setting;
+			}
+
+			$result = $settings;
 		}
 
 		return array(

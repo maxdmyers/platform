@@ -10,3 +10,6 @@
 [submodule "cartalyst/storage/manuals"]
 	path = cartalyst/storage/manuals
 	url = git@github.com:cartalyst/manuals.git
+[submodule "cartalyst/application/bundles/docs/theme"]
+	path = cartalyst/application/bundles/docs/theme
+	url = git@github.com:cartalyst/theme.git

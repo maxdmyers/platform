@@ -24,22 +24,19 @@
 	<div class="tabbable">
 
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#1" data-toggle="tab">{{ Lang::line('settings::settings.general_title') }}</a></li>
-			<li><a href="#2" data-toggle="tab">{{ Lang::line('settings::settings.localization_title') }}</a></li>
+			<li class="active"><a href="#1" data-toggle="tab">{{ Lang::line('settings::settings.general.title') }}</a></li>
+			<li><a href="#2" data-toggle="tab">{{ Lang::line('settings::settings.localization.title') }}</a></li>
 		</ul>
 
-		{{ Form::open() }}
-			<div class="tab-content">
-				<div class="tab-pane active" id="1">
-					@widget('settings::form.general')
-				</div>
-				<div class="tab-pane" id="2">
-					@widget('settings::form.localization')
-				</div>
+		<div class="tab-content">
+			<div class="tab-pane active" id="1">
+				@widget('settings::form.general')
 			</div>
+			<div class="tab-pane" id="2">
+				<!-- widget('settings::form.localization') -->
+			</div>
+		</div>
 
-			<input type="submit" value="Update">
-		{{ Form::close() }}
 	</div>
 
 </section>

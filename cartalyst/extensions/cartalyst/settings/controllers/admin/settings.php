@@ -39,29 +39,32 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 	public function get_general()
 	{
 		// get extension settings from db
-		$settings = Api::get('settings', array(
-			'extension' => 'settings'
-		));
+		// $settings = Api::get('settings', array(
+		// 	'where' => array(
+		// 		array('extension', '=', 'settings')
+		// 	),
+		// 	'organize' => true
+		// ));
 
-		$data['options'] = array(
-			'maintenance' => array(
-				'0' => 'off',
-				'1' => 'on',
-			),
-		);
+		// $data['options'] = array(
+		// 	'maintenance' => array(
+		// 		'0' => 'off',
+		// 		'1' => 'on',
+		// 	),
+		// );
 
-		if ($settings['status'])
-		{
-			$data['has_settings'] = true;
-			$data['settings'] = $settings['settings'];
-		}
-		else
-		{
-			$data['has_settings'] = false;
-			$data['message'] = $settings['message'];
-		}
+		// if ($settings['status'])
+		// {
+		// 	$data['has_settings'] = true;
+		// 	$data['settings'] = $settings['settings'];
+		// }
+		// else
+		// {
+		// 	$data['has_settings'] = false;
+		// 	$data['message'] = $settings['message'];
+		// }
 
-		return Theme::make('settings::index', $data);
+		return Theme::make('settings::index');
 	}
 
 	public function post_general()

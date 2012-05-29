@@ -28,28 +28,41 @@ return array(
 	/* Widgets */
 
 	/* Form General */
-	'general_title'						=> 	'General',
-	'general_description'				=> 	'',
+	'general' => array(
+		'title'	      => 'General',
+		'description' => '',
 
-		/* Store Details */
-		'general_fieldset_store_details'	=> 	'Store Details',
-		'general_store_name'				=> 	'Name',
-		'general_store_tagline'				=>	'Tagline',
-		'general_store_url'					=>	'Cartalyst Address (URL)',
+		'store' => array(
+			'name'    => 'Name',
+			'tagline' => 'Tagline',
+			'url'     => 'Cartalyst Address (URL)',
+			'brand'   => 'Brand'
+		),
 
-		'general_fieldset_store_address'	=> 	'Store Address',
-		'general_store_country'				=>	'Country',
-		'general_store_street'				=>	'Street',
-		'general_store_city'				=>	'City',
-		'general_store_state'				=>	'State',
-		'general_store_zip'					=>	'Zip/Post Code',
-		'general_fieldset_store_brand'		=> 	'Store Branding',
-		'general_store_brand'				=> 	'Brand',
+		'address' => array(
+			'name'    => 'Name',
+			'country' => 'Country',
+			'street'  => 'Street',
+			'city'    => 'City',
+			'state'   => 'State',
+			'zip'     => 'Zip/Post Code',
+		),
 
+		'fieldset' => array(
+			'details' => 'Store Details',
+			'address' => 'Store Address',
+			'brand'   => 'Store Branding',
+		),
+
+	),
+
+	'localization' => array(
 		/* Form localization */
-		'localization_title'			=> 	'Localization',
-		'localization_description'		=> 	'',
-		'localization_country'			=>	'Country',
+		'title'       => 'Localization',
+		'description' => '',
+		'country'     => 'Country',
+	),
+
 
 	/* Descriptions */
 

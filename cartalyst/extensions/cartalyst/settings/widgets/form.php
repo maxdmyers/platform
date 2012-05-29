@@ -30,7 +30,10 @@ class Form
 	{
 		// get extension settings from db
 		$settings = API::get('settings', array(
-			'extension' => 'settings'
+			'where' => array(
+				array('extension', '=', 'settings')
+			),
+			'organize' => true
 		));
 
 		if ($settings['status'])
