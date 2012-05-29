@@ -1,8 +1,36 @@
+body {background-color:#f7f7f7;}
 #installer {
-	width: 320px;
+	width: 768px;
 	margin: 0 auto;
 	margin-top: 100px;
 }
+
+
+#installer .brand {text-align:center; padding:20px 0;}
+
+#installer .breadcrumbs {border-bottom:1px solid #ddd;}
+#installer .breadcrumbs li
+{
+display: block;
+list-style-type: none;
+padding-right: 20px;
+float:left;
+}
+
+#installer .breadcrumbs .active {
+	font-weight:bold;
+	font-size:1.5em;
+}
+
+#installer .step {
+	border-top:1px solid #fff;
+	padding-top:10px;
+}
+
+#installer .finish {
+	text-align:center;
+}
+
 #installer select {
 	width:252px;
 }
@@ -14,19 +42,21 @@
 	height:28px;
 }
 #installer .pager {
-	position: relative;
-	top:28px;
+
 	padding:6px 0;
 }
 
 #installer .btn {
-	padding:12px;
+	padding:14px;
 }
 
 #installer .btn-primary {
-	width:280px;
+	width:439px;
 }
 
 #installer .confirm-db {
 	display: none;
 }
+
+
+

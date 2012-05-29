@@ -33,7 +33,7 @@ class Installer_Index_Controller extends Base_Controller
 
 		// Setup JS
 		Asset::add('jquery', 'cartalyst/installer/js/jquery.js');
-		Asset::add('bootstrap', 'cartalyst/installer/js/bootstrap.js', array('jquery'));
+		Asset::add('bootstrap', 'cartalyst/installer/js/bootstrap.min.js', array('jquery'));
 		Asset::add('installer', 'cartalyst/installer/js/installer.js', array('jquery'));
 	}
 
