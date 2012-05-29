@@ -1,34 +1,51 @@
 @layout('installer::template')
 
 @section('content')
-<div id="installer" class="row-fluid">
-  <div class="span12 well">
-    <h1>Step 2</h1>
+<div id="installer" class="well">
 
-<p>
-	This is where we would let the user choose the extensions they wish to install by default. We would show the required extensions but not let them get unticked, but still let all other extensions be unticked.
-</p>
-
-<p>
-	We need some sort of dependencies system for Cartalyst so that extensions can declare how they might be dependent on others. For example, the Products extension might be switched off by someone who wants Cartalyst as a CMS only, but the Products extension requires the attributes extension.
-</p>
-
-{{ Form::open() }}
-
-	<fieldset>
-		<legend>Extensions Form</legend>
-		<div class="control-group pager">
-			<div class="controls">
-				<button type="submit" class="btn btn-primary">
-					Continue to Step 3
-				</button>
-			</div>
+	<div class="row-fluid">
+		<div class="breadcrumbs span12">
+			<ul class="nav">
+				<li>Step 1</li>
+				<li class="active">Step 2</li>
+				<li>Step 3</li>
+				<li>Finish</li>
+			</ul>
 		</div>
-	</fieldset>
+	</div>
 
-{{ Form::close() }}
+	<div class="step row-fluid">
+	  	<div class="left span5">
+	  		{{ Form::open() }}
 
-  </div>
+			<fieldset>
+				<legend>Custom Installation Step</legend>
+
+			<p>
+				This is where you would add any custom steps to your installation process
+			</p>
+
+
+		</div>
+		<div class="span7">
+
+			<div class="brand">
+				{{ HTML::image('cartalyst/installer/img/brand.png', 'Platform by Cartalyst'); }}
+			</div>
+
+				<div class="control-group pager">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">
+							Continue to Step 3
+						</button>
+					</div>
+				</div>
+			</fieldset>
+
+			{{ Form::close() }}
+
+		</div>
+	</div>
 </div>
 
 @endsection
