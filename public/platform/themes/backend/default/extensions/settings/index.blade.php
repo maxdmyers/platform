@@ -21,23 +21,7 @@
 		<p>{{ Lang::line('settings::settings.description') }}</p>
 	</header>
 
-	<div class="tabbable">
-
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#1" data-toggle="tab">{{ Lang::line('settings::settings.general.title') }}</a></li>
-			<li><a href="#2" data-toggle="tab">{{ Lang::line('settings::settings.localization.title') }}</a></li>
-		</ul>
-
-		<div class="tab-content">
-			<div class="tab-pane active" id="1">
-				@widget('settings::form.general')
-			</div>
-			<div class="tab-pane" id="2">
-				<!-- widget('settings::form.localization') -->
-			</div>
-		</div>
-
-	</div>
+	@widget('settings::form.general')
 
 </section>
 
