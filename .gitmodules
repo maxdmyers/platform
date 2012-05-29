@@ -1,21 +1,3 @@
-[submodule "cartalyst/application/bundles/sentry"]
-	path = cartalyst/application/bundles/sentry
-	url = git@github.com:cartalyst/sentry.git
-[submodule "cartalyst/application/bundles/theme"]
-	path = cartalyst/application/bundles/theme
-	url = git@github.com:cartalyst/theme.git
-[submodule "cartalyst/application/bundles/nesty"]
-	path = cartalyst/application/bundles/nesty
-	url = git@github.com:cartalyst/nesty.git
-[submodule "cartalyst/storage/manuals"]
-	path = cartalyst/storage/manuals
-	url = git@github.com:cartalyst/manuals.git
-[submodule "cartalyst/application/bundles/docs/theme"]
-	path = cartalyst/application/bundles/docs/theme
-	url = git@github.com:cartalyst/theme.git
-[submodule "platform/application/bundles/docs/theme"]
-	path = platform/application/bundles/docs/theme
-	url = git@github.com:cartalyst/theme.git
 [submodule "platform/application/bundles/nesty"]
 	path = platform/application/bundles/nesty
 	url = git@github.com:cartalyst/nesty.git
