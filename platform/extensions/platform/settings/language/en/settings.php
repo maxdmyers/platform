@@ -32,7 +32,7 @@ return array(
 		'title'	      => 'General',
 		'description' => '',
 
-		'store' => array( // TODO: change store to something more generic
+		'site' => array(
 			'name'    => 'Name',
 			'tagline' => 'Tagline',
 			'url'     => 'Address (URL)',
@@ -49,9 +49,9 @@ return array(
 		),
 
 		'fieldset' => array(
-			'details' => 'Store Details',
-			'address' => 'Store Address',
-			'brand'   => 'Store Branding',
+			'details' => 'Site Details',
+			'address' => 'Site Address',
+			'brand'   => 'Site Branding',
 		),
 
 	),

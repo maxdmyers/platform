@@ -23,7 +23,7 @@ namespace Platform\Settings\Widgets;
 use API;
 use Theme;
 
-class Form
+class Settings
 {
 
 	public function general()
