@@ -13,3 +13,6 @@
 [submodule "platform/application/bundles/gitsy"]
 	path = platform/application/bundles/gitsy
 	url = git@github.com:cartalyst/gitsy.git
+[submodule "platform/application/bundles/requests"]
+	path = platform/application/bundles/requests
+	url = https://github.com/tomasz-tomczyk/requests.git
