@@ -6,7 +6,7 @@
 	<div class="row-fluid">
 		<div class="breadcrumbs span12">
 			<div class="brand">
-	    		{{ HTML::image('cartalyst/installer/img/brand.png', 'Platform by Cartalyst'); }}
+	    		{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
 	    	</div>
 		</div>
 	</div>

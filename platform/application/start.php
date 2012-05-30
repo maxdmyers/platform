@@ -177,20 +177,7 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 	Session::load();
 }
 
-/*
-|--------------------------------------------------------------------------
-| Start Platform
-|--------------------------------------------------------------------------
-|
-| Starting Platform allows laravel to setup everything else needed for
-| Platform to run
-|
-*/
 
-if ( ! URI::is('installer|installer/*'))
-{
-	Platform::start();
-}
 
 /*
 |--------------------------------------------------------------------------
@@ -202,13 +189,34 @@ if ( ! URI::is('installer|installer/*'))
 |
 */
 
+// Load the installer bundle
+Bundle::register('installer', array(
+	'location' => 'path: '.path('installer'),
+	'handles'  => 'installer',
+));
+Bundle::start('installer');
+
+// Check if Platform is installed
+if ( ! Installer\Installer::is_installed())
+{
+	if ( ! URI::is('installer|installer/*'))
+	{
+		Redirect::to('installer')->send();
+		exit;
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
+| Start Platform
+|--------------------------------------------------------------------------
+|
+| Starting Platform allows laravel to setup everything else needed for
+| Platform to run
+|
+*/
+
 else
 {
-	// Load the installer bundle
-	Bundle::register('installer', array(
-		'location' => 'path: '.path('installer'),
-		'handles'  => 'installer',
-		'auto'     => true,
-	));
-	Bundle::start('installer');
+	Platform::start();
 }

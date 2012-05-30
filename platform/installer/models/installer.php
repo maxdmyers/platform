@@ -36,6 +36,37 @@ class Installer
 {
 
 	/**
+	 * Determines if Platform has been installed or not.
+	 *
+	 * @return  bool
+	 */
+	public static function is_installed()
+	{
+		$installed = true;
+
+		if ( ! File::exists(static::database_config_file()))
+		{
+			$installed = false;
+		}
+
+		// List installed extensions. If the count is more than 0, we
+		// have installed Platform.
+		try
+		{
+			if (count(Platform::extensions_manager()->installed()) === 0)
+			{
+				$installed = false;
+			}
+		}
+		catch (Exception $e)
+		{
+			$installed = false;
+		}
+
+		return $installed;
+	}
+
+	/**
 	 * Returns an array of available database drivers
 	 *
 	 * @return  array
@@ -48,6 +79,16 @@ class Installer
 			'pgsql'  => 'PostgreSQL',
 			'sqlsrv' => 'SQL Server',
 		);
+	}
+
+	/**
+	 * Returns the path of the database config file.
+	 *
+	 * @return  string
+	 */
+	public static function database_config_file()
+	{
+		return path('app').'config'.DS.'database'.EXT;
 	}
 
 	/**
@@ -76,7 +117,7 @@ class Installer
 		$string = str_replace(array_keys($replacements), array_values($replacements), $string);
 
 		// Write the new file
-		File::put(path('app').'config'.DS.'database'.EXT, $string);
+		File::put(static::database_config_file(), $string);
 	}
 
 	/**

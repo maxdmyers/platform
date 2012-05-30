@@ -73,7 +73,7 @@
 	    <div class="span7">
 
 	    		<div class="brand">
-	    			{{ HTML::image('cartalyst/installer/img/brand.png', 'Platform by Cartalyst'); }}
+	    			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
 	    		</div>
 
 	    		<div class="control-group pager">
