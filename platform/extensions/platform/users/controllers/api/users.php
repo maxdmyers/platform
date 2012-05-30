@@ -228,6 +228,7 @@ class Users_API_Users_Controller extends API_Controller
 			// sets the where clause from passed settings
 			$query = Table::count($query, $defaults);
 
+			// test comment
 			return $query
 				->left_join('users_metadata', 'users.id', '=', 'users_metadata.user_id')
 				->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
