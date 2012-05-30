@@ -68,7 +68,7 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Step 1 - Database credentials
-	 * 
+	 *
 	 * @return  View
 	 */
 	public function get_step_1()
@@ -141,7 +141,7 @@ class Installer_Index_Controller extends Base_Controller
 
 		return json_encode(array(
 			'error'   => false,
-			'message' => 'Successfully connected to the database using the provided credentials',
+			'message' => 'Successfully connected to the database',
 		));
 	}
 

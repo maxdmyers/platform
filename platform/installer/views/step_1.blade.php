@@ -2,29 +2,31 @@
 
 @section('content')
 
-<div id="installer" class="well">
+<div id="installer">
 
-	<div class="row-fluid">
-		<div class="breadcrumbs span12">
-			<ul class="nav">
-				<li class="active">Step 1</li>
-				<li>Step 2</li>
-				<li>Step 3</li>
-				<li>Finish</li>
-			</ul>
+	<div class="well">
+		<div class="brand">
+			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
 		</div>
-	</div>
+		<div class="row-fluid">
+			<div class="breadcrumbs span12">
+				<ul class="nav">
+					<li class="active">Step 1</li>
+					<li>Step 2</li>
+					<li>Step 3</li>
+					<li>Finish</li>
+				</ul>
+			</div>
+		</div>
 
-	<div class="step row-fluid">
-		{{ Form::open('installer/index/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
-	  	<div class="left span5">
-
+		<div class="step row-fluid">
+			{{ Form::open('installer/index/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
 
 			<fieldset>
 
-				<legend>Database Credentials</legend>
+	    		<legend>Database Credentials</legend>
 
-				<div class="control-group">
+	    		<div class="control-group">
 					{{ Form::label('driver', 'Driver', array('class' => 'control-label', 'for' => 'inputIcon')) }}
 		         	<div class="controls">
 		            	<div class="input-prepend">
@@ -69,23 +71,7 @@
 		        	</div>
 		        </div>
 
-
-	    </div>
-	    <div class="span7">
-
-	    		<div class="brand">
-	    			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
-	    		</div>
-
-	    		 <div class="control-group pager">
-					<div class="controls">
-						<button type="submit" disabled="disabled" class="btn btn-primary">
-							Continue to Step 2
-						</button>
-					</div>
-				</div>
-
-				<div class="control-group database">
+		        <div class="control-group database">
 					<div class="controls">
 						<div class="confirm-db alert">
 
@@ -93,9 +79,17 @@
 					</div>
 				</div>
 
+		        <div class="control-group pager">
+					<div class="controls">
+						<button type="submit" disabled="disabled" class="btn btn-primary">
+							Continue to Step 2
+						</button>
+					</div>
+				</div>
+
 			</fieldset>
-		</div>
-		{{ Form::close() }}
+			{{ Form::close() }}
+	    </div>
 	</div>
 </div>
 

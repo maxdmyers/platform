@@ -18,6 +18,8 @@
  * @link       http://cartalyst.com
  */
 
+use Platform\Menus\Menu;
+
 class Themes_Install_Themes_Table
 {
 
@@ -28,6 +30,10 @@ class Themes_Install_Themes_Table
 	 */
 	public function up()
 	{
+		/**
+		 * Create theme tables
+		 */
+
 		Schema::create('theme_options', function($table)
 		{
 			$table->increments('id')->unsigned();
@@ -36,6 +42,59 @@ class Themes_Install_Themes_Table
 			$table->text('options')->nullable();
 			$table->boolean('status');
 		});
+
+		/**
+		 * Add base theme configuration options
+		 */
+
+		$frontend = DB::table('configuration')->insert(array(
+			'extension' => 'themes',
+			'type'      => 'theme',
+			'name'      => 'frontend',
+			'value'     => 'default',
+		));
+
+		$backend = DB::table('configuration')->insert(array(
+			'extension' => 'themes',
+			'type'      => 'theme',
+			'name'      => 'backend',
+			'value'     => 'default',
+		));
+
+		/**
+		 * Add theme to menu
+		 */
+
+		$admin = Menu::admin_menu();
+
+		// Find the system menu
+		$system = Menu::find(function($query) use ($admin)
+		{
+			return $query->where('slug', '=', 'system')
+			             ->where(Menu::nesty_col('tree'), '=', $admin->{Menu::nesty_col('tree')});
+		});
+
+		if ($system === null)
+		{
+			$system = new Menu(array(
+				'name'          => 'System',
+				'slug'          => 'system',
+				'uri'           => '',
+				'user_editable' => 0,
+			));
+
+			$system->last_child_of($admin);
+		}
+
+		// Themes menu
+		$themes = new Menu(array(
+			'name'          => 'Themes',
+			'slug'          => 'themes',
+			'uri'           => 'themes',
+			'user_editable' => 0,
+		));
+
+		$themes->last_child_of($system);
 	}
 
 	/**
@@ -45,7 +104,18 @@ class Themes_Install_Themes_Table
 	 */
 	public function down()
 	{
+		/**
+		 * Drop theme table
+		 */
+
 		Schema::drop('theme_options');
+
+		/**
+		 * Drop Theme Menu Items
+		 */
+
+
+
 	}
 
 }

@@ -18,9 +18,10 @@
  * @link       http://cartalyst.com
  */
 
+use Laravel\CLI\Command;
 use Platform\Menus\Menu;
 
-class Users_Install_Admin_Menu
+class Users_Install
 {
 
 	/**
@@ -30,13 +31,51 @@ class Users_Install_Admin_Menu
 	 */
 	public function up()
 	{
+
+		// Migrate Sentry
+		Command::run(array('migrate', 'sentry'));
+
+		// Remove the username column, we don't
+		// use it at all.
+		Schema::table('users', function($table)
+		{
+			$table->drop_column('username');
+		});
+
+		// Create the sentry groups
+		Sentry::group()->create(array(
+			'name' => 'admin',
+		));
+
+		Sentry::group()->create(array(
+			'name' => 'users',
+		));
+
+		// Add configuration settings
+
+		$status_disabled = DB::table('configuration')->insert(array(
+			'extension' 	=> 'users',
+			'type' 			=> 'status',
+			'name' 			=> 'disabled',
+			'value' 		=> '0',
+		));
+
+		$status_enabled = DB::table('configuration')->insert(array(
+			'extension' 	=> 'users',
+			'type' 			=> 'status',
+			'name' 			=> 'enabled',
+			'value' 		=> '1',
+		));
+
+		// Create Menu Items
+
 		$admin = Menu::admin_menu();
 
 		// People menu
 		$people = new Menu(array(
-			'name'          => 'People',
-			'slug'          => 'people',
-			'uri'           => '',
+			'name'          => 'Users',
+			'slug'          => 'users',
+			'uri'           => 'users',
 			'user_editable' => 0,
 		));
 
@@ -45,7 +84,7 @@ class Users_Install_Admin_Menu
 		// Users menu
 		$users = new Menu(array(
 			'name'          => 'Users',
-			'slug'          => 'users',
+			'slug'          => 'users-list',
 			'uri'           => 'users',
 			'user_editable' => 0,
 		));
@@ -55,12 +94,13 @@ class Users_Install_Admin_Menu
 		// Groups menu
 		$groups = new Menu(array(
 			'name'          => 'Groups',
-			'slug'          => 'users-groups',
+			'slug'          => 'groups-list',
 			'uri'           => 'users/groups',
 			'user_editable' => 0,
 		));
 
 		$groups->last_child_of($people);
+
 	}
 
 	/**
@@ -70,7 +110,9 @@ class Users_Install_Admin_Menu
 	 */
 	public function down()
 	{
-
+		// Normally we'd rollback, but we're resetting
+		// as this is the first migration.
+		Command::run(array('migrate:reset', 'sentry'));
 	}
 
 }

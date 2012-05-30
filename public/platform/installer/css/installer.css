@@ -1,20 +1,24 @@
-body {background-color:#f7f7f7;}
+body {background-color:#fbfbfb;}
 #installer {
-	width: 768px;
+	width: 480px;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 40px;
 }
 
 
-#installer .brand {text-align:center; padding:20px 0;}
+#installer .brand {text-align:center; padding:20px 0; border-bottom:1px solid #ddd;}
 
-#installer .breadcrumbs {border-bottom:1px solid #ddd;}
+#installer .breadcrumbs {border-bottom:1px solid #ddd; border-top:1px solid #fff;text-align:center; padding:10px 0;}
+#installer .breadcrumbs ul
+{
+	margin:0; padding:0;
+}
+
 #installer .breadcrumbs li
 {
-display: block;
+display: inline;
 list-style-type: none;
-padding-right: 20px;
-float:left;
+padding: 0 10px;
 }
 
 #installer .breadcrumbs .active {
@@ -24,11 +28,12 @@ float:left;
 
 #installer .step {
 	border-top:1px solid #fff;
-	padding-top:10px;
+	padding-top:20px;
 }
 
 #installer .finish {
 	text-align:center;
+	padding:10px;
 }
 
 #installer select {
@@ -51,12 +56,17 @@ float:left;
 }
 
 #installer .btn-primary {
-	width:439px;
+	position:relative;
+	top:24px;
+	width:280px;
+	margin-bottom:10px;
 }
 
 #installer .confirm-db {
 	display: none;
+
 }
 
-
+#installer form {width:280px; margin:0 auto;}
+#installer form legend {text-align:center; border-bottom:0;}
 

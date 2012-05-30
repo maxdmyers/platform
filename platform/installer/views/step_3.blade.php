@@ -2,21 +2,24 @@
 
 @section('content')
 
-<div id="installer" class="well">
+<div id="installer">
 
-	<div class="row-fluid">
-		<div class="breadcrumbs span12">
-			<ul class="nav">
-				<li>Step 1</li>
-				<li>Step 2</li>
-				<li class="active">Step 3</li>
-				<li>Finish</li>
-			</ul>
+	<div class="well">
+		<div class="brand">
+			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
 		</div>
-	</div>
+		<div class="row-fluid">
+			<div class="breadcrumbs span12">
+				<ul class="nav">
+					<li>Step 1</li>
+					<li>Step 2</li>
+					<li class="active">Step 3</li>
+					<li>Finish</li>
+				</ul>
+			</div>
+		</div>
 
 	<div class="step row-fluid">
-	  	<div class="left span5">
 
 			{{ Form::open(null, 'POST', array('class' => 'form-inline')) }}
 			<fieldset>
@@ -67,15 +70,6 @@
 		        	</div>
 		        </div>
 
-
-
-		</div>
-	    <div class="span7">
-
-	    		<div class="brand">
-	    			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
-	    		</div>
-
 	    		<div class="control-group pager">
 					<div class="controls">
 						<button type="submit" class="btn btn-primary">
@@ -86,6 +80,7 @@
 
 			</fieldset>
 			{{ Form::close() }}
+
 		</div>
 	</div>
 </div>

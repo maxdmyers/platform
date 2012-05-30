@@ -225,19 +225,6 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		}
 	}
 
-	// /**
-	//  * Call Groups Controller
-	//  *
-	//  * @return  Controller
-	//  */
-	// public function get_groups($method = 'index', $params = null)
-	// {
-	// 	$params = explode('/', URI::current());
-	// 	$params = array_slice($params, 4);
-
-	// 	return Controller::call('users::groups.admin@'.$method, $params);
-	// }
-
 	/**
 	 * Auth Methods
 	 */

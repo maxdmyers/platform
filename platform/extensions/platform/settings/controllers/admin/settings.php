@@ -20,6 +20,13 @@
 
 class Settings_Admin_Settings_Controller extends Admin_Controller
 {
+	protected $validation = array(
+		// general settings
+		'general' => array(
+			'site:name' => 'required',
+			'site:url'  => 'required'
+		)
+	);
 
 	/**
 	 * Alias for general
@@ -38,32 +45,6 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 	 */
 	public function get_general()
 	{
-		// get extension settings from db
-		// $settings = Api::get('settings', array(
-		// 	'where' => array(
-		// 		array('extension', '=', 'settings')
-		// 	),
-		// 	'organize' => true
-		// ));
-
-		// $data['options'] = array(
-		// 	'maintenance' => array(
-		// 		'0' => 'off',
-		// 		'1' => 'on',
-		// 	),
-		// );
-
-		// if ($settings['status'])
-		// {
-		// 	$data['has_settings'] = true;
-		// 	$data['settings'] = $settings['settings'];
-		// }
-		// else
-		// {
-		// 	$data['has_settings'] = false;
-		// 	$data['message'] = $settings['message'];
-		// }
-
 		return Theme::make('settings::index');
 	}
 
@@ -72,18 +53,84 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 		// remove csrf token
 		$post = Input::get();
 
-		$update = Api::post('settings', array(
-			'extension'  => 'settings',
-			'settings'   => $post,
-			'validation' => array(
-				'store_name'  => 'required',
-			),
-			'labels' => array(
-				'store_name'         => 'Store Name',
-				'store_brand'        => 'Store Brand',
-				'store_maintenance'  => 'Store Maintenance',
-			),
-		));
+		$post = Input::get();
+
+		$settings = array();
+		foreach ($post as $field => $value)
+		{
+			// Find the type and name for the respective field.
+			// If a field contains a ':', then a type was given
+			if (strpos($field, ':') !== false)
+			{
+				list($type, $name) = explode(':', $field);
+			}
+			else
+			{
+				$type = '';
+				$name = $field;
+			}
+
+			// set the values
+			$values = array(
+				'extension' => 'settings',
+				'type'      => $type,
+				'name'      => $name,
+				'value'     => $value,
+			);
+
+			// set validation for the field if it exists
+			$validation = null;
+			if (array_key_exists($field, $this->validation['general']))
+			{
+				if (is_array($this->validation['general'][$field]))
+				{
+					$validation = $this->validation['general'][$feild];
+				}
+				else
+				{
+					$validation = array('value' => $this->validation['general'][$field]);
+				}
+			}
+
+			$settings[] = array(
+				'values'     => $values,
+				'validation' => $validation
+			);
+		}
+
+		$update = Api::post('settings', array('settings' => $settings));
+
+		// 	'extension'  => 'settings',
+		// 	'settings'   => $post,
+		// 	'validation' => array(
+		// 		'store_name'  => 'required',
+		// 	),
+		// 	'labels' => array(
+		// 		'store_name'         => 'Store Name',
+		// 		'store_brand'        => 'Store Brand',
+		// 		'store_maintenance'  => 'Store Maintenance',
+		// 	),
+		// ));
+
+		// 'settings' => array(
+		// 			'values' => array(
+		// 				'extension' => 'themes',
+		// 				'type'      => 'theme',
+		// 				'name'      => $type,
+		// 				'value'     => Input::get('theme'),
+		// 			),
+
+		// 			// validation
+		// 			'validation' => array(
+		// 				'name'  => 'required',
+		// 				'value' => 'required',
+		// 			),
+
+		// 			// labels
+		// 			'labels' => array(
+		// 				'name' => 'Theme'
+		// 			),
+		// 		),
 
 		if ($update['status'])
 		{

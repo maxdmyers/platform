@@ -42,18 +42,18 @@ return array(
 	},
 
 	'global_routes' => function() {
-		Route::any('admin/login', 'users::admin.users@login');
-		Route::any('admin/logout', 'users::admin.users@logout');
-		Route::any('admin/reset_password', 'users::admin.users@reset_password');
-		Route::any('admin/reset_password_confirm', 'users::admin.users@reset_password_confirm');
+		Route::any(ADMIN.'/login', 'users::admin.users@login');
+		Route::any(ADMIN.'/logout', 'users::admin.users@logout');
+		Route::any(ADMIN.'/reset_password', 'users::admin.users@reset_password');
+		Route::any(ADMIN.'/reset_password_confirm', 'users::admin.users@reset_password_confirm');
 	},
 
 	'rules' => array(
-		'users::admin@index',
-		'users::admin@create',
-		'users::admin@edit',
-		'users::admin@delete',
-		'users::admin.group@index',
+		// 'users::admin@index',
+		// 'users::admin@create',
+		// 'users::admin@edit',
+		// 'users::admin@delete',
+		// 'users::admin.group@index',
 	),
 
 );
