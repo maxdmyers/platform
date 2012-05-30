@@ -1,9 +1,9 @@
-<ul class="nav nav-list">
+<ul class="nav nav-pills nav-stacked">
 	@foreach ($items as $item)
 		<li>
 			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
 
-			@if ($item['children'])
+			<!-- @if ($item['children'])
 				<ul>
 					@foreach ($item['children'] as $child)
 						<li>
@@ -11,7 +11,7 @@
 						</li>
 					@endforeach
 				</ul>
-			@endif
+			@endif -->
 		</li>
 	@endforeach
 </ul>

@@ -15,7 +15,6 @@
 				<p>Congratulations - you've installed Platform!</p>
 
 				<a href="{{ url(ADMIN) }}" class="btn btn-primary">Login to Admin</a>
-
 			</div>
 		</div>
 	</div>
