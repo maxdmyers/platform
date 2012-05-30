@@ -18,9 +18,10 @@
  * @link       http://cartalyst.com
  */
 
+use Laravel\CLI\Command;
 use Platform\Menus\Menu;
 
-class Users_Install_Admin_Menu
+class Users_Install
 {
 
 	/**
@@ -30,6 +31,44 @@ class Users_Install_Admin_Menu
 	 */
 	public function up()
 	{
+
+		// Migrate Sentry
+		Command::run(array('migrate', 'sentry'));
+
+		// Remove the username column, we don't
+		// use it at all.
+		Schema::table('users', function($table)
+		{
+			$table->drop_column('username');
+		});
+
+		// Create the sentry groups
+		Sentry::group()->create(array(
+			'name' => 'admin',
+		));
+
+		Sentry::group()->create(array(
+			'name' => 'users',
+		));
+
+		// Add configuration settings
+
+		$status_disabled = DB::table('configuration')->insert(array(
+			'extension' 	=> 'users',
+			'type' 			=> 'status',
+			'name' 			=> 'disabled',
+			'value' 		=> '0',
+		));
+
+		$status_enabled = DB::table('configuration')->insert(array(
+			'extension' 	=> 'users',
+			'type' 			=> 'status',
+			'name' 			=> 'enabled',
+			'value' 		=> '0',
+		));
+
+		// Create Menu Items
+
 		$admin = Menu::admin_menu();
 
 		// People menu
@@ -61,6 +100,7 @@ class Users_Install_Admin_Menu
 		));
 
 		$groups->last_child_of($people);
+
 	}
 
 	/**
@@ -70,7 +110,9 @@ class Users_Install_Admin_Menu
 	 */
 	public function down()
 	{
-
+		// Normally we'd rollback, but we're resetting
+		// as this is the first migration.
+		Command::run(array('migrate:reset', 'sentry'));
 	}
 
 }
