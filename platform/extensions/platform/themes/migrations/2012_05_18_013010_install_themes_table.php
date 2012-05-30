@@ -44,6 +44,24 @@ class Themes_Install_Themes_Table
 		});
 
 		/**
+		 * Add base theme configuration options
+		 */
+
+		$frontend = DB::table('configuration')->insert(array(
+			'extension' => 'themes',
+			'type'      => 'theme',
+			'name'      => 'frontend',
+			'value'     => 'default',
+		));
+
+		$backend = DB::table('configuration')->insert(array(
+			'extension' => 'themes',
+			'type'      => 'theme',
+			'name'      => 'backend',
+			'value'     => 'default',
+		));
+
+		/**
 		 * Add theme to menu
 		 */
 
