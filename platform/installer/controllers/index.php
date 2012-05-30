@@ -22,7 +22,23 @@ use Installer\Installer;
 
 class Installer_Index_Controller extends Base_Controller
 {
+	/**
+	 * Catch-all method for requests that can't be matched.
+	 *
+	 * @param  string    $method
+	 * @param  array     $parameters
+	 * @return Response
+	 */
+	public function __call($method, $parameters)
+	{
+		return $this->get_index();
+	}
 
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
 	public function before()
 	{
 		parent::before();
@@ -39,6 +55,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Show the initial installer step, license agreement
+	 *
+	 * @return  Redirect
 	 */
 	public function get_index()
 	{
@@ -50,6 +68,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Step 1 - Database credentials
+	 * 
+	 * @return  View
 	 */
 	public function get_step_1()
 	{
@@ -63,6 +83,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Step 1 - Creates a config file
+	 *
+	 * @return  Redirect
 	 */
 	public function post_step_1()
 	{
@@ -80,6 +102,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Confirm database - Step 1
+	 *
+	 * @return  Response
 	 */
 	public function post_confirm_db()
 	{
@@ -123,6 +147,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Step 2 - Lists extensions to install
+	 *
+	 * @return  View
 	 */
 	public function get_step_2()
 	{
@@ -136,6 +162,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Step 2 - Installs core extensions
+	 *
+	 * @return  View
 	 */
 	public function post_step_2()
 	{
@@ -161,6 +189,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	/**
 	 * Step 3 - Provide credentials
+	 *
+	 * @return  View
 	 */
 	public function get_step_3()
 	{
@@ -172,6 +202,11 @@ class Installer_Index_Controller extends Base_Controller
 		return View::make('installer::step_3');
 	}
 
+	/**
+	 * Step 3 - Create default user
+	 *
+	 * @return  Redirect
+	 */
 	public function post_step_3()
 	{
 		if ($this->determine_step() !== 3)
@@ -211,6 +246,11 @@ class Installer_Index_Controller extends Base_Controller
 		}
 	}
 
+	/**
+	 * Step 4: Completed
+	 *
+	 * @return  View
+	 */
 	public function get_step_4()
 	{
 		if ($this->determine_step() !== 4)
@@ -225,7 +265,7 @@ class Installer_Index_Controller extends Base_Controller
 	 * Determines what step we are allowed to be on
 	 * based on what's installed in the system.
 	 *
-	 * @return  int  $step
+	 * @return  int
 	 */
 	protected function determine_step()
 	{
