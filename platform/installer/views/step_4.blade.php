@@ -1,31 +1,22 @@
 @layout('installer::template')
 
 @section('content')
-<div id="installer" class="well">
+<div id="installer">
 
-	<div class="row-fluid">
-		<div class="breadcrumbs span12">
-			<div class="brand">
-	    		{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
-	    	</div>
+	<div class="well">
+		<div class="brand">
+			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
 		</div>
-	</div>
 
-	<div class="step row-fluid">
-	  	<div class="finish span12">
+		<div class="step row-fluid">
+			<div class="finish span12">
+				<h1>Finished!</h1>
 
+				<p>Congratulations - you've installed Platform!</p>
 
+				<a href="{{ url(ADMIN) }}" class="btn btn-primary">Login to Admin</a>
 
-			<h1>Finished!</h1>
-
-			<p>
-				Congratulations - you've installed Platform!
-			</p>
-			<p>
-				<a href="{{ url(ADMIN) }}" class="btn btn-primary">
-					Login to Admin
-				</a>
-			</p>
+			</div>
 		</div>
 	</div>
 </div>
