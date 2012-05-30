@@ -73,9 +73,9 @@ class Users_Install
 
 		// People menu
 		$people = new Menu(array(
-			'name'          => 'People',
-			'slug'          => 'people',
-			'uri'           => '',
+			'name'          => 'Users',
+			'slug'          => 'users',
+			'uri'           => 'users',
 			'user_editable' => 0,
 		));
 
@@ -84,7 +84,7 @@ class Users_Install
 		// Users menu
 		$users = new Menu(array(
 			'name'          => 'Users',
-			'slug'          => 'users',
+			'slug'          => 'users-list',
 			'uri'           => 'users',
 			'user_editable' => 0,
 		));
@@ -94,7 +94,7 @@ class Users_Install
 		// Groups menu
 		$groups = new Menu(array(
 			'name'          => 'Groups',
-			'slug'          => 'users-groups',
+			'slug'          => 'groups-list',
 			'uri'           => 'users/groups',
 			'user_editable' => 0,
 		));
