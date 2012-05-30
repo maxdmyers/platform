@@ -21,6 +21,7 @@
 namespace Installer;
 
 use Bundle;
+use DB;
 use Platform;
 use File;
 use Exception;
@@ -44,6 +45,7 @@ class Installer
 	{
 		$installed = true;
 
+		// Check for the database config file
 		if ( ! File::exists(static::database_config_file()))
 		{
 			$installed = false;
@@ -53,7 +55,23 @@ class Installer
 		// have installed Platform.
 		try
 		{
+			// Extension table exists, but is empty.
 			if (count(Platform::extensions_manager()->enabled()) === 0)
+			{
+				$installed = false;
+			}
+		}
+
+		// Extnesions table doesn't exist
+		catch (Exception $e)
+		{
+			$installed = false;
+		}
+
+		// Now, count the users table.
+		try
+		{
+			if (DB::table('users')->count() === 0)
 			{
 				$installed = false;
 			}
