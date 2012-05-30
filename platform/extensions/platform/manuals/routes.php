@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-use Manuals\Manual;
+use Platform\Manuals\Manual;
 
 // Editing a manual
 Route::get('manuals/edit/(:any?)/(:any?)/(:any?)', function($manual, $chapter, $article_name)

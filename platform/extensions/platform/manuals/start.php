@@ -18,8 +18,6 @@
  * @link       http://cartalyst.com
  */
 
-use Manuals\Manual;
-
 Autoloader::namespaces(array(
-	'Manuals' => Bundle::path('manuals').'models',
+	'Platform\\Manuals' => Bundle::path('manuals').'models',
 ));

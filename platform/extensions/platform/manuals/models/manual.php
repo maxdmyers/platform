@@ -18,7 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-namespace Manuals;
+namespace Platform\Manuals;
 
 use Bundle;
 use Closure;
