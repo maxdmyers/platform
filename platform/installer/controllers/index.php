@@ -53,6 +53,11 @@ class Installer_Index_Controller extends Base_Controller
 	 */
 	public function get_step_1()
 	{
+		if ($this->determine_step() !== 1)
+		{
+			return Redirect::to('installer');
+		}
+
 		return View::make('installer::step_1')->with('drivers', Installer::database_drivers());
 	}
 
@@ -61,6 +66,11 @@ class Installer_Index_Controller extends Base_Controller
 	 */
 	public function post_step_1()
 	{
+		if ($this->determine_step() !== 1)
+		{
+			return Redirect::to('installer');
+		}
+
 		// Create database config
 		Installer::create_database_config(Input::get());
 
@@ -116,9 +126,9 @@ class Installer_Index_Controller extends Base_Controller
 	 */
 	public function get_step_2()
 	{
-		if ($this->determine_step() < 2)
+		if ($this->determine_step() !== 2)
 		{
-			return Redirect::to('installer/index');
+			return Redirect::to('installer');
 		}
 
 		return View::make('installer::step_2');
@@ -129,9 +139,9 @@ class Installer_Index_Controller extends Base_Controller
 	 */
 	public function post_step_2()
 	{
-		if ($this->determine_step() < 2)
+		if ($this->determine_step() !== 2)
 		{
-			return Redirect::to('installer/index');
+			return Redirect::to('installer');
 		}
 
 		/**
@@ -146,7 +156,7 @@ class Installer_Index_Controller extends Base_Controller
 		// Install all extensions
 		Installer::install_extensions();
 
-		return Redirect::to('installer/index');
+		return Redirect::to('installer');
 	}
 
 	/**
@@ -154,9 +164,9 @@ class Installer_Index_Controller extends Base_Controller
 	 */
 	public function get_step_3()
 	{
-		if ($this->determine_step() < 3)
+		if ($this->determine_step() !== 3)
 		{
-			return Redirect::to('installer/index');
+			return Redirect::to('installer');
 		}
 
 		return View::make('installer::step_3');
@@ -164,6 +174,11 @@ class Installer_Index_Controller extends Base_Controller
 
 	public function post_step_3()
 	{
+		if ($this->determine_step() !== 3)
+		{
+			return Redirect::to('installer');
+		}
+
 		$user = array(
 			'email'                 => Input::get('email'),
 			'password'              => Input::get('password'),
@@ -186,18 +201,23 @@ class Installer_Index_Controller extends Base_Controller
 			// Platform::messages()->success($create_user['message']);
 			// Session::put('created_user', true);
 
-			return Redirect::to('installer/index');
+			return Redirect::to('installer');
 		}
 		else
 		{
 			// Platform::messages()->error($create_user['message']);
 
-			return Redirect::to('installer/index')->with_input();
+			return Redirect::to('installer')->with_input();
 		}
 	}
 
 	public function get_step_4()
 	{
+		if ($this->determine_step() !== 4)
+		{
+			return Redirect::to('installer');
+		}
+
 		return View::make('installer::step_4');
 	}
 

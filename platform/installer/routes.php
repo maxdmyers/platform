@@ -18,9 +18,6 @@
  * @link       http://cartalyst.com
  */
 
-Route::get('installer', function()
-{
-	return Redirect::to('installer/index');
-});
+Route::get('installer', 'installer::index@index');
 
 Route::controller(Controller::detect('installer'));

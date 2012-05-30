@@ -53,7 +53,7 @@ class Installer
 		// have installed Platform.
 		try
 		{
-			if (count(Platform::extensions_manager()->installed()) === 0)
+			if (count(Platform::extensions_manager()->enabled()) === 0)
 			{
 				$installed = false;
 			}
