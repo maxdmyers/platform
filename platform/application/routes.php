@@ -20,19 +20,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Platform routing constants
-|--------------------------------------------------------------------------
-|
-| Rather than change routes throughout all of your extensions if you want
-| to change the location of a Platform component, you can just change
-| the constant here and it will be reflected throughout the app
-|
-*/
-
-define('ADMIN', 'admin');
-
-/*
-|--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
 |
@@ -180,7 +167,7 @@ Route::filter('after', function($response)
 
 Route::filter('auth', function()
 {
-	if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
+	// if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
 });
 
 Route::filter('admin_auth', function()

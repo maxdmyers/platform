@@ -214,13 +214,13 @@ class Users_API_Users_Controller extends API_Controller
 				'last_name'           => Lang::line('users::users.last_name')->get(),
 				'email'               => Lang::line('users::users.email')->get(),
 				'groups.name'         => Lang::line('users::users.groups')->get(),
-				'option_strings.text' => Lang::line('users::users.status')->get(),
+				'configuration.name'  => Lang::line('users::users.status')->get(),
 				'created_at'          => 'Created At',
 			),
 			'alias'     => array(
 				'users.id'            => 'id',
 				'groups.name'         => 'groups',
-				'option_strings.text' => 'status'
+				'configuration.name'  => 'status'
 			),
 			'where'     => array(),
 			'order_by'  => array('users.id' => 'desc'),
@@ -240,8 +240,9 @@ class Users_API_Users_Controller extends API_Controller
 				->left_join('users_metadata', 'users.id', '=', 'users_metadata.user_id')
 				->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
 				->left_join('groups', 'users_groups.group_id', '=', 'groups.id')
-				->join('option_strings', 'option_strings.value', '=', 'users.status')
-				->where('option_strings.slug', '=', 'user_status');
+				->join('configuration', 'configuration.value', '=', 'users.status')
+				->where('configuration.extension', '=', 'users')
+				->where('configuration.type', '=', 'status');
 		});
 
 		// set paging
@@ -255,8 +256,9 @@ class Users_API_Users_Controller extends API_Controller
 
 			return $query
 				->select($columns)
-				->join('option_strings', 'option_strings.value', '=', 'users.status')
-				->where('option_strings.slug', '=', 'user_status');
+				->join('configuration', 'configuration.value', '=', 'users.status')
+				->where('configuration.extension', '=', 'users')
+				->where('configuration.type', '=', 'status');
 
 		});
 
