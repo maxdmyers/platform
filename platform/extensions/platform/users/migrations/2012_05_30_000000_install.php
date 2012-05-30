@@ -64,7 +64,7 @@ class Users_Install
 			'extension' 	=> 'users',
 			'type' 			=> 'status',
 			'name' 			=> 'enabled',
-			'value' 		=> '0',
+			'value' 		=> '1',
 		));
 
 		// Create Menu Items
