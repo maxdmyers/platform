@@ -34,9 +34,9 @@
 */
 
 return array(
-	'docs'  => array(
-		'location' => 'path: '.path('app').'bundles'.DS.'docs',
-		'handles'  => 'docs',
+	'gitsy'  => array(
+		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',
+		'auto'     => true,
 	),
 	'nesty'  => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
