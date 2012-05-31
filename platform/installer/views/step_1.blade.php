@@ -48,7 +48,7 @@
 					{{ Form::label('username', 'Username', array('class' => 'control-label', 'for' => 'inputIcon')) }}
 		         	<div class="controls">
 		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('username', null, array('placeholder' => '')) }}
+		            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('username', null, array('placeholder' => 'e.g. root')) }}
 		            	</div>
 		        	</div>
 		        </div>
@@ -66,7 +66,7 @@
 					{{ Form::label('database', 'Database', array('class' => 'control-label', 'for' => 'inputIcon')) }}
 		         	<div class="controls">
 		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-briefcase"></i></span>{{ Form::text('database', null, array('placeholder' => 'e.g. cartalyst')) }}
+		            		<span class="add-on"><i class="icon-briefcase"></i></span>{{ Form::text('database', null, array('placeholder' => 'e.g. platform')) }}
 		            	</div>
 		        	</div>
 		        </div>

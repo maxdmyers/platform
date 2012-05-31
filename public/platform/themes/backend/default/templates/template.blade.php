@@ -53,6 +53,7 @@
 					</a>
 					<h1>Platform</h1>
 				</div>
+
 				<nav>
 					@widget('menus::menus.primary')
 				</nav>
@@ -60,8 +61,9 @@
 			</div>
 
 			<div id="page" class="span10">
+
 				<nav>
-					@widget('menus::menus.secondary')
+					@widget('menus::menus.secondary', array('slug' => 'users'))
 				</nav>
 
 				@yield('content')

@@ -88,9 +88,6 @@ class Platform
 
 		// Register Extensions
 		static::extensions_manager()->start_extensions();
-
-		// Install menu
-		// static::extensions_manager()->install_admin_menu();
 	}
 
 	/**
@@ -229,6 +226,8 @@ class Platform
 	{
 		$name = trim($name);
 
+
+
 		if (strpos($name, '::') !== false)
 		{
 			list($bundle, $action) = explode('::', strtolower($name));
@@ -274,7 +273,11 @@ class Platform
 	 */
 	public static function plugin($name)
 	{
+		// Get the widget name
 		$name = trim($name);
+
+		// Any parameters passed to the widget.
+		$parameters = array_slice(func_get_args(), 1);
 
 		if (strpos($name, '::') !== false)
 		{
@@ -310,7 +313,7 @@ class Platform
 			throw new \Exception('Method: '.$method.' does not exist in class: '.$class);
 		}
 
-		return $plugin->$method();
+		return call_user_func_array(array($plugin, $method), $parameters);
 	}
 
 }

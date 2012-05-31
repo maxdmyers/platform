@@ -102,14 +102,31 @@ class Menus_API_Menus_Controller extends API_Controller
 	 */
 	public function get_children()
 	{
-		$parent = Menu::find(Input::get('id'));
+		if ($id = Input::get('id'))
+		{
+			$parent = Menu::find(Input::get('id'));
+		}
+		elseif ($slug = Input::get('slug'))
+		{
+			$parent = Menu::find(function($query) use ($slug)
+			{
+				return $query->where('slug', '=', $slug);
+			});
+		}
+		else
+		{
+			return array(
+				'status'  => false,
+				'message' => 'Either a parent ID or slug is required to retrieve it\'s children.',
+			);
+		}
 
-		// Invalid ID for parent
+		// Invalid ID bafor parent
 		// Nesty
 		if ($parent === null)
 		{
 			return array(
-				'status' => false,
+				'status'  => false,
 				'message' => "The parent Nesty model ID [$id] is invalid",
 			);
 		}

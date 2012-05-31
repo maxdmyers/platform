@@ -21,6 +21,7 @@
 namespace Platform\Menus\Widgets;
 
 use API;
+use Input;
 use Theme;
 
 class Menus
@@ -44,13 +45,17 @@ class Menus
 
 	public function secondary()
 	{
-		// Get menu items
-		$items = API::get('menus/admin_menu', array('depth' => 0));
+		// Get secondary navigation
+		$items = API::get('menus/children', array(
+			'id'    => Input::get('id'),
+			'slug'  => Input::get('slug'),
+			'depth' => 0,
+		));
+
+echo '<pre>';print_r(Input::get());print_r($items);die();
 
 		return Theme::make('menus::widgets.secondary')
 		            ->with('items', $items);
 	}
-
-
 
 }
