@@ -107,14 +107,6 @@ class Users_API_Users_Controller extends API_Controller
 		{
 			if ($user->save())
 			{
-				// save log
-				// $lang = array(
-				// 	'id'   => $user['id'],
-				// 	'user' => $user['metadata']['first_name'].' '.$user['metadata']['last_name']
-				// );
-
-				// Logger::add(Logger::INSERT, 'users', Lang::line('users.log_create', $lang));
-
 				// respond
 				return array(
 					'status'  => true,

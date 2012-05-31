@@ -30,6 +30,8 @@ class Menus
 	 * Returns the admin navigation for Platform.
 	 * Currently the main nav is limited to 1 level
 	 * of depth.
+	 *
+	 * @return  View
 	 */
 	public function primary()
 	{
