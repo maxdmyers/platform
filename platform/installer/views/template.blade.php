@@ -36,7 +36,7 @@
 	<link rel="shortcut icon" href="{{ URL::to_asset('platform/installer/img/favicon.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="{{ URL::to_asset('platform/installer/img/apple-touch-icon-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ URL::to_asset('platform/installer/img/apple-touch-icon-72x72-precomposed.png') }}">
-	<link rel="apple-touch-icon-precomposed" sizes="11
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ URL::to_asset('platform/installer/img/apple-touch-icon-114x114-precomposed.png') }}">
 </head>
 <body>
 
