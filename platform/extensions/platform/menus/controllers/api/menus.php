@@ -88,6 +88,36 @@ class Menus_API_Menus_Controller extends API_Controller
 	}
 
 	/**
+	 * Returns the children of a menu with the
+	 * given item ID.
+	 *
+	 *	<code>
+	 *		API::get('menus/children', array(
+	 *			'id'    => 5,
+	 *			'depth' => 2,
+	 *		));
+	 *	</code>
+	 *
+	 * @return  array
+	 */
+	public function get_children()
+	{
+		$parent = Menu::find(Input::get('id'));
+
+		// Invalid ID for parent
+		// Nesty
+		if ($parent === null)
+		{
+			return array(
+				'status' => false,
+				'message' => "The parent Nesty model ID [$id] is invalid",
+			);
+		}
+
+		return $parent->children(Input::get('depth', 0));
+	}
+
+	/**
 	 * Recursively processes an item and it's children
 	 * based on POST data.
 	 *
