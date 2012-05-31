@@ -54,14 +54,15 @@
 					<h1>Platform</h1>
 				</div>
 				<nav>
-					@widget('menus::menus.nav')
+					@widget('menus::menus.primary')
 				</nav>
-				<nav>
 
-				</nav>
 			</div>
 
 			<div id="page" class="span10">
+				<nav>
+					@widget('menus::menus.secondary')
+				</nav>
 
 				@yield('content')
 

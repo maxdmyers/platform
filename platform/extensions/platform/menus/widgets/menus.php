@@ -31,13 +31,24 @@ class Menus
 	 * Currently the main nav is limited to 1 level
 	 * of depth.
 	 */
-	public function nav()
+	public function primary()
 	{
 		// Get menu items
 		$items = API::get('menus/admin_menu', array('depth' => 0));
 
-		return Theme::make('menus::widgets.nav')
+		return Theme::make('menus::widgets.primary')
 		            ->with('items', $items);
 	}
+
+	public function secondary()
+	{
+		// Get menu items
+		$items = API::get('menus/admin_menu', array('depth' => 0));
+
+		return Theme::make('menus::widgets.secondary')
+		            ->with('items', $items);
+	}
+
+
 
 }
