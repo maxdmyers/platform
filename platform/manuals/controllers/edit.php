@@ -18,10 +18,15 @@
  * @link       http://cartalyst.com
  */
 
-Autoloader::namespaces(array(
-	'Platform\\Manuals' => Bundle::path('manuals').'models',
-));
+class Manuals_Edit_Controller extends Manuals_Base_Controller
+{
 
-Autoloader::map(array(
-	'Manuals_Base_Controller' => Bundle::path('manuals').'controllers/base'.EXT,
-));
+	public function get_edit($manual, $chapter, $article_name)
+	{
+		return View::make('manuals::edit')
+		           ->with('manual', $manual)
+		           ->with('chapter', $chapter)
+		           ->with('article_name', $article_name);
+	}
+
+}

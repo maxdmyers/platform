@@ -25,6 +25,7 @@ use Closure;
 use Exception;
 use File;
 use MarkdownExtra_Parser;
+use Str;
 
 class Manual
 {
@@ -36,6 +37,42 @@ class Manual
 	 * @var MarkdownExtra_Parser
 	 */
 	protected static $parser = null;
+
+	/**
+	 * Returns the names of all menus.
+	 *
+	 * Format is array('folder' => 'Manual Name'),
+	 * such as array('foo_bar' => 'Foo Bar');
+	 *
+	 * @return  array
+	 */
+	public static function all()
+	{
+		// Get contents of the storage/manuals directory.
+		$dir_contents = glob(path('storage').'manuals'.DS.'*');
+
+		// Fallback for manuals
+		$manuals = array();
+
+		foreach ($dir_contents as $path)
+		{
+			// Skip files (such as README files of repos etc)
+			if ( ! is_dir($path))
+			{
+				continue;
+			}
+
+			$folder_name = basename($path);
+
+			// Virtually a reverese of Str::classify().
+			$manual_name = Str::title(str_replace(array('_', '-', '.'), ' ', $folder_name));
+
+			// Add to our manuals.
+			$manuals[$folder_name] = $manual_name;
+		}
+
+		return $manuals;
+	}
 
 	/**
 	 * Parses a string of Markdown and returns

@@ -1,5 +1,5 @@
-<div id="{{ $article_name }}">
-	<a style="float: right;" href="{{ URL::to('manuals/edit/'.$manual.'/'.$chapter.'/'.$article_name) }}">
+<div class="well article">
+	<a class="pull-right btn" href="{{ URL::to('manuals/edit/'.$manual.'/'.$chapter.'/'.$article_name) }}">
 		Edit
 	</a>
 	{{ $article }}

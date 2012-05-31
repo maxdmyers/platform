@@ -1,13 +1,20 @@
-<div style="margin-left: 0.5%; float: left; width: 32%;">
-	{{ $toc }}
-</div>
+@layout('manuals::template')
 
-<div style="margin-right: 0.5%; float: right; width: 62%;">
-	{{ $chapter_toc }}
+@section('content')
 
-	@forelse ($articles as $article)
-		{{ $article }}
-	@empty
-		No articles.
-	@endforelse
-</div>
+	<div class="span4" id="toc">
+		{{ $toc }}
+	</div>
+
+	<div class="span8" id="chapter">
+		{{ $chapter_toc }}
+
+		@forelse ($articles as $article)
+			{{ $article }}
+		@empty
+			No articles.
+		@endforelse
+	</div>
+
+
+@endsection
