@@ -38,6 +38,10 @@ return array(
 		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',
 		'auto'     => true,
 	),
+	'manuals'  => array(
+		'location' => 'path: '.path('manuals'),
+		'auto'     => true,
+	),
 	'nesty'  => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
 		'auto'     => true,

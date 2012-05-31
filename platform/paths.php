@@ -43,6 +43,11 @@ $paths['sys'] = 'laravel';
 $paths['installer'] = 'installer';
 
 // --------------------------------------------------------------
+// The path to the Platform manuals.
+// --------------------------------------------------------------
+$paths['manuals'] = 'manuals';
+
+// --------------------------------------------------------------
 // The path to the bundles directory.
 // --------------------------------------------------------------
 $paths['bundle'] = 'extensions/platform';
