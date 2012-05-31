@@ -224,9 +224,11 @@ class Platform
 	 */
 	public static function widget($name)
 	{
+		// Get the widget name
 		$name = trim($name);
 
-
+		// Any parameters passed to the widget.
+		$parameters = array_slice(func_get_args(), 1);
 
 		if (strpos($name, '::') !== false)
 		{
@@ -262,18 +264,18 @@ class Platform
 			throw new \Exception('Method: '.$method.' does not exist in class: '.$class);
 		}
 
-		return $widget->$method();
+		return call_user_func_array(array($widget, $method), $parameters);
 	}
 
 	/**
-	 * Loads a widget
+	 * Loads a plugin
 	 *
-	 * @param   string  $name  Name of the widget
+	 * @param   string  $name  Name of the plugin
 	 * @return  mixed
 	 */
 	public static function plugin($name)
 	{
-		// Get the widget name
+		// Get the plugin name
 		$name = trim($name);
 
 		// Any parameters passed to the widget.

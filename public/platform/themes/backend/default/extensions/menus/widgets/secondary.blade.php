@@ -3,7 +3,7 @@
 		<li>
 			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
 
-			<!-- @if ($item['children'])
+			@if ($item['children'])
 				<ul>
 					@foreach ($item['children'] as $child)
 						<li>
@@ -11,7 +11,7 @@
 						</li>
 					@endforeach
 				</ul>
-			@endif -->
+			@endif
 		</li>
 	@endforeach
 </ul>

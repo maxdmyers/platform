@@ -43,16 +43,36 @@ class Menus
 		            ->with('items', $items);
 	}
 
-	public function secondary()
+	/**
+	 * Returns the secondary navigation for Platform.
+	 *
+	 * @param   string|int  $parent
+	 * @return  View
+	 */
+	public function secondary($parent)
 	{
-		// Get secondary navigation
-		$items = API::get('menus/children', array(
-			'id'    => Input::get('id'),
-			'slug'  => Input::get('slug'),
+		// Parameters for the API call
+		$api_params = array(
 			'depth' => 0,
-		));
+		);
 
-echo '<pre>';print_r(Input::get());print_r($items);die();
+		if (is_numeric($parent))
+		{
+			$api_params['id'] = $parent;
+		}
+		else 
+		{
+			$api_params['slug'] = $parent;
+		}
+
+		// Get secondary navigation
+		$items = API::get('menus/children', $api_params);
+
+		// No children
+		if (isset($items['status']) and $items['status'] === false)
+		{
+			return '';
+		}
 
 		return Theme::make('menus::widgets.secondary')
 		            ->with('items', $items);
