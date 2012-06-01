@@ -38,11 +38,12 @@ class Manuals_Edit_Controller extends Manuals_Base_Controller
 	}
 
 	/**
-	 * Shows the edit screen for a manual.
+	 * Shows the edit screen for a manual article
 	 *
-	 * @param  string  $manual
-	 * @param  string  $chapter
-	 * @param  string  $article_name
+	 * @param   string  $manual
+	 * @param   string  $chapter
+	 * @param   string  $article_name
+	 * @return  View
 	 */
 	public function get_edit($manual, $chapter, $article_name)
 	{
@@ -55,6 +56,25 @@ class Manuals_Edit_Controller extends Manuals_Base_Controller
 		           ->with('chapter', $chapter)
 		           ->with('article_name', $article_name)
 		           ->with('article', $article);
+	}
+
+	/**
+	 * Saves a manual article.
+	 *
+	 * If the user isn't logged
+	 * in to either GitHub or 'anonymous', we'll save their
+	 * changes in the session and require they login before
+	 * their changes are 'saved'.
+	 *
+	 * @param   string  $manual
+	 * @param   string  $chapter
+	 * @param   string  $article_name
+	 * @return  Redirect
+	 */
+	public function post_edit($manual, $chapter, $article_name)
+	{
+		echo '<pre>';
+		print_r($_POST);
 	}
 
 }
