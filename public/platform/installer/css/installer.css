@@ -1,10 +1,12 @@
 body {background-color:#fbfbfb;}
+
 #installer {
 	width: 480px;
 	margin: 0 auto;
 	margin-top: 40px;
 }
 
+#installer
 
 #installer .brand {text-align:center; padding:20px 0; border-bottom:1px solid #ddd;}
 
