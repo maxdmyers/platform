@@ -145,7 +145,7 @@ Code blocks are used by indenting code with a tab
 	$bat = $foo->bar('baz');
 	unset($foo); // Save memory
 </pre>
-<span class="label label-info">We prefer a <kbd>tab</kbd> for code indentation rather than spaces</span>
+				<span class="label label-info">We prefer a <kbd>tab</kbd> for code indentation rather than spaces</span>
 			</div>
 			<div class="span6 result"></div>
 		</div>
@@ -174,18 +174,18 @@ Code blocks are used by indenting code with a tab
 		</h4>
 		<div class="row-fluid help-section">
 			<div class="span6">
-				<pre class="markup">Code can like `$foo = $bar->baz();` can be shown using backticks.
+				<pre class="markup">Tables are made using a set of dashes and pipes:
 
-Code blocks are used by indenting code with a tab
+Name            | Age | Gender
+:-------------- | :-  | :-----
+John Appleseed  | 25  | Male
+Greg Doe        | 41  | Male
+Alexis Robinson | 18  | Female
 
-	/**
-	 * Create new object instance
-	 */
-	$foo = new Bar();
-	$bat = $foo->bar('baz');
-	unset($foo); // Save memory
 </pre>
-<span class="label label-info">We prefer a <kbd>tab</kbd> for code indentation rather than spaces</span>
+				<span class="label label-info">The <kbd>:</kbd> specify the alignment of the table cells</span>
+				<br>
+				<span class="label">You cannot currently nest markdown tables</span>
 			</div>
 			<div class="span6 result"></div>
 		</div>

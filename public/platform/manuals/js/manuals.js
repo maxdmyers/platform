@@ -55,6 +55,7 @@ $(document).ready(function() {
 		$('#edit-help .markup').each(function() {
 			$(this).closest('.help-section').find('.result').html(Markdown($(this).text()));
 		});
+		$('#edit-help .result table').addClass('table table-bordered table-striped');
 		$('#edit-help .result pre').addClass('prettyprint linenums');
 
 		// Finally, call prettyPrint
