@@ -34,6 +34,7 @@ Normal text is typed normally.
 Two line breaks will format paragraphs.
 
 >This is a block quote. Use this to summarize your points</pre>
+				<span class="label label-info">We use <kbd>atx-style</kbd> headings with no trailing <kbd>#</kbd></span>
 			</div>
 			<div class="span6 result"></div>
 		</div>
@@ -103,9 +104,10 @@ Foo
 		</h4>
 		<div class="row-fluid help-section">
 			<div class="span6">
-				<pre class="markup">Click [here](http://example.com "Do it!") for more.
+				<pre class="markup">Click [here](http://example.com "Link title") for more.
 
-![Platform](/platform/manuals/img/help/platform.png "Platform")</pre>
+![Platform](/platform/manuals/img/help/platform.png "Image title")</pre>
+				<span class="label label-info">The <kbd>"Title"</kbd> parameter is optional</span>
 			</div>
 			<div class="span6 result"></div>
 		</div>
@@ -181,7 +183,6 @@ Name            | Age | Gender
 John Appleseed  | 25  | Male
 Greg Doe        | 41  | Male
 Alexis Robinson | 18  | Female
-
 </pre>
 				<span class="label label-info">The <kbd>:</kbd> specify the alignment of the table cells</span>
 				<br>
