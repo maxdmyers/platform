@@ -80,6 +80,18 @@ class User extends Crud
 		// prep attribute values after validation is done
 		$attributes = $this->prep_attributes($attributes);
 
+		$groups = array();
+		if (array_key_exists('groups', $attributes))
+		{
+			$groups = $attributes['groups'];
+			unset($attributes['groups']);
+
+			if ( ! is_array($groups))
+			{
+				$groups = array($groups);
+			}
+		}
+
 		// If the model exists, we only need to update it in the database, and the update
 		// will be considered successful if there is one affected row returned from the
 		// fluent query instance. We'll set the where condition automatically.
@@ -98,6 +110,32 @@ class User extends Crud
 
 			try
 			{
+				$user = Sentry::user((int) $key);
+
+				// get user groups
+				$user_groups = array();
+				$current_groups = $user->groups();
+				foreach ($current_groups as $group)
+				{
+					$user_groups[] = $group['name'];
+				}
+
+				// get the difference in group arrays
+				$add_groups = array_diff($groups, $user_groups);
+				$remove_groups = array_diff($user_groups, $groups);
+
+				// add user to groups
+				foreach ($add_groups as $group)
+				{
+					$user->add_to_group($group);
+				}
+
+				// remove user from groups
+				foreach ($remove_groups as $group)
+				{
+					$user->remove_from_group($group);
+				}
+
 				list($query, $attributes) = $this->before_update(null, $attributes);
 				$result = Sentry::user((int) $key)->update($attributes) === true;
 				$result = $this->after_update($result);
@@ -119,6 +157,13 @@ class User extends Crud
 				list($query, $attributes) = $this->before_insert(null, $attributes);
 				$result = Sentry::user()->create($attributes);
 				$result = $this->after_insert($result);
+
+				$user = Sentry::user((int) $result);
+				// add user to groups
+				foreach ($groups as $group)
+				{
+					$user->add_to_group($group);
+				}
 
 				$this->is_new( ! (bool) $result);
 			}

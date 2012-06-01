@@ -49,11 +49,11 @@ return array(
 	},
 
 	'rules' => array(
-		// 'users::admin@index',
-		// 'users::admin@create',
-		// 'users::admin@edit',
-		// 'users::admin@delete',
-		// 'users::admin.group@index',
+		'users::admin.users@index',
+		'users::admin.users@create',
+		'users::admin.users@edit',
+		'users::admin.users@delete',
+		'users::admin.groups@index',
 	),
 
 );

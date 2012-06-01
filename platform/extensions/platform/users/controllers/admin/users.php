@@ -63,21 +63,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	 */
 	public function get_create()
 	{
-		// get and set groups
-		$groups = Sentry::group()->all();
-		//$groups = API::get('users/groups');
-		$data = array();
-		foreach ($groups as $group)
-		{
-			$data['groups'][$group['name']] = ucfirst($group['name']);
-		}
-
-		if (empty($data['groups']))
-		{
-			$data['groups'] = array();
-		}
-
-		return Theme::make('users::create', $data);
+		return Theme::make('users::create');
 	}
 
 	/**
@@ -121,43 +107,9 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	 * @param   int  user id
 	 * @return  View
 	 */
-	public function get_edit($id = null)
+	public function get_edit($id)
 	{
-		// get user being edited
-		$user = API::get('users', array(
-			'where' => array('users.id', '=', $id)
-		));
-
-		if ($user['status'])
-		{
-			$data['user'] = $user['users'][0];
-		}
-		else
-		{
-			// user doesn't exist, redirect
-			return Redirect::to('admin/users');
-		}
-
-		// set status options
-		$data['status_options'] = array(
-			1 => __('users.enabled'),
-			0 => __('users.disabled'),
-		);
-
-		// get and set group options
-		$user_groups = Sentry::group()->all();
-
-		foreach ($user_groups as $user_group)
-		{
-			$data['user_groups'][$user_group['name']] = ucfirst($user_group['name']);
-		}
-
-		// get users current group
-		// $current_groups = Sentry::user((int)$id)->groups();
-		// foreach ($current_groups as $group)
-		// {
-		// 	$data['current_groups'][$group['id']] = $group['name'];
-		// }
+		$data = array('id' => $id);
 
 		return Theme::make('users::edit', $data);
 	}
@@ -175,7 +127,6 @@ class Users_Admin_Users_Controller extends Admin_Controller
 			'email'                 => Input::get('email'),
 			'password'              => Input::get('password'),
 			'password_confirmation' => Input::get('password_confirmation'),
-			'status'                => Input::get('status'),
 			'groups'                => Input::get('groups'),
 			'metadata'              => array(
 				'first_name' => Input::get('first_name'),
@@ -224,6 +175,18 @@ class Users_Admin_Users_Controller extends Admin_Controller
 			return Redirect::to(ADMIN.'/users');
 		}
 	}
+
+	/**
+	 * Set User Permissions
+	 *
+	 * @param   int  user id
+	 * @return  View
+	 */
+	public function get_permissions($id)
+	{
+		return Theme::make('users::permissions', array('id' => $id));
+	}
+
 
 	/**
 	 * Auth Methods

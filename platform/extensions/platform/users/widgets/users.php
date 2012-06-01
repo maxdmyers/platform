@@ -20,7 +20,6 @@
 
 namespace Platform\Users\Widgets;
 
-use Sentry;
 use Theme;
 
 class Users
@@ -28,7 +27,7 @@ class Users
 
 	public function nav()
 	{
-		return Theme::make('users::widgets.nav');
+		return Theme::make('users::widgets.users.nav');
 	}
 
 }

@@ -23,13 +23,13 @@ class Admin_Controller extends Authorized_Controller
 
 	public function before()
 	{
-		// // now check to make sure they have bundle specific permissions
-		// if ( ! Sentry::user()->has_access())
-		// {
-		// 	Platform::messages()->error('Insufficient Permissions');
-		// 	Redirect::to(ADMIN.'/dashboard')->send();
-		// 	exit;
-		// }
+		// now check to make sure they have bundle specific permissions
+		if ( ! Sentry::user()->has_access())
+		{
+			Platform::messages()->error('Insufficient Permissions');
+			Redirect::to(ADMIN.'/dashboard')->send();
+			exit;
+		}
 	}
 
 }

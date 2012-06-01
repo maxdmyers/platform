@@ -60,9 +60,7 @@ class Users_API_Users_Controller extends API_Controller
 	{
 		// set user data
 		$user_data = Input::get();
-		$groups = Input::get('groups');
 
-		unset($user_data['groups']);
 		$user = new User($user_data);
 
 		// save user
@@ -97,9 +95,7 @@ class Users_API_Users_Controller extends API_Controller
 	{
 		// set user data
 		$user_data = Input::get();
-		$groups = Input::get('groups');
 
-		unset($user_data['groups']);
 		$user = new User($user_data);
 
 		// save user

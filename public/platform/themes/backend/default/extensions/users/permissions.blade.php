@@ -6,6 +6,6 @@
 
 @section('content')
 <div>
-	@widget('users::form.edit', $id)
+	@widget('users::form.permissions', $id)
 </div>
 @endsection

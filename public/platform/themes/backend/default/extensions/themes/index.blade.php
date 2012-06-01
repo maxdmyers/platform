@@ -39,7 +39,7 @@
 				<div>
 					<div>
 						<label>Options:</label>
-						<!-- form_select('status', active.status, {"1":"enabled", "0":"disabled"}) -->
+
 					</div>
 					@foreach ($active['options'] as $id => $option)
 						<div>

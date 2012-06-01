@@ -172,8 +172,8 @@ Route::filter('auth', function()
 
 Route::filter('admin_auth', function()
 {
-	// if ( ! Sentry::check() or ! Sentry::user()->has_access('is_admin') )
-	// {
-	// 	return Redirect::to(ADMIN.'/login');
-	// }
+	if ( ! Sentry::check() or ! Sentry::user()->has_access('is_admin') )
+	{
+		return Redirect::to(ADMIN.'/login');
+	}
 });
