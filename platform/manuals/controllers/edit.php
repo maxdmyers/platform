@@ -18,15 +18,43 @@
  * @link       http://cartalyst.com
  */
 
+use Platform\Manuals\Manual;
+
 class Manuals_Edit_Controller extends Manuals_Base_Controller
 {
 
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		parent::before();
+
+		// Add markdown-extra JS
+		Asset::add('markdown', 'platform/manuals/js/markdown-extra.js');
+		Asset::add('tabby', 'platform/manuals/js/jquery/tabby.js');
+	}
+
+	/**
+	 * Shows the edit screen for a manual.
+	 *
+	 * @param  string  $manual
+	 * @param  string  $chapter
+	 * @param  string  $article_name
+	 */
 	public function get_edit($manual, $chapter, $article_name)
 	{
+		// Retrieve the article
+		$article = Manual::article($manual, $chapter, $article_name);
+
+		// Return the edit view
 		return View::make('manuals::edit')
 		           ->with('manual', $manual)
 		           ->with('chapter', $chapter)
-		           ->with('article_name', $article_name);
+		           ->with('article_name', $article_name)
+		           ->with('article', $article);
 	}
 
 }

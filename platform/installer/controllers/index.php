@@ -49,7 +49,7 @@ class Installer_Index_Controller extends Base_Controller
 
 		// Setup JS
 		Asset::add('jquery', 'platform/installer/js/jquery.js');
-		Asset::add('bootstrap', 'platform/installer/js/bootstrap.min.js', array('jquery'));
+		Asset::add('bootstrap', 'platform/installer/js/bootstrap.js', array('jquery'));
 		Asset::add('installer', 'platform/installer/js/installer.js', array('jquery'));
 	}
 
