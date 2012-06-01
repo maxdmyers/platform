@@ -36,7 +36,6 @@
 return array(
 	'gitsy'  => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',
-		'auto'     => true,
 	),
 	'manuals'  => array(
 		'location' => 'path: '.path('manuals'),

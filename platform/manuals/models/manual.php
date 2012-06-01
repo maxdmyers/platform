@@ -215,4 +215,17 @@ class Manual
 		return static::open($manual, $chapter.DS.$article_name.'.md');
 	}
 
+	/**
+	 * Returns the relative path of an article file.
+	 *
+	 * @param   string   $manual
+	 * @param   string   $chapter
+	 * @param   string   $article_name
+	 * @return  string
+	 */
+	public static function relative_path($manual, $chapter, $article_name)
+	{
+		return $manual.DS.$chapter.DS.$article_name.'.md';
+	}
+
 }
