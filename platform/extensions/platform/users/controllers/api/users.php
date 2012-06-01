@@ -91,7 +91,7 @@ class Users_API_Users_Controller extends API_Controller
 		}
 	}
 
-	public function post_edit()
+	public function post_update()
 	{
 		// set user data
 		$user_data = Input::get();

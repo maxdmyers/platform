@@ -37,11 +37,7 @@ class User extends Crud
 	/**
 	 * @var  array  $rules  Validation rules for model attributes
 	 */
-	protected static $_rules = array(
-		'email'    => 'required|email|unique:users',
-		'password' => 'required|confirmed',
-			'metadata.first_name' => 'required',
-	);
+	protected static $_rules = array();
 
 	// we use this to set metdata
 	protected static $_fields = array(

@@ -11,7 +11,8 @@
 				@endforeach
 			</fieldset>
 		@endforeach
-		<pre>
-			{{ print_r($rules) }}
-		</pre>
+		<div>
+			<input type="submit" value="{{ Lang::line('users::permissions.btn_update') }}">
+			<a href="{{ url(ADMIN.'/users') }}">{{ Lang::line('users::users.btn_cancel') }}</a>
+		</div>
 {{ Form::close() }}

@@ -4,8 +4,23 @@
 	{{ Lang::line('users::users.title_edit') }}
 @endsection
 
+@section('body_scripts')
+	{{ Theme::asset('js/bootstrap/bootstrap-tab.js') }}
+@endsection
+
 @section('content')
-<div>
-	@widget('users::form.edit', $id)
+<div class="tabbable">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#general" data-toggle="tab">General</a></li>
+		<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
+	</ul>
+	<div class="tab-content">
+	    <div class="tab-pane active" id="general">
+	    	@widget('users::form.edit', $id)
+	    </div>
+	    <div class="tab-pane" id="permissions">
+	    	@widget('users::form.permissions', $id)
+	    </div>
+  	</div>
 </div>
 @endsection

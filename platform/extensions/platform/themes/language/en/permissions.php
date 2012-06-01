@@ -20,34 +20,12 @@
 
 return array(
 
-	'info' => array(
-		'name'        => 'Themes',
-		'slug'        => 'themes',
-		'author'      => 'Cartalyst LLC',
-		'description' => 'Manages your website themes.',
-		'version'     => '1.0',
-		'is_core'     => true,
-	),
-
-	'dependencies' => array(
-		'menus',
-	),
-
-	'bundles' => array(
-		'handles' => 'themes',
-	),
-
-	'listeners' => function() {
-
-	},
-
-	'global_routes' => function() {
-
-	},
-
-	'rules' => array(
-		'themes::admin.themes@frontend',
-		'themes::admin.themes@backend',
-	),
+	'admin' => array(
+		'themes' => array(
+			'_title_'  => 'Admin Themes',
+			'frontend' => 'Frontend',
+			'backend'  => 'Backend',
+		),
+	)
 
 );
