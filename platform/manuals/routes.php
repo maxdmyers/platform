@@ -19,7 +19,7 @@
  */
 
 // Editing a manual
-Route::get('manuals/edit/(:any?)/(:any?)/(:any?)', 'manuals::edit@edit');
+Route::any('manuals/edit/(:any?)/(:any?)/(:any?)', 'manuals::edit@edit');
 
 // Reading a manual
 Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), 'manuals::index@read');

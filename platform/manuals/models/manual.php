@@ -184,7 +184,7 @@ class Manual
 		// Loop through article names
 		foreach ($article_names as $article_name)
 		{
-			$article = static::open($manual, $chapter.DS.$article_name.'.md');
+			$article = static::article($manual, $chapter, $article_name);
 
 			// Check the filter paramter, if it is
 			// a closure then we'll let it modify
@@ -199,6 +199,33 @@ class Manual
 		}
 
 		return $articles;
+	}
+
+	/**
+	 * Returns the markdown content for a given article
+	 * in a chapter for a manual.
+	 *
+	 * @param   string   $manual
+	 * @param   string   $chapter
+	 * @param   string   $article_name
+	 * @return  string   $article
+	 */
+	public static function article($manual, $chapter, $article_name)
+	{
+		return static::open($manual, $chapter.DS.$article_name.'.md');
+	}
+
+	/**
+	 * Returns the relative path of an article file.
+	 *
+	 * @param   string   $manual
+	 * @param   string   $chapter
+	 * @param   string   $article_name
+	 * @return  string
+	 */
+	public static function relative_path($manual, $chapter, $article_name)
+	{
+		return $manual.DS.$chapter.DS.$article_name.'.md';
 	}
 
 }
