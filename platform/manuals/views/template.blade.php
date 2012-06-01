@@ -21,7 +21,7 @@
 	<![endif]-->
 
 	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Links -->
 	{{ Asset::styles() }}
@@ -40,31 +40,38 @@
 </head>
 <body>
 
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
+	<div id="manuals">
+		<div class="curl"></div>
+		<div class="header">
+			<div class="container-fluid">
+				<div class="brand">
+					<a href="{{ URL::to('manuals') }}">
+						{{ HTML::image('platform/manuals/img/brand.png', 'Platform by Cartalyst'); }}
+					</a>
+				</div>
 
-				<a class="brand" href="{{ URL::to('manuals') }}">Manuals</a>
+				<div class="navigation">
+					<h1>Platform Manuals</h1>
+					<p class="lead">We make sure every extension created for Platform is well documented and easily improved by our community.</p>
 
-				<ul class="nav">
-					@foreach ($manuals as $folder => $name)
-						<li class="{{ $folder === $active_manual ? 'active' : null }}">
-							{{ HTML::link('manuals/'.$folder, $name) }}
-						</li>
-					@endforeach
-				</ul>
-
+					<ul class="nav nav-pills">
+						@foreach ($manuals as $folder => $name)
+							<li class="{{ $folder === $active_manual ? 'active' : null }}">
+								{{ HTML::link('manuals/'.$folder, $name) }}
+							</li>
+						@endforeach
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div id="base" class="container-fluid">
-		<div class="row-fluid">
+		<div id="page" class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
 
-			<div id="page" class="span12">
+					@yield('content')
 
-				@yield('content')
-
+				</div>
 			</div>
 		</div>
 	</div>

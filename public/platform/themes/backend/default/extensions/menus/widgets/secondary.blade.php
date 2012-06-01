@@ -1,4 +1,4 @@
-<ul class="nav nav-pills">
+<ul class="nav nav-tabs">
 	@foreach ($items as $item)
 		<li>
 			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
