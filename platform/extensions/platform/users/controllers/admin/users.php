@@ -209,7 +209,18 @@ class Users_Admin_Users_Controller extends Admin_Controller
 			{
 				$update_permissions[$rules[$bundle][$rule_slug]] = 1;
 			}
+		}
 
+		// now grab the list of rules
+		$rules = Sentry\Sentry_Rules::fetch_rules();
+
+		// and we'll remove them from the user by setting all other rules to empty
+		foreach ($rules as $rule)
+		{
+			if ( ! array_key_exists($rule, $update_permissions))
+			{
+				$update_permissions[$rule] = '';
+			}
 		}
 
 		// initialize data array
