@@ -30,7 +30,9 @@ class Manuals_Index_Controller extends Manuals_Base_Controller
 	 */
 	public function get_index()
 	{
-		return View::make('manuals::index');
+		return View::make('manuals::index')
+		           ->with('manuals', Manual::all())
+		           ->with('active_manual', (($segment = URI::segment(2)) !== 'edit') ? $segment : URI::segment(3));
 	}
 
 	/**
