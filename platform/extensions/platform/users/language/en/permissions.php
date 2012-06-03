@@ -20,7 +20,12 @@
 
 return array(
 
+	'_title_' => 'Users General',
+
 	'admin' => array(
+		'_title_' => 'Admin Users General',
+		'is_another_admin' => 'Another Admin',
+
 		'users' => array(
 			'_title_' => 'Admin Users',
 			'index'   => 'View',
@@ -33,6 +38,8 @@ return array(
 			'_title_' => 'Admin User Groups',
 			'index'   => 'View Group',
 		)
-	)
+	),
+
+	'btn_update' => 'Update Permissions'
 
 );

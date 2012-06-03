@@ -119,8 +119,14 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	 *
 	 * @return  Redirect
 	 */
-	public function post_edit($id = null)
+	public function post_edit($id)
 	{
+		if ( ! $id)
+		{
+			Platform::messages()->error('A user Id is required to update a user.');
+			return Redirect::to(ADMIN.'/users');
+		}
+
 		// initialize data array
 		$data = array(
 			'id'                    => $id,
@@ -135,18 +141,18 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		);
 
 		// update user
-		$edit_user = API::post('users/edit', $data);
+		$update_user = API::post('users/update', $data);
 
-		if ($edit_user['status'])
+		if ($update_user['status'])
 		{
-			// user was edited - set success and redirect back to admin/users
-			Platform::messages()->success($edit_user['message']);
+			// user was updated - set success and redirect back to admin/users
+			Platform::messages()->success($update_user['message']);
 			return Redirect::to(ADMIN.'/users');
 		}
 		else
 		{
-			// there was an error editing the user - set errors
-			Platform::messages()->error($edit_user['message']);
+			// there was an error updating the user - set errors
+			Platform::messages()->error($update_user['message']);
 			return Redirect::to(ADMIN.'/users/edit/'.$id)->with_input();
 		}
 	}
@@ -177,16 +183,68 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	}
 
 	/**
-	 * Set User Permissions
+	 * Process permission post
 	 *
-	 * @param   int  user id
-	 * @return  View
+	 * @return  Redirect
 	 */
-	public function get_permissions($id)
+	public function post_permissions($id)
 	{
-		return Theme::make('users::permissions', array('id' => $id));
-	}
+		if ( ! $id)
+		{
+			Platform::messages()->error('A user Id is required to update permissions.');
+			return Redirect::to(ADMIN.'/users');
+		}
 
+		$permissions = Input::get();
+		$rules = Sentry\Sentry_Rules::fetch_bundle_rules();
+
+		$update_permissions = array();
+		foreach ($permissions as $slug => $permission)
+		{
+			$bundle_pos = strpos($slug, '_');
+			$bundle     = substr($slug, 0, $bundle_pos);
+			$rule_slug  = substr($slug, $bundle_pos+1);
+
+			if (isset($rules[$bundle][$rule_slug]))
+			{
+				$update_permissions[$rules[$bundle][$rule_slug]] = 1;
+			}
+		}
+
+		// now grab the list of rules
+		$rules = Sentry\Sentry_Rules::fetch_rules();
+
+		// and we'll remove them from the user by setting all other rules to empty
+		foreach ($rules as $rule)
+		{
+			if ( ! array_key_exists($rule, $update_permissions))
+			{
+				$update_permissions[$rule] = '';
+			}
+		}
+
+		// initialize data array
+		$data = array(
+			'id'          => $id,
+			'permissions' => $update_permissions
+		);
+
+		// update user
+		$update_user = API::post('users/update', $data);
+
+		if ($update_user['status'])
+		{
+			// user was updated - set success and redirect back to admin/users
+			Platform::messages()->success($update_user['message']);
+			return Redirect::to(ADMIN.'/users');
+		}
+		else
+		{
+			// there was an error updating the user - set errors
+			Platform::messages()->error($update_user['message']);
+			return Redirect::to(ADMIN.'/users/edit/'.$id)->with_input();
+		}
+	}
 
 	/**
 	 * Auth Methods
