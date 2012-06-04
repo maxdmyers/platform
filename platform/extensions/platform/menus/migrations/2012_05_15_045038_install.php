@@ -18,6 +18,8 @@
  * @link       http://cartalyst.com
  */
 
+use Platform\Menus\Menu;
+
 class Menus_Install
 {
 
@@ -40,6 +42,8 @@ class Menus_Install
 			$table->integer('rgt');
 			$table->integer('menu_id');
 		});
+
+		// Create menu items
 
 		$admin = Menu::admin_menu();
 
