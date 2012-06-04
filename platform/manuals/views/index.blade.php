@@ -1,19 +1,17 @@
-@layout('manuals::template')
+@layout('manuals::cover')
 
-@section('brand')
-<div class="brand">
-	<a href="{{ URL::to('manuals') }}">
-		{{ HTML::image('platform/manuals/img/brand.png', 'Platform by Cartalyst'); }}
+@section('cover')
+<div class="front">
+
+	<a class="brand" href="{{ URL::to('manuals') }}">
+		{{ HTML::image('platform/manuals/img/brand.png', 'Platform by Cartalyst') }}
 	</a>
-</div>
-@endsection
 
-@section('navigation')
-<div class="navigation">
-	<h1>Platform Manuals</h1>
-	<p class="lead">We make sure every extension created for Platform is well documented and easily improved by our community.</p>
+	<p class="lead">
+		We make sure every extension created for Platform is well documented and easily improved by our community.
+	</p>
 
-	<ul class="nav nav-pills">
+	<ul class="nav nav-tabs nav-stacked">
 		@foreach ($manuals as $folder => $name)
 			<li class="{{ $folder === $active_manual ? 'active' : null }}">
 				{{ HTML::link('manuals/'.$folder, $name) }}
@@ -21,10 +19,6 @@
 		@endforeach
 	</ul>
 </div>
-@endsection
-
-@section('content')
-
 @endsection
 
 

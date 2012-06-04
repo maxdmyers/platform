@@ -71,7 +71,7 @@ class Manuals_Base_Controller extends Base_Controller
 		$manuals       = Manual::all();
 		$active_manual = (($segment = URI::segment(2)) !== 'edit') ? $segment : URI::segment(3);
 
-		View::composer('manuals::template', function($view) use ($manuals, $active_manual)
+		View::composer('manuals::chapter', function($view) use ($manuals, $active_manual)
 		{
 			$view->with('manuals', $manuals)
 			     ->with('active_manual', $active_manual);

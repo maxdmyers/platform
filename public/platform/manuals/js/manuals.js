@@ -5,7 +5,7 @@ $(document).ready(function() {
 	| Enhance side navigation (manual TOC)
 	|-------------------------------------
 	*/
-	$('#toc ul').addClass('nav nav-list');
+	$('#toc ul').addClass('nav nav-tabs');
 
 	/*
 	|-------------------------------------

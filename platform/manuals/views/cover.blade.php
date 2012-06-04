@@ -38,30 +38,19 @@
 </head>
 <body>
 
-	<div id="manuals">
-		<div class="brand">
-			<a href="{{ URL::to('manuals') }}">
-				{{ HTML::image('platform/manuals/img/brand-icon.png', 'Platform by Cartalyst'); }}
-			</a>
-		</div>
+	<div id="cover">
 
-		<div class="header container-fluid">
+		<div class="curl"></div>
+
+		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
-					@yield('header')
+					@yield('cover')
 				</div>
 			</div>
 		</div>
 
-		<div class="page container-fluid">
-			<div class="row-fluid">
-				<div class="span12">
 
-					@yield('content')
-
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<!-- Body Scripts -->
