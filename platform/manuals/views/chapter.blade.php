@@ -10,6 +10,7 @@
 
 	<div id="toc">
 		{{ HTML::image('platform/manuals/img/'. URI::segment(2) . '.png', 'Platform by Cartalyst'); }}
+
 		{{ $toc }}
 	</div>
 	<!--<div class="navigation">
@@ -29,10 +30,11 @@
 
 @section('content')
 
-
-
-	<div class="span8" id="chapter">
+	<div class="span2" id="chapter-toc">
 		{{ $chapter_toc }}
+	</div>
+	<div class="span8" id="chapter">
+
 
 		@forelse ($articles as $article)
 			{{ $article }}
