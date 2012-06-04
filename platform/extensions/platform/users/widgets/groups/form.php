@@ -73,6 +73,7 @@ class Groups_Form
 
 		// get current group permissions
 		$current_permissions = json_decode(Sentry\Sentry::group((int) $id)->get('permissions'), 'assoc');
+		$current_permissions = ($current_permissions) ?: array();
 
 		$extension_rules = array();
 		foreach ($bundle_rules as $bundle => $rules)
