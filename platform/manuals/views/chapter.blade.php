@@ -1,12 +1,17 @@
 @layout('manuals::template')
 
 @section('header')
+
 	<div class="brand">
 		<a href="{{ URL::to('manuals') }}">
 			{{ HTML::image('platform/manuals/img/brand-icon.png', 'Platform by Cartalyst'); }}
 		</a>
 	</div>
 
+	<div id="toc">
+		{{ HTML::image('platform/manuals/img/'. URI::segment(2) . '.png', 'Platform by Cartalyst'); }}
+		{{ $toc }}
+	</div>
 	<!--<div class="navigation">
 		<ul class="nav nav-pills">
 			@foreach ($manuals as $folder => $name)
@@ -24,9 +29,7 @@
 
 @section('content')
 
-	<div class="span2" id="toc">
-		{{ $toc }}
-	</div>
+
 
 	<div class="span8" id="chapter">
 		{{ $chapter_toc }}

@@ -32,12 +32,18 @@ body {
 }
 
 
-
-
-
 #manuals .page {
 	clear:both;
 }
+
+#toc { padding:10px 0;}
+#toc h1 {padding-top:14px;}
+#toc h2 {margin-bottom:20px;}
+#toc img { float:left; padding:10px; }
+
+#toc {clear: both;}
+
+
 /* Prettyprint styling */
 .com {
   color: #93a1a1;

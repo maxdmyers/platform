@@ -39,6 +39,11 @@
 <body>
 
 	<div id="manuals">
+		<div class="brand">
+			<a href="{{ URL::to('manuals') }}">
+				{{ HTML::image('platform/manuals/img/brand-icon.png', 'Platform by Cartalyst'); }}
+			</a>
+		</div>
 
 		<div class="header container-fluid">
 			<div class="row-fluid">
