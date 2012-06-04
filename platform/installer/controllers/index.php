@@ -223,6 +223,9 @@ class Installer_Index_Controller extends Base_Controller
 				'first_name' => Input::get('first_name'),
 				'last_name'  => Input::get('last_name'),
 			),
+			'permissions' => array(
+				Config::get('sentry::sentry.permissions.superuser') => 1,
+			),
 		);
 
 		// Start the users extensions
