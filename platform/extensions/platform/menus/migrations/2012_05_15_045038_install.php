@@ -18,9 +18,7 @@
  * @link       http://cartalyst.com
  */
 
-use Platform\Menus\Menu;
-
-class Menus_Install_Admin_Menu
+class Menus_Install
 {
 
 	/**
@@ -30,6 +28,19 @@ class Menus_Install_Admin_Menu
 	 */
 	public function up()
 	{
+		// Create menu table
+		Schema::create('menus', function($table)
+		{
+			$table->increments('id')->unsigned();
+			$table->string('name');
+			$table->string('slug')->unique();
+			$table->string('uri');
+			$table->boolean('user_editable');
+			$table->integer('lft');
+			$table->integer('rgt');
+			$table->integer('menu_id');
+		});
+
 		$admin = Menu::admin_menu();
 
 		// Find the system menu
@@ -69,7 +80,7 @@ class Menus_Install_Admin_Menu
 	 */
 	public function down()
 	{
-
+		Schema::drop('menus');
 	}
 
 }

@@ -40,48 +40,39 @@ class Settings_Install
 		});
 
 
-	// Create Menu Items
+		// Create menu items
 
 		$admin = Menu::admin_menu();
 
-		// Check if system exists
-		$system = Menu::find(function($query)
+		// Find the system menu
+		$system = Menu::find(function($query) use ($admin)
 		{
-			return $query->where('slug', '=', 'system');
+			return $query->where('slug', '=', 'system')
+			             ->where(Menu::nesty_col('tree'), '=', $admin->{Menu::nesty_col('tree')});
 		});
 
-		if ( ! $system)
+		if ($system === null)
 		{
-
-			// People menu
 			$system = new Menu(array(
 				'name'          => 'System',
 				'slug'          => 'system',
-				'uri'           => 'system',
+				'uri'           => 'settings',
 				'user_editable' => 0,
 			));
 
 			$system->last_child_of($admin);
 		}
 
-		$settings = Menu::find(function($query)
-		{
-			return $query->where('slug', '=', 'settings');
-		});
 
-		if ( ! $settings)
-		{
+		// Settings menu
+		$settings = new Menu(array(
+			'name'          => 'Settings',
+			'slug'          => 'settings',
+			'uri'           => 'settings',
+			'user_editable' => 0,
+		));
 
-			// Settings menu
-			$settings = new Menu(array(
-				'name'          => 'Settings',
-				'slug'          => 'settings',
-				'uri'           => 'settings',
-				'user_editable' => 0,
-			));
-
-			$settings->last_child_of($system);
-		}
+		$settings->last_child_of($system);
 
 	}
 	/**
