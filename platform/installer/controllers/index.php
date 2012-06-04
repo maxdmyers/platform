@@ -43,6 +43,10 @@ class Installer_Index_Controller extends Base_Controller
 	{
 		parent::before();
 
+		// Always make the system prepared for an install, as
+		// we never know which step we're landing on.
+		Installer::prepare();
+
 		// Setup CSS
 		Asset::add('bootstrap', 'platform/installer/css/bootstrap.min.css');
 		Asset::add('installer', 'platform/installer/css/installer.css');

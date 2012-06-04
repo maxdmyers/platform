@@ -22,9 +22,10 @@ namespace Installer;
 
 use Bundle;
 use DB;
-use Platform;
 use File;
 use Exception;
+use Platform;
+use Session;
 use Str;
 
 /**
@@ -35,6 +36,18 @@ use Str;
  */
 class Installer
 {
+
+	/**
+	 * Prepares the system for an install.
+	 *
+	 * @return  void
+	 */
+	public static function prepare()
+	{
+		// Always flush session, as new users are
+		// created
+		Session::flush();
+	}
 
 	/**
 	 * Determines if Platform has been installed or not.
