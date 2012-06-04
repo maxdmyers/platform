@@ -20,6 +20,10 @@
 
 class Admin_Controller extends Authorized_Controller
 {
+	public function __construct()
+	{
+		$this->filter('before', 'admin_auth');
+	}
 
 	public function before()
 	{
