@@ -1,4 +1,4 @@
-{{ Form::open(ADMIN.'/users/permissions/'.$id) }}
+{{ Form::open(ADMIN.'/users/groups/permissions/'.$id) }}
 	@foreach($extension_rules as $rules)
 		<fieldset>
 			<legend>{{ $rules['title'] }}</legend>

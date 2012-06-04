@@ -26,7 +26,6 @@ use Sentry\SentryException;
 
 class Group extends Crud
 {
-
 	/**
 	 * The primary key for the model on the database table.
 	 *
@@ -37,9 +36,7 @@ class Group extends Crud
 	/**
 	 * @var  array  $rules  Validation rules for model attributes
 	 */
-	protected static $_rules = array(
-		'name'    => 'required|unique:groups'
-	);
+	protected static $_rules = array();
 
 	/**
 	 * Save the model instance to the database.
@@ -60,7 +57,7 @@ class Group extends Crud
 		// run validation if rules are set
 		if ( ! empty(static::$_rules))
 		{
-			$validated = $this->run_validation($attributes);
+			$validated = $this->run_validation($attributes, static::$_rules);
 
 			if ( ! $validated )
 			{

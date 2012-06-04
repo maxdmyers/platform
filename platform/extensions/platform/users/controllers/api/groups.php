@@ -59,15 +59,6 @@ class Users_API_Groups_Controller extends API_Controller
 		{
 			if ($group->save())
 			{
-				// save log
-				// $lang = array(
-				// 	'id'   => $group['id'],
-				// 	'user' => $group['metadata']['first_name'].' '.$group['metadata']['last_name']
-				// );
-
-				// Logger::add(Logger::INSERT, 'users', Lang::line('users.log_create', $lang));
-
-				// respond
 				return array(
 					'status'  => true,
 					'message' => Lang::line('users::groups.create_success')->get()
@@ -90,7 +81,7 @@ class Users_API_Groups_Controller extends API_Controller
 		}
 	}
 
-	public function post_edit()
+	public function post_update()
 	{
 		// set user data
 		$group_data = Input::get();
@@ -102,15 +93,6 @@ class Users_API_Groups_Controller extends API_Controller
 		{
 			if ($group->save())
 			{
-				// save log
-				// $lang = array(
-				// 	'id'   => $group['id'],
-				// 	'user' => $group['metadata']['first_name'].' '.$group['metadata']['last_name']
-				// );
-
-				// Logger::add(Logger::INSERT, 'users', Lang::line('users.log_create', $lang));
-
-				// respond
 				return array(
 					'status'  => true,
 					'message' => Lang::line('users::groups.update_success')->get()

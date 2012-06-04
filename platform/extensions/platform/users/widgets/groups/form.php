@@ -25,7 +25,7 @@ use Lang;
 use Sentry;
 use Theme;
 
-class Form
+class Groups_Form
 {
 	/**
 	 * Create User Form
@@ -34,21 +34,7 @@ class Form
 	 */
 	public function create()
 	{
-		// get and set groups
-		$groups = Sentry::group()->all();
-		//$groups = API::get('users/groups');
-		$data = array();
-		foreach ($groups as $group)
-		{
-			$data['groups'][$group['name']] = ucfirst($group['name']);
-		}
-
-		if (empty($data['groups']))
-		{
-			$data['groups'] = array();
-		}
-
-		return Theme::make('users::widgets.form.create', $data);
+		return Theme::make('users::widgets.groups.form.create', $data = array());
 	}
 
 	/**
@@ -59,35 +45,21 @@ class Form
 	public function edit($id)
 	{
 		// get user being edited
-		$user = API::get('users', array(
-			'where' => array('users.id', '=', $id)
+		$group = API::get('users/groups', array(
+			'where' => array('id', '=', $id)
 		));
 
-		if ($user['status'])
+		if ($group['status'])
 		{
-			$data['user'] = $user['users'][0];
+			$data['group'] = $group['groups'][0];
 		}
 		else
 		{
-			// user doesn't exist, redirect
-			return Redirect::to('admin/users');
+			// group doesn't exist, redirect
+			return Redirect::to('admin/users/groups');
 		}
 
-		// set status options
-		$data['status_options'] = array(
-			1 => __('users.enabled'),
-			0 => __('users.disabled'),
-		);
-
-		// get and set group options
-		$user_groups = Sentry::group()->all();
-
-		foreach ($user_groups as $user_group)
-		{
-			$data['user_groups'][$user_group['name']] = ucfirst($user_group['name']);
-		}
-
-		return Theme::make('users::widgets.form.edit', $data);
+		return Theme::make('users::widgets.groups.form.edit', $data);
 	}
 
 	/**
@@ -151,7 +123,7 @@ class Form
 			'extension_rules' => $extension_rules
 		);
 
-		return Theme::make('users::widgets.form.permissions', $data);
+		return Theme::make('users::widgets.groups.form.permissions', $data);
 	}
 
 }

@@ -103,7 +103,6 @@ class Users_API_Users_Controller extends API_Controller
 		{
 			if ($user->save())
 			{
-				// respond
 				return array(
 					'status'  => true,
 					'message' => Lang::line('users::users.update_success')->get()
@@ -141,21 +140,10 @@ class Users_API_Users_Controller extends API_Controller
 		try
 		{
 			$user = User::find((int) Input::get('id'));
-			print_r($user);
-			exit;
+
 			// throw http not found if user does not exist
 			if ( ! $user)
 			{
-				// log event only if admin is editing
-				// if (Sentry::check() and Sentry::user()->has_access())
-				// {
-				// 	$lang = array(
-				// 		'id'   => $user['id'],
-				// 		'user' => $user['metadata']['first_name'].' '.$user['metadata']['last_name']
-				// 	);
-				// 	Logger::add(Logger::DELETE, 'users', Lang::line('users.log_delete', $lang));
-				// }
-
 				return array(
 					'status'  => false,
 					'message' => Lang::line('users::users.not_found')->get()

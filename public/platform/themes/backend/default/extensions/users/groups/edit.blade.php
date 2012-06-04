@@ -4,17 +4,23 @@
 	{{ Lang::line('users::groups.title_edit') }}
 @endsection
 
+@section('body_scripts')
+	{{ Theme::asset('js/bootstrap/bootstrap-tab.js') }}
+@endsection
+
 @section('content')
-	{{ Form::open() }}
-		<fieldset>
-			<div>
-				<label for="name">{{ Lang::line('users::groups.name') }}</label>
-				<input type="text" id="name" name="name" value="{{ Input::old('name', $group['name']); }}">
-			</div>
-			<div>
-				<input type="submit" value="{{ Lang::line('users::groups.btn_create') }}">
-				<a href="{{ url(ADMIN.'/users/groups') }}">{{ Lang::line('users::groups.btn_cancel') }}</a>
-			</div>
-		</fieldset>
-	{{ Form::close() }}
+<div class="tabbable">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#general" data-toggle="tab">General</a></li>
+		<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
+	</ul>
+	<div class="tab-content">
+	    <div class="tab-pane active" id="general">
+	    	@widget('users::groups.form.edit', $id)
+	    </div>
+	    <div class="tab-pane" id="permissions">
+	    	@widget('users::groups.form.permissions', $id)
+	    </div>
+  	</div>
+</div>
 @endsection
