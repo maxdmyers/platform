@@ -1,36 +1,41 @@
 /* Common Styles */
 body {
-	background-color: #f9f9f9;
+	background: #f9f9f9 url(../img/curl.png) top right no-repeat;
 }
+
+/* Cover Styles */
+
+#cover .front {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	height: 320px;
+	margin-top: -180px;
+	width: 440px;
+	margin-left: -220px;
+	text-align: center;
+}
+
+#cover .brand { display: block; }
+#cover .lead {float:none; padding:10px 0;}
+
+
+/* Manual Styles */
 
 #manuals .header {
-	border-bottom:1px solid #ddd;
+
 }
-
-#manuals .brand, #manuals .navigation {
-	padding:20px 0 0 0;
-	float:left;
-}
-
-#manuals .navigation {
-	padding-top:30px;
-	padding-left:20px;
-}
-
-
-#manuals .curl {
-	display:block;
+#manuals .brand {
 	position:absolute;
-	top:0;
-	right:0;
-	height:150px;
-	width:110px;
-	background: transparent url(../img/curl.png) bottom right no-repeat;
+	top:16px;
+	right:16px;
 }
+
+
+
+
 
 #manuals .page {
-	padding:10px;
-	border-top:1px solid #fff;
 	clear:both;
 }
 /* Prettyprint styling */
@@ -98,11 +103,20 @@ ol.linenums li {
 }
 
 
+.curl {
+	display:block;
+	position:absolute;
+	top:0;
+	right:0;
+	height:150px;
+	width:110px;
+	background: transparent url(../img/curl.png) bottom right no-repeat;
+}
+
 
 // Landscape phones and down
 @media (max-width: 480px) {
 
-.nav
 
 }
 

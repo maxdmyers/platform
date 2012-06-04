@@ -38,25 +38,19 @@
 </head>
 <body>
 
-	<div id="manuals">
+	<div id="cover">
 
-		<div class="header container-fluid">
+		<div class="curl"></div>
+
+		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
-					@yield('header')
+					@yield('cover')
 				</div>
 			</div>
 		</div>
 
-		<div class="page container-fluid">
-			<div class="row-fluid">
-				<div class="span12">
 
-					@yield('content')
-
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<!-- Body Scripts -->
