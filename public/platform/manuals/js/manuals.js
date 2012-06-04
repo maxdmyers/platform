@@ -7,6 +7,13 @@ $(document).ready(function() {
 	*/
 	$('#toc ul').addClass('nav nav-tabs');
 
+	$('#chapter h3').each(function(index) {
+		var name = $(this).html();
+		anchor = name.toLowerCase().replace(/\((.*)\)/g, '');
+		$(this).attr('id', anchor);
+	});
+
+
 	/*
 	|-------------------------------------
 	| Tables
