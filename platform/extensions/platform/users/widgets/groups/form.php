@@ -93,9 +93,9 @@ class Groups_Form
 				}
 
 				// set vars
-				$title      = Lang::line($bundle.'::permissions.'.$title.'_title_')->get();
-				$lang       = $bundle.'::permissions.'.$lang;
-				$slug       = \Str::slug($title, '_');
+				$title = Lang::line($bundle.'::permissions.'.$title.'_title_')->get();
+				$lang  = $bundle.'::permissions.'.$lang;
+				$slug  = \Str::slug($title, '_');
 
 				$extension_rules[$slug]['title'] = $title;
 				$extension_rules[$slug]['permissions'][] = array(
