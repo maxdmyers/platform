@@ -196,28 +196,18 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		}
 
 		$permissions = Input::get();
-		$rules = Sentry\Sentry_Rules::fetch_bundle_rules();
-
-		$update_permissions = array();
-		foreach ($permissions as $slug => $permission)
-		{
-			$bundle_pos = strpos($slug, '_');
-			$bundle     = substr($slug, 0, $bundle_pos);
-			$rule_slug  = substr($slug, $bundle_pos+1);
-
-			if (isset($rules[$bundle][$rule_slug]))
-			{
-				$update_permissions[$rules[$bundle][$rule_slug]] = 1;
-			}
-		}
-
-		// now grab the list of rules
 		$rules = Sentry\Sentry_Rules::fetch_rules();
 
-		// and we'll remove them from the user by setting all other rules to empty
+		$update_permissions = array();
 		foreach ($rules as $rule)
 		{
-			if ( ! array_key_exists($rule, $update_permissions))
+			$slug = \Str::slug($rule, '_');
+
+			if (array_key_exists($slug, $permissions))
+			{
+				$update_permissions[$rule] = 1;
+			}
+			else
 			{
 				$update_permissions[$rule] = '';
 			}
@@ -234,7 +224,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 
 		if ($update_user['status'])
 		{
-			// user was updated - set success and redirect back to admin/users
+			// user was updated - set success and redirect back to admin users
 			Platform::messages()->success($update_user['message']);
 			return Redirect::to(ADMIN.'/users');
 		}

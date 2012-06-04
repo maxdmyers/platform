@@ -1,11 +1,11 @@
 {{ Form::open(ADMIN.'/users/permissions/'.$id) }}
-	@foreach($extension_rules as $rules)
+	@foreach($extension_rules as $category)
 		<fieldset>
-			<legend>{{ $rules['title'] }}</legend>
-			@foreach($rules['values'] as $name => $text)
+			<legend>{{ $category['title'] }}</legend>
+			@foreach($category['permissions'] as $permission)
 				<div>
-					<label for="{{ $name }}" class="checkbox">
-						<input type="checkbox" id="{{ $name }}" name="{{ $name }}"> {{ $text }}
+					<label for="{{ $permission['value'] }}" class="checkbox">
+						<input type="checkbox" id="{{ $permission['slug'] }}" name="{{ $permission['slug'] }}" {{ ($permission['has']) ? 'checked="checked"' : '' }}> {{ $permission['value'] }}
 					</label>
 				</div>
 			@endforeach

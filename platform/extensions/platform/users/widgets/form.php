@@ -99,56 +99,43 @@ class Form
 	{
 		$bundle_rules = Sentry\Sentry_Rules::fetch_bundle_rules();
 
+		// get current group permissions
+		$current_permissions = json_decode(Sentry\Sentry::user((int) $id)->get('permissions'), 'assoc');
+
 		$extension_rules = array();
 		foreach ($bundle_rules as $bundle => $rules)
 		{
 			foreach ($rules as $rule)
 			{
-				// set title
-				$title  = '';
+				// reformat to grab language file
+				$lang = str_replace($bundle.'::', '', $rule);
+				$lang = str_replace('@', '.', $lang);
 
-				// check if a bundle is present, if so we will categorize it
-				if (strpos($rule, '::') !== false)
+				// find the title language path
+				$title = '';
+				$title_path = explode('.', $lang);
+				for ($i = 0; $i < count($title_path) - 1; $i++)
 				{
-					$lang = str_replace($bundle.'::', '', $rule);
-					//list($bundle, $lang) = explode('::', $rule);
-
-					$input_name = $bundle.'_'.\Str::slug($rule, '_');
-
-					$title_path = explode('.', str_replace('@', '.', $lang));
-					for ($i = 0; $i < count($title_path) - 1; $i++)
-					{
-						$title .= $title_path[$i].'.';
-					}
-
-					$title = Lang::line($bundle.'::permissions.'.$title.'_title_')->get();
-					$lang = $bundle.'::permissions.'.str_replace('@', '.', $lang);
-				}
-				else
-				{
-					$lang = $rule;
-
-					$title_path = explode('.', str_replace('@', '.', $lang));
-					for ($i = 0; $i < count($title_path) - 1; $i++)
-					{
-						$title .= $title_path[$i].'.';
-					}
-
-					$input_name = $bundle.'_'.\Str::slug($rule, '_');
-					$title = Lang::line($bundle.'::permissions.'.$title.'_title_')->get();
-					$lang = $bundle.'::permissions.'.$rule;
+					$title .= $title_path[$i].'.';
 				}
 
-				$slug = \Str::slug($title, '_');
+				// set vars
+				$title      = Lang::line($bundle.'::permissions.'.$title.'_title_')->get();
+				$lang       = $bundle.'::permissions.'.$lang;
+				$slug       = \Str::slug($title, '_');
 
-				$extension_rules[$slug]['title']               = $title;
-				$extension_rules[$slug]['values'][$input_name] = Lang::line($lang)->get();
+				$extension_rules[$slug]['title'] = $title;
+				$extension_rules[$slug]['permissions'][] = array(
+					'value'	=> Lang::line($lang)->get(),
+					'slug'  => \Str::slug($rule, '_'),
+					'has'   => (array_key_exists($rule, $current_permissions) and $current_permissions[$rule] == 1) ? 1 : '',
+				);
 			}
 		}
 
 		$data = array(
-			'id'              => $id,
-			'extension_rules' => $extension_rules
+			'id'                  => $id,
+			'extension_rules'     => $extension_rules
 		);
 
 		return Theme::make('users::widgets.form.permissions', $data);
