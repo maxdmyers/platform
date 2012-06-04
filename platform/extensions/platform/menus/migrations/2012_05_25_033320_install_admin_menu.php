@@ -44,7 +44,7 @@ class Menus_Install_Admin_Menu
 			$system = new Menu(array(
 				'name'          => 'System',
 				'slug'          => 'system',
-				'uri'           => '',
+				'uri'           => 'settings',
 				'user_editable' => 0,
 			));
 

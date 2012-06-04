@@ -18,7 +18,9 @@
  * @link       http://cartalyst.com
  */
 
-class Settings_Install_Configuration_Table
+use Platform\Menus\Menu;
+
+class Settings_Install
 {
 
 	/**
@@ -36,8 +38,52 @@ class Settings_Install_Configuration_Table
 			$table->string('name');
 			$table->text('value');
 		});
-	}
 
+
+	// Create Menu Items
+
+		$admin = Menu::admin_menu();
+
+		// Check if system exists
+		$system = Menu::find(function($query)
+		{
+			return $query->where('slug', '=', 'system');
+		});
+
+		if ( ! $system)
+		{
+
+			// People menu
+			$system = new Menu(array(
+				'name'          => 'System',
+				'slug'          => 'system',
+				'uri'           => 'system',
+				'user_editable' => 0,
+			));
+
+			$system->last_child_of($admin);
+		}
+
+		$settings = Menu::find(function($query)
+		{
+			return $query->where('slug', '=', 'settings');
+		});
+
+		if ( ! $settings)
+		{
+
+			// Settings menu
+			$settings = new Menu(array(
+				'name'          => 'Settings',
+				'slug'          => 'settings',
+				'uri'           => 'settings',
+				'user_editable' => 0,
+			));
+
+			$settings->last_child_of($system);
+		}
+
+	}
 	/**
 	 * Revert the changes to the database.
 	 *
