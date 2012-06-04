@@ -233,7 +233,10 @@ class Platform
 		if (strpos($name, '::') !== false)
 		{
 			list($bundle, $action) = explode('::', strtolower($name));
-			list($class, $method) = explode('.', $action);
+			$path = explode('.', $action);
+
+			$method = array_pop($path);
+			$class = implode('_', $path);
 		}
 
 		$class = 'Platform\\'.ucfirst($bundle).'\\Widgets\\'.ucfirst($class);
@@ -284,7 +287,10 @@ class Platform
 		if (strpos($name, '::') !== false)
 		{
 			list($bundle, $action) = explode('::', strtolower($name));
-			list($class, $method) = explode('.', $action);
+			$path = explode('.', $action);
+
+			$method = array_pop($path);
+			$class = implode('_', $path);
 		}
 
 		$class = 'Platform\\'.ucfirst($bundle).'\\Plugins\\'.ucfirst($class);
