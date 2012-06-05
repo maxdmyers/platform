@@ -44,23 +44,22 @@ class Settings_Install
 
 		$admin = Menu::admin_menu();
 
-		// Find the system menu
-		$system = Menu::find(function($query) use ($admin)
+		// Find the primary menu
+		$primary = Menu::find(function($query) use ($admin)
 		{
-			return $query->where('slug', '=', 'system')
-			             ->where(Menu::nesty_col('tree'), '=', $admin->{Menu::nesty_col('tree')});
+			return $query->where('slug', '=', 'system');
 		});
 
-		if ($system === null)
+		if ($primary === null)
 		{
-			$system = new Menu(array(
+			$primary = new Menu(array(
 				'name'          => 'System',
 				'slug'          => 'system',
 				'uri'           => 'settings',
 				'user_editable' => 0,
 			));
 
-			$system->last_child_of($admin);
+			$primary->last_child_of($admin);
 		}
 
 
@@ -72,7 +71,7 @@ class Settings_Install
 			'user_editable' => 0,
 		));
 
-		$settings->last_child_of($system);
+		$settings->last_child_of($primary);
 
 	}
 	/**

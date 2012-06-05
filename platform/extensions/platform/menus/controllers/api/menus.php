@@ -132,6 +132,7 @@ class Menus_API_Menus_Controller extends API_Controller
 		}
 
 		return $parent->children(Input::get('depth', 0));
+
 	}
 
 	/**

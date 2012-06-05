@@ -20,7 +20,7 @@
 
 use Platform\Menus\Menu;
 
-class Dashboard_Install_Admin_Menu
+class Extensions_Install
 {
 
 	/**
@@ -32,14 +32,33 @@ class Dashboard_Install_Admin_Menu
 	{
 		$admin = Menu::admin_menu();
 
-		$dashboard = new Menu(array(
-			'name'          => 'Dashboard',
-			'slug'          => 'dashboard',
-			'uri'           => '',
+		// Find the system menu
+		$primary = Menu::find(function($query) use ($admin)
+		{
+			return $query->where('slug', '=', 'system');
+		});
+
+		if ($primary === null)
+		{
+			$primary = new Menu(array(
+				'name'          => 'System',
+				'slug'          => 'system',
+				'uri'           => 'settings',
+				'user_editable' => 0,
+			));
+
+			$primary->last_child_of($admin);
+		}
+
+		// Extension menu
+		$extensions = new Menu(array(
+			'name'          => 'Extensions',
+			'slug'          => 'extensions',
+			'uri'           => 'extensions',
 			'user_editable' => 0,
 		));
 
-		$dashboard->first_child_of($admin);
+		$extensions->last_child_of($primary);
 	}
 
 	/**

@@ -20,6 +20,8 @@
 
 class Dashboard_Admin_Dashboard_Controller extends Admin_Controller
 {
+	protected $primary_slug = 'dashboard';
+
 	public function get_index()
 	{
 		return Theme::make('dashboard::index');

@@ -20,7 +20,7 @@
 
 use Platform\Menus\Menu;
 
-class Extensions_Install_Admin_Menu
+class Dashboard_Install
 {
 
 	/**
@@ -30,36 +30,29 @@ class Extensions_Install_Admin_Menu
 	 */
 	public function up()
 	{
+
+		// Create menu items
+
 		$admin = Menu::admin_menu();
 
-		// Find the system menu
-		$system = Menu::find(function($query) use ($admin)
+		// Find the primary menu
+		$primary = Menu::find(function($query) use ($admin)
 		{
-			return $query->where('slug', '=', 'system')
-			             ->where(Menu::nesty_col('tree'), '=', $admin->{Menu::nesty_col('tree')});
+			return $query->where('slug', '=', 'dashboard');
 		});
 
-		if ($system === null)
+		if ($primary === null)
 		{
-			$system = new Menu(array(
-				'name'          => 'System',
-				'slug'          => 'system',
-				'uri'           => '',
+			$primary = new Menu(array(
+				'name'          => 'Dashboard',
+				'slug'          => 'dashboard',
+				'uri'           => 'dashboard',
 				'user_editable' => 0,
 			));
 
-			$system->last_child_of($admin);
+			$primary->last_child_of($admin);
 		}
 
-		// Extension menu
-		$extensions = new Menu(array(
-			'name'          => 'Extensions',
-			'slug'          => 'extensions',
-			'uri'           => 'extensions',
-			'user_editable' => 0,
-		));
-
-		$extensions->last_child_of($system);
 	}
 
 	/**

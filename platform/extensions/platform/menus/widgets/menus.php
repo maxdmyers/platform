@@ -60,7 +60,7 @@ class Menus
 		{
 			$api_params['id'] = $parent;
 		}
-		else 
+		else
 		{
 			$api_params['slug'] = $parent;
 		}

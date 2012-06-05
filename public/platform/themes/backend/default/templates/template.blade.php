@@ -51,7 +51,7 @@
 					<a href="{{ url(ADMIN) }}">
 						<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
 					</a>
-					<h1>Platform</h1>
+					<h1>Platform - {{ $primary_slug }}</h1>
 				</div>
 
 				<nav>

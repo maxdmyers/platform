@@ -67,19 +67,27 @@ class Users_Install
 			'value' 		=> '1',
 		));
 
-		// Create Menu Items
+		// Create menu items
 
 		$admin = Menu::admin_menu();
 
-		// People menu
-		$people = new Menu(array(
-			'name'          => 'Users',
-			'slug'          => 'users',
-			'uri'           => 'users',
-			'user_editable' => 0,
-		));
+		// Find the system menu
+		$primary = Menu::find(function($query) use ($admin)
+		{
+			return $query->where('slug', '=', 'users');
+		});
 
-		$people->last_child_of($admin);
+		if ($primary === null)
+		{
+			$primary = new Menu(array(
+				'name'          => 'Users',
+				'slug'          => 'users',
+				'uri'           => 'users',
+				'user_editable' => 0,
+			));
+
+			$primary->last_child_of($admin);
+		}
 
 		// Users menu
 		$users = new Menu(array(
@@ -89,7 +97,7 @@ class Users_Install
 			'user_editable' => 0,
 		));
 
-		$users->last_child_of($people);
+		$users->last_child_of($primary);
 
 		// Groups menu
 		$groups = new Menu(array(
@@ -99,7 +107,7 @@ class Users_Install
 			'user_editable' => 0,
 		));
 
-		$groups->last_child_of($people);
+		$groups->last_child_of($primary);
 
 	}
 

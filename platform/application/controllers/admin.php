@@ -58,7 +58,7 @@ class Admin_Controller extends Authorized_Controller
 		}));
 
 		// Work out the secondary slug
-		$primary_slug = ($this->primary_slug) ? $this->primary_slug : URI::segment(2);
+		$primary_slug = ($this->primary_slug) ?: URI::segment(2);
 
 		/**
 		 * @todo See if we can not hard-code the view name... Maybe have a
