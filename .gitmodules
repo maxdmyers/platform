@@ -13,3 +13,6 @@
 [submodule "platform/application/bundles/gitsy"]
 	path = platform/application/bundles/gitsy
 	url = git@github.com:cartalyst/gitsy.git
+[submodule "platform/application/bundles/oauth2"]
+	path = platform/application/bundles/oauth2
+	url = https://github.com/taylorotwell/laravel-oauth2.git
