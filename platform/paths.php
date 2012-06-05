@@ -50,7 +50,7 @@ $paths['manuals'] = 'manuals';
 // --------------------------------------------------------------
 // The path to the bundles directory.
 // --------------------------------------------------------------
-$paths['bundle'] = 'extensions/platform';
+$paths['bundle'] = 'extensions';
 
 // --------------------------------------------------------------
 // The path to the storage directory.

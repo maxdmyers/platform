@@ -21,7 +21,7 @@
 		<p>{{ Lang::line('settings::settings.description') }}</p>
 	</header>
 
-	@widget('settings::settings.general')
+	@widget('platform.settings::settings.general')
 
 </section>
 

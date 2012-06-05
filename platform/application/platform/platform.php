@@ -160,7 +160,8 @@ class Platform
 		if (static::$extensions_manager === null)
 		{
 			Bundle::register('extensions', array(
-				'handles' => 'extensions',
+				'handles'  => 'extensions',
+				'location' => 'path: '.path('bundle').'platform'.DS.'extensions',
 			));
 			Bundle::start('extensions');
 
@@ -238,14 +239,26 @@ class Platform
 
 		if (strpos($name, '::') !== false)
 		{
-			list($bundle, $action) = explode('::', strtolower($name));
+			list($bundle_path, $action) = explode('::', strtolower($name));
+
+			// see if there is a namespace present
+			if (strpos($bundle_path, '.') !== false)
+			{
+				list ($namespace, $bundle) = explode('.', $bundle_path);
+			}
+			else
+			{
+				$bundle = $bundle_path;
+				$namespace = '';
+			}
+
 			$path = explode('.', $action);
 
 			$method = array_pop($path);
 			$class = implode('_', $path);
 		}
 
-		$class = 'Platform\\'.ucfirst($bundle).'\\Widgets\\'.ucfirst($class);
+		$class = ucfirst($namespace).'\\'.ucfirst($bundle).'\\Widgets\\'.ucfirst($class);
 
 		if (array_key_exists($class, static::$widgets))
 		{
@@ -258,7 +271,7 @@ class Platform
 			if ( ! class_exists($class))
 			{
 				return '';
-				throw new \Exception('Class: '.$class.' does not exist.');
+				// throw new \Exception('Class: '.$class.' does not exist.');
 			}
 
 			$widget = new $class();
@@ -292,14 +305,26 @@ class Platform
 
 		if (strpos($name, '::') !== false)
 		{
-			list($bundle, $action) = explode('::', strtolower($name));
+			list($bundle_path, $action) = explode('::', strtolower($name));
+
+			// see if there is a namespace present
+			if (strpos($bundle_path, '.') !== false)
+			{
+				list ($namespace, $bundle) = explode('.', $bundle_path);
+			}
+			else
+			{
+				$bundle = $bundle_path;
+				$namespace = '';
+			}
+
 			$path = explode('.', $action);
 
 			$method = array_pop($path);
 			$class = implode('_', $path);
 		}
 
-		$class = 'Platform\\'.ucfirst($bundle).'\\Plugins\\'.ucfirst($class);
+		$class = ucfirst($namespace).'\\'.ucfirst($bundle).'\\Plugins\\'.ucfirst($class);
 
 		if (array_key_exists($class, static::$plugins))
 		{
@@ -324,7 +349,7 @@ class Platform
 		if ( ! is_callable($class, $method))
 		{
 			return '';
-			throw new \Exception('Method: '.$method.' does not exist in class: '.$class);
+			// throw new \Exception('Method: '.$method.' does not exist in class: '.$class);
 		}
 
 		return call_user_func_array(array($plugin, $method), $parameters);
