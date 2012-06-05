@@ -20,11 +20,26 @@
 
 class Admin_Controller extends Authorized_Controller
 {
+
+	/**
+	 * If the extension doesn't match a primary navigation
+	 * item, provide the slug of the primary navigation item
+	 * for who's children items we use in our secondary menu.
+	 *
+	 * @var string
+	 */
+	protected $admin_primary_slug;
+
 	public function __construct()
 	{
 		$this->filter('before', 'admin_auth');
 	}
 
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
 	public function before()
 	{
 		// now check to make sure they have bundle specific permissions
@@ -34,6 +49,13 @@ class Admin_Controller extends Authorized_Controller
 			Redirect::to(ADMIN.'/dashboard')->send();
 			exit;
 		}
+
+		// Set the active theme based on the database contents,
+		// falling back to the theme config.
+		Theme::active(Platform::get('themes.theme.admin', function()
+		{
+			return Config::get('theme::theme.active');
+		}));
 	}
 
 }

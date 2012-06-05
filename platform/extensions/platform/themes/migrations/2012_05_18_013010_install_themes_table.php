@@ -51,14 +51,14 @@ class Themes_Install_Themes_Table
 			'extension' => 'themes',
 			'type'      => 'theme',
 			'name'      => 'frontend',
-			'value'     => 'default',
+			'value'     => 'frontend/default',
 		));
 
 		$backend = DB::table('configuration')->insert(array(
 			'extension' => 'themes',
 			'type'      => 'theme',
-			'name'      => 'backend',
-			'value'     => 'default',
+			'name'      => 'admin',
+			'value'     => 'backend/default',
 		));
 
 		/**

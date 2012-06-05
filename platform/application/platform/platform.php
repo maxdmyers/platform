@@ -170,7 +170,13 @@ class Platform
 		return static::$extensions_manager;
 	}
 
-	public static function get($setting)
+	/**
+	 * Retrieves a setting by the given setting key
+	 *
+	 * @param   string  $setting
+	 * @return  mixed
+	 */
+	public static function get($setting, $default = null)
 	{
 		$settings = explode('.', $setting);
 		$extension = array_shift($settings);
@@ -198,7 +204,7 @@ class Platform
 			// add extension settings to the settings array
 			if ($ext_settings['status'])
 			{
-				static::$settings[$extension] = $settings;
+				static::$settings[$extension] = $ext_settings['settings'];
 			}
 			// add to array anyways to prevent errors
 			else
@@ -210,10 +216,10 @@ class Platform
 		// find the setting value if it exists
 		if (isset(static::$settings[$extension][$type][$name]))
 		{
-			$value = static::$settings[$extension][$type][$name]['value'];
+			return static::$settings[$extension][$type][$name]['value'];
 		}
 
-		return isset($value) ? $value : '';
+		return value($default);
 	}
 
 	/**
