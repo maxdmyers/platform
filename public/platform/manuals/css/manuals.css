@@ -3,6 +3,8 @@ body {
 	background: #f9f9f9 url(../img/curl.png) top right no-repeat;
 }
 
+.well {background-color:#fbfbfb;}
+
 /* Cover Styles */
 
 #cover .front {
@@ -22,21 +24,30 @@ body {
 
 /* Manual Styles */
 
-#manuals .header {
-
+#manuals {
+	margin:0 14px;
 }
+
 #manuals .brand {
 	position:absolute;
 	top:16px;
 	right:16px;
 }
-
+#manuals .nav {
+	margin-bottom:0;
+}
 
 #manuals .page {
 	clear:both;
+	background-color:#fff;
+	border-left:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-bottom:1px solid #ddd;
+	margin-bottom:10px;
+	padding:14px;
 }
 
-#toc { padding:10px 0;}
+#toc { }
 #toc h1 {padding-top:14px;}
 #toc h2 {margin-bottom:20px;}
 #toc img { float:left; padding:10px; }
@@ -47,6 +58,14 @@ body {
 #chapter ul {
 	list-style:none;
 }
+
+.copyright { margin:0 auto;}
+
+
+
+
+
+
 /* Prettyprint styling */
 .com {
   color: #93a1a1;

@@ -44,11 +44,9 @@
 			</a>
 		</div>
 
-		<div class="header container-fluid">
+		<div class="header">
 			<div class="row-fluid">
-				<div class="span12">
-					@yield('header')
-				</div>
+				@yield('header')
 			</div>
 		</div>
 
@@ -60,6 +58,9 @@
 
 				</div>
 			</div>
+		</div>
+		<div class="copyright">
+			<p>copyright @ Cartalyst LLC, all rights reserved</p>
 		</div>
 	</div>
 
