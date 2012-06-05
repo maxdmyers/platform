@@ -30,7 +30,8 @@ return array(
 	),
 
 	'bundles' => array(
-		'handles' => 'menus'
+		'handles' => 'menus',
+		'location' => 'path: '.__DIR__,
 	),
 
 	'listeners' => function() {

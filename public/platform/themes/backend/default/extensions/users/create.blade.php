@@ -6,6 +6,6 @@
 
 @section('content')
 <div>
-	@widget('users::form.create')
+	@widget('platform.users::form.create')
 </div>
 @endsection

@@ -34,7 +34,8 @@ return array(
 	),
 
 	'bundles' => array(
-		'handles' => 'dashboard',
+		'handles'  => 'dashboard',
+		'location' => 'path: '.__DIR__,
 	),
 
 );

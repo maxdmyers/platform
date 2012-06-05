@@ -437,14 +437,33 @@ class Manager
 		return $extensions;
 	}
 
-	public function extension_file($slug)
+	public function find_extension_file($slug)
 	{
-		return path('bundle').$slug.DS.'extension'.EXT;
+		// there are 2 possible locations for the extension.php file
+		// extensions/extension_dir/extension.php or
+		// extensions/dir/extension_dir/extension.php
+
+		// we'll search the root dir first
+		$path = path('bundle').$slug.DS.'extension'.EXT;
+		$file = glob($path);
+
+		if ($file) return $file[0];
+
+		// we couldn't find the extension file in the first path, so we'll try the 2nd
+		$path = path('bundle').'*'.DS.$slug.DS.'extension'.EXT;
+		$file = glob($path);
+
+		if ($file) return $file[0];
+
+		// no file was found, return false
+		return false;
 	}
 
 	public function info($slug)
 	{
-		if ( ! $file = $this->extension_file($slug) or ! file_exists($file))
+		$file = $this->find_extension_file($slug);
+
+		if ( ! $file)
 		{
 			throw new Exception("Platform Extension [$slug] doesn't exist.");
 		}

@@ -35,6 +35,7 @@ return array(
 
 	'bundles' => array(
 		'handles' => 'themes',
+		'location' => 'path: '.__DIR__,
 	),
 
 	'listeners' => function() {

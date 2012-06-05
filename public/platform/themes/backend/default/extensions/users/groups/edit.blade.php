@@ -16,10 +16,10 @@
 	</ul>
 	<div class="tab-content">
 	    <div class="tab-pane active" id="general">
-	    	@widget('users::groups.form.edit', $id)
+	    	@widget('platform.users::groups.form.edit', $id)
 	    </div>
 	    <div class="tab-pane" id="permissions">
-	    	@widget('users::groups.form.permissions', $id)
+	    	@widget('platform.users::groups.form.permissions', $id)
 	    </div>
   	</div>
 </div>

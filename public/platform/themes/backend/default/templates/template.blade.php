@@ -55,7 +55,7 @@
 				</div>
 
 				<nav>
-					@widget('menus::menus.primary')
+					@widget('platform.menus::menus.primary')
 				</nav>
 
 			</div>
@@ -63,7 +63,7 @@
 			<div id="page" class="span10">
 
 				<nav>
-					@widget('menus::menus.secondary', $primary_slug)
+					@widget('platform.menus::menus.secondary', $primary_slug)
 				</nav>
 
 				@yield('content')
