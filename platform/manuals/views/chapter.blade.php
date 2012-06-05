@@ -15,16 +15,12 @@
 	</div>
 @endsection
 
-@section('navigation')
-
-@endsection
-
 @section('content')
 
 	<div class="span2" id="chapter-toc">
 		{{ $chapter_toc }}
 	</div>
-	<div class="span8" id="chapter">
+	<div class="span10" id="chapter">
 
 
 		@forelse ($articles as $article)

@@ -4,14 +4,14 @@
 
 	{{ Form::open('manuals/edit/'.$manual.'/'.$chapter.'/'.$article_name, 'POST', array('class' => 'form-horizontal article-editor'))}}
 
-		<div class="page-header">
+
+		<div class="header-edit">
 			<h1>
 				Edit Article [{{ $manual }}:{{ $chapter }}:{{ $article_name }}]
 			</h1>
 		</div>
-
 		<div class="row-fluid">
-			
+
 			<div class="span6">
 				<a class="btn pull-right" data-toggle="modal" href="#edit-help" >Need Help?</a>
 				<h2>
