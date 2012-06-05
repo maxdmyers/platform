@@ -6,7 +6,7 @@ $(document).ready(function() {
 	|-------------------------------------
 	*/
 	$('#toc ul').addClass('nav nav-tabs');
-	$('#chapter-toc ul').addClass('nav nav-pills nav-stacked fixed');
+	$('#chapter-toc ul').addClass('chapter-nav nav nav-pills nav-stacked');
 
 	// Highlight active chapter
 	if ($active = $('#toc').attr('data-active-chapter')) {

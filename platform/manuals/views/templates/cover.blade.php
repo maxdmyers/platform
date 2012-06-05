@@ -14,9 +14,16 @@
 	<meta name="description" content="an ecommerce engine">
 	<meta name="author" content="Cartalyst LLC">
 	<meta name="base_url" content="{{ url() }}">
+	<meta name="admin_url" content="{{ url(ADMIN) }}">
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!--[if !IE 7]>
+	<style type="text/css">
+		#cover {display:table;height:100%}
+	</style>
 	<![endif]-->
 
 	<!-- Mobile Specific Metas -->
@@ -37,32 +44,30 @@
 </head>
 <body>
 
-	<div id="manuals">
-		<div class="brand">
-			<a href="{{ URL::to('manuals') }}">
-				{{ HTML::image('platform/manuals/img/brand-icon.png', 'Platform by Cartalyst'); }}
-			</a>
-		</div>
 
-		<div class="header">
-			<div class="row-fluid">
-				@yield('header')
-			</div>
-		</div>
 
-		<div class="page container-fluid">
+
+
+
+<div id="cover">
+	<div class="curl"></div>
+	<div id="main">
+		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
-
-					@yield('content')
-
+					@yield('cover')
 				</div>
 			</div>
 		</div>
-		<div class="copyright">
-			<p>copyright @ Cartalyst LLC, all rights reserved</p>
-		</div>
 	</div>
+
+</div>
+
+<div id="footer">
+ <p class="copyright">copyright @ 2011 - 2012, Cartalyst LLC</p>
+</div>
+
+
 
 	<!-- Body Scripts -->
 	{{ Asset::scripts() }}

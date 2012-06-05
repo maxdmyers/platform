@@ -1,4 +1,4 @@
-@layout('manuals::cover')
+@layout('manuals::templates/cover')
 
 @section('cover')
 <div class="front">

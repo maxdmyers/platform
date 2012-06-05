@@ -1,4 +1,4 @@
-@layout('manuals::template')
+@layout('manuals::templates/manual')
 
 @section('header')
 

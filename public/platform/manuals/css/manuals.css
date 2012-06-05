@@ -1,13 +1,46 @@
 /* Common Styles */
 body {
-	background: #fff url(../img/curl.png) top right no-repeat;
+	background-image: url(../img/bg-body.png);
+	margin:20px;
 }
+
+* {margin:0;padding:0;}
+
+html, body {height: 100%;}
+
+
+#cover, #manuals {min-height: 100%;
+	background:#fff;
+}
+
+#main {overflow:auto;
+	padding-bottom: 80px;}  /* must be same height as the footer */
+
+#footer {position: relative;
+	margin-top: -80px; /* negative value of footer height */
+	height: 80px;
+	clear:both;}
+
+/*Opera Fix*/
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+
 
 .well {background-color:#fff;border:1px solid #ddd;}
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover { background-color:#fbfbfb; }
 .fixed {position: fixed;}
+
 /* Cover Styles */
 
+#cover {
+	background:#fff;
+}
 #cover .front {
 	position: absolute;
 	top: 40%;
@@ -26,13 +59,13 @@ body {
 /* Manual Styles */
 
 #manuals {
-	margin:0 14px;
+	padding:8px;
 }
 
 #manuals .brand {
 	position:absolute;
-	top:16px;
-	right:16px;
+	top:36px;
+	right:36px;
 }
 #manuals .nav {
 	margin-bottom:0;
@@ -56,7 +89,8 @@ body {
 #toc {clear: both;}
 
 
-#chapter ul {
+#chapter-toc .chapter-nav {
+	padding:14px 0;
 
 }
 
@@ -64,7 +98,7 @@ body {
 	padding:20px 0;
 }
 
-.copyright { margin:0 auto;}
+.copyright {text-align:center;}
 
 
 
@@ -139,8 +173,8 @@ ol.linenums li {
 .curl {
 	display:block;
 	position:absolute;
-	top:0;
-	right:0;
+	top:20px;
+	right:20px;
 	height:150px;
 	width:110px;
 	background: transparent url(../img/curl.png) bottom right no-repeat;
@@ -149,7 +183,6 @@ ol.linenums li {
 
 // Landscape phones and down
 @media (max-width: 480px) {
-
 
 }
 
