@@ -1,10 +1,11 @@
 /* Common Styles */
 body {
-	background: #f9f9f9 url(../img/curl.png) top right no-repeat;
+	background: #fff url(../img/curl.png) top right no-repeat;
 }
 
-.well {background-color:#fbfbfb;}
-
+.well {background-color:#fff;border:1px solid #ddd;}
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover { background-color:#fbfbfb; }
+.fixed {position: fixed;}
 /* Cover Styles */
 
 #cover .front {
@@ -39,7 +40,7 @@ body {
 
 #manuals .page {
 	clear:both;
-	background-color:#fff;
+	background-color:#fbfbfb;
 	border-left:1px solid #ddd;
 	border-right:1px solid #ddd;
 	border-bottom:1px solid #ddd;
@@ -56,7 +57,11 @@ body {
 
 
 #chapter ul {
-	list-style:none;
+
+}
+
+#manuals .header-edit {
+	padding:20px 0;
 }
 
 .copyright { margin:0 auto;}

@@ -2,10 +2,11 @@ $(document).ready(function() {
 
 	/*
 	|-------------------------------------
-	| Enhance side navigation (manual TOC)
+	| Enhance navigation (manual TOC)
 	|-------------------------------------
 	*/
 	$('#toc ul').addClass('nav nav-tabs');
+	$('#chapter-toc ul').addClass('nav nav-pills nav-stacked fixed');
 
 	// Highlight active chapter
 	if ($active = $('#toc').attr('data-active-chapter')) {
