@@ -20,6 +20,9 @@
 
 class Themes_Admin_Themes_Controller extends Admin_Controller
 {
+
+	protected $primary_slug = 'system';
+
 	/**
 	 * Default View
 	 * Points to frontend theme

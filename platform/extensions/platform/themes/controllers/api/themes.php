@@ -1,4 +1,4 @@
-<?php
+z<?php
 /**
  * Part of the Platform application.
  *
@@ -64,18 +64,15 @@ class Themes_API_Themes_Controller extends API_Controller
 			);
 		}
 
-		$theme_options = Theme::all(function($query) use ($type, $theme)
+		$theme_options = Theme::find(function($query) use ($type, $theme)
 		{
-			return $query
-				->where('type', '=', $type)
-				->where('theme', '=', $theme)
-				->take(1);
+			return $query->where('type', '=', $type)
+			             ->where('theme', '=', $theme);
 		});
 
 
 		if ( ! empty($theme_options))
 		{
-			$theme_options = $theme_options[0];
 			$theme_options['options'] = json_decode($theme_options['options']);
 		}
 

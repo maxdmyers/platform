@@ -63,7 +63,7 @@
 			<div id="page" class="span10">
 
 				<nav>
-					@widget('menus::menus.secondary', URI::segment(2))
+					@widget('menus::menus.secondary', $primary_slug)
 				</nav>
 
 				@yield('content')

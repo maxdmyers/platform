@@ -1,4 +1,4 @@
-@layout('templates/template')
+@layout('templates.template')
 
 @section('title')
 	{{ Lang::line('users::groups.title_edit') }}

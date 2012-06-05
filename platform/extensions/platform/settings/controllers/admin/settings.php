@@ -20,6 +20,9 @@
 
 class Settings_Admin_Settings_Controller extends Admin_Controller
 {
+
+	protected $primary_slug = 'system';
+
 	protected $validation = array(
 		// general settings
 		'general' => array(

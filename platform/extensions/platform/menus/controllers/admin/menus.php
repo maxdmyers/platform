@@ -21,6 +21,8 @@
 class Menus_Admin_Menus_Controller extends Admin_Controller
 {
 
+	protected $primary_slug = 'system';
+
 	public function action_index()
 	{
 		return Theme::make('menus::index')
