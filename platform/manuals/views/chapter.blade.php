@@ -8,20 +8,11 @@
 		</a>
 	</div>
 
-	<div id="toc">
+	<div id="toc" data-active-chapter="{{ e($active_chapter) }}">
 		{{ HTML::image('platform/manuals/img/'. URI::segment(2) . '.png', 'Platform by Cartalyst'); }}
 
 		{{ $toc }}
 	</div>
-	<!--<div class="navigation">
-		<ul class="nav nav-pills">
-			@foreach ($manuals as $folder => $name)
-				<li class="{{ $folder === $active_manual ? 'active' : null }}">
-					{{ HTML::link('manuals/'.$folder, $name) }}
-				</li>
-			@endforeach
-		</ul>
-	</div>-->
 @endsection
 
 @section('navigation')

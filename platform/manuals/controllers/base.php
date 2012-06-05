@@ -68,13 +68,15 @@ class Manuals_Base_Controller extends Base_Controller
 	protected function composers()
 	{
 		// Add navigation
-		$manuals       = Manual::all();
-		$active_manual = (($segment = URI::segment(2)) !== 'edit') ? $segment : URI::segment(3);
+		$manuals        = Manual::all();
+		$active_manual  = (($segment = URI::segment(2)) !== 'edit') ? $segment : URI::segment(3);
+		$active_chapter = (URI::segment(2) !== 'edit') ? URI::segment(3, 'introduction') : URI::segment(4, 'introduction');
 
-		View::composer('manuals::chapter', function($view) use ($manuals, $active_manual)
+		View::composer('manuals::chapter', function($view) use ($manuals, $active_manual, $active_chapter)
 		{
 			$view->with('manuals', $manuals)
-			     ->with('active_manual', $active_manual);
+			     ->with('active_manual', $active_manual)
+			     ->with('active_chapter', $active_chapter);
 		});
 
 		return $this;

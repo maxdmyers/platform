@@ -7,6 +7,20 @@ $(document).ready(function() {
 	*/
 	$('#toc ul').addClass('nav nav-tabs');
 
+	// Highlight active chapter
+	if ($active = $('#toc').attr('data-active-chapter')) {
+
+		// Look at the URL. Does the last segment (chapter segment)
+		// match the chapter we're viewing? If so, that link's parent
+		// list item is active.
+		$('#toc a').filter(function() {
+			var href = $(this).attr('href');
+
+			var re = new RegExp($active, 'i');
+			return re.test(    href.substr(href.lastIndexOf('/') + 1)   );
+		}).closest('li').addClass('active');
+	}
+
 	$('#chapter h3').each(function(index) {
 		var name = $(this).html();
 		anchor = name.toLowerCase().replace(/\((.*)\)/g, '');
