@@ -1,4 +1,4 @@
-<ul class="nav nav-pills nav-stacked">
+<ul class="nav nav-tabs">
 	@foreach ($items as $item)
 		<li class="{{ (($item['uri'] and ends_with(URI::current(), $item['uri'])) or ( ! $item['uri'] and URI::current() == ADMIN)) ? 'active' : null }}">
 

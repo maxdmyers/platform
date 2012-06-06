@@ -27,7 +27,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<!-- Links -->
-	{{ Theme::asset('css/style.css') }}
+	{{ Theme::asset('css/style.less') }}
 
 	@yield('links')
 
@@ -43,32 +43,42 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Theme::asset('img/apple-touch-icon-114x114-precomposed.png') }}">
 </head>
 <body>
-
-	<div id="base" class="container-fluid">
-		<div class="row-fluid">
-			<div id="navigation" class="span2">
+	<div id="base" class="frame">
+		<header class="row">
+			<div>
 				<div class="brand">
 					<a href="{{ url(ADMIN) }}">
 						<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
 					</a>
-					<h1>Platform - {{ $primary_slug }}</h1>
 				</div>
-
-				<nav>
-					@widget('platform.menus::menus.primary')
-				</nav>
-
+				<div class="about">
+					<h1>Platform</h1>
+					<p class="lead">A base application on Laravel</p>
+				</div>
 			</div>
-
-			<div id="page" class="span10">
-
-				<nav>
-					@widget('platform.menus::menus.secondary', $primary_slug)
-				</nav>
-
-				@yield('content')
-
+			<div class="navigation">
+				@widget('platform.menus::menus.primary')
 			</div>
+		</header>
+
+
+
+		<div id="page" class="row expand">
+			<div class="content container-fluid">
+				<div class="row-fluid">
+					<nav class="span2">
+						@widget('platform.menus::menus.secondary', $primary_slug)
+					</nav>
+
+					<div class="span10">
+						@yield('content')
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer" class="row">
+			<h3>Footer (auto)</h3>
 		</div>
 	</div>
 
