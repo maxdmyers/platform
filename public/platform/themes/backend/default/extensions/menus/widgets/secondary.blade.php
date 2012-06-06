@@ -1,17 +1,7 @@
 <ul class="nav nav-tabs">
 	@foreach ($items as $item)
-		<li>
+		<li class="{{ ends_with(URI::current(), $item['uri']) ? 'active' : null }}">
 			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
-
-			@if ($item['children'])
-				<ul>
-					@foreach ($item['children'] as $child)
-						<li>
-							{{ HTML::link(ADMIN.'/'.$child['uri'], $child['name']) }}
-						</li>
-					@endforeach
-				</ul>
-			@endif
 		</li>
 	@endforeach
 </ul>

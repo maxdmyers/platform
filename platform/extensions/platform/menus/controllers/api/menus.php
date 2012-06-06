@@ -131,8 +131,18 @@ class Menus_API_Menus_Controller extends API_Controller
 			);
 		}
 
-		return $parent->children(Input::get('depth', 0));
+		if ( ! $children = $parent->children(Input::get('depth', 0)))
+		{
+			return array(
+				'status'  => false,
+				'message' => 'There are no children for the given menu.',
+			);
+		}
 
+		return array(
+			'status'   => true,
+			'children' => $children,
+		);
 	}
 
 	/**

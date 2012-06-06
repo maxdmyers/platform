@@ -66,16 +66,16 @@ class Menus
 		}
 
 		// Get secondary navigation
-		$items = API::get('menus/children', $api_params);
+		$result = API::get('menus/children', $api_params);
 
 		// No children
-		if (isset($items['status']) and $items['status'] === false)
+		if ( ! $result['status'])
 		{
 			return '';
 		}
 
 		return Theme::make('menus::widgets.secondary')
-		            ->with('items', $items);
+		            ->with('items', $result['children']);
 	}
 
 }
