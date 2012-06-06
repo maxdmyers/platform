@@ -171,11 +171,18 @@ class Manager
 		// Resolves core tasks.
 		require_once path('sys').'cli/dependencies'.EXT;
 
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_start();
+
 		// Run extensions migration. This will prepare
 		// the table we need to install the core extensions
-		ob_start();
-		Bundle::register($extension->slug);
 		Command::run(array('migrate', $extension->slug));
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
 		ob_end_clean();
 
 		return $extension;

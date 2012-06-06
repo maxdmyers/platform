@@ -227,7 +227,8 @@ class Installer
 
 		foreach ($extensions as $extension)
 		{
-			// Install AND enable every uninstalled extension
+			// Install extension - this'll run migrations, put in
+			// the database etc...
 			Platform::extensions_manager()->install($extension, true);
 		}
 
