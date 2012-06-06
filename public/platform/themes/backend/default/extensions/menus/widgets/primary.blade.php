@@ -1,17 +1,8 @@
 <ul class="nav nav-pills nav-stacked">
 	@foreach ($items as $item)
-		<li>
-			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
+		<li class="{{ (($item['uri'] and ends_with(URI::current(), $item['uri'])) or ( ! $item['uri'] and URI::current() == ADMIN)) ? 'active' : null }}">
 
-			<!-- @if ($item['children'])
-				<ul>
-					@foreach ($item['children'] as $child)
-						<li>
-							{{ HTML::link(ADMIN.'/'.$child['uri'], $child['name']) }}
-						</li>
-					@endforeach
-				</ul>
-			@endif -->
+			{{ HTML::link(ADMIN.'/'.$item['uri'], $item['name']) }}
 		</li>
 	@endforeach
 </ul>
