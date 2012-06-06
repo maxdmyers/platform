@@ -55,6 +55,10 @@
 					<h1>Platform</h1>
 					<p class="lead">A base application on Laravel</p>
 				</div>
+				<div class="profile">
+					@widget('platform.users::users.profile')
+				</div>
+
 			</div>
 			<div class="navigation">
 				@widget('platform.menus::menus.primary')
