@@ -31,9 +31,6 @@ use Str;
 /**
  * Extension Manager class.
  *
- * @todo possibly tidy/refactor the extension loading
- *       or dependencies situtation.
- *
  * @author Ben Corlett
  */
 class Manager
@@ -391,23 +388,58 @@ class Manager
 	}
 
 	/**
+	 * Returns an array of cascaded extension directories
+	 * based on the order of arguments provided.
+	 *
+	 * Extensions are parsed through the order in which they're
+	 * passed to this function.
+	 * 
+	 * @param   mixed
+	 * @return  array
+	 */
+	protected function cascade_extesions_directories()
+	{
+		// Fallbacks
+		$extensions      = array();
+		$directories     = array();
+		$extension_slugs = array();
+
+		foreach (func_get_args() as $extensions)
+		{
+			foreach ($extensions as $extension)
+			{
+				$extension = dirname($extension);
+
+				// Cache the directory slug
+				$slug = basename($extension);
+
+				// Only add if it's not already added and it's not
+				// in the exempt list
+				if ( ! in_array($slug, $extension_slugs) and ! in_array($slug, $this->exempt))
+				{
+					$directories[]     = $extension;
+					$extension_slugs[] = $slug;
+				}
+			}
+		}
+
+		return $directories;
+	}
+
+	/**
 	 * Returns an array of extensions' directories.
+	 *
+	 * @todo Determine order of extensions in the groups. For example,
+	 *       "Platform" will be loaded last
 	 *
 	 * @return  array
 	 */
 	public function extensions_directories()
 	{
-		$directories = glob(path('bundle').'*', GLOB_NOSORT);
+		$grouped_extensions   = glob(path('bundle').'*'.DS.'*'.DS.'extension'.EXT, GLOB_NOSORT);
+		$top_level_extensions = glob(path('bundle').'*'.DS.'extension'.EXT, GLOB_NOSORT);
 
-		foreach ($directories as $index => $directory)
-		{
-			if (in_array(basename($directory), $this->exempt))
-			{
-				unset($directories[$index]);
-			}
-		}
-
-		return $directories;
+		return $this->cascade_extesions_directories($top_level_extensions, $grouped_extensions);
 	}
 
 	public function sort_dependencies(&$extensions = array())
@@ -439,24 +471,16 @@ class Manager
 
 	public function find_extension_file($slug)
 	{
-		// there are 2 possible locations for the extension.php file
-		// extensions/extension_dir/extension.php or
-		// extensions/dir/extension_dir/extension.php
+		// We'll search the root dir first
+		$files = glob(path('bundle').$slug.DS.'extension'.EXT);
 
-		// we'll search the root dir first
-		$path = path('bundle').$slug.DS.'extension'.EXT;
-		$file = glob($path);
+		if (empty($files))
+		{
+			// We couldn't find the extension file in the first path, so we'll try the 2nd
+			$files = glob(path('bundle').'*'.DS.$slug.DS.'extension'.EXT);
+		}
 
-		if ($file) return $file[0];
-
-		// we couldn't find the extension file in the first path, so we'll try the 2nd
-		$path = path('bundle').'*'.DS.$slug.DS.'extension'.EXT;
-		$file = glob($path);
-
-		if ($file) return $file[0];
-
-		// no file was found, return false
-		return false;
+		return ( ! empty($files)) ? $files[0] : false;
 	}
 
 	public function info($slug)
