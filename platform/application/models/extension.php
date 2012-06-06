@@ -18,13 +18,6 @@
  * @link       http://cartalyst.com
  */
 
-namespace Extensions;
-
-use Bundle;
-use Closure;
-use Config;
-use Crud;
-use Exception;
 use Menus\Menu;
 
 /**

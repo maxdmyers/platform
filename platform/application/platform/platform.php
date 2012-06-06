@@ -18,7 +18,6 @@
  * @link       http://cartalyst.com
  */
 
-use Extensions\Manager;
 use Laravel\Messages;
 
 class Platform
@@ -159,13 +158,7 @@ class Platform
 	{
 		if (static::$extensions_manager === null)
 		{
-			Bundle::register('extensions', array(
-				'handles'  => 'extensions',
-				'location' => 'path: '.path('bundle').'platform'.DS.'extensions',
-			));
-			Bundle::start('extensions');
-
-			static::$extensions_manager = new Manager();
+			static::$extensions_manager = new ExtensionsManager();
 		}
 
 		return static::$extensions_manager;
