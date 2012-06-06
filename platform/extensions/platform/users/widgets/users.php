@@ -25,9 +25,9 @@ use Theme;
 class Users
 {
 
-	public function nav()
+	public function profile()
 	{
-		return Theme::make('users::widgets.users.nav');
+		return Theme::make('users::widgets.users.profile');
 	}
 
 }
