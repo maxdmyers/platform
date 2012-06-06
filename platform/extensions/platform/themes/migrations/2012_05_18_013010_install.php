@@ -38,7 +38,7 @@ class Themes_Install
 		{
 			$table->increments('id')->unsigned();
 			$table->string('type');
-			$table->string('default');
+			$table->string('theme');
 			$table->text('options')->nullable();
 			$table->boolean('status');
 		});
