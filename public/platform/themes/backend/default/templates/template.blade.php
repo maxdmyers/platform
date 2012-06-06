@@ -80,7 +80,7 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="separator row"></div>
 		<div id="footer" class="row">
 			<h3>Footer (auto)</h3>
 		</div>
