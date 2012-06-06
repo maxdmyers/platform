@@ -40,7 +40,8 @@ class Settings_Install
 		});
 
 
-		// Create menu items
+		/* #Create Menu
+		================================================== */
 
 		$admin = Menu::admin_menu();
 
@@ -72,6 +73,25 @@ class Settings_Install
 		));
 
 		$settings->last_child_of($primary);
+
+		/* # Configuration Settings
+		================================================== */
+
+		$query = DB::table('configuration')->insert(array(
+			'extension' 	=> 'settings',
+			'type' 			=> 'general',
+			'name' 			=> 'name',
+			'value' 		=> 'Platform',
+		));
+
+		$query = DB::table('configuration')->insert(array(
+			'extension' 	=> 'settings',
+			'type' 			=> 'general',
+			'name' 			=> 'tagline',
+			'value' 		=> 'A base application on Laravel',
+		));
+
+
 
 	}
 	/**

@@ -31,13 +31,10 @@ return array(
 	'general' => array(
 		'title'	      => 'General',
 		'description' => '',
-
-		'site' => array(
-			'name'    => 'Name',
-			'tagline' => 'Tagline',
-			'url'     => 'Address (URL)',
-			'brand'   => 'Brand'
-		),
+		'name'    => 'Name',
+		'tagline' => 'Tagline',
+		'url'     => 'Address (URL)',
+		'brand'   => 'Brand',
 
 		'address' => array(
 			'name'    => 'Name',

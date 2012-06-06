@@ -27,7 +27,7 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 		// general settings
 		'general' => array(
 			'site:name' => 'required',
-			'site:url'  => 'required'
+			//'site:url'  => 'required'
 		)
 	);
 
@@ -53,8 +53,6 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 
 	public function post_general()
 	{
-		// remove csrf token
-		$post = Input::get();
 
 		$post = Input::get();
 
@@ -102,38 +100,6 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 		}
 
 		$update = Api::post('settings', array('settings' => $settings));
-
-		// 	'extension'  => 'settings',
-		// 	'settings'   => $post,
-		// 	'validation' => array(
-		// 		'store_name'  => 'required',
-		// 	),
-		// 	'labels' => array(
-		// 		'store_name'         => 'Store Name',
-		// 		'store_brand'        => 'Store Brand',
-		// 		'store_maintenance'  => 'Store Maintenance',
-		// 	),
-		// ));
-
-		// 'settings' => array(
-		// 			'values' => array(
-		// 				'extension' => 'themes',
-		// 				'type'      => 'theme',
-		// 				'name'      => $type,
-		// 				'value'     => Input::get('theme'),
-		// 			),
-
-		// 			// validation
-		// 			'validation' => array(
-		// 				'name'  => 'required',
-		// 				'value' => 'required',
-		// 			),
-
-		// 			// labels
-		// 			'labels' => array(
-		// 				'name' => 'Theme'
-		// 			),
-		// 		),
 
 		if ($update['status'])
 		{

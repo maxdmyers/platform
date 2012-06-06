@@ -52,8 +52,8 @@
 					</a>
 				</div>
 				<div class="about">
-					<h1>Platform</h1>
-					<p class="lead">A base application on Laravel</p>
+					<h1>@get.settings.general.name</h1>
+					<p class="lead">@get.settings.general.tagline</p>
 				</div>
 				<div class="profile">
 					@widget('platform.users::users.profile')

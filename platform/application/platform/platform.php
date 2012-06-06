@@ -143,7 +143,7 @@ class Platform
 		// register @get with blade
 		Blade::extend(function($view)
 		{
-			$pattern = "/@get\.([^\s<]*)/";
+			$pattern = "/@get\.([^\s\"<]*)/";
 
 			return preg_replace($pattern, '<?php echo Platform::get(\'$1\'); ?>', $view);
 		});
