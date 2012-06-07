@@ -45,23 +45,22 @@
 <body>
 	<div id="base" class="grid">
 		<header class="row">
-			<div>
-				<div class="brand">
-					<a href="{{ url(ADMIN) }}">
-						<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
-					</a>
-				</div>
-				<div class="about">
-					<h1>@get.settings.general.name</h1>
-					<p class="lead">@get.settings.general.tagline</p>
-				</div>
-				<div class="profile">
-					@widget('platform.users::users.profile')
-				</div>
-
+			<div class="brand">
+				<a href="{{ url(ADMIN) }}">
+					<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
+				</a>
 			</div>
-			<div class="navigation">
-				@widget('platform.menus::menus.primary')
+			<div class="about">
+				<h1>@get.settings.general.name</h1>
+				<p class="lead">@get.settings.general.tagline</p>
+			</div>
+			<div class="profile">
+				@widget('platform.users::users.profile')
+			</div>
+			<div class="wrapper">
+				<div class="navigation">
+					@widget('platform.menus::menus.primary')
+				</div>
 			</div>
 		</header>
 
