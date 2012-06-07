@@ -1,20 +1,20 @@
 // Just incase the files get loaded out of order
-if (cartalyst == undefined)
+if (platform == undefined)
 {
-	var cartalyst = { };
+	var platform = { };
 }
 
 (function($, window, document, undefined) {
 
 	// define Table object
-	cartalyst.table = {
+	platform.table = {
 
 		// Initialize Table
 		init: function(elem, options) {
 			var self = this;
 
 			// set options
-			self.options = $.extend({}, cartalyst.table.options, options);
+			self.options = $.extend({}, platform.table.options, options);
 
 			// make sure url is set - (remove and default to current url?)
 			if (self.options.url === null) {
@@ -186,7 +186,7 @@ if (cartalyst == undefined)
 			self.$wrapper = $('#table-wrapper');
 
 			// set table process div
-			self.$process = $('<div class="table-processing"><img src="/cartalyst/themes/backend/default/assets/img/table/loading.gif">'+self.options.processingText+'</div>')
+			self.$process = $('<div class="table-processing"><img src="/platform/themes/backend/default/assets/img/table/loading.gif">'+self.options.processingText+'</div>')
 								.prependTo(self.$wrapper);
 
 			// set table overlay dev
@@ -391,9 +391,9 @@ if (cartalyst == undefined)
 			select += '</select>';
 
 			self.$filterSelect   = $(select).appendTo(self.$filterWrapper);
-			self.$filterText     = $('<input type="text" class="table-filter-text">').appendTo(self.$filterWrapper);
-			self.$addFilter      = $('<button '+self.options.addFilter.attributes+'>'+self.options.addFilter.text+'</button>').appendTo(self.$filterWrapper);
-			self.$refresh        = $('<button '+self.options.refresh.attributes+'>'+self.options.refresh.text+'</button>').appendTo(self.$filterWrapper);
+			self.$filterText     = $('<input type="text" class="table-filter-text span3">').appendTo(self.$filterWrapper);
+			self.$addFilter      = $('<button class="btn" type="button"'+self.options.addFilter.attributes+'>'+self.options.addFilter.text+'</button>').appendTo(self.$filterWrapper);
+			self.$refresh        = $('<button class="btn" type="button"'+self.options.refresh.attributes+'>'+self.options.refresh.text+'</button>').appendTo(self.$filterWrapper);
 			self.$filtersApplied = $('#table-filters-applied');
 
 		},
@@ -446,7 +446,7 @@ if (cartalyst == undefined)
 	}
 
 	// define plugin options
-	cartalyst.table.options = {
+	platform.table.options = {
 		'url'              : null, // string
 
 		// search options
