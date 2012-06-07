@@ -43,7 +43,7 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Theme::asset('img/apple-touch-icon-114x114-precomposed.png') }}">
 </head>
 <body>
-	<div id="base" class="frame">
+	<div id="base" class="grid">
 		<header class="row">
 			<div>
 				<div class="brand">
@@ -70,19 +70,28 @@
 		<div id="page" class="row expand">
 			<div class="content container-fluid">
 				<div class="row-fluid">
-					<nav class="span2">
+					<nav class="column span2">
 						@widget('platform.menus::menus.secondary', $primary_slug)
 					</nav>
 
-					<div class="span10">
+					<div class="column expand span10">
 						@yield('content')
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="separator row"></div>
 		<div id="footer" class="row">
-			<h3>Footer (auto)</h3>
+			<div class="row-fluid">
+				<div class="brand">
+					<a href="{{ url(ADMIN) }}">
+						<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
+					</a>
+				</div>
+				<div class="legal">
+					<p class="copyright">Created, developed, and designed by <a href="http://twitter.com/#!/Cartalyst">@Cartalyst</a></p>
+					<p class="licence">The BSD 3-Clause License - Copyright (c) 2011-2012, Cartalyst LLC</p>
+				</div>
+			</div>
 		</div>
 	</div>
 
