@@ -23,18 +23,18 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 
 	protected $primary_slug = 'system';
 
-	public function action_index()
+	public function get_index()
 	{
 		return Theme::make('menus::index')
 		            ->with('menus', API::get('menus'));
 	}
 
-	public function action_create()
+	public function get_create()
 	{
-		return $this->action_edit();
+		return $this->get_edit();
 	}
 
-	public function action_edit($id = false)
+	public function get_edit($id = false)
 	{
 		// Get menu from API
 		$menu = API::get('menus/menu', array(

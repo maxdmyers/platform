@@ -16,25 +16,44 @@
 
 @section('content')
 
-<div class="carta-menu">
-	<div class="editor">
+<div class="page-header">
+	<h1>Edit Menu</h1>
+</div>
+
+<p class="lead">
+	Edit your menu.... blah blah blah
+	<br>
+	Known issues/todo:
+</p>
+<ol class="lead">
+	<li>Saving new menu items to existing menu (Nesty API change needs to be imlemented)</li>
+	<li>JS to remove menu item is broken, but is developed. Just needs fixing</li>
+</ol>
+
+<div class="row carta-menu">
+	<div class="span3">
+		
 		<h2 id="add">Add Menu Item</h2>
 
 		<p>Please type a name and Uri for the new menu item and click <strong>add to menu</strong> below.</p>
 
-		<input class="input-small new-item-name" placeholder="Name">
-		<input class="input-small new-item-uri" placeholder="Uri">
+		<input class="new-item-name" placeholder="Name">
+		<br>
+		<input class="new-item-slug" placeholder="Slug">
+		<br>
+		<input class="new-item-uri" placeholder="Uri">
 		<br>
 
-		<button type="button" class="btn primary new-item-add">
+		<button type="button" class="btn new-item-add">
 			Add to Menu
 		</button>
 
-		<button type="button" class="save-menu">
+		<button type="button" class="btn btn-primary save-menu">
 			Save Menu
 		</button>
+
 	</div>
-	<div class="menu-area">
+	<div class="span7">
 		<h2>Your Menu</h2>
 
 		<ol class="actual-menu">
@@ -49,9 +68,9 @@
 
 @section('body_scripts')
 
-<script src="{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}"></script>
-<script src="{{ Theme::asset('menus::js/jquery/nestedsortable-1.3.4.js') }}"></script>
-<script src="{{ Theme::asset('menus::js/cartamenu.js') }}"></script>
+{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}">
+{{ Theme::asset('menus::js/jquery/nestedsortable-1.3.4.js') }}">
+{{ Theme::asset('menus::js/cartamenu.js') }}">
 
 <script>
 $(document).ready(function() {

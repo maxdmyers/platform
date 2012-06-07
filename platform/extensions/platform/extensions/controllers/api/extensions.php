@@ -18,8 +18,6 @@
  * @link       http://cartalyst.com
  */
 
-use Extensions\Manager;
-
 class Extensions_API_Extensions_Controller extends API_Controller
 {
 
@@ -42,10 +40,10 @@ class Extensions_API_Extensions_Controller extends API_Controller
 		);
 
 		// Get total count
-		$count_total = Manager::count();
+		$count_total = Extension::count();
 
 		// Get the filtered count
-		$count_filtered = Manager::count('id', function($query) use($defaults)
+		$count_filtered = Extension::count('id', function($query) use($defaults)
 		{
 			// Sets the were clause from passed settings
 			$query = Table::count($query, $defaults);
@@ -57,7 +55,7 @@ class Extensions_API_Extensions_Controller extends API_Controller
 		$paging = Table::prep_paging($count_filtered, 20);
 
 		// Get Table items
-		$items = Manager::all(function($query) use ($defaults, $paging)
+		$items = Extension::all(function($query) use ($defaults, $paging)
 		{
 			list($query, $columns) = Table::query($query, $defaults, $paging);
 
@@ -90,7 +88,7 @@ class Extensions_API_Extensions_Controller extends API_Controller
 		$installed = array();
 
 		// Get an array of installed extension slugs
-		$results = Manager::all(function($query)
+		$results = Extension::all(function($query)
 		{
 			return $query->select('slug');
 		});
@@ -164,6 +162,22 @@ class Extensions_API_Extensions_Controller extends API_Controller
 		});
 
 		return Platform::extensions_manager()->install($slug);
+	}
+
+	/**
+	 * Uninstalls an extension
+	 *
+	 * @param  string  $slug
+	 * @return 
+	 */
+	public function post_uninstall()
+	{
+		$id = Input::get('id', function()
+		{
+			throw new Exception('Invalid id provided.');
+		});
+
+		return Platform::extensions_manager()->uninstall($id);
 	}
 
 	public function post_enable()

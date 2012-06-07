@@ -134,6 +134,7 @@ class ExtensionsManager
 	 * Installs an extension by the given slug.
 	 *
 	 * @param   string  $slug
+	 * @param   bool    $enable
 	 * @return  Extension
 	 */
 	public function install($slug, $enable = false)
@@ -179,6 +180,43 @@ class ExtensionsManager
 		ob_end_clean();
 
 		return $extension;
+	}
+
+	/**
+	 * Uninstalls an extension.
+	 *
+	 * @param   string  $slug
+	 * @return  bool
+	 */
+	public function uninstall($id)
+	{
+		$extension = Extension::find($id);
+
+		if ($extension === null)
+		{
+			throw new Exception('Platform extension doesn\'t exist.');
+		}
+
+		// Resolves core tasks.
+		require_once path('sys').'cli/dependencies'.EXT;
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_start();
+
+		// Reset migrations - loose all data
+		Command::run(array('migrate:reset', $extension->slug));
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_end_clean();
+
+		// Delete reference from the databas
+		$extension->delete();
+
+		return true;
 	}
 
 	/**
