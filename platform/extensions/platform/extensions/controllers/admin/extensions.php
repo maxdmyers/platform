@@ -18,8 +18,10 @@
  * @link       http://cartalyst.com
  */
 
-class Extensions_Admin_Extensions_Controller extends Base_Controller
+class Extensions_Admin_Extensions_Controller extends Admin_Controller
 {
+
+	protected $primary_slug = 'system';
 
 	public function get_index()
 	{
@@ -52,6 +54,13 @@ class Extensions_Admin_Extensions_Controller extends Base_Controller
 	public function get_install($slug)
 	{
 		$result = API::post('extensions/install', array('slug' => $slug));
+
+		return Redirect::to(ADMIN.'/extensions');
+	}
+
+	public function get_uninstall($id)
+	{
+		$result = API::post('extensions/uninstall', array('id' => $id));
 
 		return Redirect::to(ADMIN.'/extensions');
 	}

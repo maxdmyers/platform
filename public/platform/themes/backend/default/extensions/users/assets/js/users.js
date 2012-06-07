@@ -1,5 +1,5 @@
 (function($) {
-	cartalyst.table.init($('table'), {
-		'url': cartalyst.url.admin('users'),
+	platform.table.init($('table'), {
+		'url': platform.url.admin('users'),
 	});
 })(jQuery);

@@ -9,8 +9,6 @@
 @endsection
 
 @section('body_scripts')
-	@parent
-	{{ Theme::asset('js/table.js') }}
 	{{ Theme::asset('extensions::js/extensions.js') }}
 @endsection
 
@@ -50,7 +48,7 @@
 								{{ $extension['version'] }}
 							</td>
 							<td>
-								<a href="{{ url(ADMIN.'/extensions/install/'.$extension['slug']) }}" onclick="return confirm('Are you sure you want to install the \'{{ $extension['name'] }}\' extension?');">install</a>
+								<a href="{{ url(ADMIN.'/extensions/install/'.$extension['slug']) }}" onclick="return confirm('Are you sure you want to install the \'{{ e($extension['name']) }}\' extension?');">install</a>
 							</td>
 						</tr>
 					@empty

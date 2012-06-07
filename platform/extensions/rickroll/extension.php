@@ -18,34 +18,36 @@
  * @link       http://cartalyst.com
  */
 
-namespace Platform\Settings\Widgets;
+return array(
 
-use API;
-use Theme;
+	'info' => array(
+		'name'        => 'RickRoll',
+		'slug'        => 'rickroll',
+		'author'      => 'Cartalyst LLC',
+		'description' => 'LOL',
+		'version'     => '1.0',
+		'is_core'     => false,
+	),
 
-class Settings
-{
+	'dependencies' => array(
+		'menus',
+	),
 
-	public function general()
-	{
-		// get extension settings from db
-		$settings = API::get('settings', array(
-			'where' => array(
-				array('extension', '=', 'settings')
-			),
-			'organize' => true
-		));
+	'bundles' => array(
+		'handles'  => 'extension',
+		'location' => 'path: '.__DIR__,
+	),
 
-		if ($settings['status'])
-		{
-			$data['settings'] = $settings['settings'];
-		}
-		else
-		{
-			$data['message'] = $settings['message'];
-		}
+	'listeners' => function() {
 
-		return Theme::make('settings::widgets.form.general', $data);
-	}
+	},
 
-}
+	'global_routes' => function() {
+
+	},
+
+	'rules' => array(
+
+	),
+
+);
