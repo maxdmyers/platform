@@ -68,29 +68,25 @@
 
 
 		<div id="page" class="row expand">
-			<div class="content container-fluid">
-				<div class="row-fluid">
-					<nav class="column span2">
-						@widget('platform.menus::menus.secondary', $primary_slug)
-					</nav>
+			<div id="inside" class="grid">
+				<div class="navigation column">
+					@widget('platform.menus::menus.secondary', $primary_slug)
+				</div>
 
-					<div class="column expand span10">
-						@yield('content')
-					</div>
+				<div class="content column expand">
+					@yield('content')
 				</div>
 			</div>
 		</div>
 		<div id="footer" class="row">
-			<div class="row-fluid">
-				<div class="brand">
-					<a href="{{ url(ADMIN) }}">
-						<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
-					</a>
-				</div>
-				<div class="legal">
-					<p class="copyright">Created, developed, and designed by <a href="http://twitter.com/#!/Cartalyst">@Cartalyst</a></p>
-					<p class="licence">The BSD 3-Clause License - Copyright (c) 2011-2012, Cartalyst LLC</p>
-				</div>
+			<div class="brand">
+				<a href="{{ url(ADMIN) }}">
+					<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
+				</a>
+			</div>
+			<div class="legal">
+				<p class="copyright">Created, developed, and designed by <a href="http://twitter.com/#!/Cartalyst">@Cartalyst</a></p>
+				<p class="licence">The BSD 3-Clause License - Copyright (c) 2011-2012, Cartalyst LLC</p>
 			</div>
 		</div>
 	</div>
