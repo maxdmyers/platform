@@ -18,14 +18,12 @@
  * @link       http://cartalyst.com
  */
 
-// OAuth
-Route::get(array('manuals/oauth', 'manuals/oauth/index'), 'manuals::oauth@index');
+class Manuals_Oauth_Controller extends Manuals_Base_Controller
+{
 
-// Editing a manual
-Route::any('manuals/edit/(:any?)/(:any?)/(:any?)', 'manuals::edit@edit');
+	public function get_index()
+	{
+		echo 'sdf';
+	}
 
-// Reading a manual
-Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), 'manuals::index@read');
-
-// List all manuals
-Route::get('manuals', 'manuals::index@index');
+}

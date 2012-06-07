@@ -34,22 +34,26 @@
 */
 
 return array(
-	'gitsy'  => array(
+	'gitsy'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',
 	),
-	'manuals'  => array(
+	'manuals' => array(
 		'location' => 'path: '.path('manuals'),
 		'auto'     => true,
 	),
-	'nesty'  => array(
+	'nesty'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
 		'auto'     => true,
 	),
-	'sentry' => array(
+	'oauth2'  => array(
+		'location' => 'path: '.path('app').'bundles'.DS.'oauth2',
+		'auto'     => true,
+	),
+	'sentry'  => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'sentry',
 		'auto'     => true,
 	),
-	'theme'  => array(
+	'theme'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'theme',
 		'auto'     => true,
 	),

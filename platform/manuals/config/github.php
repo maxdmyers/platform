@@ -18,14 +18,9 @@
  * @link       http://cartalyst.com
  */
 
-// OAuth
-Route::get(array('manuals/oauth', 'manuals/oauth/index'), 'manuals::oauth@index');
+return array(
 
-// Editing a manual
-Route::any('manuals/edit/(:any?)/(:any?)/(:any?)', 'manuals::edit@edit');
-
-// Reading a manual
-Route::get(array('manuals/(:any?)', 'manuals/(:any?)/(:any?)'), 'manuals::index@read');
-
-// List all manuals
-Route::get('manuals', 'manuals::index@index');
+	// Client ID of the manuals application
+	'client_id'     => $_SERVER['GITHUB_CLIENT_ID'],
+	'client_secret' => $_SERVER['GITHUB_SECRET'],
+);
