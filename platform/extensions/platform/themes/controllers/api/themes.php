@@ -1,4 +1,4 @@
-z<?php
+<?php
 /**
  * Part of the Platform application.
  *
@@ -74,6 +74,10 @@ class Themes_API_Themes_Controller extends API_Controller
 		if ( ! empty($theme_options))
 		{
 			$theme_options['options'] = json_decode($theme_options['options']);
+		}
+		else
+		{
+			$theme_options['options'] = array();
 		}
 
 		return array(

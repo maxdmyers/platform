@@ -1,13 +1,13 @@
 // Just incase the files get loaded out of order
-if (cartalyst == undefined)
+if (platform == undefined)
 {
-	var cartalyst = { };
+	var platform = { };
 }
 
 // start helpers
 (function($) {
 	// define Helpers object
-	cartalyst.url = {
+	platform.url = {
 
 		urls : {
 			base: null,
@@ -37,6 +37,6 @@ if (cartalyst == undefined)
 
 	};
 
-	cartalyst.url.init();
+	platform.url.init();
 
 })(jQuery);
