@@ -95,7 +95,7 @@
 		</div>
 	</div>
 
-	{{ Theme::asset('js/jquery-1.7.2.min.js', 'js/url.js') }}
+	{{ Theme::asset('js/jquery-1.7.2.min.js', 'js/admin.js', 'js/url.js') }}
 	@yield('body_scripts')
 
 </body>
