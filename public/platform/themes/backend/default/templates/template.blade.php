@@ -68,7 +68,7 @@
 
 
 		<div id="page" class="row expand">
-			<div id="inside" class="grid">
+			<div id="inside" class="grid wrapper">
 				<div class="navigation column">
 					@widget('platform.menus::menus.secondary', $primary_slug)
 				</div>
@@ -79,14 +79,16 @@
 			</div>
 		</div>
 		<div id="footer" class="row">
-			<div class="brand">
-				<a href="{{ url(ADMIN) }}">
-					<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
-				</a>
-			</div>
-			<div class="legal">
-				<p class="copyright">Created, developed, and designed by <a href="http://twitter.com/#!/Cartalyst">@Cartalyst</a></p>
-				<p class="licence">The BSD 3-Clause License - Copyright (c) 2011-2012, Cartalyst LLC</p>
+			<div class="wrapper">
+				<div class="brand">
+					<a href="{{ url(ADMIN) }}">
+						<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
+					</a>
+				</div>
+				<div class="legal">
+					<p class="copyright">Created, developed, and designed by <a href="http://twitter.com/#!/Cartalyst">@Cartalyst</a></p>
+					<p class="licence">The BSD 3-Clause License - Copyright (c) 2011-2012, Cartalyst LLC</p>
+				</div>
 			</div>
 		</div>
 	</div>
