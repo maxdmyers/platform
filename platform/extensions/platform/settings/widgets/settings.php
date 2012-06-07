@@ -38,12 +38,10 @@ class Settings
 
 		if ($settings['status'])
 		{
-			$data['has_settings'] = true;
 			$data['settings'] = $settings['settings'];
 		}
 		else
 		{
-			$data['has_settings'] = false;
 			$data['message'] = $settings['message'];
 		}
 
