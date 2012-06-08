@@ -29,7 +29,9 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 		$datatable = API::get('extensions/datatable');
 
 		// Get list of uninstalled extensions in the system
-		$uninstalled = API::get('extensions/uninstalled');
+		$uninstalled = API::get('extensions/uninstalled', array(
+			'detailed' => true,
+		));
 
 		$data = array(
 			'columns'     => $datatable['columns'],

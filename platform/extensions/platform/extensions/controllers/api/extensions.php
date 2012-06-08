@@ -84,64 +84,16 @@ class Extensions_API_Extensions_Controller extends API_Controller
 	 */
 	public function get_uninstalled()
 	{
-		// Installed extensions
-		$installed = array();
+		$uninstalled = Platform::extensions_manager()->uninstalled();
 
-		// Get an array of installed extension slugs
-		$results = Extension::all(function($query)
+		// If we want detailed info about extension,
+		// not just the slug
+		if (Input::get('detailed') == true)
 		{
-			return $query->select('slug');
-		});
-
-		foreach ($results as $result)
-		{
-			$installed[] = $result->slug;
-		}
-
-		// Get all extensions in the extensions folder
-		$extensions = glob(path('bundle').'*');
-
-		// Array of uninstalled extensions
-		$uninstalled = array();
-
-		// Loop through and find extension files
-		foreach ($extensions as $extension)
-		{
-			// Get the extension slug
-			$slug = basename($extension);
-
-			// Work out the extension file
-			$file = $extension.DS.'extension'.EXT;
-
-			// No extension file? Not a valid extension
-			if ( ! file_exists($file))
+			foreach ($uninstalled as $index => $slug)
 			{
-				continue;
-			}
-
-			// Get extension info
-			$info = require $file;
-
-			// If we don't have information about the extension
-			if ( ! isset($info['info']) or ! is_array($info['info']))
-			{
-				continue;
-			}
-
-			// Change our ke
-			$info = $info['info'];
-
-			// Only continue if we're not currently installed
-			if ( ! in_array($slug, $installed))
-			{
-				// Add to the array
-				$uninstalled[] = array(
-					'name'        => isset($info['name']) ? $info['name'] : '',
-					'slug'        => isset($info['slug']) ? $info['slug'] : '',
-					'author'      => isset($info['author']) ? $info['author'] : '',
-					'description' => isset($info['description']) ? $info['description'] : '',
-					'version'     => isset($info['version']) ? $info['version'] : '',
-				);
+				$info = Platform::extensions_manager()->info($slug);
+				$uninstalled[$index] = $info['info'];
 			}
 		}
 
