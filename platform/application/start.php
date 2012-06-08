@@ -64,6 +64,7 @@ Autoloader::map(array(
 	'Admin_Controller'      => path('app').'controllers/admin'.EXT,
 	'Authorized_Controller' => path('app').'controllers/authorized'.EXT,
 	'Base_Controller'       => path('app').'controllers/base'.EXT,
+	'Public_Controller'     => path('app').'controllers/public'.EXT,
 ));
 
 /*
