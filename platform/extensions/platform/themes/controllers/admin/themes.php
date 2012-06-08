@@ -162,7 +162,6 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 
 		// get active themes
 		$active = API::get('settings', array(
-			'extension' => 'themes',
 			'where'     => array(
 				array('extension', '=', 'themes'),
 				array('type', '=', 'theme'),

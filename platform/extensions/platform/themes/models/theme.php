@@ -117,10 +117,7 @@ class Theme extends Crud
 	{
 		if ($result)
 		{
-			foreach ($result as &$theme_options)
-			{
-				$theme_options['options'] = json_decode($theme_options['options']);
-			}
+			$result->options = ($result->options) ? json_decode($result->options) : array();
 		}
 
 		return $result;

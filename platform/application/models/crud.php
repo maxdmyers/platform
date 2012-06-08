@@ -568,7 +568,7 @@ class Crud implements ArrayAccess
 
 		list($query, $columns) = $model->before_find($query, $columns);
 
-		$result = $query->take(1)->first($columns);
+		$result = $query->first($columns);
 		$result = $model->after_find($result);
 
 		if (count($result) > 0)
