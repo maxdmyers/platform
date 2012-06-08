@@ -186,7 +186,7 @@ if (platform == undefined)
 			self.$wrapper = $('#table-wrapper');
 
 			// set table process div
-			self.$process = $('<div class="table-processing"><img src="/platform/themes/backend/default/assets/img/table/loading.gif">'+self.options.processingText+'</div>')
+			self.$process = $('<div class="table-processing">'+self.options.processingText+'</div>')
 								.prependTo(self.$wrapper);
 
 			// set table overlay dev
