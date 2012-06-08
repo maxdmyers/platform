@@ -5,6 +5,7 @@
 @endsection
 
 @section('links')
+	{{ Theme::asset('users::css/users.less') }}
 	{{ Theme::asset('css/table.css') }}
 @endsection
 
@@ -13,22 +14,35 @@
 @endsection
 
 @section('content')
-	<section id="users" class="row-fluid">
-		<h1>{{ Lang::line('users::users.title') }}</h1>
-		<div id="table-actions">
+	<section id="users">
+		<header class="container-fluid">
 			<div class="row-fluid">
-				<div id="table-filters" class="span8"></div>
-				<div id="actions" class="span4">
-					<a class="btn-large btn-primary" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::users.btn_new_user') }}</a>
+
+				<h1 class="span4">{{ Lang::line('users::users.title') }}</h1>
+
+				<div class="span8">
+					<ul class="nav nav-pills pull-right">
+						<li>
+							<a class="btn" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::users.btn_new_user') }}</a>
+						</li>
+					</ul>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div id="table-filters-applied" class="span12"></div>
+
+			<hr>
+
+			<div id="table-actions">
+
+				<div id="table-filters" class="form-inline"></div>
+
+				<div id="table-filters-applied"></div>
+
 			</div>
-		</div>
+
+		</header>
+
 
 		<div id="table-wrapper">
-			<div class="row-fluid">
 				<table id="users-table" class="table table-bordered">
 					<thead>
 						<tr>

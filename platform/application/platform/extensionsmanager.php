@@ -206,7 +206,12 @@ class ExtensionsManager
 		ob_start();
 
 		// Reset migrations - loose all data
-		Command::run(array('migrate:reset', $extension->slug));
+		// Command::run(array('migrate:reset', $extension->slug));
+		// We can't currently do this as Laravel isn't passing the argument
+		// for the bundle to reset and thus is caught in an infinite loop.
+		/**
+		 * @todo Put in bug report for this!
+		 */
 
 		/**
 		 * @todo remove when my pull request gets accepted

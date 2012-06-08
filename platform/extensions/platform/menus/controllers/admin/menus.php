@@ -55,8 +55,67 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		            ->with('menu', $menu)
 		            ->with('menus_view', $menus_view)
 		            ->with('item_template', $item_template)
-		            ->with('menu_id', $id ? $id : 'false');
+		            ->with('menu_id', $id ? $id : 'false')
+		            ->with('last_item_id', API::get('menus/last_item_id'));
 	}
+
+	public function post_edit($id = false)
+	{
+		$items    = array();
+
+		foreach (Input::get('items') as $item)
+		{
+			$this->process_item_recursively($item, $items);
+		}
+
+		API::post('menus/menu', array(
+			'id'    => $id,
+			'name'  => Input::get('name'),
+			'slug'  => Input::get('slug'),
+			'items' => $items,
+		));
+	}
+
+
+	/**
+	 * Recursively processes an item and it's children
+	 * based on POST data.
+	 *
+	 * @param   array  $item
+	 * @param   array  $items
+	 */
+	protected function process_item_recursively($item, &$items)
+	{
+		$new_item = array(
+			'name' => Input::get('inputs.'.$item['id'].'.name'),
+			'slug' => Input::get('inputs.'.$item['id'].'.slug'),
+			'uri'  => Input::get('inputs.'.$item['id'].'.uri'),
+		);
+
+		// Determine if we're a new item or not. If we're
+		// new, we don't attach an ID. Nesty will handle the
+		// rest.
+		if ( ! Input::get('inputs.'.$item['id'].'.is_new'))
+		{
+			$new_item['id'] = $item['id'];
+		}
+
+		// If we have children, call the function again
+		if (isset($item['children']) and is_array($item['children']) and count($item['children']) > 0)
+		{
+			$children = array();
+
+			foreach ($item['children'] as $child)
+			{
+				$this->process_item_recursively($child, $children);
+			}
+
+			$new_item['children'] = $children;
+		}
+
+		$items[] = $new_item;
+	}
+
 
 	protected function make_menus_view_recursively($menu)
 	{

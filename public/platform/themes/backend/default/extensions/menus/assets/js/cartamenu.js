@@ -1,5 +1,9 @@
 (function() {
 
+	/**
+	 * @todo make the new item fields more dynamic
+	 */
+
 	// CartMenu plugin
 	var CartaMenu = {
 
@@ -13,6 +17,7 @@
 			newItemSelectors : {
 				name : '.new-item-name',
 				uri  : '.new-item-uri',
+				slug : '.new-item-slug',
 				add  : '.new-item-add'
 			},
 
@@ -119,9 +124,10 @@
 			elem.find(selectors.add).on('click', function() {
 
 				$name = elem.find(selectors.name);
+				$slug = elem.find(selectors.slug);
 				$uri  = elem.find(selectors.uri);
 
-				self.addMenuItem($name.val(), $uri.val());
+				self.addMenuItem($name.val(), $slug.val(), $uri.val());
 				$name.val('');
 				$uri.val('');
 
@@ -138,7 +144,7 @@
 		 * @param  string  uri
 		 * @return CartaMenu
 		 */
-		addMenuItem: function(name, uri) {
+		addMenuItem: function(name, slug, uri) {
 
 			if (name.length == 0 || uri.length == 0) {
 				return alert('Fill out all fields.');
@@ -151,9 +157,10 @@
 			var itemTemplate = self.settings.itemTemplate;
 
 			// Update our template with real vars
-			itemTemplate = itemTemplate.replace(/\{\{name\}\}/gi, name)
-			                           .replace(/\{\{id\}\}/gi, id)
-			                           .replace(/\{\{uri\}\}/gi, uri)
+			itemTemplate = itemTemplate.replace(/\{\{id\}\}/gi, id)
+			                           .replace(/\{\{name\}\}/gi, name)
+			                           .replace(/\{\{slug\}\}/gi, name)
+			                           .replace(/\{\{uri\}\}/gi, uri);
 
 			// Append our item
 			menu.append(itemTemplate);
@@ -243,77 +250,3 @@
 	};
 
 })(jQuery);
-
-/**
- * Function : dump()
- * Arguments: The data - array,hash(associative array),object
- *    The level - OPTIONAL
- * Returns  : The textual representation of the array.
- * This function was inspired by the print_r function of PHP.
- * This will accept some data as the argument and return a
- * text that will be a more readable version of the
- * array/hash/object that is given.
- * Docs: http://www.openjs.com/scripts/others/dump_function_php_print_r.php
- */
-function dump(arr,level) {
-	var dumped_text = "";
-	if(!level) level = 0;
-	
-	//The padding given at the beginning of the line.
-	var level_padding = "";
-	for(var j=0;j<level+1;j++) level_padding += "    ";
-	
-	if(typeof(arr) == 'object') { //Array/Hashes/Objects 
-		for(var item in arr) {
-			var value = arr[item];
-			
-			if(typeof(value) == 'object') { //If it is an array,
-				dumped_text += level_padding + "'" + item + "' ...\n";
-				dumped_text += dump(value,level+1);
-			} else {
-				dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
-			}
-		}
-	} else { //Stings/Chars/Numbers etc.
-		dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
-	}
-	return dumped_text;
-}
-
-// $(document).ready(function(){
-
-// 	$('ol.sortable').nestedSortable({
-// 		disableNesting: 'no-nest',
-// 		forcePlaceholderSize: true,
-// 		handle: 'div',
-// 		helper:	'clone',
-// 		items: 'li',
-// 		maxLevels: 3,
-// 		opacity: .6,
-// 		placeholder: 'placeholder',
-// 		revert: 250,
-// 		tabSize: 25,
-// 		tolerance: 'pointer',
-// 		toleranceElement: '> div'
-// 	});
-
-// 	$('#serialize').click(function(){
-// 		serialized = $('ol.sortable').nestedSortable('serialize');
-// 		$('#serializeOutput').text(serialized+'\n\n');
-// 	})
-
-// 	$('#toHierarchy').click(function(e){
-// 		hiered = $('ol.sortable').nestedSortable('toHierarchy', {startDepthCount: 0});
-// 		hiered = dump(hiered);
-// 		(typeof($('#toHierarchyOutput')[0].textContent) != 'undefined') ?
-// 		$('#toHierarchyOutput')[0].textContent = hiered : $('#toHierarchyOutput')[0].innerText = hiered;
-// 	})
-
-// 	$('#toArray').click(function(e){
-// 		arraied = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
-// 		arraied = dump(arraied);
-// 		(typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
-// 		$('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
-// 	})
-
-// });

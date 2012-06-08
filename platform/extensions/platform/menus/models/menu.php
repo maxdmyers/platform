@@ -20,6 +20,7 @@
 
 namespace Platform\Menus;
 
+use Closure;
 use Exception;
 use Nesty\Nesty;
 use Str;
@@ -49,7 +50,6 @@ class Menu extends Nesty
 	protected static $_nesty_cols = array(
 		'left'  => 'lft',
 		'right' => 'rgt',
-		'name'  => 'name',
 		'tree'  => 'menu_id',
 	);
 
@@ -114,6 +114,50 @@ class Menu extends Nesty
 		}
 
 		throw new Exception('Call to undefined method '.__CLASS__.$method.'() in '.__FILE__);
+	}
+
+	/**
+	 * Creates or updates a Nesty tree structure based on
+	 * the hierarchical array of items passed through. 
+	 *
+	 * A callback may be provided for each Nesty object just
+	 * before it's persisted to the database. Returning false
+	 * from the closure means no changes are made.
+	 *
+	 * @param  int      $id
+	 * @param  array    $items
+	 * @param  Closure  $before_root_persist
+	 * @param  Closure  $before_persist
+	 * @throws NestyException
+	 * @return Nesty
+	 */
+	public static function from_hierarchy_array($id, array $items, Closure $before_root_persist = null, Closure $before_persist = null)
+	{
+		// Default the closure...
+		if ($before_persist === null)
+		{
+			$before_persist = function($item)
+			{
+				if ( ! $item->is_new() and ! $item->user_editable)
+				{
+					$duplicate = clone $item;
+					$duplicate->reload();
+
+					// Reset relevent values
+					$item->name = $duplicate->name;
+					$item->slug = $duplicate->slug;
+					$item->uri  = $duplicate->uri;
+				}
+				elseif ($item->is_new())
+				{
+					$item->user_editable = 1;
+				}
+
+				return $item;
+			};
+		}
+
+		return parent::from_hierarchy_array($id, $items, $before_root_persist, $before_persist);
 	}
 
 }

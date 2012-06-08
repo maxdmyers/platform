@@ -51,30 +51,43 @@ class Menus_API_Menus_Controller extends API_Controller
 	}
 
 	/**
+	 * Gets the last item ID from the table (used by JS)
+	 */
+	public function get_last_item_id()
+	{
+		return (($last_item = Menu::find('last')) === null) ? 0 : $last_item->id;
+	}
+
+	/**
 	 * Saves a menu
 	 */
-	public function post_save($id = false)
+	public function post_menu()
 	{
-		$response = array();
-		$items    = array();
-
-		/**
-		 * @todo Process these items recursively
-		 */
-		foreach (Input::get('items') as $item)
-		{
-			$this->process_item_recursively($item, $items);
-		}
-
 		try
 		{
-			Menu::from_hierarchy_array($id, $items);
+			$name = Input::get('name');
+			$slug = Input::get('slug');
+
+			$menu = Menu::from_hierarchy_array(Input::get('id'), Input::get('items'), function($root_item) use ($name, $slug)
+			{
+				$root_item->name = $name;
+				$root_item->slug = $slug;
+
+				return $root_item;
+			});
 		}
 		catch (\Exception $e)
 		{
-			echo 'Error thrown: \''.$e->getMessage().'\'';
-			Log::error($e->getMessage());
+			return array(
+				'status'  => true,
+				'message' => $e->getMessage(),
+			);
 		}
+
+		return array(
+			'status' => true,
+			'menu'   => $menu,
+		);
 	}
 
 	/**
@@ -143,45 +156,6 @@ class Menus_API_Menus_Controller extends API_Controller
 			'status'   => true,
 			'children' => $children,
 		);
-	}
-
-	/**
-	 * Recursively processes an item and it's children
-	 * based on POST data.
-	 *
-	 * @param   array  $item
-	 * @param   array  $items
-	 */
-	protected function process_item_recursively($item, &$items)
-	{
-		$new_item = array(
-			'name' => Input::get('inputs.'.$item['id'].'.name'),
-			'slug' => Input::get('inputs.'.$item['id'].'.slug'),
-			'uri'  => Input::get('inputs.'.$item['id'].'.uri'),
-		);
-
-		// Determine if we're a new item or not. If we're
-		// new, we don't attach an ID. Nesty will handle the
-		// rest.
-		if ( ! Input::get('inputs.'.$item['id'].'.is_new'))
-		{
-			$new_item['id'] = $item['id'];
-		}
-
-		// If we have children, call the function again
-		if (isset($item['children']) and is_array($item['children']) and count($item['children']) > 0)
-		{
-			$children = array();
-
-			foreach ($item['children'] as $child)
-			{
-				$this->process_item_recursively($child, $children);
-			}
-
-			$new_item['children'] = $children;
-		}
-
-		$items[] = $new_item;
 	}
 
 }
