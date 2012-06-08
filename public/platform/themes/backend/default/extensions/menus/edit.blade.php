@@ -17,15 +17,12 @@
 @section('content')
 
 <div class="page-header">
-	<h1>Edit Menu</h1>
+	<h1>
+		Edit Menu
+	</h1>
 </div>
 
-<p class="lead">
-	Edit your menu.... blah blah blah
-	<br>
-	Known issues/todo:
-</p>
-<ol class="lead">
+<ol>
 	<li>JS to remove menu item is broken, but is developed. Just needs fixing</li>
 </ol>
 
@@ -47,9 +44,24 @@
 			Add to Menu
 		</button>
 
-		<button type="button" class="btn btn-primary save-menu">
-			Save Menu
-		</button>
+		<hr>
+
+		<h2>Menu Properties</h2>
+
+		{{ Form::label('form_name', 'Menu Name') }}
+		{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'form_name')) }}
+
+		{{ Form::label('form_slug', 'Menu Slug') }}
+		{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'form_slug')) }}
+
+		<div class="form-actions">
+			<button type="button" class="btn btn-primary save-menu">
+				Save Menu
+			</button>
+			<a href="{{ URL::to(ADMIN.'/menus') }}" class="btn">
+				{{ $menu_id ? 'Back' : 'Cancel' }}
+			</a>
+		</div>
 
 	</div>
 	<div class="span7">
@@ -67,9 +79,10 @@
 
 @section('body_scripts')
 
-{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}">
-{{ Theme::asset('menus::js/jquery/nestedsortable-1.3.4.js') }}">
-{{ Theme::asset('menus::js/cartamenu.js') }}">
+{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}
+{{ Theme::asset('menus::js/jquery/nestedsortable-1.3.4.js') }}
+{{ Theme::asset('menus::js/cartamenu.js') }}
+{{ Theme::asset('menus::js/menus.js') }}
 
 <script>
 $(document).ready(function() {
@@ -83,11 +96,12 @@ $(document).ready(function() {
 
 	// Carta menu
 	$('.carta-menu').cartaMenu({
-		menuId       : <?=$menu_id?>,
-		saveUri      : '{{ URL::to('admin/menus/edit') }}',
+		menuId       : {{ $menu_id }},
+		saveUri      : '{{ URL::to(ADMIN.'/menus/edit') }}',
 		itemTemplate : {{ $item_template }},
-		lastItemId   : 4
+		lastItemId   : {{ $last_item_id }}
 	});
 });
 </script>
+
 @endsection

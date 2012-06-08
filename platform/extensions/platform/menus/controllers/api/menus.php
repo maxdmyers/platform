@@ -51,13 +51,30 @@ class Menus_API_Menus_Controller extends API_Controller
 	}
 
 	/**
+	 * Gets the last item ID from the table (used by JS)
+	 */
+	public function get_last_item_id()
+	{
+		return (($last_item = Menu::find('last')) === null) ? 0 : $last_item->id;
+	}
+
+	/**
 	 * Saves a menu
 	 */
-	public function post_menu($id = false)
+	public function post_menu()
 	{
 		try
 		{
-			$menu = Menu::from_hierarchy_array($id, Input::get('items'));
+			$name = Input::get('name');
+			$slug = Input::get('slug');
+
+			$menu = Menu::from_hierarchy_array(Input::get('id'), Input::get('items'), function($root_item) use ($name, $slug)
+			{
+				$root_item->name = $name;
+				$root_item->slug = $slug;
+
+				return $root_item;
+			});
 		}
 		catch (\Exception $e)
 		{

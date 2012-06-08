@@ -1,5 +1,9 @@
 (function() {
 
+	/**
+	 * @todo make the new item fields more dynamic
+	 */
+
 	// CartMenu plugin
 	var CartaMenu = {
 
@@ -13,6 +17,7 @@
 			newItemSelectors : {
 				name : '.new-item-name',
 				uri  : '.new-item-uri',
+				slug : '.new-item-slug',
 				add  : '.new-item-add'
 			},
 
@@ -119,9 +124,10 @@
 			elem.find(selectors.add).on('click', function() {
 
 				$name = elem.find(selectors.name);
+				$slug = elem.find(selectors.slug);
 				$uri  = elem.find(selectors.uri);
 
-				self.addMenuItem($name.val(), $uri.val());
+				self.addMenuItem($name.val(), $slug.val(), $uri.val());
 				$name.val('');
 				$uri.val('');
 
@@ -138,7 +144,7 @@
 		 * @param  string  uri
 		 * @return CartaMenu
 		 */
-		addMenuItem: function(name, uri) {
+		addMenuItem: function(name, slug, uri) {
 
 			if (name.length == 0 || uri.length == 0) {
 				return alert('Fill out all fields.');
@@ -151,9 +157,10 @@
 			var itemTemplate = self.settings.itemTemplate;
 
 			// Update our template with real vars
-			itemTemplate = itemTemplate.replace(/\{\{name\}\}/gi, name)
-			                           .replace(/\{\{id\}\}/gi, id)
-			                           .replace(/\{\{uri\}\}/gi, uri)
+			itemTemplate = itemTemplate.replace(/\{\{id\}\}/gi, id)
+			                           .replace(/\{\{name\}\}/gi, name)
+			                           .replace(/\{\{slug\}\}/gi, name)
+			                           .replace(/\{\{uri\}\}/gi, uri);
 
 			// Append our item
 			menu.append(itemTemplate);

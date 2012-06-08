@@ -55,7 +55,8 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		            ->with('menu', $menu)
 		            ->with('menus_view', $menus_view)
 		            ->with('item_template', $item_template)
-		            ->with('menu_id', $id ? $id : 'false');
+		            ->with('menu_id', $id ? $id : 'false')
+		            ->with('last_item_id', API::get('menus/last_item_id'));
 	}
 
 	public function post_edit($id = false)
@@ -67,7 +68,10 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 			$this->process_item_recursively($item, $items);
 		}
 
-		API::post('menus/menu/'.$id, array(
+		API::post('menus/menu', array(
+			'id'    => $id,
+			'name'  => Input::get('name'),
+			'slug'  => Input::get('slug'),
 			'items' => $items,
 		));
 	}

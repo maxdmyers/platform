@@ -16,18 +16,18 @@
 
 @section('content')
 
-<h3>Menus list</h3>
-{{ HTML::link('admin/menus/create', 'Create New Menu') }}
-<ul>
-	@forelse ($menus as $menu)
+<div class="clearfix page-header">
+	<h1 class="pull-left">Menus</h1>
+
+	{{ HTML::link('admin/menus/create', 'Create New Menu', array('class' => 'btn btn-primary pull-right')) }}
+</div>
+
+<ul class="nav nav-tabs nav-stacked">
+	@foreach ($menus as $menu)
 		<li>
-			{{ HTML::link('admin/menus/edit/'.$menu['id'], $menu['name']) }}
+			{{ HTML::link('admin/menus/edit/'.$menu['id'], "'{$menu['name']}' Menu") }}
 		</li>
-	@empty
-		<li>
-			There are no menus :(
-		</li>
-	@endforelse
+	@endforeach
 </ul>
 
 @endsection
