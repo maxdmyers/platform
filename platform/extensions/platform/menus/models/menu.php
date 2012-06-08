@@ -116,4 +116,43 @@ class Menu extends Nesty
 		throw new Exception('Call to undefined method '.__CLASS__.$method.'() in '.__FILE__);
 	}
 
+	/**
+	 * Creates or updates a Menu structure based on
+	 * the hierarchical array of items passed through. 
+	 *
+	 * A callback may be provided for each Menu object just
+	 * before it's persisted to the database. Returning false
+	 * from the closure means no changes are made.
+	 *
+	 * @param  int      $id
+	 * @param  array    $items
+	 * @param  Closure  $before_persist
+	 * @throws NestyException
+	 * @return Nesty
+	 */
+	public static function from_hierarchy_array($id, array $items, Closure $before_persist = null)
+	{
+		// Default the closure...
+		if ($before_persist === null)
+		{
+			$before_persist = function($item)
+			{
+				if ( ! $item->user_editable and ! $item->is_new())
+				{
+					$duplicate = clone $item;
+					$duplicate->reload();
+
+					// Reset relevent values
+					$item->{Menu::nesty_col('name')} = $duplicate->{Menu::nesty_col('name')};
+					$item->slug = $duplicate->slug;
+					$item->uri  = $duplicate->uri;
+				}
+
+				return $item;
+			};
+		}
+
+		return parent::from_hierarchy_array($id, $items, $before_persist);
+	}
+
 }

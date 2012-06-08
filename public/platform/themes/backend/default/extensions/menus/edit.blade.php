@@ -26,7 +26,6 @@
 	Known issues/todo:
 </p>
 <ol class="lead">
-	<li>Saving new menu items to existing menu (Nesty API change needs to be imlemented)</li>
 	<li>JS to remove menu item is broken, but is developed. Just needs fixing</li>
 </ol>
 

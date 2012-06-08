@@ -57,21 +57,7 @@ class Menus_API_Menus_Controller extends API_Controller
 	{
 		try
 		{
-			$menu = Menu::from_hierarchy_array($id, Input::get('items'), function($item)
-			{
-				if ( ! $item->user_editable and ! $item->is_new())
-				{
-					$duplicate = clone $item;
-					$duplicate->reload();
-
-					// Reset relevent values
-					$item->{Menu::nesty_col('name')} = $duplicate->{Menu::nesty_col('name')};
-					$item->slug = $duplicate->slug;
-					$item->uri  = $duplicate->uri;
-				}
-
-				return $item;
-			});
+			$menu = Menu::from_hierarchy_array($id, Input::get('items'));
 		}
 		catch (\Exception $e)
 		{
