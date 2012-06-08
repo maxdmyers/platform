@@ -39,23 +39,23 @@ html, body {
 	height: 100%;
 }
 
-.grid>.row, .grid>.column, .grid>.row>.column {
+.grid>.rows, .grid>.column, .grid>.rows>.column {
 	height: 0.1%;
 	position: relative;
 }
-.grid>/**/.row {
+.grid>/**/.rows {
 	display: table-row;
 	height: 1px;
 }
-.grid>/**/.row.expand {
+.grid>/**/.rows.expand {
 	height: auto;
 }
-.grid>/**/.column, .grid>/**/.row>.column {
+.grid>/**/.column, .grid>/**/.rows>.column {
 	display: table-cell;
 	height: auto;
 	width: 1px;
 }
-.grid>/**/.column.expand, .grid>/**/.row>.column.expand {
+.grid>/**/.column.expand, .grid>/**/.rows>.column.expand {
 	width: auto;
 }
 
@@ -119,6 +119,11 @@ html, body {
 #page {
 	background: #fbfbfb;
 }
+
+	#page header {
+
+	}
+
 	#page .wrapper {
 		border-top:1px solid #fff;
 		border-bottom:1px solid #ddd;
@@ -203,10 +208,7 @@ html, body {
 /* #tables
 ================================================== */
 
-.table-filter-select, .table-filter-text {margin-right:10px;}
-
 
 /* #tabs
 =================================================== */
-.tabbable ul.nav.nav-tabs {margin-bottom:0;}
-.tab-content { background:@white; border-width:0 1px 1px 1px; border-style:solid; border-color: #ddd; padding:8px;}
+

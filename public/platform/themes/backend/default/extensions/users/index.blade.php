@@ -14,50 +14,55 @@
 @endsection
 
 @section('content')
+
 	<section id="users">
+
 		<header class="container-fluid">
 			<div class="row-fluid">
-
-				<h1 class="span4">{{ Lang::line('users::users.title') }}</h1>
-
+				<div class="span4">
+					<h1>{{ Lang::line('users::users.title') }}</h1>
+				</div>
 				<div class="span8">
-					<ul class="nav nav-pills pull-right">
-						<li>
-							<a class="btn" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::users.btn_new_user') }}</a>
-						</li>
-					</ul>
+					<div class="pull-right">
+						<a class="btn-large btn-primary" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::users.btn_new_user') }}</a>
+					</div>
 				</div>
 			</div>
-
-			<hr>
-
-			<div id="table-actions">
-
-				<div id="table-filters" class="form-inline"></div>
-
-				<div id="table-filters-applied"></div>
-
-			</div>
-
 		</header>
 
+		<hr>
 
-		<div id="table-wrapper">
-				<table id="users-table" class="table table-bordered">
-					<thead>
-						<tr>
-							@foreach ($columns as $key => $col)
-								<th data-table-key="{{ $key }}">{{ $col }}</th>
-							@endforeach
-							<th></th>
-						</tr>
-					<thead>
-					<tbody>
-						@include('users::partials.table_users')
-					</tbody>
-				</table>
-				<div class="tabs-right">
-					<ul id="table-pagination" class="nav nav-tabs"></ul>
+		<div id="table">
+			<div class="actions clearfix">
+				<div id="table-filters" class="form-inline pull-left"></div>
+				<div id="table-filters-applied"></div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<div class="row">
+							<div class="span10">
+								<div class="table-wrapper">
+									<table id="users-table" class="table table-bordered">
+										<thead>
+											<tr>
+												@foreach ($columns as $key => $col)
+												<th data-table-key="{{ $key }}">{{ $col }}</th>
+												@endforeach
+												<th></th>
+											</tr>
+										<thead>
+										<tbody>
+											@include('users::partials.table_users')
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tabs-right span2">
+								<ul id="table-pagination" class="nav nav-tabs"></ul>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
