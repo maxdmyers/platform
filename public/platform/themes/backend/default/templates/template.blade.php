@@ -44,7 +44,7 @@
 </head>
 <body>
 	<div id="base" class="grid">
-		<header class="row">
+		<header class="rows">
 			<div class="brand">
 				<a href="{{ url(ADMIN) }}">
 					<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
@@ -66,7 +66,7 @@
 
 
 
-		<div id="page" class="row expand">
+		<div id="page" class="rows expand">
 			<div id="inside" class="grid wrapper">
 				<div class="navigation column">
 					@widget('platform.menus::menus.secondary', $primary_slug)
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="footer" class="row">
+		<div id="footer" class="rows">
 			<div class="wrapper">
 				<div class="brand">
 					<a href="{{ url(ADMIN) }}">

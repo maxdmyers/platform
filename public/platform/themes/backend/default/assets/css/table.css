@@ -1,5 +1,12 @@
-#table-wrapper {
-	position: relative;
+#table .container {margin:0;}
+#table .tabs-right {margin-left:0; float:left;}
+#table .tabs-right .nav-tabs {margin-left: -1px; float: left;}
+#table .table-wrapper {padding:10px; border:1px solid #ddd; background:#fff;}
+#table .actions {
+	background:#fff;
+	border: 1px solid #ddd;
+	padding:10px;
+	margin-bottom:10px;
 }
 
 .table-processing-overlay {
@@ -51,14 +58,14 @@
 	background-position: center right;
 }
 
-#table-wrapper .sortable-asc {
+#table .sortable-asc {
 	cursor: pointer;
 	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_asc.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }
 
-#table-wrapper .sortable-desc {
+#table .sortable-desc {
 	cursor: pointer;
 	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_desc.png');
 	background-repeat: no-repeat;
