@@ -9,6 +9,8 @@
 	margin-bottom:10px;
 }
 
+#table-filters select {margin-right:10px;}
+
 .table-processing-overlay {
 	position: absolute;
 	top: 0;
@@ -78,4 +80,9 @@
 #table-pagination a.active {
 	text-decoration: none;
 	cursor: default;
+}
+
+#table-filters-applied {
+	position: relative;
+	margin-bottom:-1px;
 }

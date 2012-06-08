@@ -252,8 +252,8 @@ if (platform == undefined)
 				var text  = self.$filterSelect.find(':selected').text();
 				var field = self.$filterSelect.val();
 				var value = self.$filterText.val();
-				var html = '<div class="table-filter" data-table-filterkey="'+field+'">'+text+' : '+value+'<a href="#" '+self.options.removeFilter.attributes+'>'+self.options.removeFilter.text+'</a></div>';
-
+				var html = '<li class="table-filter active" data-table-filterkey="'+field+'"><a href="#" '+self.options.removeFilter.attributes+'>'+text+' : '+value+'</a></li>';
+				//<a href="#" '+self.options.removeFilter.attributes+'>'+self.options.removeFilter.text+'</a>
 				if ( value == '' ) {
 					return false;
 				}
@@ -462,11 +462,11 @@ if (platform == undefined)
 		'filterText'       : 'Filter:', // string
 		'addFilter'        : {
 			'text' : 'Add Filter', // string
-			'attributes' : 'id="test" class="btn primary"', // string
+			'attributes' : 'class="btn active"', // string
 		},
 		'removeFilter' : {
 			'text' : 'remove',
-			'attributes' : 'class="btn btn-danger"',
+			'attributes' : 'class="active"',
 		},
 		'refresh' : {
 			'text' : 'refresh',

@@ -35,36 +35,39 @@
 		<div id="table">
 			<div class="actions clearfix">
 				<div id="table-filters" class="form-inline pull-left"></div>
-				<div id="table-filters-applied"></div>
+
 			</div>
-			<div class="container">
-				<div class="row">
-					<div class="span12">
-						<div class="row">
-							<div class="span10">
-								<div class="table-wrapper">
-									<table id="users-table" class="table table-bordered">
-										<thead>
-											<tr>
-												@foreach ($columns as $key => $col)
-												<th data-table-key="{{ $key }}">{{ $col }}</th>
-												@endforeach
-												<th></th>
-											</tr>
-										<thead>
-										<tbody>
-											@include('users::partials.table_users')
-										</tbody>
-									</table>
-								</div>
+
+			<div class="row">
+				<div class="span12">
+					<div class="row">
+						<ul id="table-filters-applied" class="nav nav-tabs span10"></ul>
+					</div>
+					<div class="row">
+						<div class="span10">
+							<div class="table-wrapper">
+								<table id="users-table" class="table table-bordered">
+									<thead>
+										<tr>
+											@foreach ($columns as $key => $col)
+											<th data-table-key="{{ $key }}">{{ $col }}</th>
+											@endforeach
+											<th></th>
+										</tr>
+									<thead>
+									<tbody>
+										@include('users::partials.table_users')
+									</tbody>
+								</table>
 							</div>
-							<div class="tabs-right span2">
-								<ul id="table-pagination" class="nav nav-tabs"></ul>
-							</div>
+						</div>
+						<div class="tabs-right span2">
+							<ul id="table-pagination" class="nav nav-tabs"></ul>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 
 	</section>
