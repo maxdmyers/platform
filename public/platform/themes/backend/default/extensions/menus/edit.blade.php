@@ -85,7 +85,7 @@ $(document).ready(function() {
 	// Carta menu
 	$('.carta-menu').cartaMenu({
 		menuId       : <?=$menu_id?>,
-		saveUri      : '{{ URL::to('api/menus/save') }}',
+		saveUri      : '{{ URL::to('admin/menus/edit') }}',
 		itemTemplate : {{ $item_template }},
 		lastItemId   : 4
 	});

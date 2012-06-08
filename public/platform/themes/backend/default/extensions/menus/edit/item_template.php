@@ -14,7 +14,7 @@
 			<label>Uri</label>
 			<input type="text" name="inputs[{{id}}][uri]" value="{{uri}}" placeholder="Item Uri">
 			<br>
-			<a href="#" class="remove">Remove Item</a>
+			<a href="#" class="btn btn-small btn-danger remove">Remove Item</a>
 		</section>
 	</div>
 </li>
