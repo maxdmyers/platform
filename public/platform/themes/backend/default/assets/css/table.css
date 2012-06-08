@@ -49,21 +49,21 @@
 
 #table-wrapper .sortable {
 	cursor: pointer;
-	background-image: url('/cartalyst/themes/backend/default/assets/img/table/sortable.png');
+	background-image: url('/platform/themes/backend/default/assets/img/table/sortable.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }
 
 #table-wrapper .sortable-asc {
 	cursor: pointer;
-	background-image: url('/cartalyst/themes/backend/default/assets/img/table/sortable_asc.png');
+	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_asc.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }
 
 #table-wrapper .sortable-desc {
 	cursor: pointer;
-	background-image: url('/cartalyst/themes/backend/default/assets/img/table/sortable_desc.png');
+	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_desc.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }
