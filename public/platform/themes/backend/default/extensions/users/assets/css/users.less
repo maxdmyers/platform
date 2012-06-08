@@ -1,4 +1,3 @@
-<?php
 /**
  * Part of the Platform application.
  *
@@ -18,34 +17,16 @@
  * @link       http://cartalyst.com
  */
 
-namespace Platform\Settings\Widgets;
+ /* #Layout
+================================================== */
 
-use API;
-use Theme;
-
-class Settings
-{
-
-	public function general()
-	{
-		// get extension settings from db
-		$settings = API::get('settings', array(
-			'where' => array(
-				array('extension', '=', 'settings')
-			),
-			'organize' => true
-		));
-
-		if ($settings['status'])
-		{
-			$data['settings'] = $settings['settings'];
-		}
-		else
-		{
-			$data['message'] = $settings['message'];
-		}
-
-		return Theme::make('settings::widgets.form.general', $data);
-	}
+#users {
 
 }
+
+	#users header {
+
+	}
+
+	#users header h1 {}
+	#users #table-filters button{ margin:0 5px;}
