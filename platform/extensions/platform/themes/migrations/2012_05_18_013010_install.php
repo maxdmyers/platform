@@ -57,7 +57,7 @@ class Themes_Install
 		$backend = DB::table('configuration')->insert(array(
 			'extension' => 'themes',
 			'type'      => 'theme',
-			'name'      => 'admin',
+			'name'      => 'backend',
 			'value'     => 'backend/default',
 		));
 

@@ -70,19 +70,9 @@ class Themes_API_Themes_Controller extends API_Controller
 			             ->where('theme', '=', $theme);
 		});
 
-
-		// if ( ! empty($theme_options))
-		// {
-		// 	$theme_options['options'] = json_decode($theme_options['options']);
-		// }
-		// else
-		// {
-		// 	$theme_options['options'] = array();
-		// }
-
 		return array(
 			'status'  => true,
-			'options' => $theme_options
+			'options' => ( ! empty($theme_options)) ? json_decode($theme_options['options']) : array()
 		);
 	}
 
