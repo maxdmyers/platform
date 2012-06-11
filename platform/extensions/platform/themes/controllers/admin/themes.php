@@ -131,7 +131,7 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 				'type'    => $type,
 				'theme'   => Input::get('theme'),
 				'options' => Input::get('options'),
-				'status'  => Input::get('status')
+				'status'  => Input::get('status', 1)
 			));
 
 			if ($result['status'])

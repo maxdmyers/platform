@@ -72,7 +72,7 @@ class Themes_API_Themes_Controller extends API_Controller
 
 		return array(
 			'status'  => true,
-			'options' => ( ! empty($theme_options)) ? json_decode($theme_options['options']) : array()
+			'options' => ( ! empty($theme_options)) ? $theme_options : array()
 		);
 	}
 

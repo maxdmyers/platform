@@ -29,24 +29,29 @@ class Options
 
 	public function css()
 	{
-		// // get active theme
+		// set type
+		$theme_type = (strpos(Request::route()->controller, 'admin') === false) ? 'frontend' : 'backend';
+
+		// get active theme
 		$active = API::get('settings', array(
-			'extension' => 'themes',
+			'where' => array(
+				array('extension', '=', 'themes'),
+				array('type', '=', 'theme'),
+				array('name', '=', $theme_type),
+			),
 		));
 
-		$active = $active['settings'];
-		echo Request::route()->controller;
-		// $type = (strpos(Request::route()->controller, 'Controller_Admin') === false) ? 'frontend' : 'backend';
+		$active = $active['settings'][0];
 
-		// // get active custom theme options
-		// $active_custom = API::get('themes/options', array(
-		// 	'type'  => $type,
-		// 	'theme' => $active[$type.'_theme']['value']
-		// ));
+		// get active custom theme options
+		$active_custom = API::get('themes/options', array(
+			'type'  => $theme_type,
+			'theme' => $active['value']
+		));
 
-		// $data['status'] = (isset($active_custom['options']['status'])) ? $active_custom['options']['status'] : 0;
+		$data['status'] = (isset($active_custom['options']['status'])) ? $active_custom['options']['status'] : 0;
 
-		// return Theme::make('themes::widgets.theme_options_css', $data);
+		return Theme::make('themes::widgets.theme_options_css', $data);
 	}
 
 }

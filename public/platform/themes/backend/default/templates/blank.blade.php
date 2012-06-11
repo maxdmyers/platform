@@ -22,6 +22,7 @@
 
 	<!-- Links -->
 	{{ Theme::asset('css/style.css') }}
+	@widget('platform.themes::options.css')
 
 	@section('links')
 	@yield_section

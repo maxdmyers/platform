@@ -28,6 +28,7 @@
 
 	<!-- Links -->
 	{{ Theme::asset('css/style.less') }}
+	@widget('platform.themes::options.css')
 
 	@yield('links')
 
