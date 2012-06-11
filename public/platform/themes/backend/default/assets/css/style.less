@@ -21,9 +21,10 @@
 @import "bootstrap/less/bootstrap.less";
 @import "bootstrap/less/responsive.less";
 
+
 /* #Layout
 ================================================== */
-body {background:#c7c7c7;}
+body {background:@bodyBackground;}
 
 html, body {
 	height: 100%;
@@ -67,28 +68,32 @@ html, body {
 	text-align:right;
 }
 
+
 /* #header
 ================================================== */
 
 #base>header {
-	background:#f7f7f7;
+	background:@base;
 }
 
 	#base header .wrapper {
-		border-bottom:1px solid #ddd;
+		border:1px solid @etch;
 	}
 
 	#base header .brand {
 		display:block;
 		text-align:center;
-		color:@secondary;
 		float:left;
 		padding:10px;
 	}
 
 	#base header .about {
 		float:left;
-		padding:10px;
+		padding:20px 0 10px 10px;
+	}
+
+	#base header h1 {
+		color:@secondary;
 	}
 
 	#base header .profile {
@@ -110,23 +115,22 @@ html, body {
 	}
 
 	#base header .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
-		background-color:#fbfbfb;
+		background-color:@page;
 	}
+
 
 /* #content
 ================================================== */
 
 #page {
-	background: #fbfbfb;
+	background: @page;
 }
 
-	#page header {
-
-	}
-
 	#page .wrapper {
-		border-top:1px solid #fff;
-		border-bottom:1px solid #ddd;
+		border-top:1px solid @white;
+		border-bottom:1px solid @etch;
+		border-left:1px solid @etch;
+		border-right:1px solid @etch;
 	}
 
 	#page .container {
@@ -134,28 +138,31 @@ html, body {
 	}
 
 	#page .navigation {
-		border-right:1px solid #ddd;
+		border-right:1px solid @etch;
 		width:14.364640883%;
 		padding:20px;
 	}
 
 	#page .content {
-		border-left:1px solid #fff;
+		border-left:1px solid @white;
 		width:82.872928171%;
 		padding:20px;
 	}
-
 
 
 /* #footer
 ================================================== */
 
 #footer {
-	background: #f7f7f7;
+	background:@base;
 }
 
 	#footer .wrapper {
-		border-top:1px solid #fff;
+		border-top:1px solid @white;
+		border-bottom:1px solid @etch;
+		border-left:1px solid @etch;
+		border-right:1px solid @etch;
+
 	}
 
 	#footer .brand {
@@ -164,7 +171,7 @@ html, body {
 		color:@secondary;
 		float:left;
 		padding:20px;
-		border-right:1px solid #ddd;
+		border-right:1px solid @etch;
 	}
 
 	#footer .legal {
@@ -173,41 +180,20 @@ html, body {
 		color:@secondary;
 		float:left;
 		padding:20px;
-		border-left:1px solid #fff;
+		border-left:1px solid @white;
 	}
 
 	#footer .copyright, #footer .licence {
-		color:#666;
+		color:@gray;
 		font-style: italic;
 		text-align:left;
 		line-height:10px;
 	}
 
 
-
-
 /* #header
 ==================================================
 
-#header {
-	padding:20px 0;
-}
-
-	#header .brand {
-		display:block;
-		text-align:center;
-		color:@secondary;
-		float:left;
-	}
-
-	#header .about {
-		padding-left:20px;
-		float:left;
-	}
-
-	/* #navigation
-
-	#header .navigation nav {text-align:right;font-size:16px; clear:right;}*/
 
 /* #tables
 ================================================== */

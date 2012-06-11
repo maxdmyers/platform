@@ -1,39 +1,73 @@
-#table .container {margin:0;}
-#table .tabs-right {margin-left:0; float:left;}
-#table .tabs-right .nav-tabs {margin-left: -1px; float: left;}
-#table .table-wrapper {padding:10px; border:1px solid #ddd; background:#fff;}
-#table .actions {
-	background:#fff;
-	border: 1px solid #ddd;
-	padding:10px;
-	margin-bottom:10px;
+/**
+ * Part of the Platform application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the 3-clause BSD License.
+ *
+ * This source file is subject to the 3-clause BSD License that is
+ * bundled with this package in the LICENSE file.  It is also available at
+ * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
+ * @package    Platform
+ * @version    1.0
+ * @author     Cartalyst LLC
+ * @license    BSD License (3-clause)
+ * @copyright  (c) 2011 - 2012, Cartalyst LLC
+ * @link       http://cartalyst.com
+ */
+
+/* #tables
+================================================== */
+#table {
+
 }
 
-#table-filters select {margin-right:10px;}
 
-.table-processing-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background: #777;
-	opacity: .3;
-	display: none;
-}
+	#table .container {
+		margin:0;
+	}
 
-/*.table_filters_wrapper {
-	overflow: hidden;
-}
+	#table .tabs-right {
+		margin-left:0;
+		float:left;
+	}
 
-.cartaTable_filters_wrapper label {
-	float: left;
-	margin-right: 5px;
-	position: relative;
-	top: 4px;
-}*/
+	#table .tabs-right .nav-tabs {
+		margin-left: -1px;
+		float: left;
+	}
 
-.table-processing {
+	#table .table-wrapper {
+		min-height:400px;
+		padding:10px;
+		border:1px solid #ddd;
+		background:#fff;
+	}
+
+	#table .actions {
+		background:#fff;
+		border: 1px solid #ddd;
+		padding:10px;
+		margin-bottom:10px;
+	}
+
+	#table-filters select {
+		margin-right:10px;
+	}
+
+	#table .table-processing-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: #777;
+		opacity: .3;
+		display: none;
+	}
+
+#table .table-processing {
 	position: absolute;
 	top: 150px;
 	left: 50%;
@@ -53,7 +87,7 @@
 	display: none;
 }
 
-#table-wrapper .sortable {
+#table #table-wrapper .sortable {
 	cursor: pointer;
 	background-image: url('/platform/themes/backend/default/assets/img/table/sortable.png');
 	background-repeat: no-repeat;
@@ -74,12 +108,12 @@
 	background-position: center right;
 }
 
-#table-pagination a.active {
+#table #table-pagination a.active {
 	text-decoration: none;
 	cursor: default;
 }
 
-#table-filters-applied {
+#table #table-filters-applied {
 	position: relative;
 	margin-bottom:-1px;
 }

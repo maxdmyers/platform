@@ -80,7 +80,7 @@
 			</div>
 		</div>
 		<div id="footer" class="rows">
-			<div class="wrapper">
+			<div class="wrapper clearfix">
 				<div class="brand">
 					<a href="{{ url(ADMIN) }}">
 						<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
