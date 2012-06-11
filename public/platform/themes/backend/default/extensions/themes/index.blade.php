@@ -1,7 +1,7 @@
 @layout('templates.template')
 
 @section('title')
-	{{ Lang::line('themes::themes.title') }}
+	{{ Lang::line('themes::themes.general.title') }}
 @endsection
 
 @section('links')
@@ -13,10 +13,28 @@
 @endsection
 
 @section('content')
-	<div>
-		<a class="btn" href="{{ url(ADMIN.'/themes') }}">Front End</a> /
-		<a class="btn" href="{{ url(ADMIN.'/themes/backend') }}">Back End</a>
-	</div>
+
+<section id="themes">
+
+		<header class="container-fluid">
+			<div class="row-fluid">
+				<div class="span4">
+					<h1>{{ Lang::line('themes::themes.general.title') }}</h1>
+					<p>{{ Lang::line('themes::themes.general.description') }}</p>
+				</div>
+			</div>
+		</header>
+
+		<div>
+			<!--<ul class="nav nav-tabs">
+				<li class="active"><a href="{{ url(ADMIN.'/themes') }}">Front End</a></li>
+				<li><a href="{{ url(ADMIN.'/themes/backend') }}">Back End</a></li>
+			</ul>-->
+
+			@widget('platform.menus::menus.tabs', 'themes')
+		</div>
+
+
 @if($exists)
 	<section>
 		<header><strong>Active Theme</strong></header>
@@ -67,19 +85,23 @@
 	<section>
 		<header><strong>Available Themes</strong></header>
 		{{ Form::open() }}
-			<ul>
+
 			@foreach ($themes as $theme)
-				<li>
-					<input type="radio" name="theme" value="{{ $theme['dir'] }}" {{ ($theme['name'] == $active['name']) ? 'checked=checked' : '' }}>
-					<div>
-						<strong>Name: </strong>{{ $theme['name'] }}  v{{ $theme['version'] }}
-						<strong>by</strong> {{ $theme['author'] }}
+			<div class="span3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/260x180" alt="">
+					<div class="caption">
+						<h5>{{ $theme['name'] }}</h5>
+						<p class="version">{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
+						<p class="author">{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
+						<p>{{ $theme['description'] }}</p>
+						<p><a href="#" class="btn btn-primary">Activate</a> <a href="#" class="btn">Deactivate</a></p>
+						<input type="submit" name="form_themes" value="Activate">
 					</div>
-					<div><strong>Description: </strong>{{ $theme['description'] }}</div>
-				</li>
+				</div>
+			</div>
 			@endforeach
-			</ul>
-			<input type="submit" name="form_themes" value="Activate">
+
 		{{ Form::close() }}
 	</section>
 

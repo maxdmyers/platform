@@ -21,7 +21,8 @@
 class Settings_Admin_Settings_Controller extends Admin_Controller
 {
 
-	protected $primary_slug = 'system';
+	// Set parent menu for secondary navigation
+	protected $parent_menu = 'system';
 
 	protected $validation = array(
 		// general settings

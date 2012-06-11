@@ -27,29 +27,14 @@ use Theme;
 class Menus
 {
 
-	/**
-	 * Returns the admin navigation for Platform.
-	 * Currently the main nav is limited to 1 level
-	 * of depth.
-	 *
-	 * @return  View
-	 */
-	public function primary()
-	{
-		// Get menu items
-		$items = API::get('menus/admin_menu', array('depth' => 0));
-
-		return Theme::make('menus::widgets.primary')
-		            ->with('items', $items);
-	}
 
 	/**
-	 * Returns the secondary navigation for Platform.
+	 * Returns navigation menus for Platform.
 	 *
 	 * @param   string|int  $parent
 	 * @return  View
 	 */
-	public function secondary($parent)
+	public function tabs($parent)
 	{
 		// Parameters for the API call
 		$api_params = array(
@@ -74,7 +59,42 @@ class Menus
 			return '';
 		}
 
-		return Theme::make('menus::widgets.secondary')
+		return Theme::make('menus::widgets.tabs')
+		            ->with('items', $result['children']);
+	}
+
+	/**
+	 * Returns navigation menus for Platform.
+	 *
+	 * @param   string|int  $parent
+	 * @return  View
+	 */
+	public function pills($parent)
+	{
+		// Parameters for the API call
+		$api_params = array(
+			'depth' => 0,
+		);
+
+		if (is_numeric($parent))
+		{
+			$api_params['id'] = $parent;
+		}
+		else
+		{
+			$api_params['slug'] = $parent;
+		}
+
+		// Get secondary navigation
+		$result = API::get('menus/children', $api_params);
+
+		// No children
+		if ( ! $result['status'])
+		{
+			return '';
+		}
+
+		return Theme::make('menus::widgets.pills')
 		            ->with('items', $result['children']);
 	}
 

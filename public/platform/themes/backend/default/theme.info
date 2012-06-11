@@ -7,36 +7,27 @@
 
 	"options": {
 
-		"container": {
-			"text":     "Status Bar Container",
-			"group":    "Header",
-			"section":  "Status Bar",
-			"selector": "#status",
+		"body": {
+			"text":     "Body Background",
+			"selector": "body",
 			"styles":   {
-				"background": "#222",
-				"height":     "3em"
+				"background": "#eee"
 			}
 		},
 
-		"link_colors": {
-			"text":     "Link Colors",
-			"group":    "Header",
-			"section":  "Navigation",
-			"selector": "#status nav a",
+		"base": {
+			"text":     "Base Background",
+			"selector": "#base>header",
 			"styles":   {
-				"color":           "#333",
-				"text-decoration": "underline"
+				"background": "#f7f7f7"
 			}
 		},
 
-		"link_colors_hover": {
-			"text":     "Link Colors - Hover",
-			"group":    "Header",
-			"section":  "Navigation",
-			"selector": "#status nav a:hover",
+		"page": {
+			"text":     "Page Background",
+			"selector": "#page",
 			"styles":   {
-				"color":           "#444",
-				"text-decoration": "underline"
+				"background": "#fbfbfb"
 			}
 		}
 

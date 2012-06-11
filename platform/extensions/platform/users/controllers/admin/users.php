@@ -21,6 +21,9 @@
 class Users_Admin_Users_Controller extends Admin_Controller
 {
 
+	// Set parent menu for secondary navigation
+	protected $parent_menu = 'users';
+
 	public function __construct()
 	{
 		// Whitelist login methods
