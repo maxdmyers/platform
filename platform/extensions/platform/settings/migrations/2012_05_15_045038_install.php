@@ -77,13 +77,15 @@ class Settings_Install
 		/* # Configuration Settings
 		================================================== */
 
+		// Site Title
 		$query = DB::table('configuration')->insert(array(
 			'extension' 	=> 'settings',
 			'type' 			=> 'general',
-			'name' 			=> 'name',
+			'name' 			=> 'title',
 			'value' 		=> 'Platform',
 		));
 
+		// Site Tagline
 		$query = DB::table('configuration')->insert(array(
 			'extension' 	=> 'settings',
 			'type' 			=> 'general',
@@ -91,6 +93,13 @@ class Settings_Install
 			'value' 		=> 'A base application on Laravel',
 		));
 
+		// Site email
+		$query = DB::table('configuration')->insert(array(
+			'extension' 	=> 'settings',
+			'type' 			=> 'general',
+			'name' 			=> 'site-email',
+			'value' 		=> '',
+		));
 
 
 	}

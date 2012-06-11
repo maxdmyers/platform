@@ -29,11 +29,11 @@ return array(
 
 	/* Form General */
 	'general' => array(
-		'title'	      => 'General',
-		'description' => '',
-		'name'    => 'Name',
-		'tagline' => 'Tagline',
-		'url'     => 'Address (URL)',
+		'legend'           => 'General Settings',
+		'description'      => '',
+		'title'            => 'Site Title',
+		'tagline'          => 'Site Tagline',
+		'site-email'     => 'Site Email Address',
 		'brand'   => 'Brand',
 
 		'address' => array(
