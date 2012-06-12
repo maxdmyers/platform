@@ -21,6 +21,9 @@
 class Users_Admin_Groups_Controller extends Admin_Controller
 {
 
+	// Set parent menu for secondary navigation
+	protected $parent_menu = 'users';
+
 	public $restful = true;
 
 	/**

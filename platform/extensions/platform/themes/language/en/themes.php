@@ -18,13 +18,15 @@
  * @link       http://cartalyst.com
  */
 
-class Dashboard_Admin_Dashboard_Controller extends Admin_Controller
-{
-	// Set parent menu for secondary navigation
-	protected $parent_menu = 'dashboard';
+return array(
 
-	public function get_index()
-	{
-		return Theme::make('dashboard::index');
-	}
-}
+	'general' => array(
+		'title'  => 'Theme Management',
+		'description' => 'Activate, deactivate, and customize themes.',
+
+		'author' => 'Author:',
+		'version' => 'Version:'
+	)
+
+
+);

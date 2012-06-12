@@ -91,16 +91,6 @@ class Menus_API_Menus_Controller extends API_Controller
 	}
 
 	/**
-	 * Gets the admin menu.
-	 *
-	 * @return array
-	 */
-	public function get_admin_menu()
-	{
-		return Menu::admin_menu()->children(Input::get('depth', 0));
-	}
-
-	/**
 	 * Returns the children of a menu with the
 	 * given item ID.
 	 *

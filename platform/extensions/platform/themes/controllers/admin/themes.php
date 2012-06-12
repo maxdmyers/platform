@@ -21,7 +21,8 @@
 class Themes_Admin_Themes_Controller extends Admin_Controller
 {
 
-	protected $primary_slug = 'system';
+	// Set parent menu for secondary navigation
+	protected $parent_menu = 'system';
 
 	/**
 	 * Default View

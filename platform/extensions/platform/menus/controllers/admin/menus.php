@@ -21,7 +21,8 @@
 class Menus_Admin_Menus_Controller extends Admin_Controller
 {
 
-	protected $primary_slug = 'system';
+	// Set parent menu for secondary navigation
+	protected $parent_menu = 'system';
 
 	public function get_index()
 	{

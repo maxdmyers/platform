@@ -60,7 +60,7 @@
 			</div>
 			<div class="wrapper">
 				<div class="navigation">
-					@widget('platform.menus::menus.primary')
+					@widget('platform.menus::menus.tabs', 'admin')
 				</div>
 			</div>
 		</header>
@@ -70,7 +70,7 @@
 		<div id="page" class="rows expand">
 			<div id="inside" class="grid wrapper">
 				<div class="navigation column">
-					@widget('platform.menus::menus.secondary', $primary_slug)
+					@widget('platform.menus::menus.pills', $parent_menu)
 				</div>
 
 				<div class="content column expand">

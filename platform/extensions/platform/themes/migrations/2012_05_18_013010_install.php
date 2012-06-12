@@ -86,14 +86,36 @@ class Themes_Install
 		}
 
 		// Themes menu
-		$themes = new Menu(array(
+		$secondary = new Menu(array(
 			'name'          => 'Themes',
 			'slug'          => 'themes',
 			'uri'           => 'themes',
 			'user_editable' => 0,
 		));
 
-		$themes->last_child_of($primary);
+		$secondary->last_child_of($primary);
+
+		// frontend navigation
+		$tertiary = new Menu(array(
+			'name'          => 'Frontend',
+			'slug'          => 'frontend',
+			'uri'           => 'themes/frontend',
+			'user_editable' => 0,
+		));
+
+		$tertiary->last_child_of($secondary);
+
+		// backend navigation
+		$tertiary = new Menu(array(
+			'name'          => 'Backend',
+			'slug'          => 'backend',
+			'uri'           => 'themes/backend',
+			'user_editable' => 0,
+		));
+
+		$tertiary->last_child_of($secondary);
+
+
 	}
 
 	/**
