@@ -52,7 +52,7 @@
 				</a>
 			</div>
 			<div class="about">
-				<h1>@get.settings.general.name</h1>
+				<h1>@get.settings.general.title</h1>
 				<p class="lead">@get.settings.general.tagline</p>
 			</div>
 			<div class="profile">
