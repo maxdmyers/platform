@@ -65,12 +65,10 @@
 			</div>
 		</header>
 
-
-
 		<div id="page" class="rows expand">
 			<div id="inside" class="grid wrapper">
 				<div class="navigation column">
-					@widget('platform.menus::menus.pills', $parent_menu)
+					@widget('platform.menus::menus.pills_stacked', $parent_menu)
 				</div>
 
 				<div class="content column expand">

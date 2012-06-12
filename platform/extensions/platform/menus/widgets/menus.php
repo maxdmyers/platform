@@ -98,4 +98,33 @@ class Menus
 		            ->with('items', $result['children']);
 	}
 
+	public function pills_stacked($parent)
+	{
+		// Parameters for the API call
+		$api_params = array(
+			'depth' => 0,
+		);
+
+		if (is_numeric($parent))
+		{
+			$api_params['id'] = $parent;
+		}
+		else
+		{
+			$api_params['slug'] = $parent;
+		}
+
+		// Get secondary navigation
+		$result = API::get('menus/children', $api_params);
+
+		// No children
+		if ( ! $result['status'])
+		{
+			return '';
+		}
+
+		return Theme::make('menus::widgets.pills_stacked')
+		            ->with('items', $result['children']);
+	}
+
 }
