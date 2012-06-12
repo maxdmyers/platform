@@ -17,7 +17,8 @@
 <section id="themes">
 
 		<header class="row">
-			<div class="span4">
+			<div class="span12">
+				<img src="{{ Theme::asset('../../'.$theme['dir'].'/assets/img/theme-thumbnail.png') }}" title="{{ $theme['dir'] }}">
 				<h1>{{ $theme['name'] }}</h1>
 				<p>{{ $theme['description'] }} by {{ $theme['author'] }} v{{ $theme['version'] }}</p>
 			</div>
@@ -26,45 +27,34 @@
 		<hr>
 
 		<div class="theme row">
-
 			<div class="span12">
 
 				@if (count($theme['options']))
+					{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'well form-horizontal')) }}
 
-							<header><strong>Theme Options</strong></header>
-							{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'form-horizontal')) }}
-								<input type="hidden" name="theme" value="{{ $theme['dir'] }}">
-								@if (isset($theme['id']))
-								<input type="hidden" name="id" value="{{ $theme['id'] }}">
-								@endif
-								<div>
-									<div>
-										<label>Options:</label>
+						<input type="hidden" name="theme" value="{{ $theme['dir'] }}">
+						@if (isset($theme['id']))
+						<input type="hidden" name="id" value="{{ $theme['id'] }}">
+						@endif
 
-									</div>
-									@foreach ($theme['options'] as $id => $option)
-										<div>
-											<strong>{{ $option['text'] }} </strong><br>
-											@foreach ($option['styles'] as $style => $value)
-												<div>
-													<label>{{ $style }}</label>
-													<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}">
-												</div>
-											@endforeach
-										</div>
-									@endforeach
-								</div>
-								<input type="submit" name="form_options" value="apply">
-							{{ Form::close() }}
+						@foreach ($theme['options'] as $id => $option)
+						<fieldset>
+							<legend>{{ $option['text'] }}</legend>
+							@foreach ($option['styles'] as $style => $value)
+								<label>{{ $style }}</label>
+								<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}">
+							@endforeach
+						</fieldset>
+						@endforeach
 
+						<button type="submit" name="form_options" value="apply">Apply</button>
+						<a href="../../{{ URI::segment(4) }}">Finished</a>
 
-					@endif
-				</div>
-
+					{{ Form::close() }}
+				@endif
+			</div>
 		</div>
 
-
 </section>
-
 
 @endsection

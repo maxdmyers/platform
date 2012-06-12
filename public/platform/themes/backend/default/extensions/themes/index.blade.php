@@ -34,13 +34,13 @@
 			@if($active)
 				<div class="active span3">
 					<div class="thumbnail">
-						<img src="http://placehold.it/260x180" alt="">
+						<img src="{{ Theme::asset('../../'.$active['dir'].'/assets/img/theme-thumbnail.png') }}" title="{{ $active['dir'] }}">
 						<div class="caption">
 							<h5>{{ $active['name'] }}</h5>
 							<p class="version">{{ Lang::line('themes::themes.general.version') }} {{ $active['version'] }}</p>
 							<p class="author">{{ Lang::line('themes::themes.general.author') }}  {{ $active['author'] }}</p>
 							<p>{{ $active['description'] }}</p>
-							<p><a href="edit/backend/{{ $active['dir'] }}" class="btn btn-primary" data-theme="{{ $active['dir'] }}" data-type="backend">Edit</a></p>
+							<a href="edit/{{ URI::segment(3).'/'.$active['dir'] }}" class="btn" data-theme="{{ $active['dir'] }}" data-type="backend">Edit</a>
 						</div>
 					</div>
 				</div>
@@ -56,15 +56,15 @@
 
 			@foreach ($inactive as $theme)
 			<div class="span3">
-				<div class="thumbnail">
-					<img src="http://placehold.it/260x180" alt="">
-					<div class="caption">
-						<h5>{{ $theme['name'] }}</h5>
-						<p class="version">{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
-						<p class="author">{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
-						<p>{{ $theme['description'] }}</p>
-						<p><a href="activate/backend/{{ $theme['dir'] }}" class="btn activate" data-theme="{{ $theme['dir'] }}" data-type="backend">Activate</a></p>
-
+				<div class="thumbnail inactive">
+					<img src="{{ Theme::asset('../../'.$theme['dir'].'/assets/img/theme-thumbnail.png') }}" title="{{ $theme['dir'] }}">
+						<div class="caption">
+							<h5>{{ $theme['name'] }}</h5>
+							<p>{{ $theme['description'] }}</p>
+							<p>{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
+							<p>{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
+							<a href="activate/{{ URI::segment(3).'/'.$theme['dir'] }}" class="btn activate" data-theme="{{ $theme['dir'] }}" data-type="backend">Activate</a>
+						</div>
 					</div>
 				</div>
 			</div>
