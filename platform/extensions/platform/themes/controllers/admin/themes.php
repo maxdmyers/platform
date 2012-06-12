@@ -36,6 +36,30 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	}
 
 	/**
+	 * Shows Frontend Themes
+	 *
+	 * @return  View
+	 */
+	public function get_frontend()
+	{
+		$data = $this->theme_data('frontend');
+
+		return Theme::make('themes::index', $data);
+	}
+
+	/**
+	 * Shows Backend Themes
+	 *
+	 * @return  View
+	 */
+	public function get_backend()
+	{
+		$data = $this->theme_data('backend');
+
+		return Theme::make('themes::index', $data);
+	}
+
+	/**
 	 * Edit Themes with associated options
 	 *
 	 * @return  View
@@ -56,64 +80,49 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 
 		$data['theme'] = $theme_info['themes'][$type];
 
-		$data['options'] = $theme_info['themes']['backend']['options'] + $options['options'];
+		$data['theme'] = $options['options'] + $data['theme'];
 
 		return Theme::make('themes::edit', $data);
 	}
 
 	/**
-	 * Shows Frontend Themes with associated options
-	 *
-	 * @return  View
-	 */
-	public function get_frontend()
-	{
-		$data = $this->theme_data('frontend');
-
-		return Theme::make('themes::index', $data);
-	}
-
-	/**
-	 * Shows Frontend Themes with associated options
-	 *
-	 * @return  View
-	 */
-	public function post_frontend()
-	{
-		$this->process_post('frontend');
-		return Redirect::to(ADMIN.'/themes/frontend');
-	}
-
-	/**
-	 * Shows Backend Themes with associated options
-	 *
-	 * @return  View
-	 */
-	public function get_backend()
-	{
-		$data = $this->theme_data('backend');
-
-		return Theme::make('themes::index', $data);
-	}
-
-	/**
-	 * Shows Backend Themes with associated options
-	 *
-	 * @return  View
-	 */
-	public function post_backend()
-	{
-		$this->process_post('backend');
-		return Redirect::to(ADMIN.'/themes/backend');
-	}
-
-	/**
-	 * Processes post data for both theme types
+	 * Processes post data for theme options
 	 *
 	 * @param   string  theme type - frotend/backend
 	 * @return  array   result array
 	 */
-	protected function post_activate()
+	protected function post_edit($type, $theme)
+	{
+
+		$result = API::post('themes/update', array(
+			'id'      => Input::get('id'),
+			'type'    => $type,
+			'theme'   => $theme,
+			'options' => Input::get('options'),
+			'status'  => Input::get('status', 1)
+		));
+
+		if ($result['status'])
+		{
+			Platform::messages()->success($result['message']);
+
+			return Redirect::to(ADMIN.'/themes/edit/'.$type.'/'.$theme);
+		}
+		else
+		{
+			echo Platform::messages()->error($result['message']);
+		}
+
+	}
+
+
+	/**
+	 * Activates a theme
+	 *
+	 * @param   string  theme type - frotend/backend
+	 * @return  array   result array
+	 */
+	protected function post_activate($type, $theme)
 	{
 
 		$result = API::post('settings', array(
@@ -154,70 +163,6 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 
 	}
 
-	/**
-	 * Processes post data for both theme types
-	 *
-	 * @param   string  theme type - frotend/backend
-	 * @return  array   result array
-	 */
-	protected function process_post($type)
-	{
-		// if theme switch was posted
-		if (Input::get('form_themes'))
-		{
-			$result = API::post('settings', array(
-				'settings' => array(
-					'values' => array(
-						'extension' => 'themes',
-						'type'      => 'theme',
-						'name'      => $type,
-						'value'     => Input::get('theme'),
-					),
-
-					// validation
-					'validation' => array(
-						'name'  => 'required',
-						'value' => 'required',
-					),
-
-					// labels
-					'labels' => array(
-						'name' => 'Theme'
-					),
-				),
-			));
-
-			if ($result['status'])
-			{
-				Platform::messages()->success($result['updated']);
-			}
-			else
-			{
-				Platform::messages()->error($result['errors']);
-			}
-		}
-
-		// if options was posted
-		if (Input::get('form_options'))
-		{
-			$result = API::post('themes/update', array(
-				'id'      => Input::get('id'),
-				'type'    => $type,
-				'theme'   => Input::get('theme'),
-				'options' => Input::get('options'),
-				'status'  => Input::get('status', 1)
-			));
-
-			if ($result['status'])
-			{
-				Platform::messages()->success($result['message']);
-			}
-			else
-			{
-				Platform::messages()->error($result['message']);
-			}
-		}
-	}
 
 	/**
 	 * Gets all theme data necessary for views
@@ -232,9 +177,9 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 			'type' => $type
 		));
 
-		$data['themes'] = $themes['themes'][$type];
+		$themes = $themes['themes'][$type];
 
-		// get active themes
+		// get active theme
 		$active = API::get('settings', array(
 			'where'     => array(
 				array('extension', '=', 'themes'),
@@ -246,25 +191,27 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 		$active = $active['settings'][0];
 
 		// get active theme info and remove from array
-		if ( array_key_exists($active['value'], $data['themes']))
+		if ( array_key_exists($active['value'], $themes))
 		{
-			$data['active'] = $data['themes'][$active['value']];
 			$data['exists'] = true;
+
+			// set active and remove theme from array
+			$data['active'] = $themes[$active['value']];
+			unset($themes[$active['value']]);
+
+			// set all other themes to inactive
+			$data['inactive'] = $themes;
 		}
 		else
 		{
-			$data['active']['name'] = $active['value'];
 			$data['exists'] = false;
+
+			// theme doesn't exist so we'll just give a name
+			$data['active']['name'] = $active['value'];
+
+			// set all themes to inactive
+			$data['inactive'] = $data['themes'];
 		}
-
-		// get active custom theme options
-		$active_custom = API::get('themes/options', array(
-			'type'  => $type,
-			'theme' => $active['value']
-		));
-
-		// merge data
-		$data['active'] = $active_custom['options'] + $data['active'];
 
 		return $data;
 	}

@@ -5,7 +5,7 @@
 @endsection
 
 @section('links')
-
+	{{ Theme::asset('themes::css/themes.less') }}
 @endsection
 
 @section('body_scripts')
@@ -16,92 +16,59 @@
 
 <section id="themes">
 
-		<header class="container-fluid">
-			<div class="row-fluid">
-				<div class="span4">
-					<h1>{{ Lang::line('themes::themes.general.title') }}</h1>
-					<p>{{ Lang::line('themes::themes.general.description') }}</p>
-				</div>
+		<header class="row">
+			<div class="span4">
+				<h1>{{ Lang::line('themes::themes.general.title') }}</h1>
+				<p>{{ Lang::line('themes::themes.general.description') }}</p>
 			</div>
+			<nav class="span8">
+				<div class="pull-right">
+					@widget('platform.menus::menus.pills', 'themes')
+				</div>
+			</nav>
 		</header>
 
-		<div>
-			<!--<ul class="nav nav-tabs">
-				<li class="active"><a href="{{ url(ADMIN.'/themes') }}">Front End</a></li>
-				<li><a href="{{ url(ADMIN.'/themes/backend') }}">Back End</a></li>
-			</ul>-->
+		<hr>
 
-			@widget('platform.menus::menus.tabs', 'themes')
-		</div>
-
-
-@if($exists)
-	<section>
-		<header><strong>Active Theme</strong></header>
-		<div>
-			<strong>Name: </strong>{{ $active['name'] }} v{{ $active['version'] }}
-			<strong>by</strong> {{ $active['author'] }}
-		</div>
-		<div><strong>Description: </strong>{{ $active['description'] }}</div>
-		<div><p><a href="edit/backend/{{ $active['dir'] }}" class="btn btn-primary" data-theme="{{ $active['dir'] }}" data-type="backend">Edit</a></p>
-	</section>
-
-	<br>
-	<!--@if (count($active['options']))
-		<section>
-			<header><strong>Theme Options</strong></header>
-			{{ Form::open() }}
-				<input type="hidden" name="theme" value="{{ $active['dir'] }}">
-				@if (isset($active['id']))
-				<input type="hidden" name="id" value="{{ $active['id'] }}">
-				@endif
-				<div>
-					<div>
-						<label>Options:</label>
-
-					</div>
-					@foreach ($active['options'] as $id => $option)
-						<div>
-							<strong>{{ $option['text'] }} </strong><br>
-							@foreach ($option['styles'] as $style => $value)
-								<div>
-									<label>{{ $style }}</label>
-									<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}">
-								</div>
-							@endforeach
+		<div class="selections row">
+			@if($active)
+				<div class="active span3">
+					<div class="thumbnail">
+						<img src="{{ Theme::asset('../../'.$active['dir'].'/assets/img/theme-thumbnail.png') }}" title="{{ $active['dir'] }}">
+						<div class="caption">
+							<h5>{{ $active['name'] }}</h5>
+							<p class="version">{{ Lang::line('themes::themes.general.version') }} {{ $active['version'] }}</p>
+							<p class="author">{{ Lang::line('themes::themes.general.author') }}  {{ $active['author'] }}</p>
+							<p>{{ $active['description'] }}</p>
+							<a href="edit/{{ URI::segment(3).'/'.$active['dir'] }}" class="btn" data-theme="{{ $active['dir'] }}" data-type="backend">Edit</a>
 						</div>
-					@endforeach
+					</div>
 				</div>
-				<input type="submit" name="form_options" value="Update">
-			{{ Form::close() }}
-		</section>
-		<br>
+			@else
+				<div class="active span3">
+					<div class="thumbnail">
+						<div class="caption">
+							<h5>Select a Theme and activate</h5>
+						</div>
+					</div>
+				</div>
+			@endif
 
-	@endif-->
-@else
-	<section>
-		<header><strong>Theme: {{ $active['name'] }} no longer exists.</strong></header>
-	</section>
-@endif
-	<section id="test">
-		<header><strong>Available Themes</strong></header>
-
-			@foreach ($themes as $theme)
+			@foreach ($inactive as $theme)
 			<div class="span3">
-				<div class="thumbnail">
-					<img src="http://placehold.it/260x180" alt="">
-					<div class="caption">
-						<h5>{{ $theme['name'] }}</h5>
-						<p class="version">{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
-						<p class="author">{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
-						<p>{{ $theme['description'] }}</p>
-						<p><a href="activate/backend/{{ $theme['dir'] }}" class="btn btn-primary activate" data-theme="{{ $theme['dir'] }}" data-type="backend">Activate</a> <a href="#" class="btn">Deactivate</a></p>
-
+				<div class="thumbnail inactive">
+					<img src="{{ Theme::asset('../../'.$theme['dir'].'/assets/img/theme-thumbnail.png') }}" title="{{ $theme['dir'] }}">
+						<div class="caption">
+							<h5>{{ $theme['name'] }}</h5>
+							<p>{{ $theme['description'] }}</p>
+							<p>{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
+							<p>{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
+							<a href="activate/{{ URI::segment(3).'/'.$theme['dir'] }}" class="btn activate" data-theme="{{ $theme['dir'] }}" data-type="backend">Activate</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			@endforeach
-
-	</section>
+		</div>
 
 @endsection
