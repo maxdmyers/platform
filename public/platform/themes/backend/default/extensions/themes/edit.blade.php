@@ -46,9 +46,12 @@
 							@endforeach
 						</fieldset>
 						@endforeach
+						<div class="form-actions">
+			            	<button class="btn btn-primary" type="submit" name="form_options" value="apply">Apply Changes</button>
+			            	<a class="btn" href="../../{{ URI::segment(4) }}">Finished</a>
+			          	</div>
 
-						<button type="submit" name="form_options" value="apply">Apply</button>
-						<a href="../../{{ URI::segment(4) }}">Finished</a>
+
 
 					{{ Form::close() }}
 				@endif
