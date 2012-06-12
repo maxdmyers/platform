@@ -93,15 +93,15 @@ class Table
 	public static function count($query, $defaults = array())
 	{
 		$where = Input::get('where');
+		$live_search = Input::get('live_search');
 
-		if ( ! empty($where))
+		if ( empty($defaults) )
 		{
-			if ( empty($defaults) )
-			{
-				$defaults['select'] = array();
-			}
-			$query = static::build_query($where, $defaults['select'], $query);
+			$defaults['select'] = array();
 		}
+
+		$query = static::build_query($where, $defaults['select'], $query);
+		$query = static::build_query($live_search, $defaults['select'], $query);
 
 		return $query;
 	}
@@ -114,8 +114,8 @@ class Table
 		$page        = Input::get('page', 1);
 		$pages       = 10;
 
-		if ($item_count > $threshold and ( count($where) or count($live_search) ))
-		{
+		// if ($item_count > $threshold)
+		// {
 			// find offset and limit
 			$limit = ceil( $item_count / $pages );
 
@@ -126,13 +126,13 @@ class Table
 			}
 
 			$offset = $limit * ( $page - 1 );
-		}
-		else
-		{
-			// otherwise use defaults
-			$offset = 0;
-			$limit  = $threshold;
-		}
+		// }
+		// else
+		// {
+		// 	// otherwise use defaults
+		// 	$offset = 0;
+		// 	$limit  = $threshold;
+		// }
 
 		return array(
 			'limit'  => $limit,
@@ -143,6 +143,11 @@ class Table
 
 	protected static function build_query(&$where, $select, $query)
 	{
+		if (empty($where))
+		{
+			return $query;
+		}
+
 		// if search all was passed
 		if (array_key_exists('search_all', $where))
 		{

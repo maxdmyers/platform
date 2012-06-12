@@ -56,7 +56,7 @@
 										</tr>
 									<thead>
 									<tbody>
-										@include('users::partials.table_users')
+
 									</tbody>
 								</table>
 							</div>
