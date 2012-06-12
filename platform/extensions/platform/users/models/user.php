@@ -79,13 +79,17 @@ class User extends Crud
 		$groups = array();
 		if (array_key_exists('groups', $attributes))
 		{
-			$groups = $attributes['groups'];
-			unset($attributes['groups']);
+			if ( ! empty($groups))
+			{
+				$groups = $attributes['groups'];
+			}
 
 			if ( ! is_array($groups))
 			{
 				$groups = array($groups);
 			}
+
+			unset($attributes['groups']);
 		}
 
 		// If the model exists, we only need to update it in the database, and the update
@@ -191,8 +195,6 @@ class User extends Crud
 		{
 			$this->before_delete(null);
 			$result = Sentry::user($this->{static::key()})->delete();
-			print_r($result);
-			exit;
 			return $this->after_delete($result);
 		}
 		catch(SentryException $e)
@@ -259,6 +261,8 @@ class User extends Crud
 			->left_join('groups', 'users_groups.group_id', '=', 'groups.id')
 			->group_by('users.id');
 
+		$columns = array('*', 'users.id as id', 'groups.id as groups_id');
+
 		return array($query, $columns);
 	}
 
@@ -270,16 +274,13 @@ class User extends Crud
 	 */
 	protected function after_find($result)
 	{
-		foreach ($result as &$user)
+		$result->metadata = array();
+		foreach ($result as $key => $val)
 		{
-			$user->metadata = array();
-			foreach ($user as $key => $val)
+			if ( ! in_array($key, static::$_fields))
 			{
-				if ( ! in_array($key, static::$_fields))
-				{
-					$user->metadata[$key] = $val;
-					unset($user->{$key});
-				}
+				$result->metadata[$key] = $val;
+				unset($result->{$key});
 			}
 		}
 
@@ -368,7 +369,7 @@ class User extends Crud
 	{
 		$model = new static;
 
-		list($query, $select) = $model->before_find($model->query(), $select);
+		list($query, $select) = $model->before_all($model->query(), $select);
 
 		if ( ! empty($where))
 		{
@@ -412,7 +413,7 @@ class User extends Crud
 			$models[] = new static($r, true);
 		}
 
-		return $model->after_find($models);
+		return $model->after_all($models);
 	}
 
 }
