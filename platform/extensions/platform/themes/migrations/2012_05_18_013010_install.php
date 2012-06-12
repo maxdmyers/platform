@@ -44,6 +44,11 @@ class Themes_Install
 		});
 
 		/**
+		 * activate default templates options TODO
+		 */
+
+
+		/**
 		 * Add base theme configuration options
 		 */
 
@@ -51,14 +56,14 @@ class Themes_Install
 			'extension' => 'themes',
 			'type'      => 'theme',
 			'name'      => 'frontend',
-			'value'     => 'frontend/default',
+			'value'     => 'default',
 		));
 
 		$backend = DB::table('configuration')->insert(array(
 			'extension' => 'themes',
 			'type'      => 'theme',
 			'name'      => 'backend',
-			'value'     => 'backend/default',
+			'value'     => 'default',
 		));
 
 		/**

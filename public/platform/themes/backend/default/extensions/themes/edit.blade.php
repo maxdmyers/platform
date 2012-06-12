@@ -5,7 +5,7 @@
 @endsection
 
 @section('links')
-
+	{{ Theme::asset('themes::css/themes.less') }}
 @endsection
 
 @section('body_scripts')
@@ -16,68 +16,55 @@
 
 <section id="themes">
 
-		<header class="container-fluid">
-			<div class="row-fluid">
-				<div class="span4">
-					<h1>{{ Lang::line('themes::themes.general.title') }}</h1>
-					<p>{{ Lang::line('themes::themes.general.description') }}</p>
-				</div>
+		<header class="row">
+			<div class="span4">
+				<h1>{{ $theme['name'] }}</h1>
+				<p>{{ $theme['description'] }} by {{ $theme['author'] }} v{{ $theme['version'] }}</p>
 			</div>
 		</header>
 
-		<div>
-			<!--<ul class="nav nav-tabs">
-				<li class="active"><a href="{{ url(ADMIN.'/themes') }}">Front End</a></li>
-				<li><a href="{{ url(ADMIN.'/themes/backend') }}">Back End</a></li>
-			</ul>-->
+		<hr>
 
-			@widget('platform.menus::menus.tabs', 'themes')
-		</div>
+		<div class="theme row">
 
+			<div class="span12">
 
+				@if (count($theme['options']))
 
-	<section>
-		<header><strong>Active Theme</strong></header>
-		<div>
-			<strong>Name: </strong>{{ $theme['name'] }} v{{ $theme['version'] }}
-			<strong>by</strong> {{ $theme['author'] }}
-		</div>
-		<div><strong>Description: </strong>{{ $theme['description'] }}</div>
-		<div><p><a href="edit/backend/{{ $theme['dir'] }}" class="btn btn-primary" data-theme="{{ $theme['dir'] }}" data-type="backend">Edit</a></p>
-	</section>
-
-
-	@if (count($theme['options']))
-		<section>
-			<header><strong>Theme Options</strong></header>
-			{{ Form::open() }}
-				<input type="hidden" name="theme" value="{{ $theme['dir'] }}">
-				@if (isset($theme['id']))
-				<input type="hidden" name="id" value="{{ $theme['id'] }}">
-				@endif
-				<div>
-					<div>
-						<label>Options:</label>
-
-					</div>
-					@foreach ($theme['options'] as $id => $option)
-						<div>
-							<strong>{{ $option['text'] }} </strong><br>
-							@foreach ($option['styles'] as $style => $value)
+							<header><strong>Theme Options</strong></header>
+							{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'form-horizontal')) }}
+								<input type="hidden" name="theme" value="{{ $theme['dir'] }}">
+								@if (isset($theme['id']))
+								<input type="hidden" name="id" value="{{ $theme['id'] }}">
+								@endif
 								<div>
-									<label>{{ $style }}</label>
-									<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}">
-								</div>
-							@endforeach
-						</div>
-					@endforeach
-				</div>
-				<input type="submit" name="form_options" value="Update">
-			{{ Form::close() }}
-		</section>
-		<br>
+									<div>
+										<label>Options:</label>
 
-	@endif
+									</div>
+									@foreach ($theme['options'] as $id => $option)
+										<div>
+											<strong>{{ $option['text'] }} </strong><br>
+											@foreach ($option['styles'] as $style => $value)
+												<div>
+													<label>{{ $style }}</label>
+													<input type="text" name="options[{{$id}}][styles][{{$style}}]" value="{{ $value }}">
+												</div>
+											@endforeach
+										</div>
+									@endforeach
+								</div>
+								<input type="submit" name="form_options" value="apply">
+							{{ Form::close() }}
+
+
+					@endif
+				</div>
+
+		</div>
+
+
+</section>
 
 
 @endsection
