@@ -28,6 +28,7 @@ if (platform == undefined)
 
 			// init data
 			self.initData();
+			self.fetch();
 		},
 
 		// make ajax call and display processing feedback
@@ -401,10 +402,10 @@ if (platform == undefined)
 		buildPaging: function(data, filteredCount) {
 			var self = this;
 
-			if ( $.isEmptyObject(self.data.live_search) && $.isEmptyObject(self.data.where) ) {
-				self.$pages.html('');
-				return;
-			}
+			// if ( $.isEmptyObject(self.data.live_search) && $.isEmptyObject(self.data.where) ) {
+			// 	self.$pages.html('');
+			// 	return;
+			// }
 
 			var limit  = data.limit,
 				offset = data.offset,
@@ -421,7 +422,7 @@ if (platform == undefined)
 				var active = (i == self.data.page) ? 'class="active"' : '';
 
 				if (filteredCount <= end) {
-					if (i > 1) {
+					if (i >= 1) {
 						html += '<li '+active+'><a href="#" data-table-page="'+i+'">'+start+' - '+filteredCount+'</a></li>';
 					}
 					break;
