@@ -17,8 +17,8 @@
 
 	<section id="users">
 
-		<header class="container-fluid">
-			<div class="row-fluid">
+		<header>
+			<div class="row">
 				<div class="span4">
 					<h1>{{ Lang::line('users::users.title') }}</h1>
 				</div>
