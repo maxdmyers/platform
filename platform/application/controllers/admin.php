@@ -57,17 +57,19 @@ class Admin_Controller extends Authorized_Controller
 			return Config::get('theme::theme.active');
 		}));
 
-		// Work out the secondary slug
-		$primary_slug = ($this->primary_slug) ?: URI::segment(2);
+		// Find menu slug for secondary navigation
+		$parent_menu = ($this->parent_menu) ?: URI::segment(2);
 
 		/**
 		 * @todo See if we can not hard-code the view name... Maybe have a
 		 *       'primary_template' or something as an option of the theme...
 		 */
-		View::composer('templates.template', function($view) use ($primary_slug)
+		View::composer('templates.template', function($view) use ($parent_menu)
 		{
-			$view->with('primary_slug', $primary_slug);
+			$view->with('parent_menu', $parent_menu);
 		});
+
+
 	}
 
 }

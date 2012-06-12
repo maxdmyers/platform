@@ -36,6 +36,32 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	}
 
 	/**
+	 * Edit Themes with associated options
+	 *
+	 * @return  View
+	 */
+	public function get_edit($type, $theme)
+	{
+		// get theme.info data
+		$theme_info = API::get('themes', array(
+			'type' => $type,
+			'name' => $theme,
+		));
+
+		// get custom theme options
+		$options = API::get('themes/options', array(
+			'type'  => $type,
+			'theme' => $theme
+		));
+
+		$data['theme'] = $theme_info['themes'][$type];
+
+		$data['options'] = $theme_info['themes']['backend']['options'] + $options['options'];
+
+		return Theme::make('themes::edit', $data);
+	}
+
+	/**
 	 * Shows Frontend Themes with associated options
 	 *
 	 * @return  View
@@ -79,6 +105,53 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	{
 		$this->process_post('backend');
 		return Redirect::to(ADMIN.'/themes/backend');
+	}
+
+	/**
+	 * Processes post data for both theme types
+	 *
+	 * @param   string  theme type - frotend/backend
+	 * @return  array   result array
+	 */
+	protected function post_activate()
+	{
+
+		$result = API::post('settings', array(
+			'settings' => array(
+				'values' => array(
+					'extension' => 'themes',
+					'type'      => 'theme',
+					'name'      => Input::get('type'),
+					'value'     => Input::get('theme'),
+				),
+
+				// validation
+				'validation' => array(
+					'name'  => 'required',
+					'value' => 'required',
+				),
+
+				// labels
+				'labels' => array(
+					'name' => 'Theme'
+				),
+			),
+		));
+
+		if ($result['status'])
+		{
+			Platform::messages()->success($result['updated']);
+
+			$data = $this->theme_data('backend');
+
+			return Redirect::to(ADMIN.'/themes/'.$type);
+		}
+		else
+		{
+			echo Platform::messages()->error($result['errors']);
+		}
+
+
 	}
 
 	/**

@@ -1,15 +1,12 @@
-#status {
-	background: #225;
-	height: 3em;
+body {
+	background: #eee;
 }
 
-#status nav a {
-	color: #333;
-	text-decoration: underline;
+#base>header {
+	background: #f7f7f7;
 }
 
-#status nav a:hover {
-	color: #444;
-	text-decoration: underline;
+#page {
+	background: #fbfbfb;
 }
 

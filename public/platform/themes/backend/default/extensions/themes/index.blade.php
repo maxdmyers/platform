@@ -9,7 +9,7 @@
 @endsection
 
 @section('body_scripts')
-
+	{{ Theme::asset('themes::js/themes.js') }}
 @endsection
 
 @section('content')
@@ -43,10 +43,11 @@
 			<strong>by</strong> {{ $active['author'] }}
 		</div>
 		<div><strong>Description: </strong>{{ $active['description'] }}</div>
+		<div><p><a href="edit/backend/{{ $active['dir'] }}" class="btn btn-primary" data-theme="{{ $active['dir'] }}" data-type="backend">Edit</a></p>
 	</section>
 
 	<br>
-	@if (count($active['options']))
+	<!--@if (count($active['options']))
 		<section>
 			<header><strong>Theme Options</strong></header>
 			{{ Form::open() }}
@@ -76,15 +77,14 @@
 		</section>
 		<br>
 
-	@endif
+	@endif-->
 @else
 	<section>
 		<header><strong>Theme: {{ $active['name'] }} no longer exists.</strong></header>
 	</section>
 @endif
-	<section>
+	<section id="test">
 		<header><strong>Available Themes</strong></header>
-		{{ Form::open() }}
 
 			@foreach ($themes as $theme)
 			<div class="span3">
@@ -95,14 +95,13 @@
 						<p class="version">{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
 						<p class="author">{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
 						<p>{{ $theme['description'] }}</p>
-						<p><a href="#" class="btn btn-primary">Activate</a> <a href="#" class="btn">Deactivate</a></p>
-						<input type="submit" name="form_themes" value="Activate">
+						<p><a href="activate/backend/{{ $theme['dir'] }}" class="btn btn-primary activate" data-theme="{{ $theme['dir'] }}" data-type="backend">Activate</a> <a href="#" class="btn">Deactivate</a></p>
+
 					</div>
 				</div>
 			</div>
 			@endforeach
 
-		{{ Form::close() }}
 	</section>
 
 @endsection
