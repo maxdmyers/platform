@@ -148,4 +148,47 @@ class Menus_API_Menus_Controller extends API_Controller
 		);
 	}
 
+	/**
+	 * Sets the active menu in the Menu instance.
+	 *
+	 * @return  array
+	 */
+	public function post_active()
+	{
+		$active = Input::get('slug', Input::get('id'));
+
+		if (Menu::active($active) === false)
+		{
+			return array(
+				'status'  => false,
+				'message' => "The active menu [$active] doesn't exist.",
+			);
+		}
+
+		return array('status' => true);
+	}
+
+	/**
+	 * Gets the active menu in the Menu instance.
+	 *
+	 * @return  array
+	 */
+	public function get_active()
+	{
+		if ( ! $active = Menu::active())
+		{
+			return array(
+				'status'  => false,
+				'message' => 'There is no active menu defined.',
+			);
+		}
+
+		return array(
+			'status'      => true,
+			'active'      => $active,
+			'active_path' => Menu::active_path(), // Always returns something if Menu::active() does
+		);
+	}
+
+
 }

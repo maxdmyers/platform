@@ -43,6 +43,20 @@ class Menu extends Nesty
 	protected static $_timestamps = false;
 
 	/**
+	 * The active menu slug.
+	 *
+	 * @var Menu
+	 */
+	protected static $_active;
+
+	/**
+	 * The path of active menu IDs.
+	 *
+	 * @var string
+	 */
+	protected static $_active_path = array();
+
+	/**
 	 * Array of nesty column default names
 	 *
 	 * @var array
@@ -158,6 +172,47 @@ class Menu extends Nesty
 		}
 
 		return parent::from_hierarchy_array($id, $items, $before_root_persist, $before_persist);
+	}
+
+	/**
+	 * Sets the active menu in the Menu instance.
+	 *
+	 * @param   string  $slug
+	 * @return  void
+	 */
+	public static function active($value = null)
+	{
+		if ($value === null)
+		{
+			return static::$_active;
+		}
+
+		// Determine property
+		$property = (is_numeric($value)) ? static::key() : 'slug';
+
+		// Find the menu item
+		$active = static::find(function($query) use($property, $value)
+		{
+			return $query->where($property, '=', $value);
+		});
+
+		if ($active === null)
+		{
+			return false;
+		}
+
+		// Cache
+		static::$_active = $active;
+
+		// Get the active path
+		static::$_active_path = $active->path(static::key(), 'array');
+
+		return static::$_active;
+	}
+
+	public static function active_path()
+	{
+		return static::$_active_path;
 	}
 
 }

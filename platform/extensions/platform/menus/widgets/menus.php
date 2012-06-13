@@ -27,104 +27,36 @@ use Theme;
 class Menus
 {
 
-
 	/**
-	 * Returns navigation menus for Platform.
+	 * Returns a navigation menu, based off the active menu.
 	 *
-	 * @param   string|int  $parent
-	 * @return  View
+	 * @param   int     $start_depth
+	 * @param   int     $children_depth
+	 * @param   string  $class
+	 * @param   string  $before_uri
+	 * @param   string  $class
 	 */
-	public function tabs($parent)
+	public function nav($start_depth = 0, $children_depth = 0, $class = null, $before_uri = null)
 	{
-		// Parameters for the API call
-		$api_params = array(
-			'depth' => 0,
-		);
+		// Get the active menu
+		$result = API::get('menus/active');
 
-		if (is_numeric($parent))
-		{
-			$api_params['id'] = $parent;
-		}
-		else
-		{
-			$api_params['slug'] = $parent;
-		}
-
-		// Get secondary navigation
-		$result = API::get('menus/children', $api_params);
-
-		// No children
 		if ( ! $result['status'])
 		{
-			return '';
+			return false;
 		}
 
-		return Theme::make('menus::widgets.tabs')
-		            ->with('items', $result['children']);
-	}
+		// Grab all children items from the API
+		$items = API::get('menus/children', array(
+			'id'    => $result['active_path'][(int) $start_depth],
+			'depth' => (int) $children_depth,
+		));
 
-	/**
-	 * Returns navigation menus for Platform.
-	 *
-	 * @param   string|int  $parent
-	 * @return  View
-	 */
-	public function pills($parent)
-	{
-		// Parameters for the API call
-		$api_params = array(
-			'depth' => 0,
-		);
-
-		if (is_numeric($parent))
-		{
-			$api_params['id'] = $parent;
-		}
-		else
-		{
-			$api_params['slug'] = $parent;
-		}
-
-		// Get secondary navigation
-		$result = API::get('menus/children', $api_params);
-
-		// No children
-		if ( ! $result['status'])
-		{
-			return '';
-		}
-
-		return Theme::make('menus::widgets.pills')
-		            ->with('items', $result['children']);
-	}
-
-	public function pills_stacked($parent)
-	{
-		// Parameters for the API call
-		$api_params = array(
-			'depth' => 0,
-		);
-
-		if (is_numeric($parent))
-		{
-			$api_params['id'] = $parent;
-		}
-		else
-		{
-			$api_params['slug'] = $parent;
-		}
-
-		// Get secondary navigation
-		$result = API::get('menus/children', $api_params);
-
-		// No children
-		if ( ! $result['status'])
-		{
-			return '';
-		}
-
-		return Theme::make('menus::widgets.pills_stacked')
-		            ->with('items', $result['children']);
+		return Theme::make('menus::widgets.nav')
+		            ->with('items', $items['children'])
+		            ->with('active_path', $result['active_path'])
+		            ->with('class', $class)
+		            ->with('before_uri', $before_uri);
 	}
 
 }

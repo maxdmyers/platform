@@ -28,7 +28,7 @@ class Admin_Controller extends Authorized_Controller
 	 *
 	 * @var string
 	 */
-	protected $primary_slug;
+	protected $parent_menu;
 
 	public function __construct()
 	{
@@ -66,10 +66,21 @@ class Admin_Controller extends Authorized_Controller
 		 */
 		View::composer('templates.template', function($view) use ($parent_menu)
 		{
-			$view->with('parent_menu', $parent_menu);
+			$view->with('parent_menu', '');
 		});
+	}
 
-
+	/**
+	 * Sets the active menu slug.
+	 *
+	 * @param   string  $slug
+	 * @return  void
+	 */
+	public function active_menu($slug)
+	{
+		API::post('menus/active', array(
+			'slug' => $slug,
+		));
 	}
 
 }
