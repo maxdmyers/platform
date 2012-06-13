@@ -34,7 +34,7 @@ return array(
 	),
 
 	'bundles' => array(
-		'handles' => 'users',
+		'handles'  => 'users',
 		'location' => 'path: '.__DIR__,
 	),
 
