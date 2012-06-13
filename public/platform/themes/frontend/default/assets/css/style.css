@@ -28,21 +28,38 @@ html, body {
 }
 
 #base {
-	padding: 20px;
+	width:100%;
 }
 
-#page .actions {
-	text-align:right;
+#page {
+	width:960px;
+	margin:0 auto;
 }
-
-
-/* #header
-================================================== */
 
 
 /* #content
 ================================================== */
 
+#welcome {
+	text-align: center;
+	padding-top:100px;
+}
 
-/* #footer
-================================================== */
+#welcome .brand {
+	background:transparent url(../img/bg-welcome.png) bottom center no-repeat;
+	padding:20px;
+}
+
+#welcome .lead {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 32px;
+	font-style: normal;
+	text-transform: normal;
+	letter-spacing: -2px;
+	line-height: 1.2em;
+	color:#666;
+	width:640px;
+	text-align: center;
+	margin: 0 auto;
+	padding:20px;
+}
