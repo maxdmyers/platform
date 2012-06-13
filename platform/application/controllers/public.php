@@ -20,5 +20,9 @@
 
 class Public_Controller extends Base_Controller
 {
-
+	public function before()
+	{
+		Theme::active('frontend/'.Platform::get('themes.theme.frontend'));
+		Theme::fallback('frontend/default');
+	}
 }

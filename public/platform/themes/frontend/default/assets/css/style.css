@@ -1,4 +1,3 @@
-<?php
 /**
  * Part of the Platform application.
  *
@@ -15,23 +14,35 @@
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
  * @copyright  (c) 2011 - 2012, Cartalyst LLC
- * @link       http://cartalyst.com
+ * @link       http://getplatform.com
  */
 
-class Pages_Pages_Controller extends Public_Controller
-{
-	public function get_index()
-	{
-		return Theme::make('pages::index');
-	}
 
-	public function get_about()
-	{
-		return 'about page';
-	}
+/* #Layout
+================================================== */
+body {background:#f7f7f7;}
 
-	public function get_contact()
-	{
-		return 'contact page';
-	}
+html, body {
+	height: 100%;
+	margin: 0pt;
 }
+
+#base {
+	padding: 20px;
+}
+
+#page .actions {
+	text-align:right;
+}
+
+
+/* #header
+================================================== */
+
+
+/* #content
+================================================== */
+
+
+/* #footer
+================================================== */
