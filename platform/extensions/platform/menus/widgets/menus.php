@@ -39,22 +39,37 @@ class Menus
 	public function nav($start_depth = 0, $children_depth = 0, $class = null, $before_uri = null)
 	{
 		// Get the active menu
-		$result = API::get('menus/active');
+		$active_result = API::get('menus/active');
 
-		if ( ! $result['status'])
+		if ( ! $active_result['status'])
 		{
-			return false;
+			return '';
+		}
+
+		// Check the start depth exists
+		if ( ! isset($active_result['active_path'][(int) $start_depth]))
+		{
+			return '';
 		}
 
 		// Grab all children items from the API
-		$items = API::get('menus/children', array(
-			'id'    => $result['active_path'][(int) $start_depth],
+		$items_result = API::get('menus/children', array(
+			'id'    => $active_result['active_path'][(int) $start_depth],
 			'depth' => (int) $children_depth,
 		));
 
+		// If there are no children of the given menu,
+		// return an empty string
+		if ( ! isset($items_result['children']) or ! is_array($items_result['children']) or empty($items_result['children']))
+		{
+			return '';
+		}
+
+
+		// Return teh 
 		return Theme::make('menus::widgets.nav')
-		            ->with('items', $items['children'])
-		            ->with('active_path', $result['active_path'])
+		            ->with('items', $items_result['children'])
+		            ->with('active_path', $active_result['active_path'])
 		            ->with('class', $class)
 		            ->with('before_uri', $before_uri);
 	}

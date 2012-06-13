@@ -20,11 +20,21 @@
 
 class Dashboard_Admin_Dashboard_Controller extends Admin_Controller
 {
-	// Set parent menu for secondary navigation
-	protected $parent_menu = 'dashboard';
+
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		parent::before();
+		$this->active_menu('dashboard');
+	}
 
 	public function get_index()
 	{
 		return Theme::make('dashboard::index');
 	}
+
 }

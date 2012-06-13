@@ -175,41 +175,61 @@ class Menu extends Nesty
 	}
 
 	/**
-	 * Sets the active menu in the Menu instance.
+	 * Sets / gets the active menu in the Menu instance.
 	 *
 	 * @param   string  $slug
-	 * @return  void
+	 * @return  bool
 	 */
 	public static function active($value = null)
 	{
+		// Returning the active menu
 		if ($value === null)
 		{
+			// If we have just cached the id or
+			// slug, lazy-query the database now
+			if (is_array(static::$_active))
+			{
+				extract(static::$_active);
+
+				// Find the menu item
+				$active = static::find(function($query) use($property, $value)
+				{
+					return $query->where($property, '=', $value);
+				});
+
+				if ($active === null)
+				{
+					return false;
+				}
+
+				// Cache
+				static::$_active = $active;
+
+				// Get the active path
+				static::$_active_path = $active->path(static::key(), 'array');
+			}
+
+			// Return the active object
 			return static::$_active;
 		}
 
-		// Determine property
-		$property = (is_numeric($value)) ? static::key() : 'slug';
+		// Just cache the property
+		// and value for now, save doing
+		// 2 queries (in case we don't
+		// actually use the active menu)
+		static::$_active = array(
+			'property' => (is_numeric($value)) ? static::key() : 'slug',
+			'value'    => $value,
+		);
 
-		// Find the menu item
-		$active = static::find(function($query) use($property, $value)
-		{
-			return $query->where($property, '=', $value);
-		});
-
-		if ($active === null)
-		{
-			return false;
-		}
-
-		// Cache
-		static::$_active = $active;
-
-		// Get the active path
-		static::$_active_path = $active->path(static::key(), 'array');
-
-		return static::$_active;
+		return true;
 	}
 
+	/**
+	 * Gets the active menu path.
+	 *
+	 * @return  array
+	 */
 	public static function active_path()
 	{
 		return static::$_active_path;

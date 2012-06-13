@@ -20,9 +20,16 @@
 
 class Extensions_Admin_Extensions_Controller extends Admin_Controller
 {
-
-	// Set parent menu for secondary navigation
-	protected $parent_menu = 'system';
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		parent::before();
+		$this->active_menu('extensions');
+	}
 
 	public function get_index()
 	{

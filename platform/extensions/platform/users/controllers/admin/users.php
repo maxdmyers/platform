@@ -21,13 +21,21 @@
 class Users_Admin_Users_Controller extends Admin_Controller
 {
 
-	// Set parent menu for secondary navigation
-	protected $parent_menu = 'users';
-
 	public function __construct()
 	{
 		// Whitelist login methods
 		$this->filter('before', 'admin_auth')->except(array('login', 'logout', 'reset_password', 'reset_password_confirm'));
+	}
+
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		parent::before();
+		$this->active_menu('users-list');
 	}
 
 	/**

@@ -21,10 +21,16 @@
 class Users_Admin_Groups_Controller extends Admin_Controller
 {
 
-	// Set parent menu for secondary navigation
-	protected $parent_menu = 'users';
-
-	public $restful = true;
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		parent::before();
+		$this->active_menu('groups-list');
+	}
 
 	/**
 	 * Admin User Groups Dashboard / Base View
