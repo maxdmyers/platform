@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div id="installer">
 	<div class="content">
 
