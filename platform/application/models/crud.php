@@ -560,7 +560,8 @@ class Crud implements ArrayAccess
 	 */
 	public static function event()
 	{
-		$event = (__NAMESPACE__) ? root_namespace(__NAMESPACE__).'.'.class_basename(new static) : class_basename(new static);
+		//$event = (__NAMESPACE__) ? root_namespace(__NAMESPACE__).'.'.class_basename(new static) : class_basename(new static);
+		$event = class_basename(new static);
 
 		return strtolower($event);
 	}
