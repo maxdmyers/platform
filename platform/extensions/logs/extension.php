@@ -18,20 +18,36 @@
  * @link       http://cartalyst.com
  */
 
-class Pages_Pages_Controller extends Public_Controller
-{
-	public function get_index()
-	{
-		return Theme::make('pages::index');
-	}
+return array(
 
-	public function get_about()
-	{
-		return 'about page';
-	}
+	'info' => array(
+		'name'        => 'Logs',
+		'slug'        => 'logs',
+		'author'      => 'Cartalyst LLC',
+		'description' => 'Creates and Manages logs.',
+		'version'     => '1.0',
+		'is_core'     => false,
+	),
 
-	public function get_contact()
-	{
-		return 'contact page';
-	}
-}
+	'dependencies' => array(
+
+	),
+
+	'bundles' => array(
+		'handles'  => 'logs',
+		'location' => 'path: '.__DIR__,
+	),
+
+	'listeners' => function() {
+
+	},
+
+	'global_routes' => function() {
+
+	},
+
+	'rules' => array(
+
+	),
+
+);

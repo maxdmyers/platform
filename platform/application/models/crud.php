@@ -63,6 +63,13 @@ class Crud implements ArrayAccess
 	protected static $_timestamps = false;
 
 	/**
+	 * Indicates if the model should use events
+	 *
+	 * @var bool
+	 */
+	protected static $_events = true;
+
+	/**
 	 * Validation rules for model attributes.
 	 *
 	 * @var array
@@ -148,13 +155,19 @@ class Crud implements ArrayAccess
 			$key = $attributes[static::key()];
 			unset($attributes[static::key()]);
 
-			$query = $this->query()->where(static::key(), '=', $key);
+			$query = $this->query()->where(static::table().'.'.static::key(), '=', $key);
 
 			list($query, $attributes) = $this->before_update($query, $attributes);
 
 			$result = $query->update($attributes);
 
 			$result = $this->after_update($result);
+
+			if (static::$_events)
+			{
+				// fire update event
+				Event::fire(static::event().'.update', $this);
+			}
 		}
 
 		// If the model is new, we will insert the record and retrieve the last
@@ -179,6 +192,12 @@ class Crud implements ArrayAccess
 			}
 
 			$this->is_new( ! (bool) $key);
+
+			if (static::$_events)
+			{
+				// fire create event
+				Event::fire(static::event().'.create', $this);
+			}
 		}
 
 		return $key;
@@ -198,11 +217,17 @@ class Crud implements ArrayAccess
 			throw new \Exception('A primary key is required to delete.');
 		}
 
-		$query = $this->query()->where(static::key(), '=', $this->{static::key()});
+		$query = $this->query()->where(static::table().'.'.static::key(), '=', $this->{static::key()});
 
 		$query = $this->before_delete($query);
 		$result = $query->delete();
 		$result = $this->after_delete($result);
+
+		if (static::$_events)
+		{
+			// fire delete event
+			Event::fire(static::event().'.delete', $this);
+		}
 
 		return $result;
 	}
@@ -529,6 +554,19 @@ class Crud implements ArrayAccess
 	}
 
 	/**
+	 * Get the event name associated with the model
+	 *
+	 * @return string
+	 */
+	public static function event()
+	{
+		//$event = (__NAMESPACE__) ? root_namespace(__NAMESPACE__).'.'.class_basename(new static) : class_basename(new static);
+		$event = class_basename(new static);
+
+		return strtolower($event);
+	}
+
+	/**
 	 * Find a model by either it's primary key
 	 * or a condition that modifies the query object.
 	 *
@@ -550,20 +588,20 @@ class Crud implements ArrayAccess
 
 		elseif ($condition == 'first')
 		{
-			$query->order_by(static::key(), 'asc');
+			$query->order_by(static::table().'.'.static::key(), 'asc');
 		}
 
 		// After last result
 		elseif ($condition == 'last')
 		{
-			$query->order_by(static::key(), 'desc');
+			$query->order_by(static::table().'.'.static::key(), 'desc');
 		}
 
 		// Providing either an int or string for
 		// the primary key
 		else
 		{
-			$query = $query->where(static::key(), '=', $condition);
+			$query = $query->where(static::table().'.'.static::key(), '=', $condition);
 		}
 
 		list($query, $columns) = $model->before_find($query, $columns);

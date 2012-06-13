@@ -18,20 +18,4 @@
  * @link       http://cartalyst.com
  */
 
-class Pages_Pages_Controller extends Public_Controller
-{
-	public function get_index()
-	{
-		return Theme::make('pages::index');
-	}
-
-	public function get_about()
-	{
-		return 'about page';
-	}
-
-	public function get_contact()
-	{
-		return 'contact page';
-	}
-}
+Route::controller(Controller::detect('logs'));

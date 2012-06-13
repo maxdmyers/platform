@@ -21,6 +21,7 @@
 namespace Platform\Users;
 
 use Crud;
+use Event;
 use Sentry;
 use Sentry\SentryException;
 
@@ -89,6 +90,12 @@ class Group extends Crud
 				list($query, $attributes) = $this->before_update(null, $attributes);
 				$result = Sentry::group((int) $key)->update($attributes) === true;
 				$result = $this->after_update($result);
+
+				if (static::$_events)
+				{
+					// fire update event
+					Event::fire(static::event().'.update', $this);
+				}
 			}
 			catch (SentryException $e)
 			{
@@ -109,6 +116,12 @@ class Group extends Crud
 				$result = $this->after_insert($result);
 
 				$this->is_new( ! (bool) $result);
+
+				if (static::$_events)
+				{
+					// fire create event
+					Event::fire(static::event().'.create', $this);
+				}
 			}
 			catch (SentryException $e)
 			{
@@ -138,6 +151,12 @@ class Group extends Crud
 		{
 			$this->before_delete(null);
 			$result = Sentry::group($this->{static::key()})->delete();
+
+			if (static::$_events)
+			{
+				// fire delete event
+				Event::fire(static::event().'.delete', $this);
+			}
 
 			return $this->after_delete($result);
 		}

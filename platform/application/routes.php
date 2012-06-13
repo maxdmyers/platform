@@ -50,11 +50,6 @@
 |
 */
 
-// Route::get('/', function()
-// {
-// 	return View::make('home.index');
-// });
-
 Route::any(ADMIN.'/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
 
 	// check if the controller exists
