@@ -21,6 +21,7 @@
 namespace Platform\Users;
 
 use Crud;
+use Event;
 use Sentry;
 use Sentry\SentryException;
 
