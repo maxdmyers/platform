@@ -144,7 +144,7 @@ class User extends Crud
 				if (static::$_events)
 				{
 					// fire update event
-					Event::fire(static::event().'.update', $this);
+					Event::fire(static::event().'.update', array($this));
 				}
 			}
 			catch (SentryException $e)
@@ -174,11 +174,14 @@ class User extends Crud
 
 				$this->is_new( ! (bool) $result);
 
+				$attributes['id'] = (int) $result;
+				$this->fill($attributes);
+
 				if (static::$_events)
-			{
-				// fire create event
-				Event::fire(static::event().'.create', $this);
-			}
+				{
+					// fire create event
+					Event::fire(static::event().'.create', array($this));
+				}
 			}
 			catch (SentryException $e)
 			{
@@ -212,7 +215,7 @@ class User extends Crud
 		if (static::$_events)
 		{
 			// fire delete event
-			Event::fire(static::event().'.delete', $this);
+			Event::fire(static::event().'.delete', array($this));
 		}
 
 			return $this->after_delete($result);
