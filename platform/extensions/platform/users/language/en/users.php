@@ -63,6 +63,8 @@ return array(
 
 	/* Create User */
 	'create' => array(
+		'title'          => 'Create User',
+		'description'    => 'Please supply the following information.',
 		'error'          => 'User was not created, please try again.',
 		'metadata_error' => 'Unable to add user metadata. Please try again.',
 		'success'        => 'User created successfully.',
@@ -70,6 +72,8 @@ return array(
 
 	/* Update User */
 	'update' => array(
+		'title'          => 'Update User',
+		'description'    => 'Please update the following information.',
 		'error'          => 'User was not updated, please try again',
 		'metadata_error' => 'Unable to add user metadata. Please try again',
 		'success'        => 'User updated successfully.',
