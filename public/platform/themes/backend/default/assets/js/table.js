@@ -236,6 +236,14 @@ if (platform == undefined)
 				});
 			}
 
+			// Enter on input triggers the add filter button
+			self.$filterText.on('keyup', function(e) {
+
+				if (e.keyCode === 13) {
+					self.$addFilter.trigger('click');
+				}
+			});
+
 			// add filter
 			self.$addFilter.on('click', function(e) {
 				e.preventDefault();
@@ -244,7 +252,7 @@ if (platform == undefined)
 				var text  = self.$filterSelect.find(':selected').text();
 				var field = self.$filterSelect.val();
 				var value = self.$filterText.val();
-				var html = '<li class="table-filter active" data-table-filterkey="'+field+'"><a href="#" '+self.options.removeFilter.attributes+'>'+text+' : '+value+'</a></li>';
+				var html = '<li class="table-filter active" data-table-filterkey="'+field+'"><a href="#" '+self.options.removeFilter.attributes+'>'+text+' : '+value+'&nbsp;&nbsp;&times;</a></li>';
 				//<a href="#" '+self.options.removeFilter.attributes+'>'+self.options.removeFilter.text+'</a>
 				if ( value == '' ) {
 					return false;
