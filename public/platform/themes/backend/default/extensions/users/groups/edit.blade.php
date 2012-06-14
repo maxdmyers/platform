@@ -1,7 +1,7 @@
 @layout('templates.template')
 
 @section('title')
-	{{ Lang::line('users::groups.title_edit') }}
+	{{ Lang::line('users::groups.update.title') }}
 @endsection
 
 @section('body_scripts')
@@ -9,16 +9,13 @@
 @endsection
 
 @section('content')
-<section id="groups-edit">
+<section id="groups">
 
 	<header class="head row">
 		<div class="span4">
-			<h1>{{ Lang::line('users::users.title_edit') }}</h1>
-			<p>{{ Lang::line('users::users.description') }}</p>
+			<h1>{{ Lang::line('users::groups.update.title') }}</h1>
+			<p>{{ Lang::line('users::groups.update.description') }}</p>
 		</div>
-		<nav class="tertiary-navigation span8">
-			@widget('platform.menus::menus.nav', 2, 1, 'nav nav-pills pull-right', ADMIN)
-		</nav>
 	</header>
 
 	<hr>
@@ -37,5 +34,6 @@
 		    </div>
 	  	</div>
 	</div>
+
 </section>
 @endsection

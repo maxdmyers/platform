@@ -5,7 +5,6 @@
 @endsection
 
 @section('links')
-	{{ Theme::asset('users::css/users.less') }}
 	{{ Theme::asset('css/table.css') }}
 @endsection
 

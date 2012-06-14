@@ -25,45 +25,62 @@ return array(
 	 * check Sentry (application/bundles/sentry) for more lang options concerning groups
 	 */
 
-	/* Titles */
-	'title'        => 'Group Management',
-	'description' => 'Create groups and assign access rights to groups.',
-	'title_create' => 'Create Group',
-	'title_edit'   => 'Edit Group',
-
 	/* General */
-	'id'	                => 'Id',
-	'name'            		=> 'Name',
+	'general' => array(
+		'title'        => 'Group Management',
+		'description'  => 'Create groups and assign access rights to groups.',
+		'title_create' => 'Create Group',
+		'title_edit'   => 'Edit Group',
+		'id'	       => 'Id',
+		'id_required'  => 'A group id is required.',
+		'name'         => 'Name',
+		'not_found'    => 'Group not found.',
+	),
 
 	/* Buttons */
-	'btn_create'         => 'Create Group',
-	'btn_cancel'         => 'Cancel',
-	'btn_delete'         => 'Delete',
-	'btn_edit'           => 'Edit',
-	'btn_new_group'      => 'New Group',
-	'btn_update'         => 'Save Changes',
-
-	/* Get */
-	'count_error' => 'There was an issue retrieving the count, please try again.',
+	'button' => array(
+		'create'         => 'Create Group',
+		'cancel'         => 'Cancel',
+		'delete'         => 'Delete',
+		'edit'           => 'Edit',
+		'login'          => 'Sign In',
+		'reset_password' => 'Reset',
+		'update'         => 'Save Changes',
+	),
 
 	/* Create Group */
-	'create_error'          => 'Group was not created, please try again.',
-	'create_success'        => 'Group created successfully.',
+	'create' => array(
+		'title'          => 'Create Group',
+		'description'    => 'Please supply the following information.',
+		'error'          => 'Group was not created, please try again.',
+		'success'        => 'Group created successfully.',
+	),
 
 	/* Update Group */
-	'update_error'          => 'Group was not updated, please try again',
-	'update_success'        => 'Group updated successfully.',
+	'update' => array(
+		'title'          => 'Update Group',
+		'description'    => 'Please update the following information.',
+		'error'          => 'Group was not updated, please try again',
+		'success'        => 'Group updated successfully.',
+	),
 
 	/* Delete Group */
-	'delete_error'   => 'There was an issue deleting the group. Please try again.',
-	'delete_success' => 'The group was deleted successfully.',
-
-	/* Invalid AJAX requests */
-	'invalid_request' => 'Not a valid request.',
+	'delete' => array(
+		'error'   => 'There was an issue deleting the group. Please try again.',
+		'success' => 'The group was deleted successfully.',
+	),
 
 	/* Logs */
-	'log_create' => 'Created Group: :group - Id: :id.',
-	'log_edit'   => 'Edited Group: :group - Id: :id.',
-	'log_delete' => 'Deleted Group: :group - Id: :id.',
+	'log' => array(
+		'create' => 'Created Group: :group - Id: :id.',
+		'edit'   => 'Edited Group: :group - Id: :id.',
+		'delete' => 'Deleted Group: :group - Id: :id.',
+	),
+
+	/* General Errors */
+	'errors' => array(
+		'count_error' => 'There was an issue retrieving the count, please try again.',
+		'invalid_request' => 'Not a valid request.',
+	)
 
 );

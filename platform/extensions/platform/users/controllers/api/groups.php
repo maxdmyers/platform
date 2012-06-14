@@ -61,7 +61,7 @@ class Users_API_Groups_Controller extends API_Controller
 			{
 				return array(
 					'status'  => true,
-					'message' => Lang::line('users::groups.create_success')->get()
+					'message' => Lang::line('users::groups.create.success')->get()
 				);
 			}
 			else
@@ -95,14 +95,14 @@ class Users_API_Groups_Controller extends API_Controller
 			{
 				return array(
 					'status'  => true,
-					'message' => Lang::line('users::groups.update_success')->get()
+					'message' => Lang::line('users::groups.update.success')->get()
 				);
 			}
 			else
 			{
 				return array(
 					'status'  => false,
-					'message' => ($group->validation()->errors->has()) ? $group->validation()->errors : Lang::line('users::groups.update_error')->get()
+					'message' => ($group->validation()->errors->has()) ? $group->validation()->errors : Lang::line('users::groups.update.error')->get()
 				);
 			}
 		}
@@ -122,7 +122,7 @@ class Users_API_Groups_Controller extends API_Controller
 		{
 			return array(
 				'status'  => false,
-				'message' => Lang::line('users::groups.id_required')->get(),
+				'message' => Lang::line('users::groups.general.id_required')->get(),
 	 		);
 		}
 
@@ -146,7 +146,7 @@ class Users_API_Groups_Controller extends API_Controller
 
 				return array(
 					'status'  => false,
-					'message' => Lang::line('users::groups.not_found')->get()
+					'message' => Lang::line('users::groups.general.not_found')->get()
 				);
 			}
 
@@ -155,7 +155,7 @@ class Users_API_Groups_Controller extends API_Controller
 			{
 				return array(
 					'status'  => true,
-					'message' => Lang::line('users::groups.delete_success')->get(),
+					'message' => Lang::line('users::groups.delete.success')->get(),
 				);
 			}
 
@@ -177,8 +177,8 @@ class Users_API_Groups_Controller extends API_Controller
 	{
 		$defaults = array(
 			'select'    => array(
-				'groups.id'     => Lang::line('users::groups.id')->get(),
-				'name'          => Lang::line('users::groups.name')->get(),
+				'groups.id'     => Lang::line('users::groups.general.id')->get(),
+				'name'          => Lang::line('users::groups.general.name')->get(),
 			),
 			'alias'     => array(
 				'groups.id' => 'id',
