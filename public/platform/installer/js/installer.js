@@ -13,6 +13,12 @@ $(document).ready(function() {
 	*/
 	$('#database-form').find('select, input').bind('focus keyup change', function(e) {
 
+		// Check keycode - enter
+		// shouldn't trigger it
+		if (e.keyCode === 13) {
+			return;
+		}
+
 		// Count the amount of empty fields
 		$length = $('#database-form').find('select, input:not(:password)').filter(function()
 		{
@@ -39,7 +45,11 @@ $(document).ready(function() {
 					$('#database-form button:submit')[data.error ? 'attr' : 'removeAttr']('disabled', 'disabled');
 				},
 				error    : function(jqXHR, textStatus, errorThrown) {
-					alert(jqXHR.status + ' ' + errorThrown);
+
+					// Don't know
+					if (jqXHR.status != 0) {
+						alert(jqXHR.status + ' ' + errorThrown);
+					}
 				}
 			})
 		}
