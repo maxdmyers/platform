@@ -36,7 +36,6 @@ if (platform == undefined)
 			var self = this;
 
 			// show overlay and processing block
-			self.$overlay.css('display', 'block');
 			self.$process.css('display', 'block');
 
 			// make ajax call and populate table when it's returned
@@ -62,7 +61,6 @@ if (platform == undefined)
 		displayData: function(data) {
 			var self = this;
 			// hide overlay and processing block
-			self.$overlay.css('display', 'none');
 			self.$process.css('display', 'none');
 
 			self.$elemBody.html(data.content);
@@ -184,18 +182,11 @@ if (platform == undefined)
 									.find('tbody');
 
 			// set table wrapper
-			self.$wrapper = $('.table-wrapper');
+			self.$processing = $('.processing');
 
 			// set table process div
 			self.$process = $('<div class="table-processing">'+self.options.processingText+'</div>')
-								.prependTo(self.$wrapper);
-
-			// set table overlay dev
-			self.$overlay = $('<div class="table-processing-overlay" />')
-								.prependTo(self.$wrapper);
-
-			// set opacity for cross browser support
-			self.$overlay.css('opacity', self.$overlay.css('opacity'));
+								.prependTo(self.$processing);
 
 			// build filters
 			self.buildFilters();

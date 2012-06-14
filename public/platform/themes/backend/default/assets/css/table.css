@@ -60,35 +60,22 @@
 		margin-right:10px;
 	}
 
-	#table .table-processing-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		background: #777;
-		opacity: .3;
-		display: none;
-	}
 
-#table .table-processing {
-	position: absolute;
-	top: 150px;
-	left: 50%;
-	margin-left: -125px;
-	margin-top: -15px;
-	border: 1px solid #d3d3d3;
+#table .processing {
 	text-align: center;
-	padding: 15px 60px 15px;
-	color: #333;
-	font-size: 14px;
-	font-weight: bold;
-	box-shadow: 0 3px 9px #333;
-	background-color: white;
+	height:42px;
+	width:30%;
+}
+#table .table-processing {
 	background-image: url('/platform/themes/backend/default/assets/img/table/loading.gif');
 	background-repeat: no-repeat;
-	background-position: 30px 50%;
+	background-position: left;
 	display: none;
+	height:42px;
+	line-height: 42px;
+	margin-left:20px;
+	padding-left:48px;
+
 }
 
 #table #table-wrapper .sortable {
