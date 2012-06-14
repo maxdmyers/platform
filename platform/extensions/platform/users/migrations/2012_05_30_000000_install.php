@@ -52,7 +52,6 @@ class Users_Install
 		));
 
 		// Add configuration settings
-
 		$status_disabled = DB::table('configuration')->insert(array(
 			'extension' 	=> 'users',
 			'type' 			=> 'status',
@@ -68,7 +67,6 @@ class Users_Install
 		));
 
 		// Create menu items
-
 		$admin = Menu::admin_menu();
 
 		// Find the system menu
@@ -86,7 +84,24 @@ class Users_Install
 				'user_editable' => 0,
 			));
 
-			$primary->last_child_of($admin);
+			// Find the system menu (system is a dependency of
+			// this module)
+			$system = Menu::find(function($query)
+			{
+				return $query->where('slug', '=', 'system');
+			});
+
+			// Fallback
+			if ($system === null)
+			{
+				$primary->last_child_of($admin);
+			}
+
+			// Put before system
+			else
+			{
+				$primary->previous_sibling_of($system);
+			}
 		}
 
 		// Users menu

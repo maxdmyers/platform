@@ -50,7 +50,7 @@ class Dashboard_Install
 				'user_editable' => 0,
 			));
 
-			$primary->last_child_of($admin);
+			$primary->first_child_of($admin);
 		}
 
 	}

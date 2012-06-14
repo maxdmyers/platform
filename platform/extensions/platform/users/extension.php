@@ -31,6 +31,7 @@ return array(
 
 	'dependencies' => array(
 		'menus',
+		'settings',
 	),
 
 	'bundles' => array(
