@@ -45,6 +45,7 @@ class Extensions_Install
 				'slug'          => 'system',
 				'uri'           => 'settings',
 				'user_editable' => 0,
+				'status'        => 1,
 			));
 
 			$primary->last_child_of($admin);
@@ -53,9 +54,11 @@ class Extensions_Install
 		// Extension menu
 		$extensions = new Menu(array(
 			'name'          => 'Extensions',
+			'extension'     => 'extensions',
 			'slug'          => 'extensions',
 			'uri'           => 'extensions',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$extensions->last_child_of($primary);

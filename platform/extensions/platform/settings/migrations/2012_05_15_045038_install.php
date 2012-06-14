@@ -58,6 +58,7 @@ class Settings_Install
 				'slug'          => 'system',
 				'uri'           => 'settings',
 				'user_editable' => 0,
+				'status'        => 1,
 			));
 
 			$primary->last_child_of($admin);
@@ -67,9 +68,11 @@ class Settings_Install
 		// Settings menu
 		$settings = new Menu(array(
 			'name'          => 'Settings',
+			'extension'     => 'settings',
 			'slug'          => 'settings',
 			'uri'           => 'settings',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$settings->last_child_of($primary);

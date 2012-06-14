@@ -246,6 +246,11 @@ class ExtensionsManager
 			throw new Exception('Platform extension doesn\'t exist.');
 		}
 
+		// Enable menus related to the extension
+		API::post('menus/enable', array(
+			'extension' => $extension->slug,
+		));
+
 		$extension->enabled = 1;
 		$extension->save();
 
@@ -266,6 +271,11 @@ class ExtensionsManager
 		{
 			throw new Exception('Platform extension doesn\'t exist.');
 		}
+
+		// Disable menus related to the extension
+		API::post('menus/disable', array(
+			'extension' => $extension->slug,
+		));
 
 		$extension->enabled = 0;
 		$extension->save();

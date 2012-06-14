@@ -34,6 +34,7 @@ class Menus_Install
 		Schema::create('menus', function($table)
 		{
 			$table->increments('id')->unsigned();
+			$table->string('extension')->nullable();
 			$table->string('name');
 			$table->string('slug')->unique();
 			$table->string('uri');
@@ -41,6 +42,7 @@ class Menus_Install
 			$table->integer('lft');
 			$table->integer('rgt');
 			$table->integer('menu_id');
+			$table->boolean('status');
 		});
 
 		// Create menu items
@@ -60,6 +62,7 @@ class Menus_Install
 				'slug'          => 'system',
 				'uri'           => 'settings',
 				'user_editable' => 0,
+				'status'        => 1,
 			));
 
 			$primary->last_child_of($admin);
@@ -68,9 +71,11 @@ class Menus_Install
 		// "Menus" menu
 		$menus = new Menu(array(
 			'name'          => 'Menus',
+			'extension'     => 'menus',
 			'slug'          => 'menus',
 			'uri'           => 'menus',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$menus->last_child_of($primary);

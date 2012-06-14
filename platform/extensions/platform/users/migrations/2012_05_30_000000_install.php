@@ -79,9 +79,11 @@ class Users_Install
 		{
 			$primary = new Menu(array(
 				'name'          => 'Users',
+				'extension'     => 'users',
 				'slug'          => 'users',
 				'uri'           => 'users',
 				'user_editable' => 0,
+				'status'        => 1,
 			));
 
 			// Find the system menu (system is a dependency of
@@ -107,9 +109,11 @@ class Users_Install
 		// Users menu
 		$users = new Menu(array(
 			'name'          => 'Users',
+			'extension'     => 'users',
 			'slug'          => 'users-list',
 			'uri'           => 'users',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$users->last_child_of($primary);
@@ -117,9 +121,11 @@ class Users_Install
 		// Groups menu
 		$groups = new Menu(array(
 			'name'          => 'Groups',
+			'extension'     => 'users',
 			'slug'          => 'groups-list',
 			'uri'           => 'users/groups',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$groups->last_child_of($primary);

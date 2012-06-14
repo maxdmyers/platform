@@ -643,7 +643,7 @@ class Crud implements ArrayAccess
 
 		foreach ($results as $result)
 		{
-			$models[] = new static($result, true);
+			$models[] = new static($result);
 		}
 
 		return $models;

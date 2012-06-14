@@ -18,7 +18,7 @@
 				@if ($row['enabled'])
 					<a href="{{ url(ADMIN.'/extensions/disable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to disable the \'{{ e($row['name']) }}\' extension? All of its data will stay safe in your database, however it won\'t be available to use while disabled.');">disable</a>
 				@else
-					<a href="{{ url(ADMIN.'/extensions/enable/'.$row['id']) }}">enable</a>
+					<a href="{{ url(ADMIN.'/extensions/enable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to enable the \'{{ e($row['name']) }}\' extension?');">enable</a>
 				@endif
 
 				| <a href="{{ url(ADMIN.'/extensions/uninstall/'.$row['id']) }}" onclick="return confirm('Are you sure you want to uninstall the \'{{ e($row['name']) }}\' extension? All traces, including database info will be removed permanently. There is no undo action for this.');">uninstall</a>

@@ -85,6 +85,7 @@ class Themes_Install
 				'slug'          => 'system',
 				'uri'           => 'settings',
 				'user_editable' => 0,
+				'status'        => 1,
 			));
 
 			$primary->last_child_of($admin);
@@ -93,9 +94,11 @@ class Themes_Install
 		// Themes menu
 		$secondary = new Menu(array(
 			'name'          => 'Themes',
+			'extension'     => 'themes',
 			'slug'          => 'themes',
 			'uri'           => 'themes',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$secondary->last_child_of($primary);
@@ -103,9 +106,11 @@ class Themes_Install
 		// frontend navigation
 		$tertiary = new Menu(array(
 			'name'          => 'Frontend',
+			'extension'     => 'themes',
 			'slug'          => 'frontend',
 			'uri'           => 'themes/frontend',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$tertiary->last_child_of($secondary);
@@ -113,9 +118,11 @@ class Themes_Install
 		// backend navigation
 		$tertiary = new Menu(array(
 			'name'          => 'Backend',
+			'extension'     => 'themes',
 			'slug'          => 'backend',
 			'uri'           => 'themes/backend',
 			'user_editable' => 0,
+			'status'        => 1,
 		));
 
 		$tertiary->last_child_of($secondary);

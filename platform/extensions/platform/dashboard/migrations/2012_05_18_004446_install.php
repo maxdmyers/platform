@@ -45,9 +45,11 @@ class Dashboard_Install
 		{
 			$primary = new Menu(array(
 				'name'          => 'Dashboard',
+				'extension'     => 'dashboard',
 				'slug'          => 'dashboard',
 				'uri'           => 'dashboard',
 				'user_editable' => 0,
+				'status'        => 1,
 			));
 
 			$primary->first_child_of($admin);

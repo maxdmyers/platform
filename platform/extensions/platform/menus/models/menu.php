@@ -21,6 +21,7 @@
 namespace Platform\Menus;
 
 use Closure;
+use DB;
 use Exception;
 use Nesty\Nesty;
 use Str;
@@ -81,6 +82,91 @@ class Menu extends Nesty
 	}
 
 	/**
+	 * Queries the database for all children
+	 * nodes of the current nesty model.
+	 *
+	 * This method is used in conjunction with
+	 * Nesty::hydrate_children() by
+	 * Nesty::get_children() [the public method]
+	 * to retrieve a hierarchical array of children.
+	 *
+	 * @param   int      $limit
+	 * @param   array    $columns
+	 * @return  array
+	 */
+	protected function query_children_array($limit = false, $columns = array('*'))
+	{
+		// Table name
+		$table = static::table();
+
+		// Primary key
+		$key   = static::key();
+
+		// Nesty cols
+		extract(static::$_nesty_cols, EXTR_PREFIX_ALL, 'n');
+
+		// Work out the columns to select
+		$sql_columns = '';
+		foreach ($columns as $column)
+		{
+			$sql_columns .= ' `nesty`.'.($column == '*' ? $column : '`'.$column.'`');
+		}
+
+		// Status column
+		$status = 'status';
+
+		// This is the magical query that is the sole
+		// reason we're using the MPTT pattern
+		$sql = <<<SQL
+SELECT   $sql_columns,
+         (COUNT(`parent`.`$key`) - (`sub_tree`.`depth` + 1)) AS `depth`
+
+FROM     `$table` AS `nesty`,
+         `$table` AS `parent`,
+         `$table` AS `sub_parent`,
+         (
+             SELECT `nesty`.`$key`,
+                    (COUNT(`parent`.`$key`) - 1) AS `depth`
+
+             FROM   `$table` AS `nesty`,
+                    `$table` AS `parent`
+
+             WHERE  `nesty`.`$n_left`  BETWEEN `parent`.`$n_left` AND `parent`.`$n_right`
+             AND    `nesty`.`$key`     = {$this->{static::key()}}
+             AND    `nesty`.`$n_tree`  = {$this->{$n_tree}}
+             AND    `parent`.`$n_tree` = {$this->{$n_tree}}
+
+             GROUP BY `nesty`.`$key`
+
+             ORDER BY `nesty`.`$n_left`
+         ) AS `sub_tree`
+
+WHERE    `nesty`.`$n_left`   BETWEEN `parent`.`$n_left`     AND `parent`.`$n_right`
+AND      `nesty`.`$n_left`   BETWEEN `sub_parent`.`$n_left` AND `sub_parent`.`$n_right`
+AND      `sub_parent`.`$key` = `sub_tree`.`$key`
+AND      `nesty`.`$n_tree`   = {$this->{$n_tree}}
+AND      `parent`.`$n_tree`  = {$this->{$n_tree}}
+AND      `nesty`.`$status`   = 1
+
+GROUP BY `nesty`.`$key`
+
+HAVING   `depth` > 0
+SQL;
+
+		// If we have a limit
+		if ($limit)
+		{
+			$sql .= PHP_EOL.'AND      `depth` <= '.$limit;
+		}
+
+		// Finally, add an ORDER BY
+		$sql .= str_repeat(PHP_EOL, 2).'ORDER BY `nesty`.`'.$n_left.'`';
+
+		// And return the array of results
+		return DB::query($sql);
+	}
+
+	/**
 	 * Used for initiating a new root menu, or returning
 	 * the existing root menu by the given name.
 	 *
@@ -119,6 +205,7 @@ class Menu extends Nesty
 					'name'          => $name,
 					'slug'          => $slug,
 					'user_editable' => 0,
+					'status'        => 1,
 				));
 
 				$menu->root();

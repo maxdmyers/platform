@@ -190,5 +190,134 @@ class Menus_API_Menus_Controller extends API_Controller
 		);
 	}
 
+	/**
+	 * Enables menus with given filters.
+	 *
+	 * @return  array
+	 */
+	public function post_enable()
+	{
+		// Enabling an ID
+		if ($id = Input::get('id'))
+		{
+			$menu = Menu::find($id);
+
+			if ($menu !== null)
+			{
+				$menu->status = 1;
+				$menu->save();
+
+				return array('status' => true);
+			}
+		}
+
+		// Enabling by slug
+		elseif ($slug = Input::get('slug'))
+		{
+			$menu = Menu::find(function($query) use ($slug)
+			{
+				return $query->where('slug', '=', $slug);
+			});
+
+			if ($menu !== null)
+			{
+				$menu->status = 1;
+				$menu->save();
+
+				return array('status' => true);
+			}
+		}
+
+		// Enabling by extension
+		if ($extension = Input::get('extension'))
+		{
+			$menus = Menu::all(function($query) use ($extension)
+			{
+				return $query->where('extension', '=', $extension);
+			});
+
+			if ( ! empty($menus))
+			{
+				foreach ($menus as $menu)
+				{
+					$menu->status = 1;
+					$menu->save();
+				}
+
+				return array('success' => true);
+			}
+		}
+
+		// Failure
+		return array(
+			'status'  => false,
+			'message' => 'Could\'t find menu to enable.',
+		);
+	}
+
+	/**
+	 * Disables menus with given filters.
+	 *
+	 * @return  array
+	 */
+	public function post_disable()
+	{
+		// Disabling an ID
+		if ($id = Input::get('id'))
+		{
+			$menu = Menu::find($id);
+
+			if ($menu !== null)
+			{
+				$menu->status = 0;
+				$menu->save();
+
+				return array('status' => true);
+			}
+		}
+
+		// Disabling by slug
+		elseif ($slug = Input::get('slug'))
+		{
+			$menu = Menu::find(function($query) use ($slug)
+			{
+				return $query->where('slug', '=', $slug);
+			});
+
+			if ($menu !== null)
+			{
+				$menu->status = 0;
+				$menu->save();
+
+				return array('status' => true);
+			}
+		}
+
+		// Disabling by extension
+		if ($extension = Input::get('extension'))
+		{
+			$menus = Menu::all(function($query) use ($extension)
+			{
+				return $query->where('extension', '=', $extension);
+			});
+
+			if ( ! empty($menus))
+			{
+				foreach ($menus as $menu)
+				{
+					$menu->status = 0;
+					$menu->save();
+				}
+
+				return array('success' => true);
+			}
+		}
+
+		// Failure
+		return array(
+			'status'  => false,
+			'message' => 'Could\'t find menu to disable.',
+		);
+	}
 
 }
