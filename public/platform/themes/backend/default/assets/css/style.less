@@ -149,36 +149,38 @@ hr {
 		padding:20px;
 	}
 
+	#page .navigation li > ul {
+		display: none;
+	}
+
+	#page .navigation li.active > ul {
+		display: block;
+	}
+
 	#page .navigation ul > li > ul {
+		display: none;
 		list-style: none;
 		margin:10px 0 0 10px;
 	}
 
-	#page .navigation ul > li > ul li {
-		padding:8px 4px;
-		margin:4px 0;
-	}
-
-	#page .navigation ul > li > ul li a {
-		padding:8px;
-	}
-
-	#page .navigation ul > li > ul li.active,
-	#page .navigation ul > li > ul li:hover {
-		color: @gray;
-		background-color: @grayLighter;
-		.border-radius(5px);
-
-	}
-
-	#page .navigation ul > li > ul li a:hover {
-		text-decoration: none;
+	#page .navigation ul > li.active > ul {
+		display: block;
 	}
 
 	#page .content {
 		border-left:1px solid @white;
 		width:82.872928171%;
 		padding:20px;
+	}
+	#page .tabbable ul {
+		margin-bottom:0;
+	}
+	#page .tab-content {
+		min-height: 200px;
+		padding:10px;
+		border:1px solid @etch;
+		background:@white;
+		margin-top:-1px;
 	}
 
 	#page .head {
