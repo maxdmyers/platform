@@ -140,13 +140,20 @@ class ExtensionsManager
 	public function install($slug, $enable = false)
 	{
 		// Get extension info
-		$info = $this->info($slug);
+		try
+		{
+			$info = $this->info($slug);
+		}
+		catch (Exception $e)
+		{
+			return false;
+		}
 
 		// Create a new model instance.
 		$extension = new Extension(array(
-			'name'        => isset($info['info']['name']) ? $info['info']['name'] : '',
-			'slug'        => isset($info['info']['slug']) ? $info['info']['slug'] : '',
-			'version'     => isset($info['info']['version']) ? $info['info']['version'] : '',
+			'name'        => $info['info']['name'],
+			'slug'        => $info['info']['slug'],
+			'version'     => $info['info']['version'],
 			'author'      => isset($info['info']['author']) ? $info['info']['author'] : '',
 			'description' => isset($info['info']['description']) ? $info['info']['description'] : '',
 			'is_core'     => isset($info['info']['is_core']) ? $info['info']['is_core'] : '',
@@ -495,7 +502,14 @@ class ExtensionsManager
 
 		foreach ($extensions as $extension)
 		{
-			$info = $this->info($extension);
+			try
+			{
+				$info = $this->info($extension);
+			}
+			catch (Exception $e)
+			{
+				continue;
+			}
 
 			if ($dependencies = array_get($info, 'dependencies') and is_array($dependencies))
 			{
@@ -530,12 +544,26 @@ class ExtensionsManager
 	{
 		$file = $this->find_extension_file($slug);
 
+		// File doesn't exist?
 		if ( ! $file)
 		{
 			throw new Exception("Platform Extension [$slug] doesn't exist.");
 		}
 
-		return require $file;
+		// Info
+		$info = require $file;
+
+		// Bunch of requirements for an extension.php file
+		if ( ! $info or
+			 ! is_array($info) or
+			 ! array_get($info, 'info.name') or
+			 ! array_get($info, 'info.slug') or
+			 ! array_get($info, 'info.version'))
+		{
+			throw new Exception("Platform Excention [$slug] doesn't have a valid extension.php file");
+		}
+
+		return $info;
 	}
 
 }
