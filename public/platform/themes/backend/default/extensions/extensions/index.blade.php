@@ -13,87 +13,106 @@
 @endsection
 
 @section('content')
-	<section id="extensions" class="row-fluid">
-		<h1>{{ Lang::line('extensions::extensions.title') }}</h1>
+<section id="extensions">
 
-		<h2>Uninstalled Extensions</h2>
-		<div class="row-fluid">
-			<table id="uninstalled-extension-table" class="table table-bordered">
-				<thead>
-					<tr>
-						<th>{{ Lang::line('extensions::extensions.name') }}</th>
-						<th>{{ Lang::line('extensions::extensions.slug') }}</th>
-						<th>{{ Lang::line('extensions::extensions.author') }}</th>
-						<th>{{ Lang::line('extensions::extensions.description') }}</th>
-						<th>{{ Lang::line('extensions::extensions.version') }}</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					@forelse ($uninstalled as $extension)
-						<tr>
-							<td>
-								{{ array_get($extension, 'info.name') }}
-							</td>
-							<td>
-								{{ array_get($extension, 'info.slug') }}
-							</td>
-							<td>
-								{{ array_get($extension, 'info.author') }}
-							</td>
-							<td>
-								{{ array_get($extension, 'info.description') }}
-							</td>
-							<td>
-								{{ array_get($extension, 'info.version') }}
-							</td>
-							<td>
-								<a href="{{ url(ADMIN.'/extensions/install/'.array_get($extension, 'info.slug')) }}" onclick="return confirm('Are you sure you want to install the \'{{ e(array_get($extension, 'info.name')) }}\' extension?');">install</a>
-							</td>
-						</tr>
-					@empty
-						<tr>
-							<td colspan="6">
-								Good news! All extensions have been installed!
-							</td>
-						</tr>
-					@endforelse
-				</tbody>
-			</table>
+	<header class="head row">
+		<div class="span6">
+			<h1>{{ Lang::line('extensions::extensions.title') }}</h1>
+			<p>{{ Lang::line('extensions::extensions.description') }}</p>
 		</div>
+	</header>
 
-		<h2>Installed Extensions</h2>
-		<div id="table-actions">
-			<div class="row-fluid">
-				<div id="table-filters" class="span8"></div>
-				<div id="actions" class="span4">
+	<hr>
+
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#installed" data-toggle="tab">Installed</a></li>
+			<li><a href="#uninstalled" data-toggle="tab">Uninstalled</a></li>
+		</ul>
+		<div class="tab-content">
+		    <div class="tab-pane active" id="installed">
+
+		    	<div class="row">
+					<div class="span12">
+						<div class="row">
+							<ul id="table-filters-applied" class="nav nav-tabs span10"></ul>
+						</div>
+						<div class="row">
+							<div class="span10">
+								<div class="table-wrapper">
+									<table id="installed-extension-table" class="table table-bordered">
+										<thead>
+											<tr>
+												@foreach ($columns as $key => $col)
+												<th data-table-key="{{ $key }}">{{ $col }}</th>
+												@endforeach
+												<th></th>
+											</tr>
+										<thead>
+										<tbody>
+											@include('extensions::partials.table_extensions')
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="tabs-right span2">
+								<div class="processing"></div>
+								<ul id="table-pagination" class="nav nav-tabs"></ul>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="row-fluid">
-				<div id="table-filters-applied" class="span12"></div>
-			</div>
-		</div>
 
-		<div id="table-wrapper">
-			<div class="row-fluid">
-				<table id="installed-extension-table" class="table table-bordered">
+		    </div>
+		    <div class="tab-pane" id="uninstalled">
+
+		    	<table id="uninstalled-extension-table" class="table table-bordered">
 					<thead>
 						<tr>
-							@foreach ($columns as $key => $col)
-								<th data-table-key="{{ $key }}">{{ $col }}</th>
-							@endforeach
+							<th>{{ Lang::line('extensions::extensions.name') }}</th>
+							<th>{{ Lang::line('extensions::extensions.slug') }}</th>
+							<th>{{ Lang::line('extensions::extensions.author') }}</th>
+							<th>{{ Lang::line('extensions::extensions.description') }}</th>
+							<th>{{ Lang::line('extensions::extensions.version') }}</th>
 							<th></th>
 						</tr>
-					<thead>
+					</thead>
 					<tbody>
-						@include('extensions::partials.table_extensions')
+						@forelse ($uninstalled as $extension)
+							<tr>
+								<td>
+									{{ array_get($extension, 'info.name') }}
+								</td>
+								<td>
+									{{ array_get($extension, 'info.slug') }}
+								</td>
+								<td>
+									{{ array_get($extension, 'info.author') }}
+								</td>
+								<td>
+									{{ array_get($extension, 'info.description') }}
+								</td>
+								<td>
+									{{ array_get($extension, 'info.version') }}
+								</td>
+								<td>
+									<a href="{{ url(ADMIN.'/extensions/install/'.array_get($extension, 'info.slug')) }}" onclick="return confirm('Are you sure you want to install the \'{{ e(array_get($extension, 'info.name')) }}\' extension?');">install</a>
+								</td>
+							</tr>
+						@empty
+							<tr>
+								<td colspan="6">
+									Good news! All extensions have been installed!
+								</td>
+							</tr>
+						@endforelse
 					</tbody>
 				</table>
-				<div class="tabs-right">
-					<ul id="table-pagination" class="nav nav-tabs"></ul>
-				</div>
-			</div>
-		</div>
 
-	</section>
+		    </div>
+	  	</div>
+	</div>
+
+</section>
+
 @endsection
