@@ -20,13 +20,23 @@
 
 return array(
 
+	/* General */
 	'general' => array(
-		'title'  => 'Theme Management',
+		'title'       => 'Theme Management',
 		'description' => 'Activate, deactivate, and customize themes.',
+		'author'      => 'Author:',
+		'version'     => 'Version:'
+	),
 
-		'author' => 'Author:',
-		'version' => 'Version:'
-	)
+	/* Buttons */
+	'button' => array(
+		'apply'    => 'Apply Changes',
+		'complete' => 'Complete',
+	),
 
+	/* Messages */
+	'message' => array(
+		'no_options' => 'This theme has no options available.',
+	),
 
 );

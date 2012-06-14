@@ -149,10 +149,41 @@ hr {
 		padding:20px;
 	}
 
+	#page .navigation ul > li > ul {
+		list-style: none;
+		margin:10px 0 0 10px;
+	}
+
+	#page .navigation ul > li > ul li {
+		padding:8px 4px;
+		margin:4px 0;
+	}
+
+	#page .navigation ul > li > ul li a {
+		padding:8px;
+	}
+
+	#page .navigation ul > li > ul li.active,
+	#page .navigation ul > li > ul li:hover {
+		color: @gray;
+		background-color: @grayLighter;
+		.border-radius(5px);
+
+	}
+
+	#page .navigation ul > li > ul li a:hover {
+		text-decoration: none;
+	}
+
 	#page .content {
 		border-left:1px solid @white;
 		width:82.872928171%;
 		padding:20px;
+	}
+
+	#page .head {
+		max-height:100px;
+		overflow: hidden;
 	}
 
 
@@ -197,14 +228,7 @@ hr {
 	}
 
 
-/* #header
-==================================================
+/* #A few bootstrap overides
+==================================================*/
 
-
-/* #tables
-================================================== */
-
-
-/* #tabs
-=================================================== */
 

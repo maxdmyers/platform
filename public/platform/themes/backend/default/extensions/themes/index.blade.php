@@ -16,16 +16,11 @@
 
 <section id="themes">
 
-	<header class="row">
-		<div class="span4">
+	<header class="head row">
+		<div class="span6">
 			<h1>{{ Lang::line('themes::themes.general.title') }}</h1>
 			<p>{{ Lang::line('themes::themes.general.description') }}</p>
 		</div>
-		<nav class="span8">
-			<div class="pull-right">
-				@widget('platform.menus::menus.nav', 2, 1, 'nav nav-pills', ADMIN)
-			</div>
-		</nav>
 	</header>
 
 	<hr>

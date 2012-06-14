@@ -15,23 +15,21 @@
 @section('content')
 
 <section id="themes">
+	<header class="head row">
+		<div class="span6">
+			<h1>{{ $theme['name'] }}</h1>
+			<p>{{ $theme['description'] }} by {{ $theme['author'] }} v{{ $theme['version'] }}</p>
+		</div>
+	</header>
 
-		<header class="row">
-			<div class="span12">
-				<img src="{{ Theme::asset('../../'.$theme['dir'].'/assets/img/theme-thumbnail.png') }}" title="{{ $theme['dir'] }}">
-				<h1>{{ $theme['name'] }}</h1>
-				<p>{{ $theme['description'] }} by {{ $theme['author'] }} v{{ $theme['version'] }}</p>
-			</div>
-		</header>
+	<hr>
 
-		<hr>
+	<div class="theme row">
+		<div class="span12">
 
-		<div class="theme row">
-			<div class="span12">
-
-				@if (count($theme['options']))
-					{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'well form-horizontal')) }}
-
+			@if (count($theme['options']))
+				{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'form-horizontal')) }}
+					<div class="well">
 						<input type="hidden" name="theme" value="{{ $theme['dir'] }}">
 						@if (isset($theme['id']))
 						<input type="hidden" name="id" value="{{ $theme['id'] }}">
@@ -46,17 +44,23 @@
 							@endforeach
 						</fieldset>
 						@endforeach
-						<div class="form-actions">
-			            	<button class="btn btn-primary" type="submit" name="form_options" value="apply">Apply Changes</button>
-			            	<a class="btn" href="../../{{ URI::segment(4) }}">Finished</a>
-			          	</div>
+					</div>
 
+		            <button class="btn btn-large" type="submit" name="form_options" value="apply">{{ Lang::line('themes::themes.button.apply') }}</button>
+		            <a class="btn btn-large" href="../../{{ URI::segment(4) }}">{{ Lang::line('themes::themes.button.complete') }}</a>
 
+				{{ Form::close() }}
 
-					{{ Form::close() }}
-				@endif
+			@else
+
+			<div class="unavailable">
+				{{ Lang::line('themes::themes.message.no_options') }}
 			</div>
+
+			@endif
+
 		</div>
+	</div>
 
 </section>
 

@@ -146,7 +146,7 @@ class Users_API_Users_Controller extends API_Controller
 			{
 				return array(
 					'status'  => false,
-					'message' => Lang::line('users::users.not_found')->get()
+					'message' => Lang::line('users::users.general.not_found')->get()
 				);
 			}
 
@@ -155,7 +155,7 @@ class Users_API_Users_Controller extends API_Controller
 			{
 				return array(
 					'status'  => true,
-					'message' => Lang::line('users::users.delete_success')->get(),
+					'message' => Lang::line('users::users.delete.success')->get(),
 				);
 			}
 
@@ -177,12 +177,12 @@ class Users_API_Users_Controller extends API_Controller
 	{
 		$defaults = array(
 			'select'    => array(
-				'users.id'            => Lang::line('users::users.id')->get(),
-				'first_name'          => Lang::line('users::users.first_name')->get(),
-				'last_name'           => Lang::line('users::users.last_name')->get(),
-				'email'               => Lang::line('users::users.email')->get(),
-				'groups.name'         => Lang::line('users::users.groups')->get(),
-				'configuration.name'  => Lang::line('users::users.status')->get(),
+				'users.id'            => Lang::line('users::users.general.id')->get(),
+				'first_name'          => Lang::line('users::users.general.first_name')->get(),
+				'last_name'           => Lang::line('users::users.general.last_name')->get(),
+				'email'               => Lang::line('users::users.general.email')->get(),
+				'groups.name'         => Lang::line('users::users.general.groups')->get(),
+				'configuration.name'  => Lang::line('users::users.general.status')->get(),
 				'created_at'          => 'Created At',
 			),
 			'alias'     => array(
@@ -263,7 +263,7 @@ class Users_API_Users_Controller extends API_Controller
 					// user was not an admin - return false
 					return array(
 						'status'  => false,
-						'message' => Lang::line('users::users.not_admin')->get()
+						'message' => Lang::line('users::users.general.not_admin')->get()
 					);
 				}
 
@@ -280,7 +280,7 @@ class Users_API_Users_Controller extends API_Controller
 			// could not log the user in
 			return array(
 				'status'  => false,
-				'message' => Lang::line('users::users.invalid_login')->get()
+				'message' => Lang::line('users::users.general.invalid_login')->get()
 			);
 		}
 		catch (Sentry\SentryException $e)
@@ -341,13 +341,13 @@ class Users_API_Users_Controller extends API_Controller
 
 			return array(
 				'status'  => true,
-				'message' => Lang::line('users::users.reset_password_success')->get()
+				'message' => Lang::line('users::users.reset.password_success')->get()
 			);
 		}
 
 		return array(
 			'status'  => false,
-			'message' => Lang::line('users::users.reset_password_error')->get()
+			'message' => Lang::line('users::users.reset.password_error')->get()
 		);
 
 	}
@@ -360,13 +360,13 @@ class Users_API_Users_Controller extends API_Controller
 		{
 			return array(
 				'status'  => true,
-				'message' => Lang::line('users::users.reset_password_confirm_success')->get()
+				'message' => Lang::line('users::users.reset.password_confirm_success')->get()
 			);
 		}
 
 		return array(
 			'status'  => false,
-			'message' => Lang::line('users::users.reset_password_confirm_error')->get()
+			'message' => Lang::line('users::users.reset.password_confirm_error')->get()
 		);
 	}
 

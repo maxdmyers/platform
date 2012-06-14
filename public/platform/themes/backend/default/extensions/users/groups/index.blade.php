@@ -15,15 +15,14 @@
 @section('content')
 	<section id="users">
 
-		<header>
-			<div class="row">
-				<div class="span4">
-					<h1>{{ Lang::line('users::groups.title') }}</h1>
-				</div>
-			</div>
-		</header>
+		<header class="head row">
+		<div class="span4">
+			<h1>{{ Lang::line('users::groups.title') }}</h1>
+			<p>{{ Lang::line('users::groups.description') }}</p>
+		</div>
+	</header>
 
-		<hr>
+	<hr>
 
 		<div id="table">
 			<div class="actions clearfix">

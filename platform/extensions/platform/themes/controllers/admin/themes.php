@@ -75,6 +75,17 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	 */
 	public function get_edit($type, $theme)
 	{
+
+		// Set menu active states
+		if ($type == 'frontend')
+		{
+			$this->active_menu('frontend');
+		}
+		else
+		{
+			$this->active_menu('backend');
+		}
+
 		// get theme.info data
 		$theme_info = API::get('themes', array(
 			'type' => $type,

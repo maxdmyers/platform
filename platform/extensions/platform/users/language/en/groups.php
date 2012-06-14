@@ -27,6 +27,7 @@ return array(
 
 	/* Titles */
 	'title'        => 'Group Management',
+	'description' => 'Create groups and assign access rights to groups.',
 	'title_create' => 'Create Group',
 	'title_edit'   => 'Edit Group',
 
