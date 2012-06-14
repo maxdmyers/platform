@@ -389,16 +389,17 @@ class ExtensionsManager
 	}
 
 	/**
-	 * Returns a simple array of uninstalled
+	 * Returns an array of uninstalled
 	 * extensions, with numberic keys, and
 	 * where the slug (which is
 	 * the folder name of the extension) is the
-	 * value.
+	 * value. If $detailed is true, then the value
+	 * is the extension info.
 	 *
 	 * @param   Closure  $condition
 	 * @return  array
 	 */
-	public function uninstalled($condition = null)
+	public function uninstalled($condition = null, $detailed = false)
 	{
 		// Firstly, get all installed extensions
 		$results = $this->installed(function($query) use ($condition)
@@ -431,7 +432,24 @@ class ExtensionsManager
 			// matches the folder name.
 			$slug = Str::lower(basename($extension));
 
-			! in_array($slug, $installed) and $uninstalled[] = $slug;
+			// Read extension info. Always do this even
+			// if no details are required as this will
+			// validate the extension.
+			try
+			{
+				$info = $this->info($slug);
+
+				if (in_array($slug, $installed))
+				{
+					continue;
+				}
+
+				$uninstalled[] = ($detailed === true) ? $info : $slug;	
+			}
+			catch (Exception $e)
+			{
+				continue;
+			}
 		}
 
 		return $uninstalled;

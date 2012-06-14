@@ -33,22 +33,22 @@
 					@forelse ($uninstalled as $extension)
 						<tr>
 							<td>
-								{{ $extension['name'] }}
+								{{ array_get($extension, 'info.name') }}
 							</td>
 							<td>
-								{{ $extension['slug'] }}
+								{{ array_get($extension, 'info.slug') }}
 							</td>
 							<td>
-								{{ $extension['author'] }}
+								{{ array_get($extension, 'info.author') }}
 							</td>
 							<td>
-								{{ $extension['description'] }}
+								{{ array_get($extension, 'info.description') }}
 							</td>
 							<td>
-								{{ $extension['version'] }}
+								{{ array_get($extension, 'info.version') }}
 							</td>
 							<td>
-								<a href="{{ url(ADMIN.'/extensions/install/'.$extension['slug']) }}" onclick="return confirm('Are you sure you want to install the \'{{ e($extension['name']) }}\' extension?');">install</a>
+								<a href="{{ url(ADMIN.'/extensions/install/'.array_get($extension, 'info.slug')) }}" onclick="return confirm('Are you sure you want to install the \'{{ e(array_get($extension, 'info.name')) }}\' extension?');">install</a>
 							</td>
 						</tr>
 					@empty

@@ -84,20 +84,7 @@ class Extensions_API_Extensions_Controller extends API_Controller
 	 */
 	public function get_uninstalled()
 	{
-		$uninstalled = Platform::extensions_manager()->uninstalled();
-
-		// If we want detailed info about extension,
-		// not just the slug
-		if (Input::get('detailed') == true)
-		{
-			foreach ($uninstalled as $index => $slug)
-			{
-				$info = Platform::extensions_manager()->info($slug);
-				$uninstalled[$index] = $info['info'];
-			}
-		}
-
-		return $uninstalled;
+		return Platform::extensions_manager()->uninstalled(null, true);
 	}
 
 	/**
@@ -113,7 +100,22 @@ class Extensions_API_Extensions_Controller extends API_Controller
 			throw new Exception('Invalid slug provided.');
 		});
 
-		return Platform::extensions_manager()->install($slug);
+		try
+		{
+			$extension = Platform::extensions_manager()->install($slug);
+		}
+		catch (Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage(),
+			);
+		}
+
+		return array(
+			'status'    => true,
+			'extension' => $extension,
+		);
 	}
 
 	/**
@@ -129,7 +131,19 @@ class Extensions_API_Extensions_Controller extends API_Controller
 			throw new Exception('Invalid id provided.');
 		});
 
-		return Platform::extensions_manager()->uninstall($id);
+		try
+		{
+			return array(
+				'status' => Platform::extensions_manager()->uninstall($id),
+			);
+		}
+		catch (Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage(),
+			);
+		}
 	}
 
 	public function post_enable()
@@ -139,7 +153,22 @@ class Extensions_API_Extensions_Controller extends API_Controller
 			throw new Exception('Invalid id provided.');
 		});
 
-		return Platform::extensions_manager()->enable($id);
+		try
+		{
+			$extension = Platform::extensions_manager()->enable($id);
+		}
+		catch (Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage(),
+			);
+		}
+
+		return array(
+			'status'    => true,
+			'extension' => $extension,
+		);
 	}
 
 	public function post_disable()
@@ -149,7 +178,22 @@ class Extensions_API_Extensions_Controller extends API_Controller
 			throw new Exception('Invalid id provided.');
 		});
 
-		return Platform::extensions_manager()->disable($id);
+		try
+		{
+			$extension = Platform::extensions_manager()->disable($id);
+		}
+		catch (Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage(),
+			);
+		}
+
+		return array(
+			'status'    => true,
+			'extension' => $extension,
+		);
 	}
 
 }
