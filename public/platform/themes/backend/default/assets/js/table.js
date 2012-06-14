@@ -252,7 +252,7 @@ if (platform == undefined)
 				var text  = self.$filterSelect.find(':selected').text();
 				var field = self.$filterSelect.val();
 				var value = self.$filterText.val();
-				var html = '<li class="table-filter active" data-table-filterkey="'+field+'"><a href="#" '+self.options.removeFilter.attributes+'>'+text+' : '+value+'&nbsp;&nbsp;&times;</a></li>';
+				var html = '<li class="table-filter active" data-table-filterkey="'+field+'"><a href="#" '+self.options.removeFilter.attributes+'>'+text+' : '+value+'&nbsp;<span class="table-filter-remove">&times;</span></a></li>';
 				//<a href="#" '+self.options.removeFilter.attributes+'>'+self.options.removeFilter.text+'</a>
 				if ( value == '' ) {
 					return false;

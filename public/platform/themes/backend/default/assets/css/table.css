@@ -100,7 +100,7 @@
 }
 
 #table #table-pagination {
-	width:100%;
+	width:100%; 
 }
 
 #table #table-pagination a.active {
@@ -111,4 +111,8 @@
 #table #table-filters-applied {
 	position: relative;
 	margin-bottom:-1px;
+}
+
+#table #table-filters-applied .table-filter-remove {
+	cursor: pointer;
 }
