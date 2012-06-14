@@ -1,12 +1,15 @@
 @foreach ($rows as $row)
 	<tr>
-		<td>{{ $row['id'] }}</td>
-		<td>{{ $row['metadata']['first_name'] }}</td>
-		<td>{{ $row['metadata']['last_name'] }}</td>
-		<td>{{ $row['email'] }}</td>
-		<td>{{ $row['groups'] }}</td>
-		<td>{{ $row['status'] }}</td>
-		<td>{{ date('g:ia - F j, Y', $row['created_at']) }}</td>
-		<td><a href="{{ url(ADMIN.'/users/edit/'.$row['id']) }}">edit</a> | <a href="{{ url(ADMIN.'/users/delete/'.$row['id']) }}">delete</a></td>
+		<td class="span1">{{ $row['id'] }}</td>
+		<td class="span2">{{ $row['metadata']['first_name'] }}</td>
+		<td class="span2">{{ $row['metadata']['last_name'] }}</td>
+		<td class="span2">{{ $row['email'] }}</td>
+		<td class="span1">{{ $row['groups'] }}</td>
+		<td class="span1">{{ $row['status'] }}</td>
+		<td class="span2">{{ date('g:ia - m.d.y', $row['created_at']) }}</td>
+		<td class="span2">
+			<a class="btn" href="{{ url(ADMIN.'/users/edit/'.$row['id']) }}">edit</a>
+			<a class="btn btn-danger" href="{{ url(ADMIN.'/users/delete/'.$row['id']) }}">delete</a>
+		</td>
 	</tr>
 @endforeach

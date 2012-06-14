@@ -1,7 +1,10 @@
 @foreach ($rows as $row)
 	<tr>
-		<td>{{ $row['id'] }}</td>
-		<td>{{ $row['name'] }}</td>
-		<td><a href="{{ url(ADMIN.'/users/groups/edit/'.$row['id']) }}">edit</a> | <a href="{{ url(ADMIN.'/users/groups/delete/'.$row['id']) }}">delete</a></td>
+		<td class="span1">{{ $row['id'] }}</td>
+		<td class="span9">{{ $row['name'] }}</td>
+		<td class="span2">
+			<a class="btn" href="{{ url(ADMIN.'/users/groups/edit/'.$row['id']) }}">edit</a>
+			<a class="btn btn-danger" href="{{ url(ADMIN.'/users/groups/delete/'.$row['id']) }}">delete</a>
+		</td>
 	</tr>
 @endforeach
