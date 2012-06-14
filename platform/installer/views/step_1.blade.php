@@ -71,7 +71,7 @@
 
 				<div class="control-group pager">
 					<div class="controls">
-						<button type="submit" disabled="disabled" class="btn-large btn-primary">
+						<button type="submit" disabled="disabled" class="btn btn-large btn-primary">
 							Continue to Step 2
 						</button>
 					</div>
