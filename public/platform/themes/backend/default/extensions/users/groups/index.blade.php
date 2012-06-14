@@ -13,40 +13,59 @@
 @endsection
 
 @section('content')
-	<section id="users" class="row-fluid">
-		<h1>{{ Lang::line('users::groups.title') }}</h1>
-		<div id="table-actions">
-			<div class="row-fluid">
-				<div id="table-filters" class="span8"></div>
-				<div id="actions" class="span4">
-					<a class="btn-large btn-primary" href="{{ url(ADMIN.'/users/groups/create') }}">{{ Lang::line('users::groups.btn_new_group') }}</a>
+	<section id="users">
+
+		<header>
+			<div class="row">
+				<div class="span4">
+					<h1>{{ Lang::line('users::groups.title') }}</h1>
 				</div>
 			</div>
-			<div class="row-fluid">
-				<div id="table-filters-applied" class="span12"></div>
+		</header>
+
+		<hr>
+
+		<div id="table">
+			<div class="actions clearfix">
+				<div id="table-filters" class="form-inline pull-left"></div>
+				<div class="pull-right">
+					<a class="btn btn-large btn-primary" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::groups.btn_new_group') }}</a>
+				</div>
 			</div>
+
+			<div class="row">
+				<div class="span12">
+					<div class="row">
+						<ul id="table-filters-applied" class="nav nav-tabs span10"></ul>
+					</div>
+					<div class="row">
+						<div class="span10">
+							<div class="table-wrapper">
+								<table id="users-table" class="table table-bordered">
+									<thead>
+										<tr>
+											@foreach ($columns as $key => $col)
+											<th data-table-key="{{ $key }}">{{ $col }}</th>
+											@endforeach
+											<th></th>
+										</tr>
+									<thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="tabs-right span2">
+							<ul id="table-pagination" class="nav nav-tabs"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
-		<div id="table-wrapper">
-			<div class="row-fluid">
-				<table id="groups-table" class="table table-bordered">
-					<thead>
-						<tr>
-							@foreach ($columns as $key => $col)
-								<th data-table-key="{{ $key }}">{{ $col }}</th>
-							@endforeach
-							<th></th>
-						</tr>
-					<thead>
-					<tbody>
-						@include('users::groups.partials.table_groups')
-					</tbody>
-				</table>
-				<div class="tabs-right">
-					<ul id="table-pagination" class="nav nav-tabs"></ul>
-				</div>
-			</div>
-		</div>
+	</section>
 
 	</section>
 

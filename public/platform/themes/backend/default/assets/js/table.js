@@ -393,8 +393,8 @@ if (platform == undefined)
 
 			self.$filterSelect   = $(select).appendTo(self.$filterWrapper);
 			self.$filterText     = $('<input type="text" class="table-filter-text span3">').appendTo(self.$filterWrapper);
-			self.$addFilter      = $('<button class="btn"'+self.options.addFilter.attributes+'>'+self.options.addFilter.text+'</button>').appendTo(self.$filterWrapper);
-			self.$refresh        = $('<button class="btn"'+self.options.refresh.attributes+'>'+self.options.refresh.text+'</button>').appendTo(self.$filterWrapper);
+			self.$addFilter      = $('<a class="btn"'+self.options.addFilter.attributes+'>'+self.options.addFilter.text+'</a>').appendTo(self.$filterWrapper);
+			self.$refresh        = $('<a class="btn"'+self.options.refresh.attributes+'>'+self.options.refresh.text+'</a>').appendTo(self.$filterWrapper);
 			self.$filtersApplied = $('#table-filters-applied');
 
 		},
