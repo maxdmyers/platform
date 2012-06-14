@@ -166,7 +166,7 @@ class Crud implements ArrayAccess
 			if (static::$_events)
 			{
 				// fire update event
-				Event::fire(static::event().'.update', $this);
+				Event::fire(static::event().'.update', array($this));
 			}
 		}
 
@@ -193,10 +193,12 @@ class Crud implements ArrayAccess
 
 			$this->is_new( ! (bool) $key);
 
+			$this->fill($attributes);
+
 			if (static::$_events)
 			{
 				// fire create event
-				Event::fire(static::event().'.create', $this);
+				Event::fire(static::event().'.create', array($this));
 			}
 		}
 
@@ -226,7 +228,7 @@ class Crud implements ArrayAccess
 		if (static::$_events)
 		{
 			// fire delete event
-			Event::fire(static::event().'.delete', $this);
+			Event::fire(static::event().'.delete', array($this));
 		}
 
 		return $result;

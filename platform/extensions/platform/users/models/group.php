@@ -94,7 +94,7 @@ class Group extends Crud
 				if (static::$_events)
 				{
 					// fire update event
-					Event::fire(static::event().'.update', $this);
+					Event::fire(static::event().'.update', array($this));
 				}
 			}
 			catch (SentryException $e)
@@ -115,12 +115,15 @@ class Group extends Crud
 				$result = Sentry::group()->create($attributes);
 				$result = $this->after_insert($result);
 
+				$attributes['id'] = (int) $result;
+				$this->fill($attributes);
+
 				$this->is_new( ! (bool) $result);
 
 				if (static::$_events)
 				{
 					// fire create event
-					Event::fire(static::event().'.create', $this);
+					Event::fire(static::event().'.create', array($this));
 				}
 			}
 			catch (SentryException $e)
@@ -155,7 +158,7 @@ class Group extends Crud
 			if (static::$_events)
 			{
 				// fire delete event
-				Event::fire(static::event().'.delete', $this);
+				Event::fire(static::event().'.delete', array($this));
 			}
 
 			return $this->after_delete($result);

@@ -38,6 +38,15 @@ return array(
 		'location' => 'path: '.__DIR__,
 	),
 
+	'events' => array(
+		'user.create',
+		'user.update',
+		'user.delete',
+		'group.create',
+		'group.update',
+		'group.delete',
+	),
+
 	'listeners' => function() {
 
 	},

@@ -38,6 +38,12 @@ return array(
 		'location' => 'path: '.__DIR__,
 	),
 
+	'events' => array(
+		'setting.create',
+		'setting.update',
+		'setting.delete',
+	),
+
 	'listeners' => function() {
 
 	},
