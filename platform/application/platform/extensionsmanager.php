@@ -56,6 +56,8 @@ class ExtensionsManager
 		foreach ($extensions as $extension)
 		{
 			$this->start($extension);
+
+			$this->reset_migrations($extension);
 		}
 
 		return $this;
@@ -520,6 +522,12 @@ class ExtensionsManager
 		return $this->cascade_extesions_directories($top_level_extensions, $grouped_extensions);
 	}
 
+	/**
+	 * Sorts extension dependencies
+	 *
+	 * @param   array  $extensions
+	 * @return  array  $extensions
+	 */
 	public function sort_dependencies(&$extensions = array())
 	{
 		// Array of extensions dependencies, where
@@ -592,6 +600,70 @@ class ExtensionsManager
 		}
 
 		return $info;
+	}
+
+	/**
+	 * Temp hotfix around Laravel's migrations limitations.
+	 *
+	 * @param   Extension  $extension
+	 * @return  void
+	 */
+	protected function reset_migrations(Extension $extension)
+	{
+		$files = glob(Bundle::path($extension->slug).'migrations/*_*'.EXT);
+
+		// When open_basedir is enabled, glob will return false on an
+		// empty directory, so we will return an empty array in this
+		// case so the application doesn't bomb out.
+		if ($files === false)
+		{
+			return array();
+		}
+
+		// Once we have the array of files in the migration directory,
+		// we'll take the basename of the file and remove the PHP file
+		// extension, which isn't needed.
+		foreach ($files as &$file)
+		{
+			$file = str_replace(EXT, '', basename($file));
+		}
+
+		// We'll also sort the files so that the earlier migrations
+		// will be at the front of the array and will be resolved
+		// first by this class' resolve method.
+		sort($files);
+
+		// Now reverse our sort - migrating down
+		array_reverse($files);
+
+		// Loop through files
+		foreach ($files as $file)
+		{
+			require_once Bundle::path($extension->slug).'migrations'.DS.$file.EXT;
+
+			// Since the migration name will begin with the numeric ID, we'll
+			// slice off the ID so we are left with the migration class name.
+			// The IDs are for sorting when resolving outstanding migrations.
+			//
+			// Migrations that exist within bundles other than the default
+			// will be prefixed with the bundle name to avoid any possible
+			// naming collisions with other bundle's migrations.
+			$prefix = Bundle::class_prefix($extension->slug);
+
+			$class = $prefix.\Laravel\Str::classify(substr($file, 18));
+
+			$migration = new $class;
+
+			// Run down the migration
+			// $migration->down();
+		}
+
+		/**
+		 * @todo finish this migrations off
+		 */
+
+
+		// echo "<br>";
 	}
 
 }
