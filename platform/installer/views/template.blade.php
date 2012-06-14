@@ -26,8 +26,6 @@
 	<!-- Links -->
 	{{ Asset::styles() }}
 
-
-
 	<title>
 	@yield('title')
 	</title>
@@ -40,16 +38,11 @@
 </head>
 <body>
 
-	<div id="base" class="container-fluid">
-		<div class="row-fluid">
-
-			<div id="page" class="span12">
-
-				@yield('content')
-
-			</div>
-		</div>
+	<div id="base">
+		@yield('content')
 	</div>
+
+</body>
 
 	<!-- Body Scripts -->
 	{{ Asset::scripts() }}

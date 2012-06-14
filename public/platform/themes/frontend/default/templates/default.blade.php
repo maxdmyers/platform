@@ -7,13 +7,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<meta name="description" content="an ecommerce engine">
+	<meta name="description" content="a base application on Laravel">
 	<meta name="author" content="Cartalyst LLC">
 	<meta name="base_url" content="{{ URL::base() }}">
 
 	<title>
-	@section('title')
-	@yield_section
+	@yield('title')
 	</title>
 
 	<!-- Mobile Specific Metas -->
@@ -23,19 +22,17 @@
 	{{ Theme::asset('css/style.css') }}
 	@widget('platform.themes::options.css')
 
-	@section('links')
-	@yield_section
+	@yield('links')
 
 	<!-- Scripts -->
-	@section('head_scripts')
-	@yield_section
-
-	<meta name="description" content=""/>
+	@yield('head_scripts')
 </head>
 
 <body>
 	<div id="base">
-		@yield('content')
+		<div id="page">
+			@yield('content')
+		</div>
 	</div>
 
 	@yield('body_scripts')

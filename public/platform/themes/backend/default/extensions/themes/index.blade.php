@@ -23,7 +23,7 @@
 		</div>
 		<nav class="span8">
 			<div class="pull-right">
-				@widget('platform.menus::menus.nav', 3, 1, 'nav nav-pills', ADMIN)
+				@widget('platform.menus::menus.nav', 2, 1, 'nav nav-pills', ADMIN)
 			</div>
 		</nav>
 	</header>

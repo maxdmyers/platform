@@ -1,72 +1,103 @@
-body {background-color:#fbfbfb;}
+/**
+ * Part of the Platform application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the 3-clause BSD License.
+ *
+ * This source file is subject to the 3-clause BSD License that is
+ * bundled with this package in the LICENSE file.  It is also available at
+ * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
+ * @package    Platform
+ * @version    1.0
+ * @author     Cartalyst LLC
+ * @license    BSD License (3-clause)
+ * @copyright  (c) 2011 - 2012, Cartalyst LLC
+ * @link       http://getplatform.com
+ */
+
+
+/* #Layout
+================================================== */
+body {background:#eee;}
+
+hr {
+	margin: 18px 0;
+	border: 0;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #fff;
+}
+#base {
+	margin:0 auto;
+	padding:20px;
+	max-width:767px;
+	min-width: 300px;
+	padding-top:100px;
+}
+
+
+/* #Installer
+================================================== */
 
 #installer {
-	width: 480px;
-	margin: 0 auto;
-	margin-top: 40px;
+	background: #fbfbfb;
 }
 
-#installer .brand {text-align:center; padding:20px 0; border-bottom:1px solid #ddd;}
 
-#installer .breadcrumbs {border-bottom:1px solid #ddd; border-top:1px solid #fff;text-align:center; padding:10px 0;}
-#installer .breadcrumbs ul
-{
-	margin:0; padding:0;
-}
+	#installer .content {
+		border:1px solid #ddd;
+		margin:0;
+		padding:20px;
+		text-align: center;
+	}
 
-#installer .breadcrumbs li
-{
-display: inline;
-list-style-type: none;
-padding: 0 10px;
-}
+	#installer form {
+		padding:20px;
+		width: 250px;
+		margin:0 auto;
+		text-align:left
+	}
 
-#installer .breadcrumbs .active {
-	font-weight:bold;
-	font-size:1.5em;
-}
+	#installer legend {text-align: center;padding:10px;}
+	#installer fieldset p {padding:10px; text-align: center;}
 
-#installer .step {
-	border-top:1px solid #fff;
-	padding-top:20px;
-}
+	#installer .breadcrumbs {
+		border-bottom:1px solid #ddd;
+		text-align:center;
+		padding:15px 0;
+	}
 
-#installer .finish {
-	text-align:center;
-	padding:10px;
-}
+	#installer .breadcrumbs ul
+	{
+		margin:0; padding:0;
+	}
 
-#installer select {
-	width:252px;
-}
+	#installer .breadcrumbs li
+	{
+		display: inline;
+		list-style-type: none;
+		padding: 0 10px;
+	}
 
-#installer input {
-	width:242px;
-}
-#installer .database {
-	height:28px;
-}
-#installer .pager {
+	#installer .breadcrumbs .active {
+		font-weight:bold;
+		font-size:1.5em;
+	}
 
-	padding:6px 0;
-}
+	#installer .btn-primary {
+		width:246px;
+		padding:14px 0;
+		margin:10px 0;
+	}
 
-#installer .btn {
-	padding:14px;
-}
+	#installer .database {
+		height:30px;
+	}
+	#installer .confirm-db {
+		display: none;
+	}
 
-#installer .btn-primary {
-	position:relative;
-	top:24px;
-	width:280px;
-	margin-bottom:10px;
-}
-
-#installer .confirm-db {
-	display: none;
-
-}
-
-#installer form {width:280px; margin:0 auto;}
-#installer form legend {text-align:center; border-bottom:0;}
-
+	#installer .finish {
+		padding:20px;
+	}

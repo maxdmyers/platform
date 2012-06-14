@@ -51,8 +51,12 @@
 		padding:10px;
 		margin-bottom:10px;
 	}
-
-	#table-filters select {
+	#table-filters {
+		margin-top:4px;
+	}
+	#table-filters select,
+	#table-filters input,
+	#table-filters .btn {
 		margin-right:10px;
 	}
 
@@ -106,6 +110,10 @@
 	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_desc.png');
 	background-repeat: no-repeat;
 	background-position: center right;
+}
+
+#table #table-pagination {
+	width:100%;
 }
 
 #table #table-pagination a.active {

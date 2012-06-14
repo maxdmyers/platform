@@ -22,11 +22,6 @@
 				<div class="span4">
 					<h1>{{ Lang::line('users::users.title') }}</h1>
 				</div>
-				<div class="span8">
-					<div class="pull-right">
-						<a class="btn-large btn-primary" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::users.btn_new_user') }}</a>
-					</div>
-				</div>
 			</div>
 		</header>
 
@@ -35,7 +30,9 @@
 		<div id="table">
 			<div class="actions clearfix">
 				<div id="table-filters" class="form-inline pull-left"></div>
-
+				<div class="pull-right">
+					<a class="btn btn-large btn-primary" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::users.btn_new_user') }}</a>
+				</div>
 			</div>
 
 			<div class="row">
