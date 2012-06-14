@@ -59,6 +59,7 @@
 							</div>
 						</div>
 						<div class="tabs-right span2">
+							<div class="processing"></div>
 							<ul id="table-pagination" class="nav nav-tabs"></ul>
 						</div>
 					</div>
