@@ -239,34 +239,6 @@ class Installer_Index_Controller extends Base_Controller
 		// Get the result from creating a user
 		$create_user = API::post('users/create', $user);
 
-
-		//For testing only remove for release.
-
-		$array_size = 100;
-		for($i = 0; $i < $array_size; $i++)
-		{
-
-			$first = 'dan' . $i;
-			$last = 'syme' . $i;
-			$email = 'dan.syme'.$i.'@gmail.com';
-			$password = 'xgold';
-			$test_user = array(
-				'email'                 => $email,
-				'password'              => $password,
-				'password_confirmation' => $password,
-				'groups'                => 'users',
-				'metadata'              => array(
-					'first_name' => $first,
-					'last_name'  => $last,
-				),
-				'permissions' => array(
-					Config::get('sentry::sentry.permissions.superuser') => 0,
-				),
-			);
-
-			$create_user = API::post('users/create', $test_user);
-		}
-
 		if ($create_user['status'])
 		{
 			// Platform::messages()->success($create_user['message']);
