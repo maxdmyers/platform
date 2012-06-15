@@ -22,7 +22,7 @@ return array(
 
 	/* Titles */
 	'title'        => 'Extension Management',
-	'description'  => 'Install, uninstall, disable extensions for platform',
+	'title_description'  => 'Install, uninstall, disable extensions for platform',
 
 	/* General */
 	'id'          => 'Id',
