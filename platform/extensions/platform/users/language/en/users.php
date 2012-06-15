@@ -47,6 +47,7 @@ return array(
 		'password_help'         => 'Leave password fields blank unless you want to change them.',
 		'remember_me'           => 'Remember Me',
 		'reset_password'        => 'Reset Password',
+		'reset_help'            => 'An email will be sent with instructions.',
 		'status'                => 'Status',
 	),
 
@@ -87,10 +88,10 @@ return array(
 
 	/* Reset Password */
 	'reset' => array(
-		'reset_password_confirm_success' => 'Your password reset has confirmed and updated successfully. You may now log in with your new password.',
-		'reset_password_confirm_error'   => 'There was an error confirming your password reset. Please try again.',
-		'reset_password_error'           => 'Unable to reset your password, please make sure both Email and Password are set and you are using a registered email address.',
-		'reset_password_success'         => 'Your password has been reset, please check your email to confirm.',
+		'password_confirm_success' => 'Your password reset has confirmed and updated successfully. You may now log in with your new password.',
+		'password_confirm_error'   => 'There was an error confirming your password reset. Please try again.',
+		'password_error'           => 'Unable to reset your password, please make sure both Email and Password are set and you are using a registered email address.',
+		'password_success'         => 'Your password has been reset, please check your email to confirm.',
 	),
 
 	/* Logs */
