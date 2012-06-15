@@ -17,19 +17,31 @@
 	<script>
 	$(document).ready(function() {
 
-		/**
-		 * @todo, use window.history.replaceState() when a new
-		 *        item is saved, so that the /create url becomes
-		 *        /edit/:menu. Probably needs to be done here so we
-		 *        know our URLs.
-		 */
-
-		// Platform menu
-		$('#platform-menu').platformMenu({
-			menuId       : {{ $menu_id }},
-			saveUri      : '{{ URL::to(ADMIN.'/menus/edit') }}',
-			itemTemplate : {{ $item_template }},
-			lastItemId   : {{ $last_item_id }}
+		// Nesty Sortable
+		$('#platform-menu').nestySortable({
+			sortableSelector : '.platform-menu',
+			fields           : [
+				{
+					name        : 'name',
+					newSelector : '#new-item-name',
+					required    : true
+				},
+				{
+					name        : 'slug',
+					newSelector : '#new-item-slug',
+					required    : true
+				},
+				{
+					name        : 'uri',
+					newSelector : '#new-item-uri',
+					required    : true
+				}
+			],
+			itemTemplate         : {{ $item_template }},
+			lastItemId           : {{ $last_item_id }},
+			invalidFieldCallback : function(field, value) {
+				alert('Field [' + field.name + '] is required.');
+			},
 		});
 	});
 	</script>
@@ -82,7 +94,7 @@
 
 								<hr>
 
-								<button type="button" class="btn btn-small btn-primary new-item-add">Add Item</button>
+								<button type="button" class="btn btn-small btn-primary items-add-new">Add Item</button>
 
 							</div>
 

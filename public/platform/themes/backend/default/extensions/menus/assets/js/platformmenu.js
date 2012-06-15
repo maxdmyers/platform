@@ -37,275 +37,190 @@ function dump(arr,level) {
 
 
 (function() {
-
+	
+	// NestySortable object.
 	/**
-	 * @todo make the new item fields more dynamic
+	 * @todo Add more validation support for
+	 *       new items...
 	 */
+	var NestySortable = {
 
-	// CartMenu plugin
-	var PlatformMenu = {
+		// Settings for this instance
+		settings: {
 
-		// Settings
-		settings : {
+			// The selector for the sortable list,
+			// used to cache the sortable list property
+			sortableSelector: null,
 
-			// Add new item selector
-			addItemSelector : '.new-item-add',
+			/**
+			 * An array of fields for the Nesty sortable.
+			 *
+			 * <code>
+			 *		{ name : 'my_field', newSelector : '.new-item-my-field', required : false }
+			 * </code>
+			 *
+			 * @var array
+			 */
+			fields : [],
 
-			// Menu selector
-			menuSelector: '.platform-menu',
+			// Selectors relating to items, but aren't
+			// located inside each item in the DOM
+			itemAddButtonSelector        : '.items-add-new',
+			itemToggleAllDetailsSelector : '.items-toggle-all',
 
-			// Item selectors
-			itemSelectors: {
-				wrapper   : '.item',
-				handle    : '.item-header',
-				toggle    : '.item-toggle-details',
-				toggleAll : '.toggle-all-items',
-				details   : '.item-details',
-				remove    : '.item-remove'
-			},
-
-			// Array of fields that each menu item has,
-			// along with the selectors for each one
-			itemFields : [
-				{
-					name        : 'name',
-					newSelector : '.new-item-name'
-				},
-				{
-					name        : 'slug',
-					newSelector : '.new-item-slug'
-				},
-				{
-					name        : 'uri',
-					newSelector : '.new-item-uri'
-				}
-			],
-
-			// Item template
+			// JSON encoded string for new item template
 			itemTemplate: '',
 
-			// Last item identifier
-			lastItemId: 0
+			// The ID of the last item added. Used so we fill
+			// new templates with an ID that won't clash with existing
+			// items.
+			lastItemId: 0,
+
+			// Selectors for DOM elements for each active
+			// item.
+			itemSelector              : '.item',
+			itemHandleSelector        : '.item-header',
+			itemToggleDetailsSelector : '.item-toggle-details',
+			itemDetailsSelector       : '.item-details',
+			itemRemoveSelector        : '.item-remove',
+
+			// Invalid field callback - must return true for valid
+			// field or false for invalid field.
+			invalidFieldCallback : function(field, value) {},
+
+			// Misc
+			maxLevels : 0,
+			tabSize   : 20
 		},
 
-		// Object the plugin was called on,
-		// the form itself
-		elem : null,
+		// The form object we call $.nestySortable on
+		elem: null,
 
-		// Menu object
-		menu : null,
+		// The sortable list DOM object, cached
+		// for speed
+		_sortable: null,
 
-		init : function(elem, settings) {
+		// The selector for an item add button
+		_itemAddButton: null,
+
+		/**
+		 * Used to initialise a new instance of
+		 * nestySortable
+		 */
+		init: function(elem, settings) {
 			var self  = this;
 			self.elem = elem;
 
-			// Override default settings
 			$.extend(self.settings, settings);
 
-			// Setup menu
-			self.setupMenu();
-
-			// Observe new items
-			self.observeNewItems();
-
-			// Observe items
-			self.observeItems();
-
-			// Observe save
-			self.observeSave();
-		},
-
-		// Sets up the menu
-		setupMenu: function() {
-			var self  = this;
-			var elem  = self.elem;
-			var menu  = elem.find(self.settings.menuSelector);
-			self.menu = menu;
-
-			menu.nestedSortable({
+			// Initialise NestedSortable
+			self.sortable().nestedSortable({
 				disableNesting       : 'no-nest',
 				forcePlaceholderSize : true,
-				handle               : 'div header',
+				handle               : self.settings.itemHandleSelector,
 				helper               :'clone',
 				items                : 'li',
-				maxLevels            : 0,
-				opacity              : .6,
+				maxLevels            : self.settings.maxLevels,
+				opacity              : 0.6,
 				placeholder          : 'placeholder',
 				revert               : 250,
-				tabSize              : 25,
+				tabSize              : self.settings.tabSize,
 				tolerance            : 'pointer',
 				toleranceElement     : '> div'
 			});
 
-			// Observe changes
-			self.observeMenuChanges();
-
-			return this;
-		},
-
-		// Observe menu changes
-		observeMenuChanges: function() {
-			var self = this;
-			var elem = self.elem;
-			var menu = self.menu;
-		},
-
-		// Observe new items
-		observeNewItems: function() {
-			var self      = this;
-			var elem      = self.elem;
-			var settings  = self.settings;
-
-			/**
-			 * When user adds a new item
-			 */
-			elem.find(settings.addMenuItem).on('click', function(e) {
-				e.preventDefault();
-
-				alert('f');
-
-				return;
-
-				$name = elem.find(selectors.name);
-				$slug = elem.find(selectors.slug);
-				$uri  = elem.find(selectors.uri);
-
-				self.addMenuItem($name.val(), $slug.val(), $uri.val());
-
-				return false;
-			});
-
-			return this;
+			self.observerAddingItems();
 		},
 
 		/**
-		 * Add a new menu item
-		 * 
-		 * @param  string  name
-		 * @param  string  uri
-		 * @return PlatformMenu
+		 * Used to retrieve the sortable DOM object.
 		 */
-		addMenuItem: function(name, slug, uri) {
+		sortable: function() {
+			var self = this;
 
-			if (name.length == 0 || uri.length == 0) {
-				return alert('Fill out all fields.');
+			if ( ! self._sortable) {
+				self._sortable = self.elem.find(self.settings.sortableSelector);
 			}
 
-			var self         = this;
-			var elem         = self.elem;
-			var menu         = self.menu;
-			var id           = self.settings.lastItemId  + 1;
-			var itemTemplate = self.settings.itemTemplate;
-
-			// Update our template with real vars
-			itemTemplate = itemTemplate.replace(/\{\{id\}\}/gi, id)
-			                           .replace(/\{\{name\}\}/gi, name)
-			                           .replace(/\{\{slug\}\}/gi, name)
-			                           .replace(/\{\{uri\}\}/gi, uri);
-
-			// Append our item
-			menu.append(itemTemplate);
-
-			// Increase the last item id
-			self.settings.lastItemId += 1;
-
-			return this;
+			return self._sortable;
 		},
 
-		observeItems: function() {
+		/**
+		 * Used to retrieve the add button DOM object.
+		 */
+		itemAddButton: function() {
 			var self = this;
-			var elem = self.elem;
-			var itemSelectors = self.settings.itemSelectors;
 
-			// Toggle all items
-			elem.find(itemSelectors.toggleAll).on('click', function() {
+			if ( ! self._itemAddButton) {
+				self._itemAddButton = self.elem.find(self.settings.itemAddButtonSelector);
+			}
 
-				elem.find(itemSelectors.details).toggleClass('show');
-			});
-
-			/**
-			 * We're using this selector so we observe any
-			 * newly created menu items as well
-			 */
-			$('body').on('click', elem.selector + ' ' + itemSelectors.wrapper + ' ' + itemSelectors.toggle, function() {
-				$wrapper = $(this).closest(itemSelectors.wrapper);
-				$wrapper.find(itemSelectors.details).toggleClass('show');
-			});
+			return self._itemAddButton;
 		},
 
-		observeSave: function() {
-			var self         = this;
-			var elem         = self.elem;
-			var saveSelector = self.settings.saveSelector;
-			var menu         = self.menu;
+		/**
+		 * Observe adding items.
+		 */
+		observerAddingItems: function() {
+			var self = this;
 
-			elem.on('submit', function(e) {
+			// When user clicks on the add item button
+			self.itemAddButton().on('click', function(e) {
 				e.preventDefault();
 
-				/**
-				 * We combine both the data about the
-				 * order of the menu and the inputs
-				 * to be posted to the save action through
-				 * Ajax
-				 */
-				var postData = $.extend(elem.find('input').serializeObject(), {
-					'items_hierarchy' : menu.nestedSortable('toHierarchy', { attribute: 'data-item' })
-				});
+				// Get the item template
+				var itemTemplate = self.settings.itemTemplate;
 
-				// AJAX call to save menu
-				$.ajax({
-					url      : elem.attr('action'),
-					type     : 'POST',
-					// dataType : 'json',
-					data     : postData,
-					success  : function(data, textStatus, jqXHR) {
-						if (data.length && data != 'null') {
-							data = data.replace(/null/gi, '');
-							alert(data);
+				// Flag for valid itemTemplate
+				var valid = true;
+
+				// Loop through the defined fields, and replace
+				// the template variables with the value of each
+				// field's selector.
+				for (i in self.settings.fields) {
+					var field = self.settings.fields[i];
+
+					var value = $(field.newSelector).val();
+
+					if (typeof field.required !== 'undefined' && field.required === true && (typeof value === 'undedfined' || ! value)) {
+
+						result = self.settings.invalidFieldCallback(field, value);
+
+						if (typeof result !== 'undefiend' && valid === true) {
+							valid = Boolean(result);
 						}
-					},
-					error    : function(jqXHR, textStatus, errorThrown) {
-						alert(jqXHR.status + ' ' + errorThrown);
 					}
-				});
+
+					// Replace the name with the actual value
+					var regex    = new RegExp('\{\{'+field.name+'\}\}', 'gi');
+					itemTemplate = itemTemplate.replace(regex, value);
+				}
+
+				if (valid !== true) {
+					return false;
+				}
+
+				// Lastly, add the ID
+				var itemId               = self.settings.lastItemId + 1;
+				itemTemplate             = itemTemplate.replace(/\{\{id\}\}/gi, itemId);
+				self.settings.lastItemId = itemId;
+
+				// Append to DOM
+				self.sortable().append(itemTemplate);
+
+				// Wipe fields
+				for (i in self.settings.fields) {
+					$(self.settings.fields[i].newSelector).val('');
+				}
 			});
 
-			// // When the user clicks the save button
-			// elem.find(saveSelector).on('click', function() {
-
-			// 	/**
-			// 	 * We combine both the data about the
-			// 	 * order of the menu and the inputs
-			// 	 * to be posted to the save action through
-			// 	 * Ajax
-			// 	 */
-			// 	var postData = $.extend(elem.find('input').serializeObject(), {
-			// 		items : menu.nestedSortable('toHierarchy', { attribute: 'data-item' })
-			// 	});
-
-			// 	// AJAX call to save menu
-			// 	$.ajax({
-			// 		url      : saveUri + (menuId ? '/' + menuId : ''),
-			// 		type     : 'POST',
-			// 		// dataType : 'json',
-			// 		data     : postData,
-			// 		success  : function(data, textStatus, jqXHR) {
-			// 			if (data.length && data != 'null') {
-			// 				data = data.replace(/null/gi, '');
-			// 				alert(data);
-			// 			}
-			// 		},
-			// 		error    : function(jqXHR, textStatus, errorThrown) {
-			// 			alert(jqXHR.status + ' ' + errorThrown);
-			// 		}
-			// 	});
-			// });
+			return this;
 		}
 	}
 
 	// The actual jquery plugin
-	$.fn.platformMenu = function(settings) {
-		PlatformMenu.init(this, settings);
+	$.fn.nestySortable = function(settings) {
+		NestySortable.init(this, settings);
 	}
 
 	$.fn.serializeObject = function()
