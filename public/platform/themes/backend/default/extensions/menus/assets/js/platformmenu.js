@@ -263,8 +263,6 @@ function dump(arr,level) {
 			$('body').on('click', self.elem.selector + ' ' + self.settings.itemRemoveSelector, function(e) {
 				e.preventDefault();
 
-				confirm()
-
 				// Find the closest item
 				var list = $(this).closest(self.settings.listSelector);
 
