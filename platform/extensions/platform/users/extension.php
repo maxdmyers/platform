@@ -56,7 +56,7 @@ return array(
 		Route::any(ADMIN.'/login', 'users::admin.users@login');
 		Route::any(ADMIN.'/logout', 'users::admin.users@logout');
 		Route::any(ADMIN.'/reset_password', 'users::admin.users@reset_password');
-		Route::any(ADMIN.'/reset_password_confirm', 'users::admin.users@reset_password_confirm');
+		Route::any(ADMIN.'/reset_password_confirm/(:any)/(:any)', 'users::admin.users@reset_password_confirm');
 	},
 
 	'rules' => array(
