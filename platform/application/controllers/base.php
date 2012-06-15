@@ -63,4 +63,18 @@ class Base_Controller extends Controller
 		return parent::after($response);
 	}
 
+	/**
+	 * Sets the active menu slug.
+	 *
+	 * @param   string  $slug
+	 * @return  void
+	 */
+	public function active_menu($slug)
+	{
+		API::post('menus/active', array(
+			'slug' => $slug,
+		));
+	}
+
+
 }
