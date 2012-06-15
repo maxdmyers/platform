@@ -100,8 +100,8 @@ class Settings_Install
 		$query = DB::table('configuration')->insert(array(
 			'extension' 	=> 'settings',
 			'type' 			=> 'general',
-			'name' 			=> 'site-email',
-			'value' 		=> '',
+			'name' 			=> 'email',
+			'value' 		=> 'site@getplatform.com',
 		));
 
 
