@@ -145,7 +145,7 @@ class Menus_API_Menus_Controller extends API_Controller
 			);
 		}
 
-		if ( ! $children = $parent->children(Input::get('depth', 0)))
+		if ( ! $children = $parent->enabled_children(Input::get('depth', 0)))
 		{
 			return array(
 				'status'  => false,

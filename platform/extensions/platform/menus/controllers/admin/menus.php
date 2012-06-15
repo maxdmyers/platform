@@ -116,9 +116,10 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 	protected function process_item_recursively($item, &$items)
 	{
 		$new_item = array(
-			'name' => Input::get('item_fields.'.$item['id'].'.name'),
-			'slug' => Input::get('item_fields.'.$item['id'].'.slug'),
-			'uri'  => Input::get('item_fields.'.$item['id'].'.uri'),
+			'name'    => Input::get('item_fields.'.$item['id'].'.name'),
+			'slug'    => Input::get('item_fields.'.$item['id'].'.slug'),
+			'uri'     => Input::get('item_fields.'.$item['id'].'.uri'),
+			'status' => Input::get('item_fields.'.$item['id'].'.status', 1),
 		);
 
 		// Determine if we're a new item or not. If we're

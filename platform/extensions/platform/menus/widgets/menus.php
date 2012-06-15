@@ -65,7 +65,6 @@ class Menus
 			return '';
 		}
 
-
 		// Return teh 
 		return Theme::make('menus::widgets.nav')
 		            ->with('items', $items_result['children'])

@@ -19,6 +19,12 @@
 
 				<label for="menu-items-{{id}}-uri">Uri</label>
 				<input type="text" name="item_fields[{{id}}][uri]" value="{{uri}}" id="menu-items-{{id}}-uri" placeholder="Uri">
+
+				<label for="menu-items-{{id}}-status">Enabled</label>
+				<select name="item_fields[{{id}}][status]" id="menu-items-{{id}}-status">
+					<option value="1" selected><?php echo Lang::line('menus::menus.general.yes'); ?></option>
+					<option value="0"><?php echo Lang::line('menus::menus.general.no'); ?></option>
+				</select>
 			</div>
 
 			<button class="pull-right btn btn-danger btn-mini item-remove">

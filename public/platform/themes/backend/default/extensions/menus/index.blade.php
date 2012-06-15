@@ -1,7 +1,7 @@
 @layout('templates.template')
 
 @section('title')
-	menus.title
+	{{ Lang::line('menus::menus.general.title') }}
 @endsection
 
 @section('links')
