@@ -9,10 +9,12 @@
 @endsection
 
 @section('body_scripts')
+	{{ Theme::asset('js/jquery/helpers.js') }}
 	{{ Theme::asset('js/bootstrap/bootstrap-tab.js') }}
 	{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}
-	{{ Theme::asset('menus::js/jquery/nestedsortable-1.3.4.js') }}
-	{{ Theme::asset('menus::js/platformmenu.js') }}
+	{{ Theme::asset('js/jquery/nestedsortable-1.3.4.js') }}
+	{{ Theme::asset('js/jquery/nestysortable-1.0.js') }}
+	{{ Theme::asset('menus::js/menus.js') }}
 
 	<script>
 	$(document).ready(function() {
@@ -61,7 +63,7 @@
 
 	<hr>
 
-	{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu')) }}
+	{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off')) }}
 
 		<div class="tabbable">
 			<ul class="nav nav-tabs">
