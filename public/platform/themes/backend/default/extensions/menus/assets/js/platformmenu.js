@@ -89,8 +89,10 @@ function dump(arr,level) {
 			invalidFieldCallback : function(field, value) {},
 
 			// Misc
-			maxLevels : 0,
-			tabSize   : 20
+			maxLevels     : 0,
+			tabSize       : 20,
+			levelSelector : 'ol',
+			listSelector  : 'li',
 		},
 
 		// The form object we call $.nestySortable on
@@ -119,7 +121,7 @@ function dump(arr,level) {
 				forcePlaceholderSize : true,
 				handle               : self.settings.itemHandleSelector,
 				helper               :'clone',
-				items                : 'li',
+				items                : self.settings.listSelector,
 				maxLevels            : self.settings.maxLevels,
 				opacity              : 0.6,
 				placeholder          : 'placeholder',
@@ -129,7 +131,9 @@ function dump(arr,level) {
 				toleranceElement     : '> div'
 			});
 
-			self.observerAddingItems();
+			self.observeAddingItems()
+			    .observeToggling()
+			    .observeRemovingItems();
 		},
 
 		/**
@@ -161,7 +165,7 @@ function dump(arr,level) {
 		/**
 		 * Observe adding items.
 		 */
-		observerAddingItems: function() {
+		observeAddingItems: function() {
 			var self = this;
 
 			// When user clicks on the add item button
@@ -215,6 +219,72 @@ function dump(arr,level) {
 			});
 
 			return this;
+		},
+
+		/**
+		 * Observe toggling item details
+		 */
+		observeToggling: function() {
+			var self = this;
+
+			// Observe toggling item details
+			$('body').on('click', self.elem.selector + ' ' + self.settings.itemToggleDetailsSelector, function(e) {
+				e.preventDefault();
+
+				$(this).closest(self.settings.itemSelector)
+				       .find(self.settings.itemDetailsSelector)
+				       .toggleClass('show');
+			});
+
+			// Toggle all item details
+			self.elem.find(self.settings.itemToggleAllDetailsSelector).on('click', function(e) {
+				e.preventDefault();
+
+				self.elem.find(self.settings.itemDetailsSelector)
+				         .toggleClass('show');
+			});
+
+			return this;
+		},
+
+		/**
+		 * Observe removing items
+		 */
+		observeRemovingItems: function() {
+			var self = this;
+
+			// Observe toggling item details
+			$('body').on('click', self.elem.selector + ' ' + self.settings.itemRemoveSelector, function(e) {
+				e.preventDefault();
+
+				// Find the closest item
+				var list = $(this).closest(self.settings.listSelector);
+
+				// Find the next level of list items
+				var level = list.children(self.settings.levelSelector);
+
+				// If there is no child level,
+				// Just remove this item
+				if (level.length == 0) {
+					return list.remove();
+				}
+
+				// Find children
+				var children = level.children(self.settings.listSelector);
+
+				// If there are no children
+				if (children.length == 0) {
+					return;
+				}
+
+				// Now move the children up to be
+				// the next sibling of our list
+				// item
+				children.insertAfter(list);
+
+				// Remove our list item
+				return list.remove();
+			});
 		}
 	}
 

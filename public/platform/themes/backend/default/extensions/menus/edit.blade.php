@@ -71,7 +71,7 @@
 				<div class="tab-pane {{ ($menu_id) ? 'active' : null }}" id="menus-edit-items">
 
 					<div class="clearfix">
-						<a class="pull-right btn toggle-all-items">Toggle All <i class="icon-edit"></i></a>
+						<a class="pull-right btn items-toggle-all">Toggle All <i class="icon-edit"></i></a>
 					</div>
 
 					<div class="clearfix">
