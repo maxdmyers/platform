@@ -51,7 +51,6 @@ if (platform == undefined)
 			}).done(function(results) {
 				self.displayData(results);
 			}).fail(function(results) {
-				self.$overlay.css('display', 'none');
 				self.$process.css('display', 'none');
 				alert('errors getting data');
 			});

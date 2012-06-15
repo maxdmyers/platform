@@ -204,7 +204,6 @@ class Users_API_Users_Controller extends API_Controller
 			// sets the where clause from passed settings
 			$query = Table::count($query, $defaults);
 
-			// test comment
 			return $query
 				->left_join('users_metadata', 'users.id', '=', 'users_metadata.user_id')
 				->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
@@ -258,7 +257,7 @@ class Users_API_Users_Controller extends API_Controller
 			if (Input::get('is_admin') === true)
 			{
 				// check if user is an admin
-				if ( ! Sentry::user(Input::get('email'))) //->has_access()
+				if ( ! Sentry::user(Input::get('email'))->has_access())
 				{
 					// user was not an admin - return false
 					return array(

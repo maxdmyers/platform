@@ -20,13 +20,13 @@
 
 		{{ Form::open(null, 'POST', array('id' => 'login-form', 'class' => 'form-horizontal')) }}
 
-			<input type="email" name="email" id="email" placeholder="{{ lang::line('users::users.email') }}" autocomplete="off">
+			<input type="email" name="email" id="email" placeholder="{{ lang::line('users::users.general.email') }}" autocomplete="off">
 
 			<div class="input-append">
-				<input type="password" name="password" id="password" placeholder="{{ lang::line('users::users.password') }}" autocomplete="off"><button class="btn append" type="submit">{{ Lang::line('users::users.btn_login') }}</button>
+				<input type="password" name="password" id="password" placeholder="{{ lang::line('users::users.general.password') }}" autocomplete="off"><button class="btn append" type="submit">{{ Lang::line('users::users.button.login') }}</button>
 			</div>
 
-			<p class="help-block"><a href="{{ url(ADMIN.'/reset_password') }}">{{ Lang::line('users::users.reset_password') }}</a></p>
+			<p class="help-block"><a href="{{ url(ADMIN.'/reset_password') }}">{{ Lang::line('users::users.general.reset_password') }}</a></p>
 
 		{{ Form::close() }}
 
