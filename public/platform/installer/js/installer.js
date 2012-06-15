@@ -11,7 +11,7 @@ $(document).ready(function() {
 	| credentials before allowing them to
 	| continue with the install process.
 	*/
-	$('#database-form').find('select, input').bind('focus keyup change', function(e) {
+	$('#database-form').find('select, input').on('focus keyup change', function(e) {
 
 		// Check keycode - enter
 		// shouldn't trigger it
