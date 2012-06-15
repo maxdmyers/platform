@@ -50,26 +50,22 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		));
 		$menu = $result['menu'];
 
-		// // Loop through and build menu recursively
-		// $menus_view = '';
-		// foreach ($menu['children'] as $child)
-		// {
-		// 	$menus_view .= $this->make_menus_view_recursively($child);
-		// }
-
-		// // Set new menu template
-		// $item_template = json_encode((string) Theme::make('menus::edit/item_template'));
+		// Get last item ID
+		$result = API::get('menus/last_item_id');
+		$last_item_id = $result['last_item_id'];
 
 		return Theme::make('menus::edit')
 		            ->with('menu', $menu)
-		            ->with('menu_id', (isset($menu['id'])) ? $menu['id'] : false);
+		            ->with('menu_id', (isset($menu['id'])) ? $menu['id'] : false)
+		            ->with('item_template', json_encode(Theme::make('menus::edit/item_template')->render()))
+		            ->with('last_item_id', $last_item_id);
 	}
 
 	public function post_edit($id = false)
 	{
-		$items    = array();
+		$items = array();
 
-		foreach (Input::get('items') as $item)
+		foreach (Input::get('items_hierarchy') as $item)
 		{
 			$this->process_item_recursively($item, $items);
 		}
@@ -93,15 +89,15 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 	protected function process_item_recursively($item, &$items)
 	{
 		$new_item = array(
-			'name' => Input::get('inputs.'.$item['id'].'.name'),
-			'slug' => Input::get('inputs.'.$item['id'].'.slug'),
-			'uri'  => Input::get('inputs.'.$item['id'].'.uri'),
+			'name' => Input::get('item_fields'.$item['id'].'.name'),
+			'slug' => Input::get('item_fields'.$item['id'].'.slug'),
+			'uri'  => Input::get('item_fields'.$item['id'].'.uri'),
 		);
 
 		// Determine if we're a new item or not. If we're
 		// new, we don't attach an ID. Nesty will handle the
 		// rest.
-		if ( ! Input::get('inputs.'.$item['id'].'.is_new'))
+		if ( ! Input::get('item_fields'.$item['id'].'.is_new'))
 		{
 			$new_item['id'] = $item['id'];
 		}

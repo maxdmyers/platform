@@ -10,6 +10,29 @@
 
 @section('body_scripts')
 	{{ Theme::asset('js/bootstrap/bootstrap-tab.js') }}
+	{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}
+	{{ Theme::asset('menus::js/jquery/nestedsortable-1.3.4.js') }}
+	{{ Theme::asset('menus::js/platformmenu.js') }}
+
+	<script>
+	$(document).ready(function() {
+
+		/**
+		 * @todo, use window.history.replaceState() when a new
+		 *        item is saved, so that the /create url becomes
+		 *        /edit/:menu. Probably needs to be done here so we
+		 *        know our URLs.
+		 */
+
+		// Platform menu
+		$('#platform-menu').platformMenu({
+			menuId       : {{ $menu_id }},
+			saveUri      : '{{ URL::to(ADMIN.'/menus/edit') }}',
+			itemTemplate : {{ $item_template }},
+			lastItemId   : {{ $last_item_id }}
+		});
+	});
+	</script>
 @endsection
 
 @section('content')
@@ -25,44 +48,80 @@
 
 	<hr>
 
-	<div class="tabbable">
-		<ul class="nav nav-tabs">
-			<li class="{{ ($menu_id) ? 'active' : null }}"><a href="#menus-edit-items" data-toggle="tab">Items</a></li>
-			<li class="{{ ( ! $menu_id) ? 'active' : null }}"><a href="#menus-edit-menu-options" data-toggle="tab">Menu Options</a></li>
-		</ul>
-		<div class="tab-content">
-			<div class="tab-pane {{ ($menu_id) ? 'active' : null }}" id="menus-edit-items">
-				
-				<ol class="platform-menu" id="platform-menu">
-					@if ($menu['children'])
-						@foreach ($menu['children'] as $child)
-							@render('menus::edit.item', array('item' => $child))
-						@endforeach
-					@endif
-				</ol>
+	{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu')) }}
 
-			</div>
-			<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
-				
-				{{ Form::label('menu-name', 'Name') }}
-				{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => 'Name')) }}
+		<div class="tabbable">
+			<ul class="nav nav-tabs">
+				<li class="{{ ($menu_id) ? 'active' : null }}"><a href="#menus-edit-items" data-toggle="tab">Items</a></li>
+				<li class="{{ ( ! $menu_id) ? 'active' : null }}"><a href="#menus-edit-menu-options" data-toggle="tab">Menu Options</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane {{ ($menu_id) ? 'active' : null }}" id="menus-edit-items">
 
-				{{ Form::label('menu-slug', 'Slug') }}
-				{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => 'Slug')) }}
+					<div class="clearfix">
+						<a class="pull-right btn toggle-all-items">Toggle All <i class="icon-edit"></i></a>
+					</div>
 
+					<div class="clearfix">
+
+						<div class="platform-new-item">
+
+							<div class="well">
+
+								<h3>New Menu Item</h3>
+								<hr>
+
+								{{ Form::label('new-item-name', 'Name') }}
+								{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-name', 'placeholder' => 'Name')) }}
+
+								{{ Form::label('new-item-slug', 'Slug') }}
+								{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-slug', 'placeholder' => 'Slug')) }}
+
+								{{ Form::label('new-item-uri', 'Uri') }}
+								{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-uri', 'placeholder' => 'Uri')) }}
+
+								<hr>
+
+								<button type="button" class="btn btn-small btn-primary new-item-add">Add Item</button>
+
+							</div>
+
+						</div>
+
+						<ol class="platform-menu">
+							@if ($menu['children'])
+								@foreach ($menu['children'] as $child)
+									@render('menus::edit.item', array('item' => $child))
+								@endforeach
+							@endif
+						</ol>
+
+					</div>
+
+				</div>
+				<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
+					
+					{{ Form::label('menu-name', 'Name') }}
+					{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => 'Name')) }}
+
+					{{ Form::label('menu-slug', 'Slug') }}
+					{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => 'Slug')) }}
+
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="form-actions">
+		<div class="form-actions">
 
-		<button type="submit" class="btn btn-primary btn-save-menu">
-			{{ $menu_id ? 'Save' : 'Create' }} Menu
-		</button>
+			<button type="submit" class="btn btn-primary btn-save-menu">
+				{{ $menu_id ? 'Save' : 'Create' }} Menu
+			</button>
 
-		{{ HTML::link(ADMIN.'/menus', $menu_id ? 'Back' : 'Cancel', array('class' => 'btn')) }}
+			{{ HTML::link(ADMIN.'/menus', $menu_id ? 'Back' : 'Cancel', array('class' => 'btn')) }}
 
-	</div>
+		</div>
+
+	{{ Form::close() }}
 
 </section>
 
