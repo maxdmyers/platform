@@ -1,18 +1,12 @@
 @layout('templates.template')
 
-
-
 @section('title')
 	menus.title
 @endsection
 
-
 @section('links')
-	{{ Theme::asset('menus::css/menus.css') }}
+	{{ Theme::asset('menus::css/menus.less') }}
 @endsection
-
-
-
 
 @section('content')
 

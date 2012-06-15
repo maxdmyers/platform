@@ -18,6 +18,8 @@
  * @link       http://cartalyst.com
  */
 
+use Platform\Menus\Menu;
+
 class Dashboard_Admin_Dashboard_Controller extends Admin_Controller
 {
 

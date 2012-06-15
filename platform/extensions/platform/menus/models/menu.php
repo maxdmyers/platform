@@ -82,6 +82,50 @@ class Menu extends Nesty
 	}
 
 	/**
+	 * Get the children for this model.
+	 *
+	 * @param   int   $limit
+	 * @param   array $columns
+	 * @return  array
+	 */
+	public function enabled_children($limit = false, $columns = array('*'))
+	{
+		// If we have set the children property as
+		// false, there are no children
+		if ($this->children === false)
+		{
+			return array();
+		}
+
+		// Lazy load children
+		if (empty($this->children))
+		{
+			// Get an array of children from the database
+			$children_array = $this->query_enabled_children_array($limit, $columns);
+
+			// If we got an empty array of children
+			if (empty($children_array))
+			{
+				$this->children = false;
+				return $this->children();
+			}
+
+			// Hydrate our children. If hydrate children
+			// returns false, there are no children for this
+			// model. That means that $this->children === false,
+			// so we call this same method again which handles empty
+			// children
+			if ($this->fill_children($children_array) === false)
+			{
+				$this->children = false;
+				return $this->children();
+			}
+		}
+
+		return $this->children;
+	}
+
+	/**
 	 * Queries the database for all children
 	 * nodes of the current nesty model.
 	 *
@@ -94,7 +138,7 @@ class Menu extends Nesty
 	 * @param   array    $columns
 	 * @return  array
 	 */
-	protected function query_children_array($limit = false, $columns = array('*'))
+	protected function query_enabled_children_array($limit = false, $columns = array('*'))
 	{
 		// Table name
 		$table = static::table();
@@ -186,7 +230,7 @@ SQL;
 		if (ends_with($method, '_menu'))
 		{
 			// Configure menu properties
-			$name_parts = explode('_', substr($method, 0, 5));
+			$name_parts = explode('_', substr($method, 0, -5));
 			$name       = Str::title(implode(' ', $name_parts));
 			$slug       = Str::slug($name);
 

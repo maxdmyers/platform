@@ -26,13 +26,13 @@
 			<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
 		</ul>
 		<div class="tab-content">
-		    <div class="tab-pane active" id="general">
-		    	@widget('platform.users::form.edit', $id)
-		    </div>
-		    <div class="tab-pane" id="permissions">
-		    	@widget('platform.users::form.permissions', $id)
-		    </div>
-	  	</div>
+			<div class="tab-pane active" id="general">
+				@widget('platform.users::form.edit', $id)
+			</div>
+			<div class="tab-pane" id="permissions">
+				@widget('platform.users::form.permissions', $id)
+			</div>
+		</div>
 	</div>
 </section>
 @endsection

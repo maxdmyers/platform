@@ -5,7 +5,7 @@
 	 */
 
 	// CartMenu plugin
-	var CartaMenu = {
+	var PlatformMenu = {
 
 		// Settings
 		settings : {
@@ -142,7 +142,7 @@
 		 * 
 		 * @param  string  name
 		 * @param  string  uri
-		 * @return CartaMenu
+		 * @return PlatformMenu
 		 */
 		addMenuItem: function(name, slug, uri) {
 
@@ -228,8 +228,8 @@
 	}
 
 	// The actual jquery plugin
-	$.fn.cartaMenu = function(settings) {
-		CartaMenu.init(this, settings);
+	$.fn.platformMenu = function(settings) {
+		PlatformMenu.init(this, settings);
 	}
 
 	$.fn.serializeObject = function()

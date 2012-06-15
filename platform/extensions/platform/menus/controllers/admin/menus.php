@@ -45,26 +45,24 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 	public function get_edit($id = false)
 	{
 		// Get menu from API
-		$menu = API::get('menus/menu', array(
+		$result = API::get('menus/menu', array(
 			'id' => $id,
 		));
+		$menu = $result['menu'];
 
-		// Loop through and build menu recursively
-		$menus_view = '';
-		foreach ($menu['children'] as $child)
-		{
-			$menus_view .= $this->make_menus_view_recursively($child);
-		}
+		// // Loop through and build menu recursively
+		// $menus_view = '';
+		// foreach ($menu['children'] as $child)
+		// {
+		// 	$menus_view .= $this->make_menus_view_recursively($child);
+		// }
 
-		// Set new menu template
-		$item_template = json_encode((string) Theme::make('menus::edit/item_template'));
+		// // Set new menu template
+		// $item_template = json_encode((string) Theme::make('menus::edit/item_template'));
 
 		return Theme::make('menus::edit')
 		            ->with('menu', $menu)
-		            ->with('menus_view', $menus_view)
-		            ->with('item_template', $item_template)
-		            ->with('menu_id', $id ? $id : 'false')
-		            ->with('last_item_id', API::get('menus/last_item_id'));
+		            ->with('menu_id', (isset($menu['id'])) ? $menu['id'] : false);
 	}
 
 	public function post_edit($id = false)

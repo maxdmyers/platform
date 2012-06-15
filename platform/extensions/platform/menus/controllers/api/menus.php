@@ -44,10 +44,16 @@ class Menus_API_Menus_Controller extends API_Controller
 		if ($menu)
 		{
 			$menu->children();
-			return $menu;
+		}
+		else
+		{
+			$menu = new Menu();
 		}
 
-		return new Menu();
+		return array(
+			'status' => true,
+			'menu'   => $menu,
+		);
 	}
 
 	/**
@@ -55,7 +61,10 @@ class Menus_API_Menus_Controller extends API_Controller
 	 */
 	public function get_last_item_id()
 	{
-		return (($last_item = Menu::find('last')) === null) ? 0 : $last_item->id;
+		return array(
+			'status'       => true,
+			'last_item_id' => (($last_item = Menu::find('last')) === null) ? 0 : $last_item->id,
+		);
 	}
 
 	/**
