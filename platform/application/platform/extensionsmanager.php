@@ -456,7 +456,7 @@ class ExtensionsManager
 					continue;
 				}
 
-				$uninstalled[] = ($detailed === true) ? $info : $slug;	
+				$uninstalled[] = ($detailed === true) ? $info : $slug;
 			}
 			catch (Exception $e)
 			{
@@ -473,7 +473,7 @@ class ExtensionsManager
 	 *
 	 * Extensions are parsed through the order in which they're
 	 * passed to this function.
-	 * 
+	 *
 	 * @param   mixed
 	 * @return  array
 	 */
@@ -486,6 +486,8 @@ class ExtensionsManager
 
 		foreach (func_get_args() as $extensions)
 		{
+			$extensions = (array) $extensions;
+
 			foreach ($extensions as $extension)
 			{
 				$extension = dirname($extension);
@@ -516,8 +518,8 @@ class ExtensionsManager
 	 */
 	public function extensions_directories()
 	{
-		$grouped_extensions   = glob(path('bundle').'*'.DS.'*'.DS.'extension'.EXT, GLOB_NOSORT);
-		$top_level_extensions = glob(path('bundle').'*'.DS.'extension'.EXT, GLOB_NOSORT);
+		$grouped_extensions   = (array) glob(path('bundle').'*'.DS.'*'.DS.'extension'.EXT, GLOB_NOSORT);
+		$top_level_extensions = (array) glob(path('bundle').'*'.DS.'extension'.EXT, GLOB_NOSORT);
 
 		return $this->cascade_extesions_directories($top_level_extensions, $grouped_extensions);
 	}
