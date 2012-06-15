@@ -1,30 +1,18 @@
-
-	{{ Form::open(ADMIN.'/settings/general') }}
+{{ Form::open(ADMIN.'/settings/general', 'POST', array('class' => 'form-horizontal')) }}
+	<div class="well">
 		<fieldset>
-			<legend>{{ Lang::line('settings::settings.general.legend') }}</legend>
 
-			<div class="control-group">
-				<label class="control-label" for="site-title">{{ Lang::line('settings::settings.general.title') }}</label>
-				<div class="controls">
-					<input type="text" id="site-title" name="general:title" value="@get.settings.general.title">
-				</div>
-			</div>
+			<label for="site-title">{{ Lang::line('settings::settings.general.title') }}</label>
+			<input type="text" id="site-title" name="general:title" value="@get.settings.general.title">
 
-			<div class="control-group">
-				<label class="control-label" for="site-tagline">{{ Lang::line('settings::settings.general.tagline') }}</label>
-				<div class="controls">
-					<input type="text" id="site-tagline" name="general:tagline" value="@get.settings.general.tagline">
-				</div>
-			</div>
+			<label for="site-tagline">{{ Lang::line('settings::settings.general.tagline') }}</label>
+			<input type="text" id="site-tagline" name="general:tagline" value="@get.settings.general.tagline">
 
-			<div class="control-group">
-				<label class="control-label" for="site-email">{{ Lang::line('settings::settings.general.site-email') }}</label>
-				<div class="controls">
-					<input type="text" id="site-email" name="general:site-email" value="@get.settings.general.site-email">
-				</div>
-			</div>
+			<label for="site-email">{{ Lang::line('settings::settings.general.site-email') }}</label>
+			<input type="text" id="site-email" name="general:site-email" value="@get.settings.general.site-email">
 
 		</fieldset>
+	</div>
 
-		<input type="submit" value="Update">
-	{{ Form::close() }}
+	<button class="btn btn-large" type="submit" value="{{ Lang::line('users::users.button.create') }}">{{ Lang::line('users::users.button.update') }}</button>
+{{ Form::close() }}

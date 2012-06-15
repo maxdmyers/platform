@@ -25,8 +25,6 @@ return array(
 	'title'			=> 	'Settings',
 	'description'	=>	'You can change your preferences at anytime by choosing from the sections below.',
 
-	/* Widgets */
-
 	/* Form General */
 	'general' => array(
 		'legend'           => 'General Settings',
