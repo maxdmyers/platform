@@ -65,17 +65,44 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 	{
 		$items = array();
 
-		foreach (Input::get('items_hierarchy') as $item)
+		$input_hierarchy = Input::get('items_hierarchy');
+
+		// JSON string on non-AJAX form
+		if (is_string($input_hierarchy))
+		{
+			$input_hierarchy = json_decode($input_hierarchy, true);
+		}
+
+		foreach ($input_hierarchy as $item)
 		{
 			$this->process_item_recursively($item, $items);
 		}
 
-		API::post('menus/menu', array(
+		$result = API::post('menus/menu', array(
 			'id'    => $id,
 			'name'  => Input::get('name'),
 			'slug'  => Input::get('slug'),
 			'items' => $items,
 		));
+
+		// Ajax form
+		if (Request::ajax())
+		{
+			// The menu is usually a property of the
+			// API response, don't need to transport
+			// all of this data...
+			array_forget($result, 'menu');
+
+			return new Response(json_encode($result));
+		}
+
+		// Traditional form submission
+		if ( ! $result['status'])
+		{
+			Cartalyst::messages()->error($result['message']);
+		}
+
+		return Redirect::to(ADMIN.'/menus/edit/'.array_get($result, 'menu.id'));
 	}
 
 
@@ -89,15 +116,15 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 	protected function process_item_recursively($item, &$items)
 	{
 		$new_item = array(
-			'name' => Input::get('item_fields'.$item['id'].'.name'),
-			'slug' => Input::get('item_fields'.$item['id'].'.slug'),
-			'uri'  => Input::get('item_fields'.$item['id'].'.uri'),
+			'name' => Input::get('item_fields.'.$item['id'].'.name'),
+			'slug' => Input::get('item_fields.'.$item['id'].'.slug'),
+			'uri'  => Input::get('item_fields.'.$item['id'].'.uri'),
 		);
 
 		// Determine if we're a new item or not. If we're
 		// new, we don't attach an ID. Nesty will handle the
 		// rest.
-		if ( ! Input::get('item_fields'.$item['id'].'.is_new'))
+		if ( ! Input::get('item_fields.'.$item['id'].'.is_new'))
 		{
 			$new_item['id'] = $item['id'];
 		}

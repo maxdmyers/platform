@@ -84,6 +84,8 @@ class Menus_API_Menus_Controller extends API_Controller
 
 				return $root_item;
 			});
+
+			$menu->children();
 		}
 		catch (\Exception $e)
 		{

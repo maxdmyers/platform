@@ -20,6 +20,7 @@
 		// Nesty Sortable
 		$('#platform-menu').nestySortable({
 			sortableSelector : '.platform-menu',
+			ajax             : false,
 			fields           : [
 				{
 					name        : 'name',

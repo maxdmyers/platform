@@ -23,7 +23,7 @@
 
 			<hr>
 
-			<button class="pull-right btn btn-danger btn-mini item-remove" {{ ( ! $item['user_editable']) ? 'adisabled' : null }}>
+			<button class="pull-right btn btn-danger btn-mini item-remove" {{ ( ! $item['user_editable']) ? 'disabled' : null }}>
 				{{ ($item['user_editable']) ? 'Remove Item' : 'Required - Cannot Remove' }}
 			</button>
 

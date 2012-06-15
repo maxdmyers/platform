@@ -52,6 +52,10 @@ function dump(arr,level) {
 			// used to cache the sortable list property
 			sortableSelector: null,
 
+			// Is the form to AJAX submit or tranditional
+			// submit?
+			ajax: false,
+
 			/**
 			 * An array of fields for the Nesty sortable.
 			 *
@@ -131,9 +135,11 @@ function dump(arr,level) {
 				toleranceElement     : '> div'
 			});
 
+			// Observers
 			self.observeAddingItems()
 			    .observeToggling()
-			    .observeRemovingItems();
+			    .observeRemovingItems()
+			    .observeSaving();
 		},
 
 		/**
@@ -257,6 +263,8 @@ function dump(arr,level) {
 			$('body').on('click', self.elem.selector + ' ' + self.settings.itemRemoveSelector, function(e) {
 				e.preventDefault();
 
+				confirm()
+
 				// Find the closest item
 				var list = $(this).closest(self.settings.listSelector);
 
@@ -285,6 +293,58 @@ function dump(arr,level) {
 				// Remove our list item
 				return list.remove();
 			});
+
+			return this;
+		},
+
+		/**
+		 * Observes saving the menu.
+		 */
+		observeSaving: function() {
+			var self = this;
+
+			// Catch form submission.
+			self.elem.submit(function(e) {
+
+				// AJAX form submission
+				if (self.settings.ajax === true) {
+					e.preventDefault();
+
+					var postData = $.extend($(this).find('input').serializeObject(), {
+						'items_hierarchy': self.sortable().nestedSortable('toHierarchy', {
+							attribute: 'data-item'
+						})
+					});
+
+					// AJAX call to save menu
+					$.ajax({
+						url      : $(this).attr('action'),
+						type     : 'POST',
+						dataType : 'json',
+						data     : postData,
+						success  : function(data, textStatus, jqXHR) {
+							if (data.status) {
+								
+							}
+						},
+						error    : function(jqXHR, textStatus, errorThrown) {
+							alert(jqXHR.status + ' ' + errorThrown);
+						}
+					});
+
+					return false;
+				}
+
+				// Traditional form submission
+				var postData = self.sortable().nestedSortable('toHierarchy', {
+					attribute: 'data-item'
+				});
+
+				// Append input to the form. It's values are JSON encoded..
+				self.elem.append('<input type="hidden" name="items_hierarchy" value=\'' + JSON.stringify(postData) + '\'>');
+
+				return true;
+			});
 		}
 	}
 
@@ -293,13 +353,14 @@ function dump(arr,level) {
 		NestySortable.init(this, settings);
 	}
 
-	$.fn.serializeObject = function()
-	{
+	// Tiny plugin to serialise an object
+	$.fn.serializeObject = function() {
+
 		var o = {};
 		var a = this.serializeArray();
 		$.each(a, function() {
 			if (o[this.name] !== undefined) {
-				if (!o[this.name].push) {
+				if ( ! o[this.name].push) {
 					o[this.name] = [o[this.name]];
 				}
 				o[this.name].push(this.value || '');
