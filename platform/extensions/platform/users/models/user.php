@@ -80,12 +80,12 @@ class User extends Crud
 		$groups = array();
 		if (array_key_exists('groups', $attributes))
 		{
-			if ( ! empty($groups))
+			if ( ! empty($attributes['groups']))
 			{
 				$groups = $attributes['groups'];
 			}
 
-			if ( ! is_array($groups))
+			if ( ! is_array($attributes['groups']) and ! empty($attributes['groups']))
 			{
 				$groups = array($groups);
 			}
