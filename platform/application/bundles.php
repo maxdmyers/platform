@@ -53,6 +53,10 @@ return array(
 		'location' => 'path: '.path('app').'bundles'.DS.'sentry',
 		'auto'     => true,
 	),
+	'swiftmailer' => array(
+		'location' => 'path: '.path('app').'bundles'.DS.'swiftmailer',
+		//'auto'     => true,
+	),
 	'theme'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'theme',
 		'auto'     => true,

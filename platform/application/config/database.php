@@ -1,4 +1,22 @@
 <?php
+/**
+ * Part of the Platform application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the 3-clause BSD License.
+ *
+ * This source file is subject to the 3-clause BSD License that is
+ * bundled with this package in the LICENSE file.  It is also available at
+ * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
+ * @package    Platform
+ * @version    1.0
+ * @author     Cartalyst LLC
+ * @license    BSD License (3-clause)
+ * @copyright  (c) 2011 - 2012, Cartalyst LLC
+ * @link       http://cartalyst.com
+ */
 
 return array(
 
@@ -14,7 +32,7 @@ return array(
 	|
 	*/
 
-	'profile' => true,
+	'profile' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -61,62 +79,14 @@ return array(
 
 	'connections' => array(
 
-		'sqlite' => array(
-			'driver'   => 'sqlite',
-			'database' => 'application',
-			'prefix'   => '',
-		),
-
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     =>  $_SERVER['DB_HOSTNAME'], // localhost
-			'database' =>  $_SERVER['DB_DATABASE'], // database
-			'username' =>  $_SERVER['DB_USERNAME'], // root
-			'password' =>  $_SERVER['DB_PASSWORD'],
-			'charset'  => 'utf8',
-			'prefix'   => '',
-		),
-
-		'pgsql' => array(
-			'driver'   => 'pgsql',
 			'host'     => 'localhost',
-			'database' => 'database',
+			'database' => 'platinstall',
 			'username' => 'root',
 			'password' => '',
 			'charset'  => 'utf8',
 			'prefix'   => '',
-		),
-
-		'sqlsrv' => array(
-			'driver'   => 'sqlsrv',
-			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
-			'prefix'   => '',
-		),
-
-	),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Redis Databases
-	|--------------------------------------------------------------------------
-	|
-	| Redis is an open source, fast, and advanced key-value store. However, it
-	| provides a richer set of commands than a typical key-value store such as
-	| APC or memcached. All the cool kids are using it.
-	|
-	| To get the scoop on Redis, check out: http://redis.io
-	|
-	*/
-
-	'redis' => array(
-
-		'default' => array(
-			'host'     => '127.0.0.1',
-			'port'     => 6379,
-			'database' => 0
 		),
 
 	),

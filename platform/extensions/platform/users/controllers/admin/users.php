@@ -326,10 +326,25 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	 */
 	public function post_reset_password()
 	{
-		$data = API::post('users/reset_password', array(
+		$reset = API::post('users/reset_password', array(
 			'email'    => Input::get('email'),
 			'password' => Input::get('password')
 		));
+
+		if ($reset['status'])
+		{
+			$data = array(
+				'status'   => true,
+				'redirect' => URL::to(ADMIN)
+			);
+		}
+		else
+		{
+			$data = array(
+				'status' => false,
+				'message' => $reset['message']
+			);
+		}
 
 		return json_encode($data);
 	}

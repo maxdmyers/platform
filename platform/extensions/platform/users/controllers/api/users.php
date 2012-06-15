@@ -303,40 +303,36 @@ class Users_API_Users_Controller extends API_Controller
 
 	public function post_reset_password()
 	{
-		$reset = Sentry::reset_password(Input::get('email'), Input::get('password'));
+		try
+		{
+			$reset = Sentry::reset_password(Input::get('email'), Input::get('password'));
+		}
+		catch(\Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage(),
+			);
+		}
 
 		if ($reset)
 		{
-			// TODO: email
-			// set email properties
-			// $mail = Email::forge();
-			// $mail->to(Input::post('email'));
-			// $mail->from('admin@site.com', 'Site'); // TODO - Grab email from site config
-			// $mail->subject('Sitrep - Password Reset'); // TODO - Grab subject from site config
-			// $mail->body(
-			// 	'Please go to the link provided below to reset your password to: '.$post['password']."\n\n" .
-			// 	"\t".Config::get('base_url').'users/reset_password_confirm/'.$response['link']
-			// );
+			// start up swiftmailer
+			Bundle::start('swiftmailer');
 
-			// // send email
-			// try
-			// {
-			//     $mail->send();
-			// }
-			// catch(\EmailValidationFailedException $e)
-			// {
-			// 	return $this->response(array(
-			// 		'status'  => false,
-			// 		'message' => $e->getMessage()
-			// 	));
-			// }
-			// catch(\EmailSendingFailedException $e)
-			// {
-			//     return $this->response(array(
-			// 		'status'  => false,
-			// 		'message' => $e->getMessage()
-			// 	));
-			// }
+			// Get the Swift Mailer instance
+			$mailer = IoC::resolve('mailer');
+
+			// Construct the message
+			$message = Swift_Message::newInstance(Platform::get('settings.general.title').' - Password Reset')
+			    ->setFrom(Platform::get('settings.general.email'), Platform::get('settings.general.title'))
+			    ->setTo(Input::get('email'))
+			    ->setBody(
+			    	'Please go to the link provided below to change your password to the provided reset password.'."\n\n".
+					"\t".URL::to('admin/reset_password_confirm/'.$reset['link']),'text/html');
+
+			// Send the email
+			$mailer->send($message);
 
 			return array(
 				'status'  => true,
