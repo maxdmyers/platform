@@ -56,8 +56,6 @@ class ExtensionsManager
 		foreach ($extensions as $extension)
 		{
 			$this->start($extension);
-
-			$this->reset_migrations($extension);
 		}
 
 		return $this;
@@ -213,6 +211,12 @@ class ExtensionsManager
 		 * @todo remove when my pull request gets accepted
 		 */
 		ob_start();
+
+		/**
+		 * @todo Remove - this is a temp fix for the
+		 *       problem below.
+		 */
+		$this->reset_migrations($extension);
 
 		// Reset migrations - loose all data
 		// Command::run(array('migrate:reset', $extension->slug));
@@ -612,12 +616,15 @@ class ExtensionsManager
 	 */
 	protected function reset_migrations(Extension $extension)
 	{
-		$files = glob(Bundle::path($extension->slug).'migrations/*_*'.EXT);
+		// Start the extension so we can find it's bundle path
+		$this->start($extension);
+
+		$files = (array) glob(Bundle::path($extension->slug).'migrations'.DS.'*_*'.EXT);
 
 		// When open_basedir is enabled, glob will return false on an
 		// empty directory, so we will return an empty array in this
 		// case so the application doesn't bomb out.
-		if ($files === false)
+		if (empty($files))
 		{
 			return array();
 		}
@@ -657,15 +664,15 @@ class ExtensionsManager
 			$migration = new $class;
 
 			// Run down the migration
-			// $migration->down();
+			$migration->down();
 		}
 
-		/**
-		 * @todo finish this migrations off
-		 */
+		// Remove the entry from the migrations table
+		DB::table('laravel_migrations')
+		  ->where('bundle', '=', $extension->slug)
+		  ->delete();
 
-
-		// echo "<br>";
+		return $this;
 	}
 
 }
