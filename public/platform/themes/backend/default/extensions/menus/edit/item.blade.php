@@ -11,23 +11,23 @@
 			<div class="form-inline well">
 				{{ Form::hidden('item_fields['.$item['id'].'][is_new]', 0) }}
 
-				{{ Form::label('menu-items-'.$item['id'].'-name', 'Name') }}
-				{{ Form::text('item_fields['.$item['id'].'][name]', $item['name'], array('id' => 'menu-items-'.$item['id'].'-name', 'placeholder' => 'Name', ( ! $item['user_editable']) ? 'disabled' : null)) }}
+				{{ Form::label('menu-items-'.$item['id'].'-name', Lang::line('menus::menus.general.name')) }}
+				{{ Form::text('item_fields['.$item['id'].'][name]', $item['name'], array('id' => 'menu-items-'.$item['id'].'-name', 'placeholder' => Lang::line('menus::menus.general.name'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
-				{{ Form::label('menu-items-'.$item['id'].'-slug', 'Slug') }}
-				{{ Form::text('item_fields['.$item['id'].'][slug]', $item['slug'], array('id' => 'menu-items-'.$item['id'].'-slug', 'placeholder' => 'Slug', ( ! $item['user_editable']) ? 'disabled' : null)) }}
+				{{ Form::label('menu-items-'.$item['id'].'-slug', Lang::line('menus::menus.general.slug')) }}
+				{{ Form::text('item_fields['.$item['id'].'][slug]', $item['slug'], array('id' => 'menu-items-'.$item['id'].'-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
-				{{ Form::label('menu-items-'.$item['id'].'-uri', 'Uri') }}
-				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => 'Uri', ( ! $item['user_editable']) ? 'disabled' : null)) }}
+				{{ Form::label('menu-items-'.$item['id'].'-uri', Lang::line('menus::menus.general.uri')) }}
+				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
-				{{ Form::label('menu-items-'.$item['id'].'-status', 'Enabled') }}
+				{{ Form::label('menu-items-'.$item['id'].'-status', Lang::line('menus::menus.general.status')) }}
 				{{ Form::select('item_fields['.$item['id'].'][status]', array(1 => Lang::line('menus::menus.general.yes'), 0 => Lang::line('menus::menus.general.no')), $item['status'], array('id' => 'menu-items-'.$item['id'].'-status', ( ! $item['user_editable']) ? 'disabled' : null)) }}
 			</div>
 
 			<hr>
 
 			<button class="pull-right btn btn-danger btn-mini item-remove" {{ ( ! $item['user_editable']) ? 'disabled' : null }}>
-				{{ ($item['user_editable']) ? 'Remove Item' : 'Required - Cannot Remove' }}
+				{{ Lang::line('menus::menus.button.remove_item'.(( ! $item['user_editable']) ? '_disabled' : null))}}
 			</button>
 
 		</section>

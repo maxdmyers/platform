@@ -86,6 +86,12 @@ return array(
 		'success' => 'The user was deleted successfully.',
 	),
 
+	/* Tabs */
+	'tabs' => array(
+		'general'     => 'General',
+		'permissions' => 'Permissions',
+	),
+
 	/* Reset Password */
 	'reset' => array(
 		'password_confirm_success' => 'Your password reset has confirmed and updated successfully. You may now log in with your new password.',
