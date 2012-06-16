@@ -252,6 +252,11 @@ SQL;
 					'status'        => 1,
 				));
 
+				if ($callback = array_shift($parameters) and $callback instanceof Closure)
+				{
+					$menu = $callback($menu);
+				}
+
 				$menu->root();
 			}
 
