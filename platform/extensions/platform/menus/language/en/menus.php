@@ -20,14 +20,9 @@
 
 return array(
 
-	/**
-	 * NOTE:
-	 * check Sentry (application/bundles/sentry) for more lang options concerning users
-	 */
-
 	/* General */
 	'general' => array(
-		'title'                 => 'User Management',
+		'title'                 => 'Menus Management',
 		'description'           => 'Manage users, groups, and access rights.',
 		'disabled'              => 'Disabled',
 		'email'                 => 'Email',
@@ -49,6 +44,8 @@ return array(
 		'reset_password'        => 'Reset Password',
 		'reset_help'            => 'An email will be sent with instructions.',
 		'status'                => 'Status',
+		'yes'                   => 'Yes',
+		'no'                    => 'No',
 	),
 
 	/* Buttons */

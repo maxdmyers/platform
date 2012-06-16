@@ -19,6 +19,9 @@
 
 				{{ Form::label('menu-items-'.$item['id'].'-uri', 'Uri') }}
 				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => 'Uri', ( ! $item['user_editable']) ? 'disabled' : null)) }}
+
+				{{ Form::label('menu-items-'.$item['id'].'-status', 'Enabled') }}
+				{{ Form::select('item_fields['.$item['id'].'][status]', array(1 => Lang::line('menus::menus.general.yes'), 0 => Lang::line('menus::menus.general.no')), $item['status'], array('id' => 'menu-items-'.$item['id'].'-status', ( ! $item['user_editable']) ? 'disabled' : null)) }}
 			</div>
 
 			<hr>
