@@ -31,7 +31,7 @@
 <body>
 	<div id="base">
 		<div id="page">
-			<nav>@widget('platform.menus::menus.nav', 0, 1, 'nav nav-tabs')</nav>
+			<nav>@widget('platform.menus::menus.nav', 'front', 1, 'nav nav-tabs')</nav>
 			@yield('content')
 		</div>
 	</div>
