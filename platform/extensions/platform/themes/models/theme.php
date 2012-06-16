@@ -64,8 +64,11 @@ class Theme extends Crud
 			static::$_css_content .= $selector.' {'."\n".$styles.'}'."\n\n";
 		}
 
+		// get compile dir from theme bundle
+		$compile_dir = str_finish(\Config::get('theme::theme.compile_directory'), DS);
+
 		// set path for css file
-		static::$_filepath = path('theme_'.$attributes['type']).$attributes['theme'].DS.'assets'.DS.'css'.DS.'theme_options.css';
+		static::$_filepath = path('public').\Theme::get_directory().$compile_dir.$attributes['type'].DS.$attributes['theme'].DS.'assets'.DS.'css'.DS.'theme_options.css';
 
 		// encode options for db storage
 		$attributes['options'] = json_encode($attributes['options']);
@@ -132,16 +135,8 @@ class Theme extends Crud
 	 */
 	public static function fetch($type, $name = null)
 	{
-		if (array_key_exists('theme_'.$type, $GLOBALS['laravel_paths']))
-		{
-			$path = path('theme_'.$type);
-		}
-		else
-		{
-			return array();
-		}
-
 		// use default namespace to use theme class, rather than pointing to this model
+		$path = path('public').\Theme::get_directory().$type;
 		$theme_list = \Theme::find_all($type);
 
 		$themes = array();

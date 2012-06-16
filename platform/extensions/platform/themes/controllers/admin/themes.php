@@ -230,7 +230,7 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 			$data['active']['name'] = $active['value'];
 
 			// set all themes to inactive
-			$data['inactive'] = $data['themes'];
+			$data['inactive'] = $themes['themes'];
 		}
 
 		return $data;
