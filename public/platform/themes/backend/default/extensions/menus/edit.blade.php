@@ -117,10 +117,10 @@
 				<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
 					
 					{{ Form::label('menu-name', 'Name') }}
-					{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => 'Name')) }}
+					{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => 'Name', (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : null)) }}
 
 					{{ Form::label('menu-slug', 'Slug') }}
-					{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => 'Slug')) }}
+					{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => 'Slug', (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : null)) }}
 
 				</div>
 			</div>
