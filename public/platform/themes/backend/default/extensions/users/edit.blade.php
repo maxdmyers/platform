@@ -22,8 +22,8 @@
 
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="#general" data-toggle="tab">General</a></li>
-			<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
+			<li class="active"><a href="#general" data-toggle="tab">{{ Lang::line('users::users.tabs.general') }}</a></li>
+			<li><a href="#permissions" data-toggle="tab">{{ Lang::line('users::users.tabs.permissions') }}</a></li>
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="general">

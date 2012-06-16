@@ -22,41 +22,28 @@ return array(
 
 	/* General */
 	'general' => array(
-		'title'                 => 'Menus Management',
-		'description'           => 'Manage users, groups, and access rights.',
-		'disabled'              => 'Disabled',
-		'email'                 => 'Email',
-		'enabled'               => 'Enabled',
-		'first_name'            => 'First Name',
-		'groups'                => 'Groups',
-		'id'	                => 'Id',
-		'id_required'           => 'A user Id is required.',
-		'invalid_login'         => 'Invalid user name or password.',
-		'last_name'             => 'Last Name',
-		'login'                 => 'Login',
-		'new_password'          => 'New Password',
-		'not_admin'             => 'Invalid admin user.',
-		'not_found'             => 'User not found.',
-		'password'              => 'Password',
-		'password_confirmation' => 'Confirm Password',
-		'password_help'         => 'Leave password fields blank unless you want to change them.',
-		'remember_me'           => 'Remember Me',
-		'reset_password'        => 'Reset Password',
-		'reset_help'            => 'An email will be sent with instructions.',
-		'status'                => 'Status',
-		'yes'                   => 'Yes',
-		'no'                    => 'No',
+		'title'       => 'Menus Management',
+		'description' => 'Manage menus and their items.',
+		'yes'         => 'Yes',
+		'no'          => 'No',
+		'name'        => 'Name',
+		'slug'        => 'Slug',
+		'uri'         => 'Uri',
+		'status'      => 'Enabled',
+		'new_item'    => 'New Item',
 	),
 
 	/* Buttons */
 	'button' => array(
-		'create'         => 'Create User',
-		'cancel'         => 'Cancel',
-		'delete'         => 'Delete',
-		'edit'           => 'Edit',
-		'login'          => 'Sign In',
-		'reset_password' => 'Reset',
-		'update'         => 'Save Changes',
+		'create'               => 'Create Menu',
+		'cancel'               => 'Cancel',
+		'delete'               => 'Delete',
+		'edit'                 => 'Edit',
+		'update'               => 'Save Changes',
+		'add_item'             => 'Add Item',
+		'remove_item'          => 'Remove Item',
+		'remove_item_disabled' => 'Required - Cannot Remove',
+		'toggle_items_details' => 'Toggle All',
 	),
 
 	/* Create User */
@@ -70,10 +57,10 @@ return array(
 
 	/* Update User */
 	'update' => array(
-		'title'          => 'Update User',
+		'title'          => 'Update Menu',
 		'description'    => 'Please update the following information.',
-		'error'          => 'User was not updated, please try again',
-		'metadata_error' => 'Unable to add user metadata. Please try again',
+		// 'error'          => 'User was not updated, please try again',
+		// 'metadata_error' => 'Unable to add user metadata. Please try again',
 		'success'        => 'User updated successfully.',
 	),
 
@@ -83,12 +70,10 @@ return array(
 		'success' => 'The user was deleted successfully.',
 	),
 
-	/* Reset Password */
-	'reset' => array(
-		'password_confirm_success' => 'Your password reset has confirmed and updated successfully. You may now log in with your new password.',
-		'password_confirm_error'   => 'There was an error confirming your password reset. Please try again.',
-		'password_error'           => 'Unable to reset your password, please make sure both Email and Password are set and you are using a registered email address.',
-		'password_success'         => 'Your password has been reset, please check your email to confirm.',
+	/* Tabs */
+	'tabs' => array(
+		'items'   => 'Items',
+		'options' => 'Menu Options',
 	),
 
 	/* Logs */

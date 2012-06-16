@@ -51,93 +51,91 @@
 @endsection
 
 @section('content')
+	<section id="menus-edit">
 
-<section id="menus-edit">
+		<header class="head row">
+			<div class="span4">
+				<h1>{{ Lang::line('menus::menus.update.title') }}</h1>
+				<p>{{ Lang::line('menus::menus.update.description') }}</p>
+			</div>
+		</header>
 
-	<header class="head row">
-		<div class="span4">
-			<h1>Edit Menu</h1>
-			<p>Blah blah blah</p>
-		</div>
-	</header>
+		<hr>
 
-	<hr>
+		{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off')) }}
 
-	{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off')) }}
+			<div class="tabbable">
+				<ul class="nav nav-tabs">
+					<li class="{{ ($menu_id) ? 'active' : null }}"><a href="#menus-edit-items" data-toggle="tab">{{ Lang::line('menus::menus.tabs.items') }}</a></li>
+					<li class="{{ ( ! $menu_id) ? 'active' : null }}"><a href="#menus-edit-menu-options" data-toggle="tab">{{ Lang::line('menus::menus.tabs.options') }}</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane {{ ($menu_id) ? 'active' : null }}" id="menus-edit-items">
 
-		<div class="tabbable">
-			<ul class="nav nav-tabs">
-				<li class="{{ ($menu_id) ? 'active' : null }}"><a href="#menus-edit-items" data-toggle="tab">Items</a></li>
-				<li class="{{ ( ! $menu_id) ? 'active' : null }}"><a href="#menus-edit-menu-options" data-toggle="tab">Menu Options</a></li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane {{ ($menu_id) ? 'active' : null }}" id="menus-edit-items">
+						<div class="clearfix">
+							<a class="pull-right btn items-toggle-all">{{ Lang::line('menus::menus.button.toggle_items_details') }} <i class="icon-edit"></i></a>
+						</div>
 
-					<div class="clearfix">
-						<a class="pull-right btn items-toggle-all">Toggle All <i class="icon-edit"></i></a>
-					</div>
+						<div class="clearfix">
 
-					<div class="clearfix">
+							<div class="platform-new-item">
 
-						<div class="platform-new-item">
+								<div class="well">
 
-							<div class="well">
+									<h3>{{ Lang::line('menus::menus.general.new_item') }}</h3>
+									<hr>
 
-								<h3>New Menu Item</h3>
-								<hr>
+									{{ Form::label('new-item-name', Lang::line('menus::menus.general.name')) }}
+									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-name', 'placeholder' => Lang::line('menus::menus.general.name'))) }}
 
-								{{ Form::label('new-item-name', 'Name') }}
-								{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-name', 'placeholder' => 'Name')) }}
+									{{ Form::label('new-item-slug', Lang::line('menus::menus.general.slug')) }}
+									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-slug', 'placeholder' => Lang::line('menus::menus.general.slug'))) }}
 
-								{{ Form::label('new-item-slug', 'Slug') }}
-								{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-slug', 'placeholder' => 'Slug')) }}
+									{{ Form::label('new-item-uri', Lang::line('menus::menus.general.uri')) }}
+									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-uri', 'placeholder' => Lang::line('menus::menus.general.uri'))) }}
 
-								{{ Form::label('new-item-uri', 'Uri') }}
-								{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-uri', 'placeholder' => 'Uri')) }}
+									<hr>
 
-								<hr>
+									<button type="button" class="btn btn-small btn-primary items-add-new">{{ Lang::line('menus::menus.button.add_item') }}</button>
 
-								<button type="button" class="btn btn-small btn-primary items-add-new">Add Item</button>
+								</div>
 
 							</div>
 
+							<ol class="platform-menu">
+								@if ($menu['children'])
+									@foreach ($menu['children'] as $child)
+										@render('menus::edit.item', array('item' => $child))
+									@endforeach
+								@endif
+							</ol>
+
 						</div>
 
-						<ol class="platform-menu">
-							@if ($menu['children'])
-								@foreach ($menu['children'] as $child)
-									@render('menus::edit.item', array('item' => $child))
-								@endforeach
-							@endif
-						</ol>
+					</div>
+					<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
+						
+						{{ Form::label('menu-name', Lang::line('menus::menus.general.name')) }}
+						{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => Lang::line('menus::menus.general.name'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : null)) }}
+
+						{{ Form::label('menu-slug', Lang::line('menus::menus.general.slug')) }}
+						{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : null)) }}
 
 					</div>
-
-				</div>
-				<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
-					
-					{{ Form::label('menu-name', 'Name') }}
-					{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => 'Name')) }}
-
-					{{ Form::label('menu-slug', 'Slug') }}
-					{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => 'Slug')) }}
-
 				</div>
 			</div>
-		</div>
 
-		<div class="form-actions">
+			<div class="form-actions">
 
-			<button type="submit" class="btn btn-primary btn-save-menu">
-				{{ $menu_id ? 'Save' : 'Create' }} Menu
-			</button>
+				<button type="submit" class="btn btn-primary btn-save-menu">
+					{{ Lang::line('menus::menus.button.'.(($menu_id) ? 'update' : 'create')) }}
+				</button>
 
-			{{ HTML::link(ADMIN.'/menus', $menu_id ? 'Back' : 'Cancel', array('class' => 'btn')) }}
+				{{ HTML::link(ADMIN.'/menus', Lang::line('menus::menus.button.cancel'), array('class' => 'btn')) }}
 
-		</div>
+			</div>
 
-	{{ Form::close() }}
+		{{ Form::close() }}
 
-</section>
-
+	</section>
 @endsection

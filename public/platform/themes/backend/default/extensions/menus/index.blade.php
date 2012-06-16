@@ -10,50 +10,56 @@
 
 @section('content')
 
-<div class="clearfix page-header">
-	<h1 class="pull-left">Menus</h1>
+	<header class="head row">
+		<div class="span4">
+			<h1>{{ Lang::line('menus::menus.general.title') }}</h1>
+			<p>{{ Lang::line('menus::menus.general.description') }}</p>
+		</div>
+	</header>
 
-	{{ HTML::link('admin/menus/create', 'Create New Menu', array('class' => 'btn btn-primary pull-right')) }}
-</div>
+	<div class="actions clearfix">
+		<div id="table-filters" class="form-inline pull-left"></div>
+		<div class="pull-right">
+			{{ HTML::link(ADMIN.'/menus/create', Lang::line('menus::menus.button.create'), array('class' => 'btn btn-large btn-primary')) }}
+		</div>
+	</div>
 
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>Menu</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@forelse ($menus as $menu)
-			<tr>
-				<td>
-					{{ $menu['name'] }}
-				</td>
-				<td>
-					{{ HTML::link('admin/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
+	<div class="row">
+		<div class="span12">
 
-					@if ($menu['user_editable'])
-						{{ HTML::link('admin/menus/delete'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
-					@endif
-				</td>
-			</tr>
-		@empty
-			<tr colspan="2">
-				<td>
-					No menus yet.
-				</td>
-			</tr>
-		@endforelse
-	</tbody>
-</table>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Menu</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@forelse ($menus as $menu)
+						<tr>
+							<td>
+								{{ $menu['name'] }}
+							</td>
+							<td>
+								{{ HTML::link('admin/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
 
-<ul class="nav nav-tabs nav-stacked">
-	@foreach ($menus as $menu)
-		<li>
-			
-		</li>
-	@endforeach
-</ul>
+								@if ($menu['user_editable'])
+									{{ HTML::link('admin/menus/delete/'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
+								@endif
+							</td>
+						</tr>
+					@empty
+						<tr colspan="2">
+							<td>
+								No menus yet.
+							</td>
+						</tr>
+					@endforelse
+				</tbody>
+			</table>
+
+		</div>
+	</div>
 
 @endsection
 

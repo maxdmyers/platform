@@ -60,7 +60,7 @@
 			</div>
 			<div class="wrapper">
 				<div class="navigation">
-					@widget('platform.menus::menus.nav', 0, 1, 'nav nav-tabs', ADMIN)
+					@widget('platform.menus::menus.nav', 'admin', 1, 'nav nav-tabs', ADMIN)
 				</div>
 			</div>
 		</header>

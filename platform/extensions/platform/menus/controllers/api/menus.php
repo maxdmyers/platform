@@ -74,13 +74,26 @@ class Menus_API_Menus_Controller extends API_Controller
 	{
 		try
 		{
+			$id   = Input::get('id');
 			$name = Input::get('name');
 			$slug = Input::get('slug');
 
-			$menu = Menu::from_hierarchy_array(Input::get('id'), Input::get('items'), function($root_item) use ($name, $slug)
+			$menu = Menu::from_hierarchy_array($id, Input::get('items'), function($root_item) use ($id, $name, $slug)
 			{
-				$root_item->name = $name;
-				$root_item->slug = $slug;
+				if ($name and ( ! $id or $user_editable))
+				{
+					$root_item->name = $name;
+				}
+
+				if ($slug and ( ! $id or $user_editable))
+				{
+					$root_item->slug = $slug;
+				}
+
+				if ( ! $id)
+				{
+					$root_item->user_editable = 1;
+				}
 
 				return $root_item;
 			});
@@ -255,7 +268,7 @@ class Menus_API_Menus_Controller extends API_Controller
 					$menu->save();
 				}
 
-				return array('success' => true);
+				return array('status'  => true);
 			}
 		}
 
@@ -320,7 +333,7 @@ class Menus_API_Menus_Controller extends API_Controller
 					$menu->save();
 				}
 
-				return array('success' => true);
+				return array('status'  => true);
 			}
 		}
 
@@ -329,6 +342,65 @@ class Menus_API_Menus_Controller extends API_Controller
 			'status'  => false,
 			'message' => 'Could\'t find menu to disable.',
 		);
+	}
+
+	/**
+	 * Deletes a menu. Must be a root item.
+	 *
+	 * @return  array
+	 */
+	public function post_delete()
+	{
+		if ( ! $id = Input::get('id'))
+		{
+			return array(
+				'status'  => false,
+				'message' => 'A Menu ID must be provided.',
+			);
+		}
+
+		$menu = Menu::find($id);
+
+		if ($menu === null)
+		{
+			return array(
+				'status'  => false,
+				'message' => 'Couldn\'t find menu to delete.',
+			);
+		}
+
+		if ( ! $menu->is_root())
+		{
+			return array(
+				'status'  => false,
+				'message' => 'Provided menu to delete wasn\'t a root node.',
+			);
+		}
+
+		if ( ! $menu->user_editable)
+		{
+			return array(
+				'status'  => false,
+				'message' => 'Menu is not user editable. Cannot be deleted.',
+			);
+		}
+
+		try
+		{
+			$result = $menu->delete_with_children();
+
+			return array(
+				'status'  => true,
+				'result'  => $result,
+			);
+		}
+		catch (Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage(),
+			);
+		}
 	}
 
 }
