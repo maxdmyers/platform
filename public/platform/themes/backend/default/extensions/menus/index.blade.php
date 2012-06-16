@@ -33,7 +33,7 @@
 					{{ HTML::link('admin/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
 
 					@if ($menu['user_editable'])
-						{{ HTML::link('admin/menus/delete'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
+						{{ HTML::link('admin/menus/delete/'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
 					@endif
 				</td>
 			</tr>

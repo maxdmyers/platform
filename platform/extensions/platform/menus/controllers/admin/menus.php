@@ -105,6 +105,14 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		return Redirect::to(ADMIN.'/menus/edit/'.array_get($result, 'menu.id'));
 	}
 
+	public function get_delete($id)
+	{
+		$result = API::post('menus/delete', array(
+			'id' => $id,
+		));
+
+		return Redirect::to(ADMIN.'/menus');
+	}
 
 	/**
 	 * Recursively processes an item and it's children
@@ -144,26 +152,6 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		}
 
 		$items[] = $new_item;
-	}
-
-
-	protected function make_menus_view_recursively($menu)
-	{
-		$view = Theme::make('menus::edit/menu')
-		             ->with('menu', $menu);
-
-		$children = array();
-
-		// If the menu has children
-		if (isset($menu['children']) and is_array($menu['children']) and is_array($menu['children']))
-		{
-			foreach ($menu['children'] as $child)
-			{
-				$children[] = $this->make_menus_view_recursively($child);
-			}
-		}
-
-		return $view->with('children', $children);
 	}
 
 }
