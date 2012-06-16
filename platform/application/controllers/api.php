@@ -20,6 +20,22 @@
 
 class API_Controller extends Base_Controller
 {
+	/**
+	 * This function is called before the action is executed.
+	 *
+	 * @return void
+	 */
+	public function before()
+	{
+		// see if the request is coming from the internal API
+		if (! API::is_internal())
+		{
+			Redirect::to('404')->send();
+			exit;
+		}
+
+		return parent::before();
+	}
 
 	/**
 	 * Execute a controller method with the given parameters.
