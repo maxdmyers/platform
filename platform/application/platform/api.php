@@ -29,6 +29,8 @@ use Symfony\Component\HttpFoundation\LaravelRequest as RequestFoundation;
  */
 class API
 {
+	// internal api request
+	protected static $internal_request = false;
 
 	/**
 	 * @var  array  List all supported methods
@@ -113,7 +115,9 @@ class API
 		Request::foundation()->headers->add(array('content-type' => $format));
 
 		// make the api request
+		static::$internal_request = true;
 		$response = Route::forward($type, $uri);
+		static::$internal_request = false;
 
 		if ($format == null)
 		{
@@ -136,6 +140,11 @@ class API
 		}
 
 		return $response;
+	}
+
+	public static function is_internal()
+	{
+		return (bool) static::$internal_request;
 	}
 
 }
