@@ -31,17 +31,6 @@ class Extensions_Install
 	public function up()
 	{
 
-		/**
-		 *  Current platform version
-		 */
-
-		$frontend = DB::table('configuration')->insert(array(
-			'extension' => 'platform',
-			'type'      => 'system',
-			'name'      => 'version',
-			'value'     => 'beta',
-		));
-
 		$admin = Menu::admin_menu();
 
 		// Find the system menu

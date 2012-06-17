@@ -39,6 +39,17 @@ class Settings_Install
 			$table->text('value');
 		});
 
+		/**
+		 *  Current platform version
+		 */
+
+		$frontend = DB::table('configuration')->insert(array(
+			'extension' => 'platform',
+			'type'      => 'system',
+			'name'      => 'version',
+			'value'     => 'beta',
+		));
+
 
 		/* #Create Menu
 		================================================== */
