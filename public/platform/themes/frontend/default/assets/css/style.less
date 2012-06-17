@@ -1,0 +1,345 @@
+/**
+ * Part of the Platform application.
+ *
+ * NOTICE OF LICENSE
+ *
+ * Licensed under the 3-clause BSD License.
+ *
+ * This source file is subject to the 3-clause BSD License that is
+ * bundled with this package in the LICENSE file.  It is also available at
+ * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
+ * @package    Platform
+ * @version    1.0
+ * @author     Cartalyst LLC
+ * @license    BSD License (3-clause)
+ * @copyright  (c) 2011 - 2012, Cartalyst LLC
+ * @link       http://getplatform.com
+ */
+
+
+@import "bootstrap/less/bootstrap.less";
+@import "bootstrap/less/responsive.less";
+
+
+/* #Layout
+================================================== */
+body {background:@bodyBackground;}
+
+html, body {
+	height: 100%;
+	margin: 0pt;
+}
+
+hr {
+	margin: 18px 0;
+	border: 0;
+	border-top: 1px solid @etch;
+	border-bottom: 1px solid @white;
+}
+
+#base {
+	padding: 20px;
+	background-image: url(../img/bg-body.png);
+}
+
+/* #content
+================================================== */
+
+#page {
+	background: @page url(../img/bg-page.png);
+}
+
+	#page .cover {
+		/*border-right:1px solid @etch;*/
+		/*width:24.364640883%;*/
+		padding:40px 20px;
+		text-align:center;
+	}
+
+	#page .cover .brand {
+		width:120px;
+	}
+
+	#page .cover h1 {
+		font-size: 48px;
+		font-style: normal;
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: normal;
+		line-height: 1.4em;
+		color:@purple;
+	}
+	#page .cover h2 {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 22px;
+		font-style: normal;
+		font-weight: bold;
+		letter-spacing: normal;
+		line-height: 1.4em;
+		margin:0 auto;
+		color:#666;
+		margin:20px 0;
+	}
+
+	#page .cover h1 span {
+		color:@purple;
+		font-size:1.3em;
+		font-weight:bold;
+		font-family: verdana, sans-serif;
+	}
+
+
+
+	#page .cover nav {
+		margin:30px 0;
+	}
+
+	#page .cover nav i {
+		font-size:22px;
+		color:@purple;
+		padding-right:4px;
+	}
+
+	#page .cover .love {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: normal;
+		text-transform: uppercase;
+		letter-spacing: normal;
+		line-height: 1.3em;
+	}
+
+	#page .cover .love span {
+		color:@purple;
+		font-size:48px;
+	}
+
+	#page .cover .perks {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: normal;
+		text-transform: uppercase;
+		letter-spacing: normal;
+		line-height: 1.3em;
+	}
+
+	#page .cover .buy {
+		margin:20px 0;
+		padding:14px;
+		width:120px;
+	}
+
+	#page .content {
+		/*border-left:1px solid @white;*/
+		/*width:72.872928171%;*/
+		padding:20px 40px;
+		background:transparent url(../img/bg-etch-mobile.png) center top no-repeat;
+	}
+	#page .tabbable ul {
+		margin-bottom:0;
+	}
+	#page .tab-content {
+		min-height: 200px;
+		padding:10px;
+		border:1px solid @etch;
+		background:@white;
+		margin-top:-1px;
+	}
+
+	#page .head {
+		max-height:100px;
+		overflow: hidden;
+	}
+
+
+/* #footer
+================================================== */
+
+#footer {
+	background:@base;
+}
+
+	#footer .wrapper {
+		border-top:1px solid @white;
+		border-bottom:1px solid @etch;
+		border-left:1px solid @etch;
+		border-right:1px solid @etch;
+
+	}
+
+	#footer .brand {
+		display:block;
+		text-align:center;
+		color:@secondary;
+		float:left;
+		padding:20px;
+		border-right:1px solid @etch;
+	}
+
+	#footer .legal {
+		display:block;
+		text-align:center;
+		color:@secondary;
+		float:left;
+		padding:20px;
+		border-left:1px solid @white;
+	}
+
+	#footer .copyright, #footer .licence {
+		color:@gray;
+		font-style: italic;
+		text-align:left;
+		line-height:10px;
+	}
+
+
+/* #Home
+==================================================*/
+#home {
+}
+
+	#home .features {
+		text-align: center;
+	}
+
+	#home .features img {
+		padding:10px 0;
+	}
+
+	#home .features p {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		font-style: normal;
+		font-weight: normal;
+		letter-spacing: normal;
+		line-height: 1.3em;
+	}
+
+	#home .features p {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		font-style: normal;
+		font-weight: normal;
+		letter-spacing: normal;
+		line-height: 1.3em;
+	}
+
+	#home .points h3 {
+		color:@purple;
+		padding:4px 0;
+	}
+
+	#home .point .span4 {
+		margin-left:70px;
+		padding:10px;
+	}
+
+	#home .points .span4 span {
+		float: left;
+		font-size: 32px;
+		text-shadow: none;
+		color: #666;
+		padding:20px;
+		text-align: center;
+		display:block;
+	}
+
+	#home .points .span4 p{
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: normal;
+		letter-spacing: normal;
+		line-height: 1.3em;
+	}
+
+
+/* #Icons
+==================================================*/
+
+@font-face {
+	font-family: 'IcoMoon';
+	src: url('../fonts/IcoMoon.eot');
+	src: url('../fonts/IcoMoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/IcoMoon.svg#IcoMoon') format('svg'),
+		url('../fonts/IcoMoon.woff') format('woff'),
+		url('../fonts/IcoMoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class^="ico-"]:before, [class*=" ico-"]:before {
+	font-family: 'IcoMoon';
+	font-style: normal;
+	speak: none;
+}
+.ico-vimeo:before {
+	content: "\0032";
+}
+.ico-github:before {
+	content: "\0034";
+}
+.ico-happy:before {
+	content: "\0039";
+}
+.ico-twitter:before {
+	content: "\0021";
+}
+.ico-drawer:before {
+	content: "\0022";
+}
+.ico-layers_alt:before {
+	content: "\0024";
+}
+.ico-cog:before {
+	content: "\0025";
+}
+.ico-lightbulb:before {
+	content: "\0023";
+}
+.ico-palette:before {
+	content: "\0027";
+}
+.ico-file-css:before {
+	content: "\0029";
+}
+.ico-newspaper:before {
+	content: "\0028";
+}
+.ico-heart:before {
+	content: "\002b";
+}
+.ico-grid-view:before {
+	content: "\002c";
+}
+.ico-equalizer:before {
+	content: "\002d";
+}
+.ico-key:before {
+	content: "\002f";
+}
+.ico-cube:before {
+	content: "\002e";
+}
+.ico-thumbs-up:before {
+	content: "\0030";
+}
+.ico-download:before {
+	content: "\0026";
+}
+.ico-chat:before {
+	content: "\0031";
+}
+.ico-chat-2:before {
+	content: "\0033";
+}
+.ico-eye:before {
+	content: "\0035";
+}
+.ico-document_stroke:before {
+	content: "\0036";
+}
