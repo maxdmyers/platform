@@ -201,9 +201,9 @@ Bundle::start('installer');
 // Check if Platform is installed
 if (is_dir(path('installer')) and class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
 {
-	// The person can only be either viewing manuals or installing.
+	// The person can only be installing.
 	// Any other actions will cause a redirect to the installer.
-	if ( ! URI::is('installer|installer/*|manuals|manuals/*'))
+	if ( ! URI::is('installer|installer/*'))
 	{
 		Redirect::to('installer')->send();
 		exit;

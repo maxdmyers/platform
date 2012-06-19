@@ -34,7 +34,7 @@ return array(
 	),
 
 	'bundles' => array(
-		'handles' => 'themes',
+		'handles'  => 'themes',
 		'location' => 'path: '.__DIR__,
 	),
 

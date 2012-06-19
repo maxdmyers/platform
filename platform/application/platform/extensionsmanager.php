@@ -157,7 +157,7 @@ class ExtensionsManager
 			'author'      => isset($info['info']['author']) ? $info['info']['author'] : '',
 			'description' => isset($info['info']['description']) ? $info['info']['description'] : '',
 			'is_core'     => isset($info['info']['is_core']) ? $info['info']['is_core'] : '',
-			'enabled'     => (int) $enable,
+			'enabled'     => ($is_core = isset($info['info']['is_core'])) ? 1 : (int) $enable,
 		));
 		$extension->save();
 
