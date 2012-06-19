@@ -42,7 +42,6 @@ $(document).ready(function() {
 	|-------------------------------------
 	*/
 	$('#chapter pre:not(.no-prettyprint)').addClass('prettyprint linenums');
-	prettyPrint();
 
 
 	/*
@@ -79,9 +78,9 @@ $(document).ready(function() {
 		});
 		$('#edit-help .result table').addClass('table table-bordered table-striped');
 		$('#edit-help .result pre').addClass('prettyprint linenums');
-
-		// Finally, call prettyPrint
-		prettyPrint();
 	}
+
+	// Call prettyprint
+	prettyPrint();
 
 });
