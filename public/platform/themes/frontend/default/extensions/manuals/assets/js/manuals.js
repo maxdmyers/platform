@@ -25,6 +25,7 @@ $(document).ready(function() {
 	$('#chapter h3').each(function(index) {
 		var name = $(this).html();
 		anchor = name.toLowerCase().replace(/\((.*)\)/g, '');
+		anchor = anchor.replace(/ /g, "_");
 		$(this).attr('id', anchor);
 	});
 

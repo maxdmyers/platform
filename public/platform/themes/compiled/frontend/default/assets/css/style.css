@@ -154,56 +154,56 @@ a:hover {
   box-sizing:border-box;
   float:left;
   margin-left:2.127659574%;
-  *margin-left:2.07446808464%;
+  *margin-left:2.0744680846383%;
 }
 .row-fluid [class*="span"]:first-child { margin-left:0; }
 .row-fluid .span12 {
   width:99.99999999%;
-  *width:99.9468085006%;
+  *width:99.946808500638%;
 }
 .row-fluid .span11 {
   width:91.489361693%;
-  *width:91.4361702036%;
+  *width:91.436170203638%;
 }
 .row-fluid .span10 {
   width:82.978723396%;
-  *width:82.9255319066%;
+  *width:82.925531906638%;
 }
 .row-fluid .span9 {
   width:74.468085099%;
-  *width:74.4148936096%;
+  *width:74.414893609638%;
 }
 .row-fluid .span8 {
   width:65.957446802%;
-  *width:65.9042553126%;
+  *width:65.904255312638%;
 }
 .row-fluid .span7 {
   width:57.446808505%;
-  *width:57.3936170156%;
+  *width:57.393617015638%;
 }
 .row-fluid .span6 {
   width:48.936170208%;
-  *width:48.8829787186%;
+  *width:48.882978718638%;
 }
 .row-fluid .span5 {
   width:40.425531911%;
-  *width:40.3723404216%;
+  *width:40.372340421638%;
 }
 .row-fluid .span4 {
   width:31.914893614%;
-  *width:31.8617021246%;
+  *width:31.861702124638%;
 }
 .row-fluid .span3 {
   width:23.404255317%;
-  *width:23.3510638276%;
+  *width:23.351063827638%;
 }
 .row-fluid .span2 {
   width:14.89361702%;
-  *width:14.8404255306%;
+  *width:14.840425530638%;
 }
 .row-fluid .span1 {
   width:6.382978723%;
-  *width:6.32978723364%;
+  *width:6.3297872336383%;
 }
 .container {
   margin-right:auto;
@@ -952,12 +952,12 @@ table .span24 {
   *margin-right:.3em;
   line-height:14px;
   vertical-align:text-top;
-  background-image: url('http://local.platform/platform/themes/frontend/default/assets/css/../img/bootstrap/glyphicons-halflings.png');
+  background-image: url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../img/bootstrap/glyphicons-halflings.png');
   background-position:14px 14px;
   background-repeat:no-repeat;
 }
 [class^="icon-"]:last-child, [class*=" icon-"]:last-child { *margin-left:0; }
-.icon-white { background-image: url('http://local.platform/platform/themes/frontend/default/assets/css/../img/bootstrap/glyphicons-halflings-white.png'); }
+.icon-white { background-image: url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../img/bootstrap/glyphicons-halflings-white.png'); }
 .icon-glass { background-position:0 0; }
 .icon-music { background-position:-24px 0; }
 .icon-search { background-position:-48px 0; }
@@ -3076,56 +3076,56 @@ a.label:hover, a.badge:hover {
     box-sizing:border-box;
     float:left;
     margin-left:2.762430939%;
-    *margin-left:2.70923944964%;
+    *margin-left:2.7092394496383%;
   }
   .row-fluid [class*="span"]:first-child { margin-left:0; }
   .row-fluid .span12 {
     width:99.999999993%;
-    *width:99.9468085036%;
+    *width:99.946808503638%;
   }
   .row-fluid .span11 {
     width:91.436464082%;
-    *width:91.3832725926%;
+    *width:91.383272592638%;
   }
   .row-fluid .span10 {
     width:82.872928171%;
-    *width:82.8197366816%;
+    *width:82.819736681638%;
   }
   .row-fluid .span9 {
     width:74.30939226%;
-    *width:74.2562007706%;
+    *width:74.256200770638%;
   }
   .row-fluid .span8 {
     width:65.745856349%;
-    *width:65.6926648596%;
+    *width:65.692664859638%;
   }
   .row-fluid .span7 {
     width:57.182320438%;
-    *width:57.1291289486%;
+    *width:57.129128948638%;
   }
   .row-fluid .span6 {
     width:48.618784527%;
-    *width:48.5655930376%;
+    *width:48.565593037638%;
   }
   .row-fluid .span5 {
     width:40.055248616%;
-    *width:40.0020571266%;
+    *width:40.002057126638%;
   }
   .row-fluid .span4 {
     width:31.491712705%;
-    *width:31.4385212156%;
+    *width:31.438521215638%;
   }
   .row-fluid .span3 {
     width:22.928176794%;
-    *width:22.8749853046%;
+    *width:22.874985304638%;
   }
   .row-fluid .span2 {
     width:14.364640883%;
-    *width:14.3114493936%;
+    *width:14.311449393638%;
   }
   .row-fluid .span1 {
     width:5.801104972%;
-    *width:5.74791348264%;
+    *width:5.7479134826383%;
   }
   input, textarea, .uneditable-input { margin-left:0; }
   input.span12, textarea.span12, .uneditable-input.span12 { width:714px; }
@@ -3199,56 +3199,56 @@ a.label:hover, a.badge:hover {
     box-sizing:border-box;
     float:left;
     margin-left:2.564102564%;
-    *margin-left:2.51091107464%;
+    *margin-left:2.5109110746383%;
   }
   .row-fluid [class*="span"]:first-child { margin-left:0; }
   .row-fluid .span12 {
     width:100%;
-    *width:99.9468085106%;
+    *width:99.946808510638%;
   }
   .row-fluid .span11 {
     width:91.436464082%;
-    *width:91.3832725926%;
+    *width:91.383272592638%;
   }
   .row-fluid .span10 {
     width:82.872928171%;
-    *width:82.8197366816%;
+    *width:82.819736681638%;
   }
   .row-fluid .span9 {
     width:74.30939226%;
-    *width:74.2562007706%;
+    *width:74.256200770638%;
   }
   .row-fluid .span8 {
     width:65.745856349%;
-    *width:65.6926648596%;
+    *width:65.692664859638%;
   }
   .row-fluid .span7 {
     width:57.182320438%;
-    *width:57.1291289486%;
+    *width:57.129128948638%;
   }
   .row-fluid .span6 {
     width:48.618784527%;
-    *width:48.5655930376%;
+    *width:48.565593037638%;
   }
   .row-fluid .span5 {
     width:40.055248616%;
-    *width:40.0020571266%;
+    *width:40.002057126638%;
   }
   .row-fluid .span4 {
     width:31.491712705%;
-    *width:31.4385212156%;
+    *width:31.438521215638%;
   }
   .row-fluid .span3 {
     width:22.928176794%;
-    *width:22.8749853046%;
+    *width:22.874985304638%;
   }
   .row-fluid .span2 {
     width:14.364640883%;
-    *width:14.3114493936%;
+    *width:14.311449393638%;
   }
   .row-fluid .span1 {
     width:5.801104972%;
-    *width:5.74791348264%;
+    *width:5.7479134826383%;
   }
   input, textarea, .uneditable-input { margin-left:0; }
   input.span12, textarea.span12, .uneditable-input.span12 { width:1160px; }
@@ -3378,10 +3378,10 @@ hr {
 }
 #base {
   padding:20px;
-  background-image: url('http://local.platform/platform/themes/frontend/default/assets/css/../img/bg-body.png');
+  background-image: url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../img/bg-body.png');
 }
 #page {
-  background:#fbfbfb  url('http://local.platform/platform/themes/frontend/default/assets/css/../img/bg-page.png');
+  background:#fbfbfb  url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../img/bg-page.png');
   border:1px solid #dddddd;
 }
 #page .cover {
@@ -3450,7 +3450,7 @@ hr {
 }
 #page .content {
   padding:20px 40px;
-  background:transparent  url('http://local.platform/platform/themes/frontend/default/assets/css/../img/bg-etch-mobile.png') center top no-repeat;
+  background:transparent  url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../img/bg-etch-mobile.png') center top no-repeat;
 }
 #page .tabbable ul { margin-bottom:0; }
 #page .tab-content {
@@ -3538,8 +3538,8 @@ hr {
 }
 @font-face {
   font-family:'IcoMoon';
-  src: url('http://local.platform/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.eot');
-  src: url('http://local.platform/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.eot?#iefix') format('embedded-opentype'),  url('http://local.platform/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.svg#IcoMoon') format('svg'),  url('http://local.platform/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.woff') format('woff'),  url('http://local.platform/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.ttf') format('truetype');
+  src: url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.eot');
+  src: url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.eot?#iefix') format('embedded-opentype'),  url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.svg#IcoMoon') format('svg'),  url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.woff') format('woff'),  url('http://platinstall.localhost/platform/themes/frontend/default/assets/css/../fonts/IcoMoon.ttf') format('truetype');
   font-weight:normal;
   font-style:normal;
 }

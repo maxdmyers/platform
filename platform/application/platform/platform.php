@@ -135,9 +135,9 @@ class Platform
 		// register @plugin with blade
 		Blade::extend(function($view)
 		{
-			$pattern = "/\s*@plugin\s*\(\s*\'(.*)\'\s*,\s*\'(.*)\'\s*\)/";
+			$pattern = "/\s*@plugin\s*\(\s*\'(.*?)\'\s*\,\s*\'(.*?)\'\s*\,(.*?)\)/";
 
-			return preg_replace($pattern, '<?php $$1 = Platform::plugin(\'$2\'); ?>', $view);
+			return preg_replace($pattern, '<?php $$2 = Platform::plugin(\'$1\',$3); ?>', $view);
 		});
 
 		// register @get with blade
