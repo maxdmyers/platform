@@ -190,15 +190,16 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 |
 */
 
-// Load the installer bundle
 Bundle::register('installer', array(
 	'location' => 'path: '.path('installer'),
 	'handles'  => 'installer',
 ));
+
+// Load the installer bundle
 Bundle::start('installer');
 
 // Check if Platform is installed
-if ( ! Installer\Installer::is_installed())
+if (is_dir(path('installer')) and class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
 {
 	// The person can only be either viewing manuals or installing.
 	// Any other actions will cause a redirect to the installer.
