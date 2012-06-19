@@ -30,47 +30,43 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Links -->
-	{{ Asset::styles() }}
+	{{ Theme::asset('css/style.less', 'manuals::css/manuals.less') }}
+	@widget('platform.themes::options.css')
+
+	@yield('links')
+
+	@yield('head_scripts')
 
 	<title>
-	@yield('title')
+		@yield('title')
 	</title>
 
-	<!-- Favicons -->
-	<link rel="shortcut icon" href="{{ URL::to_asset('platform/manuals/img/favicon.png') }}">
-	<link rel="apple-touch-icon-precomposed" href="{{ URL::to_asset('platform/manuals/img/apple-touch-icon-precomposed.png') }}">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ URL::to_asset('platform/manuals/img/apple-touch-icon-72x72-precomposed.png') }}">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ URL::to_asset('platform/manuals/img/apple-touch-icon-114x114-precomposed.png') }}">
+	<link rel="shortcut icon" href="{{ Theme::asset('img/favicon.png') }}">
+	<link rel="apple-touch-icon-precomposed" href="{{ Theme::asset('img/apple-touch-icon-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ Theme::asset('img/apple-touch-icon-72x72-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Theme::asset('img/apple-touch-icon-114x114-precomposed.png') }}">
 </head>
 <body>
 
-
-
-
-
-
-<div id="cover">
-	<div class="curl"></div>
-	<div id="main">
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span12">
-					@yield('cover')
+	<div id="cover">
+		<div class="curl"></div>
+		<div id="main">
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+						@yield('cover')
+					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
-</div>
+	<div id="footer">
+		<p class="copyright">The BSD 3-Clause License - Copyright (c) 2011-2012, Cartalyst LLC</p>
+	</div>
 
-<div id="footer">
- <p class="copyright">copyright @ 2011 - 2012, Cartalyst LLC</p>
-</div>
-
-
-
-	<!-- Body Scripts -->
-	{{ Asset::scripts() }}
+	@yield('body_scripts')
 
 </body>
 </html>

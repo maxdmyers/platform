@@ -4,12 +4,12 @@
 
 	<div class="brand">
 		<a href="{{ URL::to('manuals') }}">
-			{{ HTML::image('platform/manuals/img/brand-icon.png', 'Platform by Cartalyst'); }}
+			<img src="{{ Theme::asset('manuals::img/brand-icon.png') }}" alt="Platform by Cartalyst">
 		</a>
 	</div>
 
 	<div id="toc" data-active-chapter="{{ e($active_chapter) }}">
-		{{ HTML::image('platform/manuals/img/'. URI::segment(2) . '.png', 'Platform by Cartalyst'); }}
+		<img src="{{ Theme::asset('manuals::img/'.$active_manual.'.png') }}" alt="Platform by Cartalyst">
 
 		{{ $toc }}
 	</div>

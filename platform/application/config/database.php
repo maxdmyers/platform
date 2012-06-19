@@ -32,7 +32,7 @@ return array(
 	|
 	*/
 
-	'profile' => false,
+	'profile' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -81,10 +81,10 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => 'localhost',
-			'database' => 'platinstall',
+			'host'     => '127.0.0.1',
+			'database' => 'platform',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'root',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),

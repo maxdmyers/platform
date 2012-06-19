@@ -23,10 +23,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Links -->
-	{{ Asset::styles() }}
+	{{ Theme::asset('css/style.less', 'manuals::css/manuals.less') }}
+	@widget('platform.themes::options.css')
+
+	@yield('links')
+
+	@yield('head_scripts')
 
 	<title>
-	@yield('title')
+		@yield('title')
 	</title>
 
 	<!-- Favicons -->
@@ -37,44 +42,41 @@
 </head>
 <body>
 
-
-
-<div id="manuals">
-	<div class="curl"></div>
-	<div class="brand">
-		<a href="{{ URL::to('manuals') }}">
-			{{ HTML::image('platform/manuals/img/brand-icon.png', 'Platform by Cartalyst'); }}
-		</a>
-	</div>
-	<div id="main">
-		<div class="header">
-			<div class="row-fluid">
-
-				@yield('header')
-
-			</div>
+	<div id="manuals">
+		<div class="curl"></div>
+		<div class="brand">
+			<a href="{{ URL::to('manuals') }}">
+				<img src="{{ Theme::asset('manuals::img/brand-icon.png') }}" alt="Platform by Cartalyst">
+			</a>
 		</div>
+		<div id="main">
+			<div class="header">
+				<div class="row-fluid">
 
-		<div class="page container-fluid">
-			<div class="row-fluid">
-				<div class="span12">
-
-					@yield('content')
+					@yield('header')
 
 				</div>
 			</div>
+
+			<div class="page container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+
+						@yield('content')
+
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</div>
 
-</div>
+	<div id="footer">
+		<p class="copyright">copyright @ 2011 - 2012, Cartalyst LLC</p>
+	</div>
 
-<div id="footer">
- <p class="copyright">copyright @ 2011 - 2012, Cartalyst LLC</p>
-</div>
-
-
-	<!-- Body Scripts -->
-	{{ Asset::scripts() }}
+	{{ Theme::asset('js/jquery-1.7.2.min.js', 'js/bootstrap/bootstrap-modal.js', 'js/prettify/prettify.js', 'manuals::js/markdown-extra.js', 'manuals::js/manuals.js') }}
+	@yield('body_scripts')
 
 </body>
 </html>

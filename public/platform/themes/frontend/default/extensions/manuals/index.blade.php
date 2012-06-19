@@ -4,7 +4,7 @@
 <div class="front">
 
 	<a class="brand" href="{{ URL::to('manuals') }}">
-		{{ HTML::image('platform/manuals/img/brand.png', 'Platform by Cartalyst') }}
+		<img src="{{ Theme::asset('manuals::img/brand.png') }}" alt="Platform by Cartalyst">
 	</a>
 
 	<p class="lead">

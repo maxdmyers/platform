@@ -37,10 +37,6 @@ return array(
 	'gitsy'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',
 	),
-	'manuals' => array(
-		'location' => 'path: '.path('manuals'),
-		'auto'     => true,
-	),
 	'nesty'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
 		'auto'     => true,

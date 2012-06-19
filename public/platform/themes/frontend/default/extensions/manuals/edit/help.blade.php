@@ -106,7 +106,7 @@ Foo
 			<div class="span6">
 				<pre class="markup">Click [here](http://example.com "Link title") for more.
 
-![Platform](/platform/manuals/img/help/platform.png "Image title")</pre>
+![Platform]({{ Theme::asset('manuals::img/help/platform.png') }} "Image title")</pre>
 				<span class="label label-info">The <kbd>"Title"</kbd> parameter is optional</span>
 			</div>
 			<div class="span6 result"></div>
