@@ -29,7 +29,6 @@ $(document).ready(function() {
 		$(this).attr('id', anchor);
 	});
 
-
 	/*
 	|-------------------------------------
 	| Tables
@@ -56,13 +55,55 @@ $(document).ready(function() {
 		$('#article-editor').tabby();
 	}
 
+	// Hook into submit function
+	$('#article-edit').on('submit', function(e) {
+		e.preventDefault();
+
+		// Disable our button
+		$('#article-edit .form-actions .btn').addClass('hide');
+		$('#article-edit .loading-indicator').removeClass('hide');
+
+		// AJAX call to save menu
+		$.ajax({
+			url      : $(this).attr('action'),
+			type     : 'POST',
+			dataType : 'json',
+			data     : $(this).serialize(),
+			success  : function(data, textStatus, jqXHR) {
+				if ( ! data.status && data.message) {
+					alert("An Error Occured:\n\n"+data.message);
+				}
+
+				if (data.redirect_uri) {
+					window.location.href = data.redirect_uri;
+					return;
+				}
+
+				$('#article-edit .form-actions .btn').removeClass('hide');
+				$('#article-edit .loading-indicator').addClass('hide');
+			},
+			error    : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.status + ' ' + errorThrown);
+			}
+		});
+
+		return false;
+	});
+
+	/*
+	|-------------------------------------
+	| Miscellaneous
+	|-------------------------------------
+	*/
+
+	// Markdown
 	if (typeof Markdown != 'undefined') {
 
 		// Refresh the preview area
 		$('#article-preview').bind('refresh', function() {
 			$(this).html(Markdown($('#article-editor').val()));
 			$('#article-preview table').addClass('table table-bordered table-striped');
-			$('#article-preview pre').addClass('prettyprint linenums');
+			$('#article-preview pre:not(.no-prettyprint)').addClass('prettyprint linenums');
 		});
 
 		// Initially prefill the article preview
@@ -78,7 +119,7 @@ $(document).ready(function() {
 			$(this).closest('.help-section').find('.result').html(Markdown($(this).text()));
 		});
 		$('#edit-help .result table').addClass('table table-bordered table-striped');
-		$('#edit-help .result pre').addClass('prettyprint linenums');
+		$('#edit-help .result pre:not(.no-prettyprint)').addClass('prettyprint linenums');
 	}
 
 	// Call prettyprint

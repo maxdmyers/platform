@@ -75,8 +75,9 @@
 		<p class="copyright">copyright @ 2011 - 2012, Cartalyst LLC</p>
 	</div>
 
-	{{ Theme::asset('js/jquery-1.7.2.min.js', 'js/bootstrap/bootstrap-modal.js', 'js/prettify/prettify.js', 'manuals::js/markdown-extra.js', 'manuals::js/manuals.js') }}
+	{{ Theme::asset('js/jquery-1.7.2.min.js', 'js/bootstrap/bootstrap-modal.js', 'js/prettify/prettify.js', 'manuals::js/markdown-extra.js') }}
 	@yield('body_scripts')
+	{{ Theme::asset('manuals::js/manuals.js') }}
 
 </body>
 </html>

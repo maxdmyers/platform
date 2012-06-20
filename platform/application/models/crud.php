@@ -183,15 +183,25 @@ class Crud implements ArrayAccess
 
 			$key = $this->after_insert($key);
 
-			// If we didn't already have a primary
-			// key, assign what is returned from
-			// the database insert
-			if ( ! isset($this->{static::key()}))
+			// Workaound for PDO connections not returning
+			// the key upon insert.
+			if (isset($this->{static::key()}) and $key === 0)
 			{
 				$this->{static::key()} = $key;
+				$this->is_new(false);
 			}
+			else
+			{
+				// If we didn't already have a primary
+				// key, assign what is returned from
+				// the database insert
+				if ( ! isset($this->{static::key()}))
+				{
+					$this->{static::key()} = $key;
+				}
 
-			$this->is_new( ! (bool) $key);
+				$this->is_new( ! (bool) $key);
+			}
 
 			$this->fill($attributes);
 

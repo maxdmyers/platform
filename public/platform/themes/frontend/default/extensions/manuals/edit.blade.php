@@ -2,7 +2,7 @@
 
 @section('content')
 
-	{{ Form::open('manuals/edit/'.$manual.'/'.$chapter.'/'.$article_name, 'POST', array('class' => 'form-horizontal article-editor'))}}
+	{{ Form::open('manuals/edit/'.$manual.'/'.$chapter.'/'.$article_name, 'POST', array('class' => 'form-horizontal article-editor', 'id' => 'article-edit'))}}
 
 
 		<div class="header-edit">
@@ -45,12 +45,21 @@
 		</fieldset>
 
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary">Save changes</button>
-			{{ HTML::link('manuals/'.$manual.'/'.$chapter, 'Cancel', array('class' => 'btn'))}}
+			<button type="submit" class="btn btn-primary" id="article-edit-save-btn">Save changes</button>
+			{{ HTML::link('manuals/'.$manual.'/'.$chapter, 'Cancel', array('class' => 'btn')) }}
+
+			<div class="clearfix loading-indicator hide">
+				<img src="{{ Theme::asset('img/loading.gif') }}" class="pull-left">
+				Please be patient... Saving can take some time.
+			</div>
 		</div>
 
 		@include('manuals::edit/help')
 
 	{{ Form::close() }}
 
+@endsection
+
+@section('body_scripts')
+{{ Theme::asset('manuals::js/jquery/tabby-0.12.js') }}
 @endsection

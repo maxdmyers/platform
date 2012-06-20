@@ -72,6 +72,11 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 	{
 		$result = API::post('extensions/uninstall', array('id' => $id));
 
+		if ( ! $result['status'])
+		{
+			Cartalyst::messages()->error($result['message']);
+		}
+
 		return Redirect::to(ADMIN.'/extensions');
 	}
 
