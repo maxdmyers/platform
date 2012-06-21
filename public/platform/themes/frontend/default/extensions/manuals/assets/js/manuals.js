@@ -60,6 +60,8 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		// Disable our button
+		$('#article-editor').attr('readonly', 'readonly');
+		$('#message').attr('readonly', 'readonly');
 		$('#article-edit .form-actions .btn').addClass('hide');
 		$('#article-edit .loading-indicator').removeClass('hide');
 
@@ -79,6 +81,8 @@ $(document).ready(function() {
 					return;
 				}
 
+				$('#article-editor').removeAttr('readonly');
+				$('#message').removeAttr('readonly');
 				$('#article-edit .form-actions .btn').removeClass('hide');
 				$('#article-edit .loading-indicator').addClass('hide');
 			},
