@@ -16,6 +16,3 @@
 [submodule "platform/application/bundles/oauth2"]
 	path = platform/application/bundles/oauth2
 	url = git@github.com:cartalyst/laravel-oauth2.git
-[submodule "platform/extensions/platform/manuals"]
-	path = platform/extensions/platform/manuals
-	url = git@github.com:cartalyst/platform-manuals.git
