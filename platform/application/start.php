@@ -190,7 +190,7 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 |
 */
 
-if (path('installer') !== '/')
+if (is_dir(path('base') . 'installer'))
 {
 	Bundle::register('installer', array(
 		'location' => 'path: '.path('installer'),
