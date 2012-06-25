@@ -50,54 +50,6 @@ class Installer
 	}
 
 	/**
-	 * Determines if Platform has been installed or not.
-	 *
-	 * @return  bool
-	 */
-	public static function is_installed()
-	{
-		$installed = true;
-
-		// Check for the database config file
-		if ( ! File::exists(static::database_config_file()))
-		{
-			$installed = false;
-		}
-
-		// List installed extensions. If the count is more than 0, we
-		// have installed Platform.
-		try
-		{
-			// Extension table exists, but is empty.
-			if (count(Platform::extensions_manager()->enabled()) === 0)
-			{
-				$installed = false;
-			}
-		}
-
-		// Extnesions table doesn't exist
-		catch (Exception $e)
-		{
-			$installed = false;
-		}
-
-		// Now, count the users table.
-		try
-		{
-			if (DB::table('users')->count() === 0)
-			{
-				$installed = false;
-			}
-		}
-		catch (Exception $e)
-		{
-			$installed = false;
-		}
-
-		return $installed;
-	}
-
-	/**
 	 * Returns an array of available database drivers
 	 *
 	 * @return  array
