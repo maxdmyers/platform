@@ -190,25 +190,44 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 |
 */
 
-if (is_dir(path('base') . 'installer'))
+// if (is_dir(path('base') . 'installer'))
+// {
+// 	Bundle::register('installer', array(
+// 		'location' => 'path: '.path('installer'),
+// 		'handles'  => 'installer',
+// 	));
+
+// 	if (class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
+// 	{
+// 		// Load the installer bundle
+// 		Bundle::start('installer');
+
+// 		// The person can only be installing.
+// 		// Any other actions will cause a redirect to the installer.
+// 		if ( ! URI::is('installer|installer/*'))
+// 		{
+// 			Redirect::to('installer')->send();
+// 			exit;
+// 		}
+// 	}
+// }
+Bundle::register('installer', array(
+	'location' => 'path: '.path('installer'),
+	'handles'  => 'installer',
+));
+
+// Load the installer bundle
+Bundle::start('installer');
+
+// Check if Platform is installed
+if (is_dir(path('installer')) and class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
 {
-	Bundle::register('installer', array(
-		'location' => 'path: '.path('installer'),
-		'handles'  => 'installer',
-	));
-
-	if (class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
+	// The person can only be installing.
+	// Any other actions will cause a redirect to the installer.
+	if ( ! URI::is('installer|installer/*'))
 	{
-		// Load the installer bundle
-		Bundle::start('installer');
-
-		// The person can only be installing.
-		// Any other actions will cause a redirect to the installer.
-		if ( ! URI::is('installer|installer/*'))
-		{
-			Redirect::to('installer')->send();
-			exit;
-		}
+		Redirect::to('installer')->send();
+		exit;
 	}
 }
 
