@@ -30,8 +30,7 @@ class Pages_Install
 	 */
 	public function up()
 	{
-		// Make sure a front menu exists
-		$front = Menu::front_menu();
+
 	}
 
 	/**
@@ -41,8 +40,7 @@ class Pages_Install
 	 */
 	public function down()
 	{
-		$front = Menu::front_menu();
-		$front->delete_with_children();
+
 	}
 
 }
