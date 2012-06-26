@@ -18,7 +18,7 @@
 	<header class="head row">
 		<div class="span6">
 			<h1>{{ Lang::line('extensions::extensions.title') }}</h1>
-			<p>{{ Lang::line('extensions::extensions.title_description') }}</p>
+			<p>{{ Lang::line('extensions::extensions.tagline') }}</p>
 		</div>
 	</header>
 
@@ -55,12 +55,12 @@
 			    	<table id="uninstalled-extension-table" class="table table-bordered">
 						<thead>
 							<tr>
-								<th>{{ Lang::line('extensions::extensions.name') }}</th>
-								<th>{{ Lang::line('extensions::extensions.slug') }}</th>
-								<th>{{ Lang::line('extensions::extensions.author') }}</th>
-								<th>{{ Lang::line('extensions::extensions.description') }}</th>
-								<th>{{ Lang::line('extensions::extensions.version') }}</th>
-								<th></th>
+								<th>{{ Lang::line('extensions::extensions.table.name') }}</th>
+								<th>{{ Lang::line('extensions::extensions.table.slug') }}</th>
+								<th>{{ Lang::line('extensions::extensions.table.author') }}</th>
+								<th>{{ Lang::line('extensions::extensions.table.description') }}</th>
+								<th>{{ Lang::line('extensions::extensions.table.version') }}</th>
+								<th>{{ Lang::line('extensions::extensions.table.actions') }}</th>
 							</tr>
 						</thead>
 						<tbody>

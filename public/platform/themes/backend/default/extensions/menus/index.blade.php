@@ -12,8 +12,8 @@
 
 	<header class="head row">
 		<div class="span4">
-			<h1>{{ Lang::line('menus::menus.general.title') }}</h1>
-			<p>{{ Lang::line('menus::menus.general.description') }}</p>
+			<h1>{{ Lang::line('menus::menus.title') }}</h1>
+			<p>{{ Lang::line('menus::menus.tagline') }}</p>
 		</div>
 	</header>
 

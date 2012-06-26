@@ -26,14 +26,14 @@ class Extensions_API_Extensions_Controller extends API_Controller
 		// CartTable defaults
 		$defaults = array(
 			'select'    => array(
-				'id'          => Lang::line('extensions::extensions.id')->get(),
-				'name'        => Lang::line('extensions::extensions.name')->get(),
-				'slug'        => Lang::line('extensions::extensions.slug')->get(),
-				'author'      => Lang::line('extensions::extensions.author')->get(),
-				'description' => Lang::line('extensions::extensions.description')->get(),
-				'version'     => Lang::line('extensions::extensions.version')->get(),
-				'is_core'     => Lang::line('extensions::extensions.is_core')->get(),
-				'enabled'     => Lang::line('extensions::extensions.enabled')->get(),
+				'id'          => Lang::line('extensions::extensions.table.id')->get(),
+				'name'        => Lang::line('extensions::extensions.table.name')->get(),
+				'slug'        => Lang::line('extensions::extensions.table.slug')->get(),
+				'author'      => Lang::line('extensions::extensions.table.author')->get(),
+				'description' => Lang::line('extensions::extensions.table.description')->get(),
+				'version'     => Lang::line('extensions::extensions.table.version')->get(),
+				'is_core'     => Lang::line('extensions::extensions.table.is_core')->get(),
+				'enabled'     => Lang::line('extensions::extensions.table.enabled')->get(),
 			),
 			'where'     => array(),
 			'order_by'  => array('slug' => 'asc'),
@@ -122,7 +122,7 @@ class Extensions_API_Extensions_Controller extends API_Controller
 	 * Uninstalls an extension
 	 *
 	 * @param  string  $slug
-	 * @return 
+	 * @return
 	 */
 	public function post_uninstall()
 	{

@@ -20,19 +20,21 @@
 
 return array(
 
-	/* Titles */
 	'title'        => 'Extension Management',
-	'title_description'  => 'Install, uninstall, disable extensions for platform',
+	'tagline'  => 'Install, uninstall, disable extensions for platform',
 
-	/* General */
-	'id'          => 'Id',
-	'name'        => 'Name',
-	'slug'        => 'Slug',
-	'author'      => 'Author',
-	'description' => 'Description',
-	'version'     => 'Version',
-	'is_core'     => 'Is Core Extension',
-	'enabled'     => 'Enabled',
+	/* Table */
+	'table' => array(
+		'id'          => 'Id',
+		'name'        => 'Name',
+		'slug'        => 'Slug',
+		'author'      => 'Author',
+		'description' => 'Description',
+		'version'     => 'Version',
+		'is_core'     => 'Is Core Extension',
+		'enabled'     => 'Enabled',
+		'actions'     => 'actions',
+	),
 
 	// Values for tinyint fields
 	'bool' => array(
