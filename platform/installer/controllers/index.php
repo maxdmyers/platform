@@ -272,7 +272,9 @@ class Installer_Index_Controller extends Base_Controller
 			return Redirect::to('installer');
 		}
 
-		return View::make('installer::step_4');
+		$data = array('secret' => Str::random(32));
+
+		return View::make('installer::step_4', $data);
 	}
 
 	/**
