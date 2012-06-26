@@ -14,6 +14,7 @@
 			<input type="password" id="password" name="password">
 
 			<label for="password_confirmation">{{ Lang::line('users::users.general.password_confirmation') }}</label>
+			<input type="password" id="password_confirmation" name="password_confirmation">
 
 			<label for="groups">{{ Lang::line('users::users.general.groups') }}</label>
 			{{ Form::select('groups[]', $groups, null, array('multiple' => 'multiple')) }}
