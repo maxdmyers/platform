@@ -30,9 +30,8 @@ class Themes_Install
 	 */
 	public function up()
 	{
-		/**
-		 * Create theme tables
-		 */
+		/* # Create Theme Tables
+		================================================== */
 
 		Schema::create('theme_options', function($table)
 		{
@@ -43,56 +42,17 @@ class Themes_Install
 			$table->boolean('status');
 		});
 
-		/**
-		 * activate default templates options TODO
-		 */
-
-
-		/**
-		 * Add base theme configuration options
-		 */
-
-		$frontend = DB::table('configuration')->insert(array(
-			'extension' => 'themes',
-			'type'      => 'theme',
-			'name'      => 'frontend',
-			'value'     => 'default',
-		));
-
-		$backend = DB::table('configuration')->insert(array(
-			'extension' => 'themes',
-			'type'      => 'theme',
-			'name'      => 'backend',
-			'value'     => 'default',
-		));
-
-		/**
-		 * Add theme to menu
-		 */
-
-		$admin = Menu::admin_menu();
+		/* # Create Menu Items
+		================================================== */
 
 		// Find the system menu
-		$primary = Menu::find(function($query) use ($admin)
+		$system = Menu::find(function($query)
 		{
 			return $query->where('slug', '=', 'system');
 		});
 
-		if ($primary === null)
-		{
-			$primary = new Menu(array(
-				'name'          => 'System',
-				'slug'          => 'system',
-				'uri'           => 'settings',
-				'user_editable' => 0,
-				'status'        => 1,
-			));
-
-			$primary->last_child_of($admin);
-		}
-
-		// Themes menu
-		$secondary = new Menu(array(
+		// Create themes link
+		$themes = new Menu(array(
 			'name'          => 'Themes',
 			'extension'     => 'themes',
 			'slug'          => 'themes',
@@ -101,10 +61,10 @@ class Themes_Install
 			'status'        => 1,
 		));
 
-		$secondary->last_child_of($primary);
+		$themes->last_child_of($system);
 
-		// frontend navigation
-		$tertiary = new Menu(array(
+		// Create frontend link
+		$frontend = new Menu(array(
 			'name'          => 'Frontend',
 			'extension'     => 'themes',
 			'slug'          => 'frontend',
@@ -113,10 +73,10 @@ class Themes_Install
 			'status'        => 1,
 		));
 
-		$tertiary->last_child_of($secondary);
+		$frontend->last_child_of($themes);
 
-		// backend navigation
-		$tertiary = new Menu(array(
+		// Create backend link
+		$backend = new Menu(array(
 			'name'          => 'Backend',
 			'extension'     => 'themes',
 			'slug'          => 'backend',
@@ -125,8 +85,26 @@ class Themes_Install
 			'status'        => 1,
 		));
 
-		$tertiary->last_child_of($secondary);
+		$backend->last_child_of($themes);
 
+		/* # Configuration Settings
+		================================================== */
+
+		// Set frontend default theme
+		$query = DB::table('settings')->insert(array(
+			'extension' => 'themes',
+			'type'      => 'theme',
+			'name'      => 'frontend',
+			'value'     => 'default',
+		));
+
+		// Set backend default theme
+		$query = DB::table('settings')->insert(array(
+			'extension' => 'themes',
+			'type'      => 'theme',
+			'name'      => 'backend',
+			'value'     => 'default',
+		));
 
 	}
 

@@ -31,28 +31,16 @@ class Extensions_Install
 	public function up()
 	{
 
-		$admin = Menu::admin_menu();
+		/* # Create Menu Items
+		================================================== */
 
 		// Find the system menu
-		$primary = Menu::find(function($query) use ($admin)
+		$system = Menu::find(function($query)
 		{
 			return $query->where('slug', '=', 'system');
 		});
 
-		if ($primary === null)
-		{
-			$primary = new Menu(array(
-				'name'          => 'System',
-				'slug'          => 'system',
-				'uri'           => 'settings',
-				'user_editable' => 0,
-				'status'        => 1,
-			));
-
-			$primary->last_child_of($admin);
-		}
-
-		// Extension menu
+		// Create extensions link
 		$extensions = new Menu(array(
 			'name'          => 'Extensions',
 			'extension'     => 'extensions',
@@ -62,7 +50,7 @@ class Extensions_Install
 			'status'        => 1,
 		));
 
-		$extensions->last_child_of($primary);
+		$extensions->last_child_of($system);
 	}
 
 	/**

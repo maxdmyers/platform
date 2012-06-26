@@ -30,7 +30,10 @@ class Settings_Install
 	 */
 	public function up()
 	{
-		Schema::create('configuration', function($table)
+
+		/* # Create Settings Table
+		================================================== */
+		Schema::create('settings', function($table)
 		{
 			$table->increments('id')->unsigned();
 			$table->string('extension');
@@ -39,44 +42,16 @@ class Settings_Install
 			$table->text('value');
 		});
 
-		/**
-		 *  Current platform version
-		 */
-
-		$frontend = DB::table('configuration')->insert(array(
-			'extension' => 'platform',
-			'type'      => 'system',
-			'name'      => 'version',
-			'value'     => 'beta',
-		));
-
-
-		/* #Create Menu
+		/* # Create Menu Items
 		================================================== */
 
-		$admin = Menu::admin_menu();
-
-		// Find the primary menu
-		$primary = Menu::find(function($query) use ($admin)
+		// Find the system menu
+		$system = Menu::find(function($query)
 		{
 			return $query->where('slug', '=', 'system');
 		});
 
-		if ($primary === null)
-		{
-			$primary = new Menu(array(
-				'name'          => 'System',
-				'slug'          => 'system',
-				'uri'           => 'settings',
-				'user_editable' => 0,
-				'status'        => 1,
-			));
-
-			$primary->last_child_of($admin);
-		}
-
-
-		// Settings menu
+		// Create settings link
 		$settings = new Menu(array(
 			'name'          => 'Settings',
 			'extension'     => 'settings',
@@ -86,21 +61,29 @@ class Settings_Install
 			'status'        => 1,
 		));
 
-		$settings->last_child_of($primary);
+		$settings->last_child_of($system);
 
 		/* # Configuration Settings
 		================================================== */
 
-		// Site Title
-		$query = DB::table('configuration')->insert(array(
+		// Platform version
+		$version = DB::table('settings')->insert(array(
+			'extension' => 'platform',
+			'type'      => 'system',
+			'name'      => 'version',
+			'value'     => 'beta',
+		));
+
+		// Site title
+		$query = DB::table('settings')->insert(array(
 			'extension' 	=> 'settings',
 			'type' 			=> 'general',
 			'name' 			=> 'title',
 			'value' 		=> 'Platform',
 		));
 
-		// Site Tagline
-		$query = DB::table('configuration')->insert(array(
+		// Site tagline
+		$query = DB::table('settings')->insert(array(
 			'extension' 	=> 'settings',
 			'type' 			=> 'general',
 			'name' 			=> 'tagline',
@@ -108,13 +91,12 @@ class Settings_Install
 		));
 
 		// Site email
-		$query = DB::table('configuration')->insert(array(
+		$query = DB::table('settings')->insert(array(
 			'extension' 	=> 'settings',
 			'type' 			=> 'general',
 			'name' 			=> 'email',
 			'value' 		=> 'site@getplatform.com',
 		));
-
 
 	}
 	/**
@@ -124,7 +106,7 @@ class Settings_Install
 	 */
 	public function down()
 	{
-		Schema::drop('configuration');
+		Schema::drop('settings');
 	}
 
 }

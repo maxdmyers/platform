@@ -30,8 +30,6 @@ use Crud;
 class Setting extends Crud
 {
 
-	protected static $_table = 'configuration';
-
 	/**
 	 * Set validation rules and labels
 	 *
@@ -41,7 +39,6 @@ class Setting extends Crud
 	public function set_validation($rules = array(), $labels = array())
 	{
 		static::$_rules  = $rules;
-		// static::$_labels = $labels;
 	}
 
 }

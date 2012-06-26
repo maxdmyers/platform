@@ -31,29 +31,23 @@ class Dashboard_Install
 	public function up()
 	{
 
-		// Create menu items
+		/* # Create Menu Items
+		================================================== */
 
-		$admin = Menu::admin_menu();
+		// Set admin menu
+		$menu = Menu::admin_menu();
 
-		// Find the primary menu
-		$primary = Menu::find(function($query) use ($admin)
-		{
-			return $query->where('slug', '=', 'dashboard');
-		});
+		// Create links
+		$dashboard = new Menu(array(
+			'name'          => 'Dashboard',
+			'extension'     => 'dashboard',
+			'slug'          => 'dashboard',
+			'uri'           => 'dashboard',
+			'user_editable' => 0,
+			'status'        => 1,
+		));
 
-		if ($primary === null)
-		{
-			$primary = new Menu(array(
-				'name'          => 'Dashboard',
-				'extension'     => 'dashboard',
-				'slug'          => 'dashboard',
-				'uri'           => 'dashboard',
-				'user_editable' => 0,
-				'status'        => 1,
-			));
-
-			$primary->first_child_of($admin);
-		}
+		$dashboard->first_child_of($menu);
 
 	}
 

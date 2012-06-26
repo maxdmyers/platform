@@ -30,7 +30,9 @@ class Menus_Install
 	 */
 	public function up()
 	{
-		// Create menu table
+		/* # Create Menu Table
+		================================================== */
+
 		Schema::create('menus', function($table)
 		{
 			$table->increments('id')->unsigned();
@@ -45,30 +47,25 @@ class Menus_Install
 			$table->boolean('status');
 		});
 
-		// Create menu items
+		/* # Create Menu Items
+		================================================== */
 
-		$admin = Menu::admin_menu();
+		// Set admin menu
+		$menu = Menu::admin_menu();
 
-		// Find the system menu
-		$primary = Menu::find(function($query) use ($admin)
-		{
-			return $query->where('slug', '=', 'system');
-		});
+		// Create system link
+		$system = new Menu(array(
+			'name'          => 'System',
+			'extension'     => '',
+			'slug'          => 'system',
+			'uri'           => 'settings',
+			'user_editable' => 0,
+			'status'        => 1,
+		));
 
-		if ($primary === null)
-		{
-			$primary = new Menu(array(
-				'name'          => 'System',
-				'slug'          => 'system',
-				'uri'           => 'settings',
-				'user_editable' => 0,
-				'status'        => 1,
-			));
+		$system->last_child_of($menu);
 
-			$primary->last_child_of($admin);
-		}
-
-		// "Menus" menu
+		// Create menus link
 		$menus = new Menu(array(
 			'name'          => 'Menus',
 			'extension'     => 'menus',
@@ -78,7 +75,7 @@ class Menus_Install
 			'status'        => 1,
 		));
 
-		$menus->last_child_of($primary);
+		$menus->last_child_of($system);
 	}
 
 	/**

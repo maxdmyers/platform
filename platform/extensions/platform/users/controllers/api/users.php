@@ -181,14 +181,14 @@ class Users_API_Users_Controller extends API_Controller
 				'first_name'          => Lang::line('users::users.general.first_name')->get(),
 				'last_name'           => Lang::line('users::users.general.last_name')->get(),
 				'email'               => Lang::line('users::users.general.email')->get(),
-				'groups.name'         => Lang::line('users::users.general.groups')->get(),
-				'configuration.name'  => Lang::line('users::users.general.status')->get(),
+				//'groups.name'         => Lang::line('users::users.general.groups')->get(),
+				'settings.name'  => Lang::line('users::users.general.status')->get(),
 				'created_at'          => 'Created At',
 			),
 			'alias'     => array(
 				'users.id'            => 'id',
-				'groups.name'         => 'groups',
-				'configuration.name'  => 'status'
+				//'groups.name'         => 'groups',
+				'settings.name'  => 'status'
 			),
 			'where'     => array(),
 			'order_by'  => array('users.id' => 'desc'),
@@ -206,11 +206,11 @@ class Users_API_Users_Controller extends API_Controller
 
 			return $query
 				->left_join('users_metadata', 'users.id', '=', 'users_metadata.user_id')
-				->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
-				->left_join('groups', 'users_groups.group_id', '=', 'groups.id')
-				->join('configuration', 'configuration.value', '=', 'users.status')
-				->where('configuration.extension', '=', 'users')
-				->where('configuration.type', '=', 'status');
+				//->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
+				//->left_join('groups', 'users_groups.group_id', '=', 'groups.id')
+				->join('settings', 'settings.value', '=', 'users.status')
+				->where('settings.extension', '=', 'users')
+				->where('settings.type', '=', 'status');
 		});
 
 		// set paging
@@ -224,9 +224,9 @@ class Users_API_Users_Controller extends API_Controller
 
 			return $query
 				->select($columns)
-				->join('configuration', 'configuration.value', '=', 'users.status')
-				->where('configuration.extension', '=', 'users')
-				->where('configuration.type', '=', 'status');
+				->join('settings', 'settings.value', '=', 'users.status')
+				->where('settings.extension', '=', 'users')
+				->where('settings.type', '=', 'status');
 
 		});
 
