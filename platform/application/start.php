@@ -197,11 +197,11 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 // 		'handles'  => 'installer',
 // 	));
 
-// 	if (class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
-// 	{
-// 		// Load the installer bundle
-// 		Bundle::start('installer');
+// 	// Load the installer bundle
+// 	Bundle::start('installer');
 
+// 	if (class_exists('Installer\\Installer') and ! Platform::is_installed())
+// 	{
 // 		// The person can only be installing.
 // 		// Any other actions will cause a redirect to the installer.
 // 		if ( ! URI::is('installer|installer/*'))
@@ -210,26 +210,11 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 // 			exit;
 // 		}
 // 	}
+// 	else
+// 	{
+// 		// notify installer still active
+// 	}
 // }
-Bundle::register('installer', array(
-	'location' => 'path: '.path('installer'),
-	'handles'  => 'installer',
-));
-
-// Load the installer bundle
-Bundle::start('installer');
-
-// Check if Platform is installed
-if (is_dir(path('installer')) and class_exists('Installer\\Installer') and ! Installer\Installer::is_installed())
-{
-	// The person can only be installing.
-	// Any other actions will cause a redirect to the installer.
-	if ( ! URI::is('installer|installer/*'))
-	{
-		Redirect::to('installer')->send();
-		exit;
-	}
-}
 
 /*
 |--------------------------------------------------------------------------
@@ -241,7 +226,31 @@ if (is_dir(path('installer')) and class_exists('Installer\\Installer') and ! Ins
 |
 */
 
-else
+$installed = Platform::is_installed();
+
+if (is_dir(path('base') . 'installer'))
+{
+	Bundle::register('installer', array(
+		'location' => 'path: '.path('installer'),
+		'handles'  => 'installer',
+	));
+
+	// Load the installer bundle
+	Bundle::start('installer');
+
+	if ( ! URI::is('installer|installer/*') and ! $installed)
+	{
+		Redirect::to('installer')->send();
+		exit;
+	}
+	else
+	{
+		// notify that installer directory still exists
+		Session::put('install_dir', 'Install directory still exists');
+	}
+}
+
+if ($installed)
 {
 	Platform::start();
 }
