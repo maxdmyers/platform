@@ -239,16 +239,22 @@ class Installer_Index_Controller extends Base_Controller
 		// Get the result from creating a user
 		$create_user = API::post('users/create', $user);
 
+
 		if ($create_user['status'])
 		{
-			// Platform::messages()->success($create_user['message']);
-			// Session::put('created_user', true);
+
+			// Set site email
+			$query = DB::table('settings')->insert(array(
+				'extension' 	=> 'settings',
+				'type' 			=> 'site',
+				'name' 			=> 'email',
+				'value' 		=> Input::get('email'),
+			));
 
 			return Redirect::to('installer');
 		}
 		else
 		{
-			// Platform::messages()->error($create_user['message']);
 
 			return Redirect::to('installer')->with_input();
 		}

@@ -16,7 +16,7 @@
 	<section id="login">
 
 		<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
-		<h1>@get.settings.general.title</h1>
+		<h1>@get.settings.site.title</h1>
 
 		{{ Form::open(null, 'POST', array('id' => 'login-form', 'class' => 'form-horizontal')) }}
 

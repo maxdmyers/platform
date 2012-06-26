@@ -52,8 +52,8 @@
 				</a>
 			</div>
 			<div class="about">
-				<h1>@get.settings.general.title</h1>
-				<p class="lead">@get.settings.general.tagline</p>
+				<h1>@get.settings.site.title</h1>
+				<p class="lead">@get.settings.site.tagline</p>
 			</div>
 			<div class="profile">
 				@widget('platform.users::users.profile')

@@ -3,13 +3,13 @@
 		<fieldset>
 
 			<label for="site-title">{{ Lang::line('settings::settings.general.title') }}</label>
-			<input type="text" id="site-title" name="general:title" value="@get.settings.general.title">
+			<input type="text" id="title" name="site:title" value="@get.settings.site.title">
 
 			<label for="site-tagline">{{ Lang::line('settings::settings.general.tagline') }}</label>
-			<input type="text" id="site-tagline" name="general:tagline" value="@get.settings.general.tagline">
+			<input type="text" id="tagline" name="site:tagline" value="@get.settings.site.tagline">
 
 			<label for="site-email">{{ Lang::line('settings::settings.general.site-email') }}</label>
-			<input type="text" id="site-email" name="general:site-email" value="@get.settings.general.site-email">
+			<input type="text" id="email" name="site:email" value="@get.settings.site.email">
 
 		</fieldset>
 	</div>

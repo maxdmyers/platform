@@ -77,7 +77,7 @@ class Settings_Install
 		// Site title
 		$query = DB::table('settings')->insert(array(
 			'extension' 	=> 'settings',
-			'type' 			=> 'general',
+			'type' 			=> 'site',
 			'name' 			=> 'title',
 			'value' 		=> 'Platform',
 		));
@@ -85,17 +85,9 @@ class Settings_Install
 		// Site tagline
 		$query = DB::table('settings')->insert(array(
 			'extension' 	=> 'settings',
-			'type' 			=> 'general',
+			'type' 			=> 'site',
 			'name' 			=> 'tagline',
 			'value' 		=> 'A base application on Laravel',
-		));
-
-		// Site email
-		$query = DB::table('settings')->insert(array(
-			'extension' 	=> 'settings',
-			'type' 			=> 'general',
-			'name' 			=> 'email',
-			'value' 		=> 'site@getplatform.com',
 		));
 
 	}
