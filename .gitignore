@@ -1,1 +1,2 @@
-public/platform/themes/compiled
+public/platform/themes/compiled/*
+!public/platform/themes/compiled/.gitkeep
