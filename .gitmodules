@@ -10,9 +10,6 @@
 [submodule "platform/application/bundles/gitsy"]
 	path = platform/application/bundles/gitsy
 	url = git@github.com:cartalyst/gitsy.git
-[submodule "platform/application/bundles/oauth2"]
-	path = platform/application/bundles/oauth2
-	url = git@github.com:cartalyst/laravel-oauth2.git
 [submodule "platform/application/bundles/crud"]
 	path = platform/application/bundles/crud
 	url = git@github.com:cartalyst/crud.git

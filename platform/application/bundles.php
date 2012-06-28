@@ -45,10 +45,6 @@ return array(
 		'location' => 'path: '.path('app').'bundles'.DS.'nesty',
 		'auto'     => true,
 	),
-	'oauth2'  => array(
-		'location' => 'path: '.path('app').'bundles'.DS.'oauth2',
-		'auto'     => true,
-	),
 	'sentry'  => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'sentry',
 		'auto'     => true,
