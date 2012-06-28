@@ -18,9 +18,6 @@
  * @link       http://cartalyst.com
  */
 
-// Start nesty
-Bundle::start('nesty');
-
 Autoloader::namespaces(array(
 	'Platform\\Menus\\Widgets' => __DIR__.DS.'widgets',
 	'Platform\\Menus'          => __DIR__.DS.'models',

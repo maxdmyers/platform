@@ -34,6 +34,10 @@
 */
 
 return array(
+	'crud'   => array(
+		'location' => 'path: '.path('app').'bundles'.DS.'crud',
+		'auto'     => true,
+	),
 	'gitsy'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',
 	),
@@ -51,7 +55,6 @@ return array(
 	),
 	'swiftmailer' => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'swiftmailer',
-		//'auto'     => true,
 	),
 	'theme'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'theme',

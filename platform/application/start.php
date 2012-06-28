@@ -226,9 +226,11 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 |
 */
 
+// Bundle::start('crud');
+
 $installed = Platform::is_installed();
 
-if (is_dir(path('base') . 'installer'))
+if (is_dir(path('base').'installer'))
 {
 	Bundle::register('installer', array(
 		'location' => 'path: '.path('installer'),
