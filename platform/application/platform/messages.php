@@ -57,7 +57,6 @@ class Messages extends Laravel\Messages
 	/**
 	 * Create a new Messages instance
 	 *
-	 * @access  public
 	 * @param   array  $messages    Messages
 	 * @param   bool   $use_session Use session with messages class
 	 * @return  void
@@ -91,7 +90,6 @@ class Messages extends Laravel\Messages
 	 * Persists the Messages to the
 	 * session
 	 *
-	 * @access  public
 	 * @return  Messages
 	 */
 	public function persist()
@@ -237,7 +235,6 @@ class Messages extends Laravel\Messages
 	 *			$messages->forget();
 	 *		</code>
 	 *
-	 * @access  public
 	 * @param   string  $key  Message key to forget
 	 * @return  void
 	 */
@@ -274,7 +271,6 @@ class Messages extends Laravel\Messages
 	 * ArrayAccess - Set an offset in the
 	 * messages array
 	 *
-	 * @access  public
 	 * @param   string  $key      Element key
 	 * @param   string  $message  Message
 	 * @return  void
@@ -288,7 +284,6 @@ class Messages extends Laravel\Messages
 	 * ArrayAccess - Determine if an element
 	 * exists in the messages array
 	 *
-	 * @access  public
 	 * @param   string  $key  Element key
 	 * @return  void
 	 */
@@ -301,7 +296,6 @@ class Messages extends Laravel\Messages
 	 * ArrayAccess - Unset an element in the
 	 * messages array
 	 *
-	 * @access  public
 	 * @param   string  $key  Element key
 	 * @return  void
 	 */
@@ -314,7 +308,6 @@ class Messages extends Laravel\Messages
 	 * ArrayAccess - Get an element in the
 	 * messages array
 	 *
-	 * @access  public
 	 * @param   string  $key  Element key
 	 * @return  void
 	 */
@@ -337,7 +330,6 @@ class Messages extends Laravel\Messages
 	 * Iterator - Rewind the messsages array to
 	 * the first element
 	 *
-	 * @access  public
 	 * @return  void
 	 */
 	public function rewind()
@@ -349,7 +341,6 @@ class Messages extends Laravel\Messages
 	 * Iterator - Return the current element
 	 * of the messages array
 	 *
-	 * @access  public
 	 * @return  array  Current messages element
 	 */
 	public function current()
@@ -361,7 +352,6 @@ class Messages extends Laravel\Messages
 	 * Iterator - Returns the key of the current
 	 * element of the messages array
 	 *
-	 * @access  public
 	 * @return  string   Current key
 	 */
 	public function key()
@@ -373,7 +363,6 @@ class Messages extends Laravel\Messages
 	 * Iterator - Iterates to the next
 	 * element in the array
 	 *
-	 * @access  public
 	 * @return  array  Next messages element
 	 */
 	public function next()
@@ -385,7 +374,6 @@ class Messages extends Laravel\Messages
 	 * Iterator - Checks if a current
 	 * position is valid
 	 *
-	 * @access  public
 	 * @return  bool   Valid
 	 */
 	public function valid()
@@ -401,7 +389,6 @@ class Messages extends Laravel\Messages
 	 * a new instance, they won't be used to access
 	 * future instances.
 	 *
-	 * @access  public
 	 * @param   array  $messages    Messages
 	 * @param   bool   $use_session Use session with messages class
 	 * @return  Messages
