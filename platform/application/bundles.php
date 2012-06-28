@@ -36,7 +36,6 @@
 return array(
 	'crud'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'crud',
-		'auto'     => true,
 	),
 	'gitsy'   => array(
 		'location' => 'path: '.path('app').'bundles'.DS.'gitsy',

@@ -178,7 +178,18 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 	Session::load();
 }
 
+/*
+|--------------------------------------------------------------------------
+| Crud
+|--------------------------------------------------------------------------
+|
+| Crud is our base model for everything in Platform. We'll kick it off
+| here so it's loaded for when we start using it in
+| Platform::is_installed() and Platform::start().
+|
+*/
 
+Bundle::start('crud');
 
 /*
 |--------------------------------------------------------------------------
@@ -189,44 +200,6 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 | installer extension and execute it
 |
 */
-
-// if (is_dir(path('base') . 'installer'))
-// {
-// 	Bundle::register('installer', array(
-// 		'location' => 'path: '.path('installer'),
-// 		'handles'  => 'installer',
-// 	));
-
-// 	// Load the installer bundle
-// 	Bundle::start('installer');
-
-// 	if (class_exists('Installer\\Installer') and ! Platform::is_installed())
-// 	{
-// 		// The person can only be installing.
-// 		// Any other actions will cause a redirect to the installer.
-// 		if ( ! URI::is('installer|installer/*'))
-// 		{
-// 			Redirect::to('installer')->send();
-// 			exit;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		// notify installer still active
-// 	}
-// }
-
-/*
-|--------------------------------------------------------------------------
-| Start Platform
-|--------------------------------------------------------------------------
-|
-| Starting Platform allows laravel to setup everything else needed for
-| Platform to run
-|
-*/
-
-// Bundle::start('crud');
 
 $installed = Platform::is_installed();
 
@@ -251,6 +224,16 @@ if (is_dir(path('base').'installer'))
 		Session::put('install_dir', 'Install directory still exists');
 	}
 }
+
+/*
+|--------------------------------------------------------------------------
+| Start Platform
+|--------------------------------------------------------------------------
+|
+| Starting Platform allows laravel to setup everything else needed for
+| Platform to run
+|
+*/
 
 if ($installed)
 {
