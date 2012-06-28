@@ -52,8 +52,8 @@
 							<h2>Platform is an application base, a bootstrap if you will, on Laravel. The fundamentals <span>+</span> a few essentials included. It's well documented, feature awesome, and open source.</h2>
 
 							<p class="love">If you <span class="ico-heart"></span> it, buy it.</p>
-							<p class="perks">and recieve 6 months <a href="">developer status</a> when you purchase platform.</p>
-							<a class="btn btn-large btn-primary buy" href="">Purchase</a>
+							<p class="perks">and recieve 6 months <a href="https://getplatform.com/buy/platform">developer status</a> when you purchase platform.</p>
+							<a class="btn btn-large btn-primary buy" href="https://getplatform.com/buy/checkout/platform">Purchase</a>
 						</div>
 					</div>
 				</div
