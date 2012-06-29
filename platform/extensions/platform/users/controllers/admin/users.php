@@ -108,6 +108,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			// there was an error creating the user - set errors
 			Platform::messages()->error($create_user['message']);
+
 			return Redirect::to(ADMIN.'/users/create')->with_input();
 		}
 	}

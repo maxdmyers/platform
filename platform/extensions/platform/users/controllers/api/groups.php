@@ -45,7 +45,7 @@ class Users_API_Groups_Controller extends API_Controller
 
 		return array(
 			'status'  => false,
-			'message' => 'No groups exist within the give parameters.'
+			'message' => Lang::line('users::groups.errors.no_groups_exist')->get()
 		);
 	}
 
@@ -68,7 +68,7 @@ class Users_API_Groups_Controller extends API_Controller
 			{
 				return array(
 					'status'  => false,
-					'message' => ($group->validation()->errors->has()) ? $group->validation() : Lang::line('users::groups.create_error')->get()
+					'message' => ($group->validation()->errors->has()) ? $group->validation()->errors->all() : Lang::line('users::groups.create.error')->get()
 				);
 			}
 		}
@@ -102,7 +102,7 @@ class Users_API_Groups_Controller extends API_Controller
 			{
 				return array(
 					'status'  => false,
-					'message' => ($group->validation()->errors->has()) ? $group->validation()->errors : Lang::line('users::groups.update.error')->get()
+					'message' => ($group->validation()->errors->has()) ? $group->validation()->errors->all() : Lang::line('users::groups.update.error')->get()
 				);
 			}
 		}

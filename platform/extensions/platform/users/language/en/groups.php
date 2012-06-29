@@ -79,8 +79,9 @@ return array(
 
 	/* General Errors */
 	'errors' => array(
-		'count_error' => 'There was an issue retrieving the count, please try again.',
+		'count_error'     => 'There was an issue retrieving the count, please try again.',
 		'invalid_request' => 'Not a valid request.',
+		'no_groups_exist' => 'No groups exist within the give parameters.'
 	)
 
 );

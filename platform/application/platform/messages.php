@@ -28,7 +28,6 @@ use Laravel\IoC;
  * @author Ben Corlett
  */
 class Messages extends Laravel\Messages
-            implements ArrayAccess, Iterator
 {
 
 	/**
@@ -44,15 +43,7 @@ class Messages extends Laravel\Messages
 	 *
 	 * @var string
 	 */
-	protected $session_key = 'messages';
-
-	/**
-	 * Flag to use the session or not
-	 * with the mesages class
-	 *
-	 * @var bool
-	 */
-	protected $use_session = false;
+	protected $session_key = 'platform';
 
 	/**
 	 * Create a new Messages instance
@@ -61,29 +52,18 @@ class Messages extends Laravel\Messages
 	 * @param   bool   $use_session Use session with messages class
 	 * @return  void
 	 */
-	public function __construct($messages = array(), $use_session = false)
+	public function __construct($messages = array())
 	{
-		// Flag to use session
-		$this->use_session = (bool) $use_session;
-
-		// If we're to use the session to
-		// persist our messages
-		if ($this->use_session === true)
+		// After the controller has been executed
+		// we want to persist the messages instance
+		// to the session
+		Event::listen('platform.controller.after', function()
 		{
-			// Get messages from session and merge
-			$messages = array_merge_recursive(Session::get($this->session_key, array()), $messages);
-
-			// After the controller has been executed
-			// we want to persist the messages instance
-			// to the session
-			Event::listen('platform.controller.after', function()
-			{
-				Messages::instance()->persist();
-			});
-		}
+			Messages::instance()->persist();
+		});
 
 		// Call our parent
-		parent::__construct($messages);
+		parent::__construct();
 	}
 
 	/**
@@ -95,7 +75,6 @@ class Messages extends Laravel\Messages
 	public function persist()
 	{
 		Session::flash($this->session_key, $this->messages);
-		return $this;
 	}
 
 	/**
@@ -142,243 +121,19 @@ class Messages extends Laravel\Messages
 		return $this->add('info', $message);
 	}
 
-	/**
-	 * Add a message to the collector.
-	 *
-	 * <code>
-	 *		// Add a message for the e-mail attribute
-	 *		$messages->add('email', 'The e-mail address is invalid.');
-	 * </code>
-	 *
-	 * @param  string  $key
-	 * @param  string  $message
-	 * @return Messages
-	 */
 	public function add($key, $message)
 	{
-		if ( ! is_array($message))
+		$message = ( ! is_array($message)) ? array($message) : $message;
+		// print_r($message);
+		// exit;
+		if (isset($this->messages[$key]))
 		{
-			$message = array($message);
+			$this->messages[$key] = array_merge($this->messages[$key], $message);
 		}
-		foreach ($message as $m)
+		else
 		{
-			parent::add($key, $m);
+			$this->messages[$key] = $message;
 		}
-
-		return $this;
-	}
-
-	/**
-	 * Get all of the messages from the container for a given key.
-	 *
-	 * <code>
-	 *		// Echo all of the messages for the e-mail attribute
-	 *		echo $messages->get('email');
-	 *
-	 *		// Format all of the messages for the e-mail attribute
-	 *		echo $messages->get('email', '<p>:message</p>');
-	 * </code>
-	 *
-	 * @param  string  $key
-	 * @param  string  $format
-	 * @return array
-	 */
-	public function get($key, $format = ':message')
-	{
-		$formatted = parent::get($key, $format);
-
-		// If we're using session - we need to delete
-		// the items out after they've been displayed
-		// so they're not persisted again
-		if ($this->use_session and array_key_exists($key, $this->messages))
-		{
-			unset($this->messages[$key]);
-		}
-
-		return $formatted;
-	}
-
-	/**
-	 * Get all of the messages for every key in the container.
-	 *
-	 * <code>
-	 *		// Get all of the messages in the collector
-	 *		$all = $messages->all();
-	 *
-	 *		// Format all of the messages in the collector
-	 *		$all = $messages->all('<p>:message</p>');
-	 * </code>
-	 *
-	 * @param  string  $format
-	 * @return array
-	 */
-	public function all($format = ':message')
-	{
-		$formatted = parent::get($key, $format);
-
-		// If we're using session - we need to delete
-		// the items out after they've been displayed
-		// so they're not persisted again
-		if ($this->use_session) $this->messages = array();
-
-		return $formatted;
-	}
-
-	/**
-	 * Forget a message type or all messages
-	 *
-	 *		<code>
-	 * 			// Forget all notice messages
-	 *          $messages->forget('notice');
-	 *
-	 *			// Forget all messages (reset messages)
-	 *			$messages->forget();
-	 *		</code>
-	 *
-	 * @param   string  $key  Message key to forget
-	 * @return  void
-	 */
-	public function forget($key = null)
-	{
-		// If the user didn't provide a key, remove all messages
-		if ($key === null)
-		{
-			$this->messages = array();
-		}
-
-		elseif ($this->has($key))
-		{
-			unset($this->messages[$key]);
-		}
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| ArrayAccess implementation
-	|--------------------------------------------------------------------------
-	|
-	| You can access messages as if the Messages class was a plain old array if
-	| this is your preferred method.
-	|
-	|		foreach ($messages['foo'] as $message)
-	|		{
-	|			echo '<p>'.$foo.'</p>';
-	|		}
-	|
-	*/
-
-	/**
-	 * ArrayAccess - Set an offset in the
-	 * messages array
-	 *
-	 * @param   string  $key      Element key
-	 * @param   string  $message  Message
-	 * @return  void
-	 */
-	public function offsetSet($key, $message)
-	{
-		$this->add($key, $message);
-	}
-
-	/**
-	 * ArrayAccess - Determine if an element
-	 * exists in the messages array
-	 *
-	 * @param   string  $key  Element key
-	 * @return  void
-	 */
-	public function offsetExists($key)
-	{
-		return $this->has($key);
-	}
-
-	/**
-	 * ArrayAccess - Unset an element in the
-	 * messages array
-	 *
-	 * @param   string  $key  Element key
-	 * @return  void
-	 */
-	public function offsetUnset($key)
-	{
-		$this->forget($key);
-	}
-
-	/**
-	 * ArrayAccess - Get an element in the
-	 * messages array
-	 *
-	 * @param   string  $key  Element key
-	 * @return  void
-	 */
-	public function offsetGet($key)
-	{
-		return $this->get($key);
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Iterator implementation
-	|--------------------------------------------------------------------------
-	|
-	| By implementing the iterator interface, you can treat the Messages class
-	| as if it were an array, using foreach loops
-	|
-	*/
-
-	/**
-	 * Iterator - Rewind the messsages array to
-	 * the first element
-	 *
-	 * @return  void
-	 */
-	public function rewind()
-	{
-		reset($this->messages);
-	}
-
-	/**
-	 * Iterator - Return the current element
-	 * of the messages array
-	 *
-	 * @return  array  Current messages element
-	 */
-	public function current()
-	{
-		return current($this->messages);
-	}
-
-	/**
-	 * Iterator - Returns the key of the current
-	 * element of the messages array
-	 *
-	 * @return  string   Current key
-	 */
-	public function key()
-	{
-		return key($this->messages);
-	}
-
-	/**
-	 * Iterator - Iterates to the next
-	 * element in the array
-	 *
-	 * @return  array  Next messages element
-	 */
-	public function next()
-	{
-		return next($this->messages);
-	}
-
-	/**
-	 * Iterator - Checks if a current
-	 * position is valid
-	 *
-	 * @return  bool   Valid
-	 */
-	public function valid()
-	{
-		return key($this->messages) !== null;
 	}
 
 	/**

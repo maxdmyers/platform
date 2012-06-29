@@ -29,7 +29,7 @@
 		<div class="actions clearfix">
 			<div id="table-filters" class="form-inline pull-left"></div>
 			<div class="pull-right">
-				<a class="btn btn-large btn-primary" href="{{ url(ADMIN.'/users/create') }}">{{ Lang::line('users::groups.button.create') }}</a>
+				<a class="btn btn-large btn-primary" href="{{ url(ADMIN.'/users/groups/create') }}">{{ Lang::line('users::groups.button.create') }}</a>
 			</div>
 		</div>
 
@@ -41,7 +41,7 @@
 				<div class="row">
 					<div class="span10">
 						<div class="table-wrapper">
-							<table id="users-table" class="table table-bordered">
+							<table id="groups-table" class="table table-bordered">
 								<thead>
 									<tr>
 										@foreach ($columns as $key => $col)

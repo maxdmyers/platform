@@ -71,14 +71,14 @@ class Users_API_Users_Controller extends API_Controller
 				// respond
 				return array(
 					'status'  => true,
-					'message' => Lang::line('users::users.create_success')->get()
+					'message' => Lang::line('users::users.create.success')->get()
 				);
 			}
 			else
 			{
 				return array(
 					'status'  => false,
-					'message' => ($user->validation()->errors->has()) ? $user->validation()->errors : Lang::line('user::users.create_error')->get()
+					'message' => ($user->validation()->errors->has()) ? $user->validation()->errors->all() : Lang::line('user::users.create.error')->get()
 				);
 			}
 		}
@@ -105,14 +105,14 @@ class Users_API_Users_Controller extends API_Controller
 			{
 				return array(
 					'status'  => true,
-					'message' => Lang::line('users::users.update_success')->get()
+					'message' => Lang::line('users::users.update.success')->get()
 				);
 			}
 			else
 			{
 				return array(
 					'status'  => false,
-					'message' => ($user->validation()->errors->has()) ? $user->validation()->errors : Lang::line('users::users.update_error')->get()
+					'message' => ($user->validation()->errors->has()) ? $user->validation()->errors->all() : Lang::line('users::users.update.error')->get()
 				);
 			}
 		}
@@ -176,22 +176,22 @@ class Users_API_Users_Controller extends API_Controller
 	public function get_datatable()
 	{
 		$defaults = array(
-			'select'    => array(
-				'users.id'            => Lang::line('users::users.general.id')->get(),
-				'first_name'          => Lang::line('users::users.general.first_name')->get(),
-				'last_name'           => Lang::line('users::users.general.last_name')->get(),
-				'email'               => Lang::line('users::users.general.email')->get(),
-				//'groups.name'         => Lang::line('users::users.general.groups')->get(),
+			'select'   => array(
+				'users.id'       => Lang::line('users::users.general.id')->get(),
+				'first_name'     => Lang::line('users::users.general.first_name')->get(),
+				'last_name'      => Lang::line('users::users.general.last_name')->get(),
+				'email'          => Lang::line('users::users.general.email')->get(),
+				'groups.name'    => Lang::line('users::users.general.groups')->get(),
 				'settings.name'  => Lang::line('users::users.general.status')->get(),
-				'created_at'          => 'Created At',
+				'created_at'     => 'Created At',
 			),
-			'alias'     => array(
-				'users.id'            => 'id',
-				//'groups.name'         => 'groups',
-				'settings.name'  => 'status'
+			'alias'    => array(
+				'users.id'      => 'id',
+				'groups.name'   => 'groups',
+				'settings.name' => 'status'
 			),
-			'where'     => array(),
-			'order_by'  => array('users.id' => 'desc'),
+			'where'    => array(),
+			'order_by' => array('users.id' => 'desc'),
 		);
 
 		// lets get to total user count

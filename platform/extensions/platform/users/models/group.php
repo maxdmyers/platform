@@ -37,7 +37,9 @@ class Group extends Crud
 	/**
 	 * @var  array  $rules  Validation rules for model attributes
 	 */
-	protected static $_rules = array();
+	protected static $_rules = array(
+		'name' => 'required|unique:groups'
+	);
 
 	/**
 	 * Save the model instance to the database.
@@ -254,6 +256,34 @@ class Group extends Crud
 		}
 
 		return $model->after_find($models);
+	}
+
+	/**
+	 * Gets called before the validation is ran.
+	 *
+	 * @param   array  $data  The validation data
+	 * @return  array
+	 */
+	protected function before_validation($data, $rules)
+	{
+		if ( ! $this->is_new())
+		{
+			// add id to the unique clause to prevent errors if same email
+			$rules['name'] .= ',name,'.$data['id'];
+
+			// if password is empty, remove it from rules and dataset, not updating
+			if (empty($data['password']))
+			{
+				unset($rules['password']);
+			}
+		}
+
+		if (isset($data['id']) and isset($data['permissions']) and count($data) == 2)
+		{
+			$rules = array();
+		}
+
+		return array($data, $rules);
 	}
 
 }

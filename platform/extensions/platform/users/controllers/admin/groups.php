@@ -138,7 +138,7 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 		{
 			// there was an error editing the group - set errors
 			Platform::messages()->error($edit_group['message']);
-			return Redirect::to(ADMIN.'/uers/groups/edit/'.$id)->with_input();
+			return Redirect::to(ADMIN.'/users/groups/edit/'.$id)->with_input();
 		}
 	}
 

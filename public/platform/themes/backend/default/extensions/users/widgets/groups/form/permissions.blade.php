@@ -14,6 +14,6 @@
 	@endforeach
 	</div>
 
-	<button class="btn btn-large" type="submit" value="{{ Lang::line('users::groups.button.update') }}">{{ Lang::line('users::groups.button.update') }}</button>
-	<a class="btn btn-large" href="{{ url(ADMIN.'/users') }}">{{ Lang::line('users::groups.button.cancel') }}</a>
+	<button class="btn btn-large" type="submit">{{ Lang::line('users::groups.button.update') }}</button>
+	<a class="btn btn-large" href="{{ url(ADMIN.'/users/groups') }}">{{ Lang::line('users::groups.button.cancel') }}</a>
 {{ Form::close() }}

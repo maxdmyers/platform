@@ -38,7 +38,12 @@ class User extends Crud
 	/**
 	 * @var  array  $rules  Validation rules for model attributes
 	 */
-	protected static $_rules = array();
+	protected static $_rules = array(
+		'metadata.first_name'   => 'required',
+		'metadata.last_name'    => 'required',
+		'email'                 => 'required|unique:users',
+		'password_confirmation' => 'same:password',
+	);
 
 	// we use this to set metdata
 	protected static $_fields = array(
@@ -323,11 +328,16 @@ class User extends Crud
 			// add id to the unique clause to prevent errors if same email
 			$rules['email'] .= ',email,'.$data['id'];
 
-			// if password is not empty, remove it from rules and dataset, not updating
+			// if password is empty, remove it from rules and dataset, not updating
 			if (empty($data['password']))
 			{
 				unset($rules['password']);
 			}
+		}
+
+		if (isset($data['id']) and isset($data['permissions']) and count($data) == 2)
+		{
+			$rules = array();
 		}
 
 		return array($data, $rules);
