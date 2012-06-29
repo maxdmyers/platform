@@ -15,12 +15,11 @@
 			<ul class="nav">
 				<li class="active">Step 1</li>
 				<li>Step 2</li>
-				<li>Step 3</li>
 				<li>Finish</li>
 			</ul>
 		</div>
 
-		{{ Form::open('installer/index/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
+		{{ Form::open('installer/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
 
 			<fieldset>
 
@@ -37,7 +36,7 @@
 					{{ Form::label('host', 'Host', array('class' => 'control-label', 'for' => 'inputIcon')) }}
 		         	<div class="controls">
 		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-globe"></i></span>{{ Form::text('host', null, array('placeholder' => 'e.g. localhost')) }}
+		            		<span class="add-on"><i class="icon-globe"></i></span>{{ Form::text('host', null, array('placeholder' => 'e.g. localhost', 'required')) }}
 		            	</div>
 		        	</div>
 		        </div>
@@ -46,7 +45,7 @@
 					{{ Form::label('username', 'Username', array('class' => 'control-label', 'for' => 'inputIcon')) }}
 		         	<div class="controls">
 		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('username', null, array('placeholder' => 'e.g. root')) }}
+		            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('username', null, array('placeholder' => 'e.g. root', 'required')) }}
 		            	</div>
 		        	</div>
 		        </div>
@@ -64,14 +63,14 @@
 					{{ Form::label('database', 'Database', array('class' => 'control-label', 'for' => 'inputIcon')) }}
 		         	<div class="controls">
 		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-briefcase"></i></span>{{ Form::text('database', null, array('placeholder' => 'e.g. platform')) }}
+		            		<span class="add-on"><i class="icon-briefcase"></i></span>{{ Form::text('database', null, array('placeholder' => 'e.g. platform', 'required')) }}
 		            	</div>
 		        	</div>
 		        </div>
 
 				<div class="control-group pager">
 					<div class="controls">
-						<button type="submit" disabled="disabled" class="btn btn-large btn-primary">
+						<button type="submit" class="btn btn-large btn-primary" disabled>
 							Continue to Step 2
 						</button>
 					</div>

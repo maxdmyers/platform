@@ -21,9 +21,11 @@
 namespace Installer;
 
 use Bundle;
+use Config;
 use DB;
 use File;
 use Exception;
+use Laravel\CLI\Command;
 use Platform;
 use Session;
 use Str;
@@ -65,16 +67,6 @@ class Installer
 	}
 
 	/**
-	 * Returns the path of the database config file.
-	 *
-	 * @return  string
-	 */
-	public static function database_config_file()
-	{
-		return path('app').'config'.DS.'database'.EXT;
-	}
-
-	/**
 	 * Creates a database config file.
 	 *
 	 * @param   array  $config
@@ -100,7 +92,7 @@ class Installer
 		$string = str_replace(array_keys($replacements), array_values($replacements), $string);
 
 		// Write the new file
-		File::put(static::database_config_file(), $string);
+		File::put(path('app').'config'.DS.'database'.EXT, $string);
 	}
 
 	/**
@@ -109,7 +101,7 @@ class Installer
 	 * @param   array  $config
 	 * @return  bool
 	 */
-	public static function check_database($config = array())
+	public static function check_database_connection($config = array())
 	{
 		switch ($config['driver'])
 		{
@@ -148,22 +140,14 @@ class Installer
 	}
 
 	/**
-	 * Prepares the system to install all extensions.
-	 *
-	 * @return  void
-	 */
-	public static function prepare_db_for_extensions()
-	{
-		Platform::extensions_manager()->prepare_db_for_extensions();
-	}
-
-	/**
 	 * Installs the extensions into the database
 	 *
 	 * @return  void
 	 */
 	public static function install_extensions()
 	{
+		Platform::extensions_manager()->prepare_db_for_extensions();
+
 		/**
 		 * @todo remove when my pull request gets accepted
 		 */
@@ -183,6 +167,42 @@ class Installer
 			// the database etc...
 			Platform::extensions_manager()->install($extension, true);
 		}
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_end_clean();
+	}
+
+	public static function remember_step_data($step, $data)
+	{
+		if ( ! is_int($step) or $step < 1)
+		{
+			throw new Exception("Invalid step provided");
+		}
+
+		Session::put(Config::get('installer::installer.session_key', 'installer').'.steps.'.$step, $data);
+	}
+
+	public static function get_step_data($step = null, $default = null)
+	{
+		// echo Config::get('installer::installer.session_key', 'installer').'.steps'.($step ? '.'.$step : null);
+		return Session::get(Config::get('installer::installer.session_key', 'installer').'.steps'.($step ? '.'.$step : null), $default);
+	}
+
+	public static function generate_key()
+	{
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_start();
+
+		// Resolves core tasks.
+		require_once path('sys').'cli/dependencies'.EXT;
+
+		// Run extensions migration. This will prepare
+		// the table we need to install the core extensions
+		Command::run(array('key:generate'));
 
 		/**
 		 * @todo remove when my pull request gets accepted

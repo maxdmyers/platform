@@ -22,17 +22,6 @@ use Installer\Installer;
 
 class Installer_Index_Controller extends Base_Controller
 {
-	/**
-	 * Catch-all method for requests that can't be matched.
-	 *
-	 * @param  string    $method
-	 * @param  array     $parameters
-	 * @return Response
-	 */
-	public function __call($method, $parameters)
-	{
-		return $this->get_index();
-	}
 
 	/**
 	 * This function is called before the action is executed.
@@ -45,7 +34,7 @@ class Installer_Index_Controller extends Base_Controller
 
 		// Always make the system prepared for an install, as
 		// we never know which step we're landing on.
-		Installer::prepare();
+		// Installer::prepare();
 
 		// Setup CSS
 		Asset::add('bootstrap', 'platform/installer/css/bootstrap.min.css');
@@ -58,51 +47,81 @@ class Installer_Index_Controller extends Base_Controller
 		Asset::add('installer', 'platform/installer/js/installer.js', array('jquery'));
 	}
 
-	/**
-	 * Show the initial installer step, license agreement
-	 *
-	 * @return  Redirect
-	 */
 	public function get_index()
 	{
-		// Normally, we show an "Agree to our terms"
-
-		// Redirect to appropriate step
-		return Redirect::to('installer/index/step_'.$this->determine_step());
+		return Redirect::to('installer/step_1');
 	}
 
-	/**
-	 * Step 1 - Database credentials
-	 *
-	 * @return  View
-	 */
 	public function get_step_1()
 	{
-		if ($this->determine_step() !== 1)
-		{
-			return Redirect::to('installer');
-		}
-
 		return View::make('installer::step_1')->with('drivers', Installer::database_drivers());
 	}
 
-	/**
-	 * Step 1 - Creates a config file
-	 *
-	 * @return  Redirect
-	 */
 	public function post_step_1()
 	{
-		if ($this->determine_step() !== 1)
+		Installer::remember_step_data(1, Input::get());
+
+		return Redirect::to('installer/step_2');
+	}
+
+	public function get_step_2()
+	{
+		return View::make('installer::step_2');
+	}
+
+	public function post_step_2()
+	{
+		Installer::remember_step_data(2, Input::get());
+
+		return Redirect::to('installer/install');
+	}
+
+	public function get_install()
+	{
+		// 1. Create the database config file
+		Installer::create_database_config(Installer::get_step_data(1, function() {
+			Redirect::to('installer/step_1')->send();
+			exit;
+		}));
+
+		// 2. Create a random key
+		Installer::generate_key();
+
+		// 3. Install extensions
+		Installer::install_extensions();
+
+		// 4. Create user
+		$user = Installer::get_step_data(2, function() {
+			Redirect::to('installer/step_1')->send();
+			exit;
+		});
+
+		$create_user = API::post('users/create', array(
+			'email'                 => $user['email'],
+			'password'              => $user['password'],
+			'password_confirmation' => $user['password_confirmation'],
+			'groups'                => array('admin', 'users'),
+			'metadata'              => array(
+				'first_name' => $user['first_name'],
+				'last_name'  => $user['last_name'],
+			),
+			'permissions' => array(
+				Config::get('sentry::sentry.permissions.superuser') => 1,
+			),
+		));
+
+		if ( ! $create_user['status'])
 		{
-			return Redirect::to('installer');
+			return Redirect::to('installer/step_1');
 		}
 
-		// Create database config
-		Installer::create_database_config(Input::get());
+		return Redirect::to('installer/complete');
+	}
 
-		// Redirect
-		return Redirect::to('installer');
+	public function get_complete()
+	{
+		return View::make('installer::complete')
+		           ->with('key', Config::get('application.key'));
 	}
 
 	/**
@@ -119,7 +138,7 @@ class Installer_Index_Controller extends Base_Controller
 
 		try
 		{
-			Installer::check_database(array(
+			Installer::check_database_connection(array(
 				'driver'   => Input::get('driver'),
 				'host'     => Input::get('host'),
 				'database' => Input::get('database'),
@@ -151,175 +170,15 @@ class Installer_Index_Controller extends Base_Controller
 	}
 
 	/**
-	 * Step 2 - Lists extensions to install
+	 * Catch-all method for requests that can't be matched.
 	 *
-	 * @return  View
+	 * @param  string    $method
+	 * @param  array     $parameters
+	 * @return Response
 	 */
-	public function get_step_2()
+	public function __call($method, $parameters)
 	{
-		if ($this->determine_step() !== 2)
-		{
-			return Redirect::to('installer');
-		}
-
-		return View::make('installer::step_2');
-	}
-
-	/**
-	 * Step 2 - Installs core extensions
-	 *
-	 * @return  View
-	 */
-	public function post_step_2()
-	{
-		if ($this->determine_step() !== 2)
-		{
-			return Redirect::to('installer');
-		}
-
-		/**
-		 * Normally, we'd get an array of extensions
-		 * to install, but for now we're just installing
-		 * all of them.
-		 */
-
-		// Prepare the database for extensions
-		Installer::prepare_db_for_extensions();
-
-		// Install all extensions
-		Installer::install_extensions();
-
-		return Redirect::to('installer');
-	}
-
-	/**
-	 * Step 3 - Provide credentials
-	 *
-	 * @return  View
-	 */
-	public function get_step_3()
-	{
-		if ($this->determine_step() !== 3)
-		{
-			return Redirect::to('installer');
-		}
-
-		return View::make('installer::step_3');
-	}
-
-	/**
-	 * Step 3 - Create default user
-	 *
-	 * @return  Redirect
-	 */
-	public function post_step_3()
-	{
-		if ($this->determine_step() !== 3)
-		{
-			return Redirect::to('installer');
-		}
-
-		$user = array(
-			'email'                 => Input::get('email'),
-			'password'              => Input::get('password'),
-			'password_confirmation' => Input::get('password_confirmation'),
-			'groups'                => array('admin', 'users'),
-			'metadata'              => array(
-				'first_name' => Input::get('first_name'),
-				'last_name'  => Input::get('last_name'),
-			),
-			'permissions' => array(
-				Config::get('sentry::sentry.permissions.superuser') => 1,
-			),
-		);
-
-		// Start the users extensions
-		Platform::extensions_manager()->start('users');
-
-		// Get the result from creating a user
-		$create_user = API::post('users/create', $user);
-
-
-		if ($create_user['status'])
-		{
-
-			// Set site email
-			$query = DB::table('settings')->insert(array(
-				'extension' 	=> 'settings',
-				'type' 			=> 'site',
-				'name' 			=> 'email',
-				'value' 		=> Input::get('email'),
-			));
-
-			return Redirect::to('installer');
-		}
-		else
-		{
-
-			return Redirect::to('installer')->with_input();
-		}
-	}
-
-	/**
-	 * Step 4: Completed
-	 *
-	 * @return  View
-	 */
-	public function get_step_4()
-	{
-		if ($this->determine_step() !== 4)
-		{
-			return Redirect::to('installer');
-		}
-
-		$data = array('secret' => Str::random(32));
-
-		return View::make('installer::step_4', $data);
-	}
-
-	/**
-	 * Determines what step we are allowed to be on
-	 * based on what's installed in the system.
-	 *
-	 * @return  int
-	 */
-	protected function determine_step()
-	{
-		/**
-		 * @todo replace this with checking the current user
-		 *       when my pull request gets accepted.
-		 */
-		try
-		{
-			if (DB::table('users')->count() > 0)
-			{
-				return 4;
-			}
-		}
-		catch (Exception $e)
-		{
-
-		}
-
-		// If we have any active extensions, we've passed step
-		// 2.
-		try
-		{
-			// We get an exception thrown if the table doesn't exist
-			return (count(Platform::extensions_manager()->enabled()) > 0) ? 3 : 2;
-		}
-		catch (Exception $e)
-		{
-
-		}
-
-		// We have a database file, go to step 2
-		if (File::exists(path('app').'config'.DS.'database'.EXT))
-		{
-			return 2;
-		}
-
-		return 1;
+		return $this->get_index();
 	}
 
 }

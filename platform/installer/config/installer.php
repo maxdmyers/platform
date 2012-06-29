@@ -18,8 +18,9 @@
  * @link       http://cartalyst.com
  */
 
-// Remove /index/ out of installer routes.
-Route::any('installer/(:any)', 'installer::index@(:1)');
-Route::get('installer', 'installer::index@index');
+return array(
 
-Route::controller(Controller::detect('installer'));
+	// The key used for identifying
+	// data in the session
+	'session_key' => 'installer',
+);
