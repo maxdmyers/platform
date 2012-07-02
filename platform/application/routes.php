@@ -160,6 +160,14 @@ Route::filter('after', function($response)
 	// Do stuff after every request to your application...
 });
 
+Route::filter('csrf', function()
+{
+	if (Request::forged()) return Response::error('500');
+
+	// remove the token from the input now
+	Request::foundation()->request->remove(Session::csrf_token);
+});
+
 Route::filter('auth', function()
 {
 	// if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');

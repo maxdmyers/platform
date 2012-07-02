@@ -20,6 +20,10 @@
 
 class Base_Controller extends Controller
 {
+	public function __construct()
+	{
+		$this->filter('before', 'csrf')->on('post');
+	}
 
 	/**
 	 * Flag for whether the controller is RESTful.

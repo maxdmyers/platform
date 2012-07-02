@@ -21,6 +21,8 @@
 
 		{{ Form::open(null, 'POST', array('id' => 'password-reset-form', 'class' => 'form-horizontal')) }}
 
+			{{ Form::token() }}
+
 			<!-- remove this later when we get errors via js ? -->
 			<p class="errors"></p>
 			<!-- end remove -->

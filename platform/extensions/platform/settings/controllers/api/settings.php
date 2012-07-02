@@ -77,8 +77,8 @@ class Settings_API_Settings_Controller extends API_Controller
 	{
 		// set vars
 		$settings   = Input::get('settings');
-		$updated    = null;
-		$errors     = null;
+		$updated    = array();
+		$errors     = array();
 
 		if ( ! isset($settings[0]))
 		{
@@ -155,20 +155,23 @@ class Settings_API_Settings_Controller extends API_Controller
 				// now save the setting
 				if ($setting_model->save())
 				{
-					$updated = 'Settings have been updated.<br />';
+					$updated[] = ucfirst($setting_model->name).' setting has been updated.';
 				}
 				else
 				{
 					// get errors
-					$errors[] = $setting_model->validation()->errors;
+					foreach($setting_model->validation()->errors->all() as $error)
+					{
+						$errors[] = $error;
+					}
 				}
 			}
 			catch (\Exception $e)
 			{
-				$errors .= $e->getMessage();
+				$errors[] = $e->getMessage();
 			}
 		}
-
+		
 		return array(
 			'status'  => true,
 			'updated' => $updated,

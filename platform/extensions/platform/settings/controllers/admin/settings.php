@@ -26,7 +26,7 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 		// general settings
 		'general' => array(
 			'site:name' => 'required',
-			//'site:url'  => 'required'
+			'site:email' => 'required|email'
 		)
 	);
 

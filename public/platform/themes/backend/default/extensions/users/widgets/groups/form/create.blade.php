@@ -1,4 +1,7 @@
 {{ Form::open() }}
+
+	{{ Form::token() }}
+
 	<fieldset>
 		<div>
 			<label for="name">{{ Lang::line('users::groups.general.name') }}</label>

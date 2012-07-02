@@ -20,6 +20,8 @@
 
 		{{ Form::open(null, 'POST', array('id' => 'login-form', 'class' => 'form-horizontal')) }}
 
+			{{ Form::token() }}
+
 			<input type="email" name="email" id="email" placeholder="{{ lang::line('users::users.general.email') }}" autocomplete="off">
 
 			<div class="input-append">

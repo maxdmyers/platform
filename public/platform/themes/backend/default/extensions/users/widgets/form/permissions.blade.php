@@ -1,4 +1,7 @@
 {{ Form::open(ADMIN.'/users/permissions/'.$id) }}
+
+	{{ Form::token() }}
+
 	<div class="well">
 	@foreach($extension_rules as $category)
 		<fieldset>

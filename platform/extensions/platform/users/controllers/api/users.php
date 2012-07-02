@@ -206,8 +206,8 @@ class Users_API_Users_Controller extends API_Controller
 
 			return $query
 				->left_join('users_metadata', 'users.id', '=', 'users_metadata.user_id')
-				//->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
-				//->left_join('groups', 'users_groups.group_id', '=', 'groups.id')
+				->left_join('users_groups', 'users.id', '=', 'users_groups.user_id')
+				->left_join('groups', 'users_groups.group_id', '=', 'groups.id')
 				->join('settings', 'settings.value', '=', 'users.status')
 				->where('settings.extension', '=', 'users')
 				->where('settings.type', '=', 'status');

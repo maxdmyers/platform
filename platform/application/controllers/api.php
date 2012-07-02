@@ -20,6 +20,9 @@
 
 class API_Controller extends Base_Controller
 {
+	// override construct as it doesn't need CSRF checks for internal API calls
+	public function __construct() {}
+
 	/**
 	 * This function is called before the action is executed.
 	 *

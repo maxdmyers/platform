@@ -1,4 +1,7 @@
 {{ Form::open(ADMIN.'/settings/general', 'POST', array('class' => 'form-horizontal')) }}
+
+	{{ Form::token() }}
+
 	<div class="well">
 		<fieldset>
 

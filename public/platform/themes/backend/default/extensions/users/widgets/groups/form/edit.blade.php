@@ -1,4 +1,7 @@
 {{ Form::open(ADMIN.'/users/groups/edit/'.$group['id'], 'POST', array('class' => 'form-horizontal')) }}
+	
+	{{ Form::token() }}
+	
 	<div class="well">
 		<fieldset>
 

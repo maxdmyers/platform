@@ -36,9 +36,10 @@ class Setting extends Crud
 	 * @param  array  validation rules
 	 * @param  array  labels
 	 */
-	public function set_validation($rules = array(), $labels = array())
+	public function set_validation($rules = array(), $messages = array())
 	{
 		static::$_rules  = $rules;
+		// static::$_messages = $messages;
 	}
 
 }

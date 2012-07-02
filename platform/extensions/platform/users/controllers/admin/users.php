@@ -25,6 +25,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	{
 		// Whitelist login methods
 		$this->filter('before', 'admin_auth')->except(array('login', 'logout', 'reset_password', 'reset_password_confirm'));
+		$this->filter('before', 'csrf')->on('post');
 	}
 
 	/**

@@ -63,6 +63,8 @@
 		<hr>
 
 		{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off')) }}
+			
+			{{ Form::token() }}
 
 			<div class="tabbable">
 				<ul class="nav nav-tabs">

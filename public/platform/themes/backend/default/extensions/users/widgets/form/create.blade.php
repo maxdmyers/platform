@@ -1,4 +1,7 @@
 {{ Form::open(ADMIN.'/users/create', 'POST', array('class' => 'form-horizontal')) }}
+
+	{{ Form::token() }}
+
 	<div class="well">
 		<fieldset>
 			<label for="first_name">{{ Lang::line('users::users.general.first_name') }}</label>

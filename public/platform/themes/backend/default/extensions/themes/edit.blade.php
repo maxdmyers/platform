@@ -29,6 +29,9 @@
 
 			@if (count($theme['options']))
 				{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'form-horizontal')) }}
+					
+					{{ Form::token() }}
+
 					<div class="well">
 						<input type="hidden" name="theme" value="{{ $theme['dir'] }}">
 						@if (isset($theme['id']))
