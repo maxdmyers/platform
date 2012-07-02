@@ -9,8 +9,8 @@
 
 	<meta name="description" content="an ecommerce engine">
 	<meta name="author" content="Cartalyst LLC">
-	<meta name="base_url" content="{{ URL::base() }}">
-	<meta name="admin_url" content="{{ URL::to('admin') }}">
+	<meta name="base_url" content="{{ URL::to_secure() }}">
+	<meta name="admin_url" content="{{ URL::to_secure(ADMIN) }}">
 
 	<title>
 	@section('title')

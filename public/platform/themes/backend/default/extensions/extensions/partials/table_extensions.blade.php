@@ -16,12 +16,12 @@
 			@if ( ! $row['is_core'])
 
 				@if ($row['enabled'])
-					<a class="btn" href="{{ url(ADMIN.'/extensions/disable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to disable the \'{{ e($row['name']) }}\' extension? All of its data will stay safe in your database, however it won\'t be available to use while disabled.');">disable</a>
+					<a class="btn" href="{{ URL::to_secure(ADMIN.'/extensions/disable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to disable the \'{{ e($row['name']) }}\' extension? All of its data will stay safe in your database, however it won\'t be available to use while disabled.');">disable</a>
 				@else
-					<a class="btn" href="{{ url(ADMIN.'/extensions/enable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to enable the \'{{ e($row['name']) }}\' extension?');">enable</a>
+					<a class="btn" href="{{ URL::to_secure(ADMIN.'/extensions/enable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to enable the \'{{ e($row['name']) }}\' extension?');">enable</a>
 				@endif
 
-				| <a class="btn btn-danger" href="{{ url(ADMIN.'/extensions/uninstall/'.$row['id']) }}" onclick="return confirm('Are you sure you want to uninstall the \'{{ e($row['name']) }}\' extension? All traces, including database info will be removed permanently. There is no undo action for this.');">uninstall</a>
+				| <a class="btn btn-danger" href="{{ URL::to_secure(ADMIN.'/extensions/uninstall/'.$row['id']) }}" onclick="return confirm('Are you sure you want to uninstall the \'{{ e($row['name']) }}\' extension? All traces, including database info will be removed permanently. There is no undo action for this.');">uninstall</a>
 
 			@else
 				Required

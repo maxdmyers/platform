@@ -20,7 +20,7 @@
 	<div class="actions clearfix">
 		<div id="table-filters" class="form-inline pull-left"></div>
 		<div class="pull-right">
-			{{ HTML::link(ADMIN.'/menus/create', Lang::line('menus::menus.button.create'), array('class' => 'btn btn-large btn-primary')) }}
+			{{ HTML::link_to_secure(ADMIN.'/menus/create', Lang::line('menus::menus.button.create'), array('class' => 'btn btn-large btn-primary')) }}
 		</div>
 	</div>
 
@@ -41,10 +41,10 @@
 								{{ $menu['name'] }}
 							</td>
 							<td>
-								{{ HTML::link('admin/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
+								{{ HTML::link_to_secure('admin/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
 
 								@if ($menu['user_editable'])
-									{{ HTML::link('admin/menus/delete/'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
+									{{ HTML::link_to_secure('admin/menus/delete/'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
 								@endif
 							</td>
 						</tr>

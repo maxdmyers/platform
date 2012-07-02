@@ -102,7 +102,7 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 			Cartalyst::messages()->error($result['message']);
 		}
 
-		return Redirect::to(ADMIN.'/menus/edit/'.array_get($result, 'menu.id'));
+		return Redirect::to_secure(ADMIN.'/menus/edit/'.array_get($result, 'menu.id'));
 	}
 
 	public function get_delete($id)
@@ -111,7 +111,7 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 			'id' => $id,
 		));
 
-		return Redirect::to(ADMIN.'/menus');
+		return Redirect::to_secure(ADMIN.'/menus');
 	}
 
 	/**
@@ -127,7 +127,7 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 			'name'    => Input::get('item_fields.'.$item['id'].'.name'),
 			'slug'    => Input::get('item_fields.'.$item['id'].'.slug'),
 			'uri'     => Input::get('item_fields.'.$item['id'].'.uri'),
-			'status' => Input::get('item_fields.'.$item['id'].'.status', 1),
+			'status'  => Input::get('item_fields.'.$item['id'].'.status', 1),
 		);
 
 		// Determine if we're a new item or not. If we're

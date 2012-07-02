@@ -29,7 +29,7 @@
 		<div class="actions clearfix">
 			<div id="table-filters" class="form-inline pull-left"></div>
 			<div class="pull-right">
-				<a class="btn btn-large btn-primary" href="{{ url(ADMIN.'/users/groups/create') }}">{{ Lang::line('users::groups.button.create') }}</a>
+				<a class="btn btn-large btn-primary" href="{{ URL::to_secure(ADMIN.'/users/groups/create') }}">{{ Lang::line('users::groups.button.create') }}</a>
 			</div>
 		</div>
 

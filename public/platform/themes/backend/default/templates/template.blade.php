@@ -13,8 +13,8 @@
 
 	<meta name="description" content="an ecommerce engine">
 	<meta name="author" content="Cartalyst LLC">
-	<meta name="base_url" content="{{ url() }}">
-	<meta name="admin_url" content="{{ url(ADMIN) }}">
+	<meta name="base_url" content="{{ URL::to_secure() }}">
+	<meta name="admin_url" content="{{ URL::to_secure(ADMIN) }}">
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -47,7 +47,7 @@
 	<div id="base" class="grid">
 		<header class="rows">
 			<div class="brand">
-				<a href="{{ url(ADMIN) }}">
+				<a href="{{ URL::to_secure(ADMIN) }}">
 					<img src="{{ Theme::asset('img/brand.png') }}" title="Cartalyst">
 				</a>
 			</div>
@@ -103,7 +103,7 @@
 		<div id="footer" class="rows">
 			<div class="wrapper clearfix">
 				<div class="brand">
-					<a href="{{ url(ADMIN) }}">
+					<a href="{{ URL::to_secure(ADMIN) }}">
 						<img src="{{ Theme::asset('img/brand-footer.png') }}" title="Cartalyst">
 					</a>
 				</div>

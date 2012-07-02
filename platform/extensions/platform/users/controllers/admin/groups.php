@@ -91,13 +91,13 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 		{
 			// group was created - set success and redirect back to admin user groups
 			Platform::messages()->success($create_group['message']);
-			return Redirect::to('admin/users/groups');
+			return Redirect::to_secure('admin/users/groups');
 		}
 		else
 		{
 			// there was an error creating the group - set errors
 			Platform::messages()->error($create_group['message']);
-			return Redirect::to('admin/users/groups/create')->with_input();
+			return Redirect::to_secure('admin/users/groups/create')->with_input();
 		}
 	}
 
@@ -132,13 +132,13 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 		{
 			// group was edited - set success and redirect back to admin user groups
 			Platform::messages()->success($edit_group['message']);
-			return Redirect::to(ADMIN.'/users/groups');
+			return Redirect::to_secure(ADMIN.'/users/groups');
 		}
 		else
 		{
 			// there was an error editing the group - set errors
 			Platform::messages()->error($edit_group['message']);
-			return Redirect::to(ADMIN.'/users/groups/edit/'.$id)->with_input();
+			return Redirect::to_secure(ADMIN.'/users/groups/edit/'.$id)->with_input();
 		}
 	}
 
@@ -157,13 +157,13 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 		{
 			// group was deleted - set success and redirect back to admin user groups
 			Platform::messages()->success($delete_group['message']);
-			return Redirect::to(ADMIN.'/users/groups');
+			return Redirect::to_secure(ADMIN.'/users/groups');
 		}
 		else
 		{
 			// there was an error editing the group - set errors
 			Platform::messages()->error($delete_group['message']);
-			return Redirect::to(ADMIN.'/users/groups');
+			return Redirect::to_secure(ADMIN.'/users/groups');
 		}
 	}
 
@@ -177,7 +177,7 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 		if ( ! $id)
 		{
 			Platform::messages()->error('A group Id is required to update permissions.');
-			return Redirect::to(ADMIN.'/users/groups');
+			return Redirect::to_secure(ADMIN.'/users/groups');
 		}
 
 		$permissions = Input::get();
@@ -211,13 +211,13 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 		{
 			// group was updated - set success and redirect back to admin user groups
 			Platform::messages()->success($update_group['message']);
-			return Redirect::to(ADMIN.'/users/groups');
+			return Redirect::to_secure(ADMIN.'/users/groups');
 		}
 		else
 		{
 			// there was an error updating the group - set errors
 			Platform::messages()->error($update_group['message']);
-			return Redirect::to(ADMIN.'/users/groups/edit/'.$id)->with_input();
+			return Redirect::to_secure(ADMIN.'/users/groups/edit/'.$id)->with_input();
 		}
 	}
 

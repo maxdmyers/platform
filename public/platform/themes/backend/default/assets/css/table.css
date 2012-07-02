@@ -67,7 +67,7 @@
 	width:30%;
 }
 #table .table-processing {
-	background-image: url('/platform/themes/backend/default/assets/img/table/loading.gif');
+	background-image: URL::to_secure('/platform/themes/backend/default/assets/img/table/loading.gif');
 	background-repeat: no-repeat;
 	background-position: left;
 	display: none;
@@ -80,21 +80,21 @@
 
 #table #table-wrapper .sortable {
 	cursor: pointer;
-	background-image: url('/platform/themes/backend/default/assets/img/table/sortable.png');
+	background-image: URL::to_secure('/platform/themes/backend/default/assets/img/table/sortable.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }
 
 #table .sortable-asc {
 	cursor: pointer;
-	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_asc.png');
+	background-image: URL::to_secure('/platform/themes/backend/default/assets/img/table/sortable_asc.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }
 
 #table .sortable-desc {
 	cursor: pointer;
-	background-image: url('/platform/themes/backend/default/assets/img/table/sortable_desc.png');
+	background-image: URL::to_secure('/platform/themes/backend/default/assets/img/table/sortable_desc.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 }

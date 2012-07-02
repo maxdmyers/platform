@@ -103,14 +103,14 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			// user was created - set success and redirect back to admin/users
 			Platform::messages()->success($create_user['message']);
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 		else
 		{
 			// there was an error creating the user - set errors
 			Platform::messages()->error($create_user['message']);
 
-			return Redirect::to(ADMIN.'/users/create')->with_input();
+			return Redirect::to_secure(ADMIN.'/users/create')->with_input();
 		}
 	}
 
@@ -137,7 +137,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		if ( ! $id)
 		{
 			Platform::messages()->error('A user Id is required to update a user.');
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 
 		// initialize data array
@@ -160,13 +160,13 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			// user was updated - set success and redirect back to admin/users
 			Platform::messages()->success($update_user['message']);
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 		else
 		{
 			// there was an error updating the user - set errors
 			Platform::messages()->error($update_user['message']);
-			return Redirect::to(ADMIN.'/users/edit/'.$id)->with_input();
+			return Redirect::to_secure(ADMIN.'/users/edit/'.$id)->with_input();
 		}
 	}
 
@@ -185,13 +185,13 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			// user was edited - set success and redirect back to admin/users
 			Platform::messages()->success($delete_user['message']);
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 		else
 		{
 			// there was an error editing the user - set errors
 			Platform::messages()->error($delete_user['message']);
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 	}
 
@@ -205,7 +205,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		if ( ! $id)
 		{
 			Platform::messages()->error('A user Id is required to update permissions.');
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 
 		$permissions = Input::get();
@@ -239,13 +239,13 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			// user was updated - set success and redirect back to admin users
 			Platform::messages()->success($update_user['message']);
-			return Redirect::to(ADMIN.'/users');
+			return Redirect::to_secure(ADMIN.'/users');
 		}
 		else
 		{
 			// there was an error updating the user - set errors
 			Platform::messages()->error($update_user['message']);
-			return Redirect::to(ADMIN.'/users/edit/'.$id)->with_input();
+			return Redirect::to_secure(ADMIN.'/users/edit/'.$id)->with_input();
 		}
 	}
 
@@ -280,7 +280,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			$data = array(
 				'status'   => true,
-				'redirect' => (\Session::get('last_url')) ?: URL::to(ADMIN)
+				'redirect' => (\Session::get('last_url')) ?: URL::to_secure(ADMIN)
 			);
 		}
 		else
@@ -307,7 +307,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	 	$logout = API::get('users/logout');
 	 	if ($logout['status'])
 	 	{
-	 		return Redirect::to(ADMIN.'/login');
+	 		return Redirect::to_secure(ADMIN.'/login');
 	 	}
 	 }
 
@@ -337,7 +337,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		{
 			$data = array(
 				'status'   => true,
-				'redirect' => URL::to(ADMIN)
+				'redirect' => URL::to_secure(ADMIN)
 			);
 		}
 		else
@@ -370,11 +370,11 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		if ($reset['status'])
 		{
 			// TODO: - Set Success message
-			return Redirect::to(ADMIN.'/login');
+			return Redirect::to_secure(ADMIN.'/login');
 		}
 
 		// TODO: - Set error message
-		return Redirect::to(ADMIN.'/reset_password');
+		return Redirect::to_secure(ADMIN.'/reset_password');
 	}
 
 }

@@ -82,7 +82,7 @@
 										{{ array_get($extension, 'info.version') }}
 									</td>
 									<td>
-										<a class="btn" href="{{ url(ADMIN.'/extensions/install/'.array_get($extension, 'info.slug')) }}" onclick="return confirm('Are you sure you want to install the \'{{ e(array_get($extension, 'info.name')) }}\' extension?');">install</a>
+										<a class="btn" href="{{ URL::to_secure(ADMIN.'/extensions/install/'.array_get($extension, 'info.slug')) }}" onclick="return confirm('Are you sure you want to install the \'{{ e(array_get($extension, 'info.name')) }}\' extension?');">install</a>
 									</td>
 								</tr>
 							@empty

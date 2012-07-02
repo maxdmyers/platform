@@ -1,1 +1,1 @@
-<p>Logged in as: {{ HTML::link(ADMIN.'/users/edit/'. Platform::user()->get('id'), Platform::user()->get('metadata.first_name').' '.Platform::user()->get('metadata.last_name')) }} | {{ HTML::link(ADMIN.'/logout', 'Logout') }}</p>
+<p>Logged in as: {{ HTML::link_to_secure(ADMIN.'/users/edit/'. Platform::user()->get('id'), Platform::user()->get('metadata.first_name').' '.Platform::user()->get('metadata.last_name')) }} | {{ HTML::link_to_secure(ADMIN.'/logout', 'Logout') }}</p>

@@ -65,7 +65,7 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 	{
 		$result = API::post('extensions/install', array('slug' => $slug));
 
-		return Redirect::to(ADMIN.'/extensions');
+		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
 	public function get_uninstall($id)
@@ -77,21 +77,21 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 			Cartalyst::messages()->error($result['message']);
 		}
 
-		return Redirect::to(ADMIN.'/extensions');
+		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
 	public function get_enable($id)
 	{
 		API::post('extensions/enable', array('id' => $id));
 
-		return Redirect::to(ADMIN.'/extensions');
+		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
 	public function get_disable($id)
 	{
 		API::post('extensions/disable', array('id' => $id));
 
-		return Redirect::to(ADMIN.'/extensions');
+		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
 }

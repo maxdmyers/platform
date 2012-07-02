@@ -133,7 +133,7 @@
 					{{ Lang::line('menus::menus.button.'.(($menu_id) ? 'update' : 'create')) }}
 				</button>
 
-				{{ HTML::link(ADMIN.'/menus', Lang::line('menus::menus.button.cancel'), array('class' => 'btn')) }}
+				{{ HTML::link_to_secure(ADMIN.'/menus', Lang::line('menus::menus.button.cancel'), array('class' => 'btn')) }}
 
 			</div>
 

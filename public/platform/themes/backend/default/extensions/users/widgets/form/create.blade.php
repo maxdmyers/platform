@@ -24,6 +24,6 @@
 		</fieldset>
 	</div>
 	<button class="btn btn-large" type="submit" value="{{ Lang::line('users::users.button.create') }}">{{ Lang::line('users::users.button.create') }}</button>
-	<a class="btn btn-large" href="{{ url(ADMIN.'/users') }}">{{ Lang::line('users::users.button.cancel') }}</a>
+	<a class="btn btn-large" href="{{ URL::to_secure(ADMIN.'/users') }}">{{ Lang::line('users::users.button.cancel') }}</a>
 
 {{ Form::close() }}

@@ -28,7 +28,7 @@
 				<input type="password" name="password" id="password" placeholder="{{ lang::line('users::users.general.password') }}" autocomplete="off"><button class="btn append" type="submit">{{ Lang::line('users::users.button.login') }}</button>
 			</div>
 
-			<p class="help-block"><a href="{{ url(ADMIN.'/reset_password') }}">{{ Lang::line('users::users.general.reset_password') }}</a></p>
+			<p class="help-block"><a href="{{ URL::to_secure(ADMIN.'/reset_password') }}">{{ Lang::line('users::users.general.reset_password') }}</a></p>
 
 		{{ Form::close() }}
 

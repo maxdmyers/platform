@@ -34,6 +34,11 @@ class Admin_Controller extends Authorized_Controller
 	 */
 	public function before()
 	{
+		if ( Config::get('application.ssl') and ! Request::secure())
+		{
+			//return Redirect::to_secure(URI::current())->send();
+		}
+
 		// now check to make sure they have bundle specific permissions
 		if ( ! Sentry::user()->has_access())
 		{
