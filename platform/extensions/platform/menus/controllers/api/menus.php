@@ -80,12 +80,12 @@ class Menus_API_Menus_Controller extends API_Controller
 
 			$menu = Menu::from_hierarchy_array($id, Input::get('items'), function($root_item) use ($id, $name, $slug)
 			{
-				if ($name and ( ! $id or $user_editable))
+				if ($name and ( ! $id or $root_item->user_editable))
 				{
 					$root_item->name = $name;
 				}
 
-				if ($slug and ( ! $id or $user_editable))
+				if ($slug and ( ! $id or $root_item->user_editable))
 				{
 					$root_item->slug = $slug;
 				}
@@ -102,6 +102,8 @@ class Menus_API_Menus_Controller extends API_Controller
 		}
 		catch (\Exception $e)
 		{
+			echo $e->getMessage();
+			exit;
 			return array(
 				'status'  => true,
 				'message' => $e->getMessage(),
