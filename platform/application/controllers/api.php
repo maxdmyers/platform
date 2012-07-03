@@ -33,7 +33,7 @@ class API_Controller extends Base_Controller
 		// see if the request is coming from the internal API
 		if (! API::is_internal())
 		{
-			Redirect::to('404')->send();
+			return Event::first('404');
 			exit;
 		}
 

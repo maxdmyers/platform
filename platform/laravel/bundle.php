@@ -87,7 +87,7 @@ class Bundle {
 
 		if ( ! static::exists($bundle))
 		{
-			throw new \Exception("Bundle [$bundle] has not been installed.");
+			return Event::first('404');
 		}
 
 		// Each bundle may have a start script which is responsible for preparing
