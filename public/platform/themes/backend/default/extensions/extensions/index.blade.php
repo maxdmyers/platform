@@ -31,9 +31,14 @@
 					<table id="installed-extension-table" class="table table-bordered">
 						<thead>
 							<tr>
-								@foreach ($columns as $key => $col)
-								<th data-table-key="{{ $key }}">{{ $col }}</th>
-								@endforeach
+								<th>Id</th>
+								<th>Name</th>
+								<th>Slug</th>
+								<th>Author</th>
+								<th>Description</th>
+								<th>Version</th>
+								<th>Is Core</th>
+								<th>Status</th>
 								<th></th>
 							</tr>
 						<thead>
