@@ -163,9 +163,14 @@ class Installer
 
 		foreach ($extensions as $extension)
 		{
-			// Install extension - this'll run migrations, put in
-			// the database etc...
-			Platform::extensions_manager()->install($extension, true);
+			$info = Platform::extensions_manager()->info($extension);
+
+			if ($info['info']['is_core'])
+			{
+				// Install extension - this'll run migrations, put in
+				// the database etc...
+				Platform::extensions_manager()->install($extension, true);
+			}
 		}
 
 		/**
