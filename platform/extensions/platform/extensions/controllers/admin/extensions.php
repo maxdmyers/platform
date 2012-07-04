@@ -20,6 +20,7 @@
 
 class Extensions_Admin_Extensions_Controller extends Admin_Controller
 {
+
 	/**
 	 * This function is called before the action is executed.
 	 *
