@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 			$.ajax({
 				type     : 'POST',
-				url      : platform.url.base('installer/index/confirm_db'),
+				url      : platform.url.base('installer/confirm_db'),
 				data     : $('#database-form').serialize(),
 				dataType : 'JSON',
 				success  : function(data, textStatus, jqXHR) {
