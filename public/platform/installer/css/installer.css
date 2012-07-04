@@ -22,50 +22,85 @@
 ================================================== */
 body {background:#eee;}
 
+html, body {
+	height: 100%;
+	margin: 0pt;
+}
+
+*>/**/.grid {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.grid>.rows, .grid>.column, .grid>.rows>.column {
+	height: 0.1%;
+	position: relative;
+}
+.grid>/**/.rows {
+	display: table-row;
+	height: 1px;
+}
+.grid>/**/.rows.expand {
+	height: auto;
+}
+.grid>/**/.column, .grid>/**/.rows>.column {
+	display: table-cell;
+	height: auto;
+	width: 1px;
+}
+.grid>/**/.column.expand, .grid>/**/.rows>.column.expand {
+	width: auto;
+}
+
 hr {
 	margin: 18px 0;
 	border: 0;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #fff;
 }
-#base {
-	margin:0 auto;
-	padding:20px;
-	max-width:767px;
-	min-width: 300px;
-	padding-top:100px;
-}
 
+/*pre{border:4px solid #ddd;}
+pre code{display:block;padding:8px;background:#fbfbfb;border:1px solid #fff;}*/
 
 /* #Installer
 ================================================== */
 
 #installer {
-	background: #fbfbfb;
+	padding:60px;
 }
 
-
-	#installer .content {
+	#installer .wrapper {
 		border:1px solid #ddd;
-		margin:0;
-		padding:20px;
-		text-align: center;
 	}
 
-	#installer form {
-		padding:20px;
-		width: 250px;
-		margin:0 auto;
-		text-align:left
+	#installer .navigation {
+		background: #fbfbfb;
+		padding:20px 0;
+		text-align:center;
+		min-width:320px;
+		border-left:1px solid #fff;
+		border-right:1px solid #ddd;
 	}
 
-	#installer legend {text-align: center;padding:10px;}
-	#installer fieldset p {padding:10px; text-align: center;}
+
+	#installer .navigation h1 {
+		color:#49182D;
+	}
+
+	#installer .navigation .step {
+		padding:0 10px;
+		text-transform: uppercase;
+		font-size:12px;
+	}
 
 	#installer .breadcrumbs {
-		border-bottom:1px solid #ddd;
-		text-align:center;
+		text-align:left;
 		padding:15px 0;
+		font-size:1.2em;
 	}
 
 	#installer .breadcrumbs ul
@@ -75,35 +110,83 @@ hr {
 
 	#installer .breadcrumbs li
 	{
-		display: inline;
+		border-top: 1px solid #ddd;
+		border-bottom:1px solid #fff;
 		list-style-type: none;
-		padding: 0 10px;
+		padding:10px;
 	}
 
-	#installer .breadcrumbs .active {
+	#installer .breadcrumbs li span {
 		font-weight:bold;
-		font-size:1.5em;
 	}
 
-	#installer .btn-primary {
-		width:246px;
-		padding:14px 0;
-		margin:10px 0;
+	#installer .breadcrumbs li div {
+		text-align:center;
+		width:280px;
+		margin:0 auto;
+	}
+
+	.messages {
+
+	}
+	#installer .breadcrumbs .messages {
+		width:240px;
+		height:50px;
+		margin:8px auto;
+		margin-bottom:0;
+	}
+	#installer .breadcrumbs .active {
+		background: #fff;
+		padding:14px 10px;
 	}
 
 
-	#installer .database {
-		height:30px;
-	}
-	#installer .confirm-db {
-		display: none;
+	#installer .content {
+		background: #f7f7f7;
+		border:1px solid #fff;
+		margin:0;
+		padding:20px;
+		text-align: center;
 	}
 
-	#installer .finish {
+	#installer .content .contain {
+		background:#fbfbfb;
+		border:1px solid #ddd;
 		padding:20px;
 	}
 
-	#installer .lead {
-		font-size:18px;
-		line-height:1.4em;
+	#installer .content h2 {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 32px;
+		font-style: normal;
+		font-weight: bold;
+		text-transform: normal;
+		letter-spacing: -2px;
+		line-height: 1.2em;
+		color:#666;
+	}
+
+	#installer .content code {
+		display:block;
+		padding:10px;
+	}
+
+	#installer fieldset {
+		width:290px;
+		margin:0 auto;
+	}
+
+	#installer legend {
+		border-bottom:none;
+	}
+
+	#installer input,
+	#installer select {
+		height:30px;
+	}
+
+	#installer .actions {
+		padding:20px 0;
+		border:1px solid #ddd;
+		background:#f7f7f7;
 	}

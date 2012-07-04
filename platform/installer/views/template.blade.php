@@ -37,11 +37,22 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ URL::to_asset('platform/installer/img/apple-touch-icon-114x114-precomposed.png') }}">
 </head>
 <body>
+<div id="installer" class="grid">
+	<div id="page" class="rows expand">
+		<div id="inside" class="grid wrapper">
+			<div class="navigation column">
+				<div class="brand">
+					{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
+				</div>
+				@yield('navigation')
+			</div>
 
-	<div id="base">
-		@yield('content')
+			<div class="content column expand">
+				@yield('content')
+			</div>
+		</div>
 	</div>
-
+</div>
 </body>
 
 	<!-- Body Scripts -->

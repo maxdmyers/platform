@@ -1,94 +1,28 @@
 @layout('installer::template')
 
+@section('navigation')
+	<h1>Getting Started</h1>
+	<p class="step">Preparing for the installation process</p>
+	<div class="breadcrumbs">
+		<ul class="nav">
+			<li class="active"><span>Step 1:</span> Prepare installation</li>
+			<li><span>Step 2:</span> Database Credentials</li>
+			<li><span>Step 3:</span> Administration</li>
+			<li><span>Step 4:</span> Complete</li>
+		</ul>
+	</div>
+@endsection
+
 @section('content')
+<div class="grid contain">
+	<h2>We'll need to make sure we can write to a few files and directories. After installation, we'll change them back, safe and secure, warm and cozy.</h2>
 
-<div id="installer">
-	<div class="content">
+	@foreach ($permissions as $path => $value)
+		<code class="{{ ($value) ? 'alert alert-success' : 'alert alert-error' }}">{{ $path }}</code>
+	@endforeach
 
-		<div class="brand">
-			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
-		</div>
-		<h1>Database Credentials</h1>
-		<p>First we need to connect to your database.</p>
-
-		<div class="breadcrumbs">
-			<ul class="nav">
-				<li class="active">Step 1</li>
-				<li>Step 2</li>
-				<li>Finish</li>
-			</ul>
-		</div>
-
-		{{ Form::open('installer/step_1', 'POST', array('class' => 'form-inline', 'id' => 'database-form')) }}
-
-			<fieldset>
-
-	    		<div class="control-group">
-					{{ Form::label('driver', 'Driver', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-		         	<div class="controls">
-		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-hdd"></i></span>{{ Form::select('driver', array(null => 'Please Select') + $drivers) }}
-		            	</div>
-		        	</div>
-		        </div>
-
-		        <div class="control-group">
-					{{ Form::label('host', 'Host', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-		         	<div class="controls">
-		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-globe"></i></span>{{ Form::text('host', null, array('placeholder' => 'e.g. localhost', 'required')) }}
-		            	</div>
-		        	</div>
-		        </div>
-
-		        <div class="control-group">
-					{{ Form::label('username', 'Username', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-		         	<div class="controls">
-		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('username', null, array('placeholder' => 'e.g. root', 'required')) }}
-		            	</div>
-		        	</div>
-		        </div>
-
-		        <div class="control-group">
-					{{ Form::label('password', 'Password', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-		         	<div class="controls">
-		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-lock"></i></span>{{ Form::password('password', array('placeholder' => '')) }}
-		            	</div>
-		        	</div>
-		        </div>
-
-		        <div class="control-group">
-					{{ Form::label('database', 'Database', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-		         	<div class="controls">
-		            	<div class="input-prepend">
-		            		<span class="add-on"><i class="icon-briefcase"></i></span>{{ Form::text('database', null, array('placeholder' => 'e.g. platform', 'required')) }}
-		            	</div>
-		        	</div>
-		        </div>
-
-				<div class="control-group pager">
-					<div class="controls">
-						<button type="submit" class="btn btn-large btn-primary" disabled>
-							Continue to Step 2
-						</button>
-					</div>
-				</div>
-				<div class="control-group database">
-					<div class="controls">
-						<div class="confirm-db alert">
-
-						</div>
-					</div>
-				</div>
-
-				</fieldset>
-
-				{{ Form::close() }}
-			</div>
-		</div>
+	<div class="actions">
+		<a class="btn btn-large" href="{{URL::to('installer/step_2');}}">Continue to Step 2</a>
 	</div>
 </div>
-
 @endsection

@@ -11,6 +11,8 @@ $(document).ready(function() {
 	| credentials before allowing them to
 	| continue with the install process.
 	*/
+	$('.messages').html('Awaiting Credentials');
+
 	$('#database-form').find('select, input').on('focus keyup change', function(e) {
 
 		// Check keycode - enter
@@ -37,7 +39,7 @@ $(document).ready(function() {
 				success  : function(data, textStatus, jqXHR) {
 
 					// Show success message and enable continue button
-					$('.confirm-db').html(data.message)
+					$('.messages').html(data.message)
 					                [data.error ? 'addClass' : 'removeClass']('alert-error')
 					                [data.error ? 'removeClass' : 'addClass']('alert-success')
 					                .show();
@@ -57,8 +59,7 @@ $(document).ready(function() {
 		// Else, remove the confirm database text
 		// and disable the continue button
 		else {
-			$('.confirm-db').html('')
-			                .hide();
+			$('.messages').html('Awaiting Credentials');
 
 			$('#database-form button:submit').attr('disabled', 'disabled');
 		}

@@ -49,29 +49,40 @@ class Installer_Index_Controller extends Base_Controller
 
 	public function get_index()
 	{
-		return Redirect::to('installer/step_1');
-	}
 
-	public function get_step_1()
-	{
-		return View::make('installer::step_1')->with('drivers', Installer::database_drivers());
-	}
+		$data['permissions'] = Installer::permissions();
 
-	public function post_step_1()
-	{
-		Installer::remember_step_data(1, Input::get());
-
-		return Redirect::to('installer/step_2');
+		return View::make('installer::step_1', $data);
 	}
 
 	public function get_step_2()
 	{
-		return View::make('installer::step_2');
+
+		// check for session data
+		$credentials = Installer::get_step_data(2);
+		foreach ($credentials as $values => $value)
+		{
+			$data[$values] = $value;
+		}
+
+		return View::make('installer::step_2')->with('drivers', Installer::database_drivers())->with('credentials', $data);
 	}
 
 	public function post_step_2()
 	{
 		Installer::remember_step_data(2, Input::get());
+
+		return Redirect::to('installer/step_3');
+	}
+
+	public function get_step_3()
+	{
+		return View::make('installer::step_3');
+	}
+
+	public function post_step_3()
+	{
+		Installer::remember_step_data(3, Input::get());
 
 		return Redirect::to('installer/install');
 	}
@@ -79,8 +90,8 @@ class Installer_Index_Controller extends Base_Controller
 	public function get_install()
 	{
 		// 1. Create the database config file
-		Installer::create_database_config(Installer::get_step_data(1, function() {
-			Redirect::to('installer/step_1')->send();
+		Installer::create_database_config(Installer::get_step_data(2, function() {
+			Redirect::to('installer/step_2')->send();
 			exit;
 		}));
 
@@ -91,8 +102,8 @@ class Installer_Index_Controller extends Base_Controller
 		Installer::install_extensions();
 
 		// 4. Create user
-		$user = Installer::get_step_data(2, function() {
-			Redirect::to('installer/step_1')->send();
+		$user = Installer::get_step_data(3, function() {
+			Redirect::to('installer/step_3')->send();
 			exit;
 		});
 
@@ -112,15 +123,15 @@ class Installer_Index_Controller extends Base_Controller
 
 		if ( ! $create_user['status'])
 		{
-			return Redirect::to('installer/step_1');
+			return Redirect::to('installer/index');
 		}
 
-		return Redirect::to('installer/complete');
+		return Redirect::to('installer/step_4');
 	}
 
-	public function get_complete()
+	public function get_step_4()
 	{
-		return View::make('installer::complete')
+		return View::make('installer::step_4')
 		           ->with('key', Config::get('application.key'));
 	}
 

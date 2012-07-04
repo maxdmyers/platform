@@ -1,84 +1,40 @@
 @layout('installer::template')
 
-@section('content')
-
-<div id="installer">
-	<div class="content">
-
-		<div class="brand">
-			{{ HTML::image('platform/installer/img/brand.png', 'Platform by Cartalyst'); }}
-		</div>
-		<h1>Administration</h1>
-		<p>Setting up your admin account</p>
-
-		<div class="breadcrumbs">
-			<ul class="nav">
-				<li>{{ HTML::link('installer/step_1', 'Step 1') }}</li>
-				<li class="active">Step 2</li>
-				<li>Finish</li>
-			</ul>
-		</div>
-
-		{{ Form::open(null, 'POST', array('class' => 'form-inline')) }}
-		<fieldset>
-
-			<div class="control-group">
-				{{ Form::label('first_name', 'First Name', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-	         	<div class="controls">
-	            	<div class="input-prepend">
-	            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('first_name', null, array('placeholder' => 'e.g. John', 'required')) }}
-	            	</div>
-	        	</div>
-	        </div>
-
-	        <div class="control-group">
-				{{ Form::label('last_name', 'Last Name', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-	         	<div class="controls">
-	            	<div class="input-prepend">
-	            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::text('last_name', null, array('placeholder' => 'e.g. Doe', 'required')) }}
-	            	</div>
-	        	</div>
-	        </div>
-
-	        <div class="control-group">
-				{{ Form::label('email', 'Email', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-	         	<div class="controls">
-	            	<div class="input-prepend">
-	            		<span class="add-on"><i class="icon-user"></i></span>{{ Form::email('email', null, array('placeholder' => 'e.g. email@example.com', 'required')) }}
-	            	</div>
-	        	</div>
-	        </div>
-
-	        <div class="control-group">
-				{{ Form::label('password', 'Password', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-	         	<div class="controls">
-	            	<div class="input-prepend">
-	            		<span class="add-on"><i class="icon-lock"></i></span>{{ Form::password('password', array('required')) }}
-	            	</div>
-	        	</div>
-	        </div>
-
-	        <div class="control-group">
-				{{ Form::label('password_confirmation', 'Confirm Password', array('class' => 'control-label', 'for' => 'inputIcon')) }}
-	         	<div class="controls">
-	            	<div class="input-prepend">
-	            		<span class="add-on"><i class="icon-lock"></i></span>{{ Form::password('password_confirmation', array('required')) }}
-	            	</div>
-	        	</div>
-	        </div>
-
-    		<div class="control-group pager">
-				<div class="controls">
-					<button type="submit" class="btn btn-primary">
-						Finish
-					</button>
-				</div>
-			</div>
-
-		</fieldset>
-		{{ Form::close() }}
-
+@section('navigation')
+	<h1>Database</h1>
+	<p class="step">Let's take some database credentials</p>
+	<div class="breadcrumbs">
+		<ul class="nav">
+			<li><span>Step 1:</span> Prepare installation</li>
+			<li class="active">
+				<span>Step 2:</span> Database Credentials
+				<div class="messages alert"></div>
+			</li>
+			<li><span>Step 3:</span> Administration</li>
+			<li><span>Step 4:</span> Complete</li>
+		</ul>
 	</div>
-</div>
+@endsection
 
+
+@section('content')
+<div class="grid contain">
+	<h2>Now its time to create a database, then give us the details and we'll do the rest.</h2>
+	{{ Form::open(null, 'POST', array('id' => 'database-form')) }}
+	{{ Form::token() }}
+	<fieldset>
+		{{ Form::select('driver', array(null => 'Database Driver') + $drivers, $credentials['driver'], array('class' => 'span3')) }}
+		{{ Form::text('host', $credentials['host'], array('class' => 'span3', 'placeholder' => 'Server', 'required')) }}
+		{{ Form::text('username', $credentials['username'], array('class' => 'span3', 'placeholder' => 'User Name', 'required')) }}
+		{{ Form::password('password', array('class' => 'span3', 'placeholder' => 'Password')) }}
+		{{ Form::text('database', $credentials['database'], array('class' => 'span3', 'placeholder' => 'Database Name', 'required')) }}
+	</fieldset>
+	<div class="actions">
+		<a class="btn btn-large" href="{{URL::to('installer/step_1');}}">Back</a>
+		<button type="submit" class="btn btn-large" disabled>
+			Continue to Step 2
+		</button>
+	</div>
+	{{ Form::close() }}
+</div>
 @endsection

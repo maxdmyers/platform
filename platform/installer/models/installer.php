@@ -51,6 +51,33 @@ class Installer
 		Session::flush();
 	}
 
+
+
+	/**
+	 * Check file & folder permissions
+	 *
+	 * @return  array
+	 */
+	public static function permissions()
+	{
+
+		 //Folders
+        $files = array(
+                path('app').'config'.DS.'application.php',
+                path('app').'config'.DS.'database.php',
+                path('public').'platform'.DS.'themes'.DS.'compiled'.DS,
+        );
+
+        $permissions = array();
+        foreach ($files as $path)
+        {
+            $permissions[$path] = is_writable($path);
+        }
+
+        return $permissions;
+
+	}
+
 	/**
 	 * Returns an array of available database drivers
 	 *
@@ -176,7 +203,7 @@ class Installer
 
 	public static function remember_step_data($step, $data)
 	{
-		if ( ! is_int($step) or $step < 1)
+		if ( ! is_int($step) or $step < 2)
 		{
 			throw new Exception("Invalid step provided");
 		}

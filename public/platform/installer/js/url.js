@@ -24,7 +24,7 @@ if (platform == undefined)
 				path = ''
 			}
 
-			return this.urls.base + '/' + path;
+			return this.urls.base + path;
 		},
 
 		admin: function(path) {
@@ -32,7 +32,7 @@ if (platform == undefined)
 				path = ''
 			}
 
-			return this.urls.admin + '/' + path;
+			return this.urls.admin + path;
 		}
 
 	};
