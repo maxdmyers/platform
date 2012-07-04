@@ -8,7 +8,7 @@
 
 		<section class="clearfix item-details">
 
-			<div class="form-inline well">
+			<div class="form-horizontal well">
 				{{ Form::hidden('item_fields['.$item['id'].'][is_new]', 0) }}
 
 				{{ Form::label('menu-items-'.$item['id'].'-name', Lang::line('menus::menus.general.name')) }}
@@ -18,7 +18,12 @@
 				{{ Form::text('item_fields['.$item['id'].'][slug]', $item['slug'], array('id' => 'menu-items-'.$item['id'].'-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
 				{{ Form::label('menu-items-'.$item['id'].'-uri', Lang::line('menus::menus.general.uri')) }}
-				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
+				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), ( ! $item['user_editable']) ? 'disabled' : null, 'class' => 'menu-item-uri')) }}
+
+				<label class="checkbox">
+					{{ Form::checkbox('item_fields['.$item['id'].'][secure]', 1, (bool) $item['secure'], array('class' => 'menu-item-secure', ( ! $item['user_editable'] or URL::valid($item['uri'])) ? 'disabled' : null)) }}
+					{{ Lang::line('menus::menus.general.secure') }}
+				</label>
 
 				{{ Form::label('menu-items-'.$item['id'].'-status', Lang::line('menus::menus.general.status')) }}
 				{{ Form::select('item_fields['.$item['id'].'][status]', array(1 => Lang::line('menus::menus.general.yes'), 0 => Lang::line('menus::menus.general.no')), $item['status'], array('id' => 'menu-items-'.$item['id'].'-status', ( ! $item['user_editable']) ? 'disabled' : null)) }}

@@ -138,6 +138,18 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 			$new_item['id'] = $item['id'];
 		}
 
+		// Now, look for secure URLs
+		if (URL::valid($new_item['uri']))
+		{
+			$new_item['secure'] = (int) starts_with($new_item['uri'], 'https://');
+		}
+
+		// Relative URL, look in the POST data
+		else
+		{
+			$new_item['secure'] = Input::get('item_fields.'.$item['id'].'.secure', 0);
+		}
+
 		// If we have children, call the function again
 		if (isset($item['children']) and is_array($item['children']) and count($item['children']) > 0)
 		{

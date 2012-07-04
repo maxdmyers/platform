@@ -30,6 +30,7 @@ return array(
 		'name'        => 'Name',
 		'slug'        => 'Slug',
 		'uri'         => 'Uri',
+		'secure'      => 'Secure (HTTPS)',
 		'status'      => 'Enabled',
 		'new_item'    => 'New Item',
 	),

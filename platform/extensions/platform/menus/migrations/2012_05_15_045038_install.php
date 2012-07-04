@@ -40,6 +40,7 @@ class Menus_Install
 			$table->string('name');
 			$table->string('slug')->unique();
 			$table->string('uri');
+			$table->boolean('secure');
 			$table->boolean('user_editable');
 			$table->integer('lft');
 			$table->integer('rgt');

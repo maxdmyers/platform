@@ -1,5 +1,10 @@
 <li class="{{ in_array($item['id'], $active_path) ? 'active' : null }}">
-	{{ HTML::link_to_secure(((filter_var($item['uri'], FILTER_VALIDATE_URL) === false) ? (($before_uri ? $before_uri.'/' : null)) : null).$item['uri'], $item['name']) }}
+
+	@if (URL::valid($item['uri']))
+		{{ HTML::link($item['uri'], $item['name']) }}
+	@else
+		{{ HTML::link((($before_uri) ? $before_uri.'/' : null).$item['uri'], $item['name'], array(), $item['secure']) }}
+	@endif
 
 	@if ($item['children'])
 		<ul>

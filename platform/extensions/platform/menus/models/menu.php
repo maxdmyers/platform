@@ -294,9 +294,10 @@ SQL;
 					$duplicate->reload();
 
 					// Reset relevent values
-					$item->name = $duplicate->name;
-					$item->slug = $duplicate->slug;
-					$item->uri  = $duplicate->uri;
+					$item->name   = $duplicate->name;
+					$item->slug   = $duplicate->slug;
+					$item->uri    = $duplicate->uri;
+					$item->secure = $duplicate->secure;
 				}
 				elseif ($item->is_new())
 				{

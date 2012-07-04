@@ -153,9 +153,18 @@
 				for (i in self.settings.fields) {
 					var field = self.settings.fields[i];
 
-					var value = $(field.newSelector).val();
+					var $formElement = $(field.newSelector),
+					           value = null;
 
-					if (typeof field.required !== 'undefined' && field.required === true && (typeof value === 'undedfined' || ! value)) {
+					// Checkboxes are special
+					if ($formElement.is(':checkbox')) {						
+						value = $formElement.attr('checked') ? 'checked="checked"' : false;
+					}
+					else {
+						value = $(field.newSelector).val();
+					}
+
+					if (typeof field.required !== 'undefined' && field.required === true && (typeof value === 'undefined' || ! value)) {
 
 						result = self.settings.invalidFieldCallback(field, value);
 
