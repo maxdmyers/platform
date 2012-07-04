@@ -1,4 +1,4 @@
-@foreach ($rows as $row)
+@foreach ($installed as $row)
 	<tr>
 		<td>{{ $row['id'] }}</td>
 		<td>{{ $row['name'] }}</td>
@@ -21,7 +21,13 @@
 					<a class="btn" href="{{ URL::to_secure(ADMIN.'/extensions/enable/'.$row['id']) }}" onclick="return confirm('Are you sure you want to enable the \'{{ e($row['name']) }}\' extension?');">enable</a>
 				@endif
 
+				@if ($row['update'])
+					<a class="btn" href="{{ URL::to_secure(ADMIN.'/extensions/update/'.$row['id']) }}" onclick="return confirm('Are you sure you want to update the \'{{ e($row['name']) }}\' extension?');">update</a>
+				@endif
+
 				| <a class="btn btn-danger" href="{{ URL::to_secure(ADMIN.'/extensions/uninstall/'.$row['id']) }}" onclick="return confirm('Are you sure you want to uninstall the \'{{ e($row['name']) }}\' extension? All traces, including database info will be removed permanently. There is no undo action for this.');">uninstall</a>
+
+				
 
 			@else
 				Required

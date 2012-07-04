@@ -186,6 +186,17 @@ class ExtensionsManager
 		 */
 		ob_end_clean();
 
+		// If the newly installed instension is
+		// disabled, make sure we disable any menu items
+		// that may have been created up on it's install.
+		// Disable menus related to the extension
+		if ( ! $is_core and ! $enable)
+		{
+			API::post('menus/disable', array(
+				'extension' => $extension->slug,
+			));
+		}
+
 		return $extension;
 	}
 
@@ -285,6 +296,64 @@ class ExtensionsManager
 
 		$extension->enabled = 0;
 		$extension->save();
+
+		return $extension;
+	}
+
+	public function has_update($extension_slug)
+	{
+		$extension = Extension::find(function($query) use ($extension_slug) {
+			return $query->where('slug', '=', $extension_slug);
+		});
+
+		$info = $this->info($extension_slug);
+
+		return ($info['info']['version'] > $extension->version);
+	}
+
+	public function update($id)
+	{
+		// find extension
+		$extension = Extension::find($id);
+
+		// find extension.php file
+		$info = $this->info($extension->slug);
+
+		// update extension
+		$extension->name        = $info['info']['name'];
+		$extension->slug        = $info['info']['slug'];
+		$extension->version     = $info['info']['version'];
+		$extension->author      = $info['info']['author'];
+		$extension->description = $info['info']['description'];
+		$extension->is_core     = $info['info']['is_core'];
+
+		// save extension updates
+		$extension->save();
+
+		// We need to start the extension, just in case
+		// the migrations that we're about to run require
+		// classes that are in the extension. Starting
+		// the extension will allow the classes to be autoloaded.
+		// An example of this is in the "menus" extension, it
+		// uses the "menus" model.
+		$this->start($extension->slug);
+
+		// Resolves core tasks.
+		require_once path('sys').'cli/dependencies'.EXT;
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_start();
+
+		// Run extensions migration. This will prepare
+		// the table we need to install the core extensions
+		Command::run(array('migrate', $extension->slug));
+
+		/**
+		 * @todo remove when my pull request gets accepted
+		 */
+		ob_end_clean();
 
 		return $extension;
 	}
@@ -643,7 +712,7 @@ class ExtensionsManager
 		sort($files);
 
 		// Now reverse our sort - migrating down
-		array_reverse($files);
+		$files = array_reverse($files);
 
 		// Loop through files
 		foreach ($files as $file)

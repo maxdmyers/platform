@@ -38,6 +38,10 @@
 					name        : 'uri',
 					newSelector : '#new-item-uri',
 					required    : true
+				},
+				{
+					name        : 'secure',
+					newSelector : '#new-item-secure'
 				}
 			],
 			itemTemplate         : {{ $item_template }},
@@ -95,6 +99,11 @@
 
 									{{ Form::label('new-item-uri', Lang::line('menus::menus.general.uri')) }}
 									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-uri', 'placeholder' => Lang::line('menus::menus.general.uri'))) }}
+
+									<label class="checkbox">
+										{{ Form::checkbox(null, 1, false, array('id' => 'new-item-secure')) }}
+										{{ Lang::line('menus::menus.general.secure') }}
+									</label>
 
 									<hr>
 

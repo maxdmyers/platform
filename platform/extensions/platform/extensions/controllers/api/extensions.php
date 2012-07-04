@@ -76,6 +76,18 @@ class Extensions_API_Extensions_Controller extends API_Controller
 	}
 
 	/**
+	 * Returns an array of installed extensions
+	 * that are present in the filesystem, in a structure
+	 * similar to that returned from the database.
+	 *
+	 * @return  array
+	 */
+	public function get_installed()
+	{
+		return Platform::extensions_manager()->installed(null, true);
+	}
+
+	/**
 	 * Returns an array of uninstalled extensions
 	 * that are present in the filesystem, in a structure
 	 * similar to that returned from the database.
@@ -144,6 +156,30 @@ class Extensions_API_Extensions_Controller extends API_Controller
 				'message' => $e->getMessage(),
 			);
 		}
+	}
+
+	/**
+	 * Checks if extensions have updates
+	 *
+	 * @return array
+	 */
+	public function get_updates()
+	{
+		$extensions = Input::get('extensions');
+
+		foreach ($extensions as &$extension)
+		{
+			$extension['update'] = Platform::extensions_manager()->has_update($extension['slug']);
+		}
+
+		return $extensions;
+	}
+
+	public function post_update()
+	{
+		$id = Input::get('id');
+
+		Platform::extensions_manager()->update($id);
 	}
 
 	public function post_enable()

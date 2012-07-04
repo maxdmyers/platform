@@ -20,6 +20,7 @@
 
 class Extensions_Admin_Extensions_Controller extends Admin_Controller
 {
+
 	/**
 	 * This function is called before the action is executed.
 	 *
@@ -33,30 +34,25 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 
 	public function get_index()
 	{
-		// Grab our datatable
-		$datatable = API::get('extensions/datatable');
+		// Get list of installed extensions in the system
+		$installed = API::get('extensions/installed');
 
 		// Get list of uninstalled extensions in the system
 		$uninstalled = API::get('extensions/uninstalled', array(
 			'detailed' => true,
 		));
 
+		// check for updates on installed extensions
+		$installed = API::get('extensions/updates', array(
+			'extensions' => $installed,
+		));
+
 		$data = array(
-			'columns'     => $datatable['columns'],
-			'rows'        => $datatable['rows'],
+			// 'columns'     => $datatable['columns'],
+			// 'rows'        => $datatable['rows'],
+			'installed'   => $installed,
 			'uninstalled' => $uninstalled,
 		);
-
-		// If this was an ajax request, only return the body of the datatable
-		if (Request::ajax())
-		{
-			return json_encode(array(
-				'content'        => Theme::make('extensions::partials.table_extensions', $data)->render(),
-				'count'          => $datatable['count'],
-				'count_filtered' => $datatable['count_filtered'],
-				'paging'         => $datatable['paging'],
-			));
-		}
 
 		return Theme::make('extensions::index', $data);
 	}
@@ -74,7 +70,7 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 
 		if ( ! $result['status'])
 		{
-			Cartalyst::messages()->error($result['message']);
+			Platform::messages()->error($result['message']);
 		}
 
 		return Redirect::to_secure(ADMIN.'/extensions');
@@ -90,6 +86,13 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 	public function get_disable($id)
 	{
 		API::post('extensions/disable', array('id' => $id));
+
+		return Redirect::to_secure(ADMIN.'/extensions');
+	}
+
+	public function get_update($id)
+	{
+		API::post('extensions/update', array('id' => $id));
 
 		return Redirect::to_secure(ADMIN.'/extensions');
 	}
