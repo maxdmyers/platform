@@ -186,6 +186,17 @@ class ExtensionsManager
 		 */
 		ob_end_clean();
 
+		// If the newly installed instension is
+		// disabled, make sure we disable any menu items
+		// that may have been created up on it's install.
+		// Disable menus related to the extension
+		if ( ! $is_core and ! $enable)
+		{
+			API::post('menus/disable', array(
+				'extension' => $extension->slug,
+			));
+		}
+
 		return $extension;
 	}
 
