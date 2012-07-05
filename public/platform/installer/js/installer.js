@@ -59,7 +59,7 @@ $(document).ready(function() {
 	}
 
 	var checkUserCredentials = function() {
-		
+
 		length = $('#user-form').find('input').filter(function()
 		{
 			return $(this).val() == '';
@@ -67,14 +67,44 @@ $(document).ready(function() {
 
 		if (length == 0)
 		{
-			// Show success message and enable continue button
-			$('.messages').hide()
+			$.ajax({
+				type     : 'POST',
+				url      : platform.url.base('installer/confirm_user'),
+				data     : $('#user-form').serialize(),
+				dataType : 'JSON',
+				success  : function(data, textStatus, jqXHR) {
+					console.log(data);
 
-			$('#user-form button:submit').removeAttr('disabled');
+					message = data.message[0];
+
+					// $.each(data.message, function(idx, val) {
+					// 	message += val;
+					// });
+
+					// Show success message and enable continue button
+					$('.messages').html(message)
+					                [data.error ? 'addClass' : 'removeClass']('alert-error')
+					                [data.error ? 'removeClass' : 'addClass']('alert-success')
+					                .show();
+
+					$('#user-form button:submit')[data.error ? 'attr' : 'removeAttr']('disabled', 'disabled');
+				},
+				error    : function(jqXHR, textStatus, errorThrown) {
+
+					// Don't know
+					if (jqXHR.status != 0) {
+						alert(jqXHR.status + ' ' + errorThrown);
+					}
+				}
+			});
 		}
 		else
 		{
-			$('.messages').show();
+			$('.messages')
+				.removeClass('alert-success')
+				.removeClass('alert-error')
+				.addClass('alert')
+				.html('Awaiting Credentials');
 
 			$('#user-form button:submit').attr('disabled', 'disabled');
 		}

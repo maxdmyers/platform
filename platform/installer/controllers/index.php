@@ -109,8 +109,6 @@ class Installer_Index_Controller extends Base_Controller
 			exit;
 		});
 
-		// 2. Run User validation
-
 		// override user with input format
 		$user = array(
 			'email'                 => $user['email'],
@@ -126,31 +124,16 @@ class Installer_Index_Controller extends Base_Controller
 			),
 		);
 
-		$rules = array(
-			'metadata.first_name'   => 'required',
-			'metadata.last_name'    => 'required',
-			'email'                 => 'required',
-			'password_confirmation' => 'same:password',
-		);
-
-		$validation = Validator::make($user, $rules);
-
-		if ($validation->fails())
-		{
-		    // $validation->errors;
-		    return Redirect::to('installer/step_3');
-		}
-
-		// 3. Create the database config file
+		// 2. Create the database config file
 		Installer::create_database_config(Installer::get_step_data(2, function() {
 			Redirect::to('installer/step_2')->send();
 			exit;
 		}));
 
-		// 4. Create a random key
+		// 3. Create a random key
 		Installer::generate_key();
 
-		// 5. Install extensions
+		// 4. Install extensions
 		Installer::install_extensions();
 
 		$create_user = API::post('users/create', $user);
@@ -246,13 +229,13 @@ class Installer_Index_Controller extends Base_Controller
 		{
 		    return json_encode(array(
 		    	'error'   => true,
-		    	'message' => $validation->errors->all('<li>:message</li>');
+		    	'message' => $validation->errors->all(':message'),
 		    ));
 		}
 
 		return json_encode(array(
 			'error'   => false,
-			'message' => 'Successfully validated user',
+			'message' => array('Successfully validated user'),
 		));
 	}
 
