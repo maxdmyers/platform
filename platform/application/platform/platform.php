@@ -374,7 +374,7 @@ class Platform
 			}
 		}
 
-		// Extnesions table doesn't exist
+		// Extensions table doesn't exist
 		catch (Exception $e)
 		{
 			$installed = false;

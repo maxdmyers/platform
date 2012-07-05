@@ -45,6 +45,12 @@ class Installer_Index_Controller extends Base_Controller
 		Asset::add('url', 'platform/installer/js/url.js');
 		Asset::add('bootstrap', 'platform/installer/js/bootstrap.js', array('jquery'));
 		Asset::add('installer', 'platform/installer/js/installer.js', array('jquery'));
+
+		if (Platform::is_installed() and URI::segment(2) !== 'step_4')
+		{
+			Redirect::to('installer/step_4')->send();
+			exit;
+		}
 	}
 
 	public function get_index()
