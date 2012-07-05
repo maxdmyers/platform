@@ -323,16 +323,19 @@ class Users_API_Users_Controller extends API_Controller
 			// Get the Swift Mailer instance
 			$mailer = IoC::resolve('mailer');
 
-			$link = URL::to('admin/reset_password_confirm/'.$reset['link']);
+			$link = URL::to(ADMIN.'/reset_password_confirm/'.$reset['link']);
+
+			// set body
+			$body = file_get_contents(path('public').'platform'.DS.'emails'.DS.'reset_password.html');
+			$body = preg_replace('/{{SITE_TITLE}}/', Platform::get('settings.general.title'), $body);
+			$body = preg_replace('/{{RESET_LINK}}/', $link, $body);
 
 			// Construct the message
 			$message = Swift_Message::newInstance()
 				->setSubject(Platform::get('settings.site.title').' - Password Reset')
-			    ->setFrom(array(Platform::get('settings.site.email') => Platform::get('settings.site.title')))
+			    ->setFrom(Platform::get('settings.site.email'), Platform::get('settings.site.title'))
 			    ->setTo(Input::get('email'))
-			    ->setBody(
-			    	'Please go to the link provided below to change your password to the provided reset password.'."\n\n".
-					"\t".'<a href="'.$link.'">'.$link.'</a>','text/html');
+			    ->setBody($body,'text/html');
 
 			// Send the email
 			$mailer->send($message);
