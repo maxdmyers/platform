@@ -55,6 +55,7 @@ class Installer_Index_Controller extends Base_Controller
 
 	public function get_index()
 	{
+		Session::flush();
 
 		$data['permissions'] = Installer::permissions();
 
@@ -102,25 +103,16 @@ class Installer_Index_Controller extends Base_Controller
 
 	public function get_install()
 	{
-		// 1. Create the database config file
-		Installer::create_database_config(Installer::get_step_data(2, function() {
-			Redirect::to('installer/step_2')->send();
-			exit;
-		}));
-
-		// 2. Create a random key
-		Installer::generate_key();
-
-		// 3. Install extensions
-		Installer::install_extensions();
-
-		// 4. Create user
+		// 1. Create user
 		$user = Installer::get_step_data(3, function() {
 			Redirect::to('installer/step_3')->send();
 			exit;
 		});
 
-		$create_user = API::post('users/create', array(
+		// 2. Run User validation
+
+		// override user with input format
+		$user = array(
 			'email'                 => $user['email'],
 			'password'              => $user['password'],
 			'password_confirmation' => $user['password_confirmation'],
@@ -132,7 +124,36 @@ class Installer_Index_Controller extends Base_Controller
 			'permissions' => array(
 				Config::get('sentry::sentry.permissions.superuser') => 1,
 			),
-		));
+		);
+
+		$rules = array(
+			'metadata.first_name'   => 'required',
+			'metadata.last_name'    => 'required',
+			'email'                 => 'required',
+			'password_confirmation' => 'same:password',
+		);
+
+		$validation = Validator::make($user, $rules);
+
+		if ($validation->fails())
+		{
+		    // $validation->errors;
+		    return Redirect::to('installer/step_3');
+		}
+
+		// 3. Create the database config file
+		Installer::create_database_config(Installer::get_step_data(2, function() {
+			Redirect::to('installer/step_2')->send();
+			exit;
+		}));
+
+		// 4. Create a random key
+		Installer::generate_key();
+
+		// 5. Install extensions
+		Installer::install_extensions();
+
+		$create_user = API::post('users/create', $user);
 
 		if ( ! $create_user['status'])
 		{
@@ -192,6 +213,46 @@ class Installer_Index_Controller extends Base_Controller
 		return json_encode(array(
 			'error'   => false,
 			'message' => 'Successfully connected to the database',
+		));
+	}
+
+	public function post_confirm_user()
+	{
+		if ( ! Request::ajax())
+		{
+			return Event::fire('404');
+		}
+
+		$user = array(
+			'email'                 => Input::get('email'),
+			'password'              => Input::get('password'),
+			'password_confirmation' => Input::get('password_confirmation'),
+			'metadata'              => array(
+				'first_name' => Input::get('first_name'),
+				'last_name'  => Input::get('last_name'),
+			),
+		);
+
+		$rules = array(
+			'metadata.first_name'   => 'required',
+			'metadata.last_name'    => 'required',
+			'email'                 => 'required|email',
+			'password_confirmation' => 'same:password',
+		);
+
+		$validation = Validator::make($user, $rules);
+
+		if ($validation->fails())
+		{
+		    return json_encode(array(
+		    	'error'   => true,
+		    	'message' => $validation->errors->all('<li>:message</li>');
+		    ));
+		}
+
+		return json_encode(array(
+			'error'   => false,
+			'message' => 'Successfully validated user',
 		));
 	}
 
