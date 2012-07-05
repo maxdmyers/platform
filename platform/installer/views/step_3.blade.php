@@ -20,7 +20,7 @@
 @section('content')
 <div class="grid contain">
 	<h2>Now you need an administrator, create your initial user and your almost ready to rock.</h2>
-	{{ Form::open(null, 'POST') }}
+	{{ Form::open(null, 'POST', array('id' => 'user-form')) }}
 	{{ Form::token() }}
 	<fieldset>
 
@@ -32,7 +32,7 @@
 
 	</fieldset>
 	<div class="actions">
-		<button type="submit" class="btn btn-large">
+		<button type="submit" class="btn btn-large" disabled>
 			Continue to Step 4
 		</button>
 	</div>

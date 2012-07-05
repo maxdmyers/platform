@@ -13,24 +13,15 @@ $(document).ready(function() {
 	*/
 	$('.messages').html('Awaiting Credentials');
 
-	$('#database-form').find('select, input').on('focus keyup change', function(e) {
+	var checkDBCredentials = function() {
 
-		// Check keycode - enter
-		// shouldn't trigger it
-		if (e.keyCode === 13) {
-			return;
-		}
-
-		// Count the amount of empty fields
-		$length = $('#database-form').find('select, input:not(:password)').filter(function()
+		length = $('#database-form').find('select, input:not(:password)').filter(function()
 		{
 			return $(this).val() == '';
 		}).length;
 
-		// If we have filled out all fields,
-		// do an AJAX call to check the credentials
-		if ($length == 0) {
-
+		if (length == 0)
+		{
 			$.ajax({
 				type     : 'POST',
 				url      : platform.url.base('installer/confirm_db'),
@@ -53,15 +44,74 @@ $(document).ready(function() {
 						alert(jqXHR.status + ' ' + errorThrown);
 					}
 				}
-			})
+			});
 		}
-
-		// Else, remove the confirm database text
-		// and disable the continue button
-		else {
-			$('.messages').html('Awaiting Credentials');
+		else
+		{
+			$('.messages')
+				.removeClass('alert-success')
+				.removeClass('alert-error')
+				.addClass('alert')
+				.html('Awaiting Credentials');
 
 			$('#database-form button:submit').attr('disabled', 'disabled');
 		}
-	});
+	}
+
+	var checkUserCredentials = function() {
+		
+		length = $('#user-form').find('input').filter(function()
+		{
+			return $(this).val() == '';
+		}).length;
+
+		if (length == 0)
+		{
+			// Show success message and enable continue button
+			$('.messages').hide()
+
+			$('#user-form button:submit').removeAttr('disabled');
+		}
+		else
+		{
+			$('.messages').show();
+
+			$('#user-form button:submit').attr('disabled', 'disabled');
+		}
+	}
+
+	if ($('#database-form').length)
+	{
+		checkDBCredentials();
+
+		$('#database-form').find('select, input').on('focus keyup change', function(e) {
+
+			// Check keycode - enter
+			// shouldn't trigger it
+			if (e.keyCode === 13) {
+				return;
+			}
+
+			checkDBCredentials();
+
+		});
+	}
+
+	if ($('#user-form').length)
+	{
+		checkUserCredentials();
+
+		$('#user-form').find('input').on('focus keyup change', function(e) {
+
+			// Check keycode - enter
+			// shouldn't trigger it
+			if (e.keyCode === 13) {
+				return;
+			}
+
+			checkUserCredentials();
+
+		});
+	}
+
 });

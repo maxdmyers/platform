@@ -192,7 +192,7 @@ class Installer
 		{
 			$info = Platform::extensions_manager()->info($extension);
 
-			if ($info['info']['is_core'])
+			if (isset($info['info']['is_core']) and $info['info']['is_core'])
 			{
 				// Install extension - this'll run migrations, put in
 				// the database etc...

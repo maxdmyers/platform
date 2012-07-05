@@ -57,9 +57,16 @@ class Installer_Index_Controller extends Base_Controller
 
 	public function get_step_2()
 	{
+		// initialize data array
+		$data = array(
+			'driver'   => null,
+			'host'     => null,
+			'username' => null,
+			'database' => null,
+		);
 
 		// check for session data
-		$credentials = Installer::get_step_data(2);
+		$credentials = Installer::get_step_data(2, array());
 		foreach ($credentials as $values => $value)
 		{
 			$data[$values] = $value;
@@ -123,7 +130,7 @@ class Installer_Index_Controller extends Base_Controller
 
 		if ( ! $create_user['status'])
 		{
-			return Redirect::to('installer/index');
+			return Redirect::to('installer/step_3');
 		}
 
 		return Redirect::to('installer/step_4');
@@ -131,6 +138,8 @@ class Installer_Index_Controller extends Base_Controller
 
 	public function get_step_4()
 	{
+		Session::forget('installer');
+
 		return View::make('installer::step_4')
 		           ->with('key', Config::get('application.key'));
 	}
