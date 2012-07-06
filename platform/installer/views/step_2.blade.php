@@ -32,7 +32,7 @@
 	<div class="actions">
 		<a class="btn btn-large" href="{{URL::to('installer/step_1');}}">Back</a>
 		<button type="submit" class="btn btn-large" disabled>
-			Continue to Step 2
+			Continue to Step 3
 		</button>
 	</div>
 	{{ Form::close() }}
