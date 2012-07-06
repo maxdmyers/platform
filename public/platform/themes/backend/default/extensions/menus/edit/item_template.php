@@ -18,10 +18,10 @@
 				<?php echo Form::text('item_fields[{{id}}][slug]', null, array('id' => 'menu-items-{{id}}-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'class' => 'item-slug', '{{field.slug}}')); ?>
 
 				<?php echo Form::label('menu-items-{{id}}-uri', Lang::line('menus::menus.general.uri')); ?>
-				<?php echo Form::text('item_fields[{{id}}][uri]', null, array('id' => 'menu-items-{{id}}-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), 'class' => 'menu-item-uri', '{{field.uri}}')); ?>
+				<?php echo Form::text('item_fields[{{id}}][uri]', null, array('id' => 'menu-items-{{id}}-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), 'class' => 'item-uri', '{{field.uri}}')); ?>
 
 				<label class="checkbox">
-					<input type="checkbox" name="item_fields[{{id}}][secure]" value="1" id="menu-items-{{id}}-secure" class="menu-item-secure" {{field.secure}}>
+					<input type="checkbox" name="item_fields[{{id}}][secure]" value="1" id="menu-items-{{id}}-secure" class="item-secure" {{field.secure}}>
 					<?php echo Lang::line('menus::menus.general.secure'); ?>
 				</label>
 

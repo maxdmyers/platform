@@ -18,10 +18,10 @@
 				{{ Form::text('item_fields['.$item['id'].'][slug]', $item['slug'], array('id' => 'menu-items-'.$item['id'].'-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'class' => 'item-slug', ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
 				{{ Form::label('menu-items-'.$item['id'].'-uri', Lang::line('menus::menus.general.uri')) }}
-				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), ( ! $item['user_editable']) ? 'disabled' : null, 'class' => 'menu-item-uri')) }}
+				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), ( ! $item['user_editable']) ? 'disabled' : null, 'class' => 'item-uri')) }}
 
 				<label class="checkbox">
-					{{ Form::checkbox('item_fields['.$item['id'].'][secure]', 1, (bool) $item['secure'], array('class' => 'menu-item-secure', ( ! $item['user_editable'] or URL::valid($item['uri'])) ? 'disabled' : null)) }}
+					{{ Form::checkbox('item_fields['.$item['id'].'][secure]', 1, (bool) $item['secure'], array('class' => 'item-secure', ( ! $item['user_editable'] or URL::valid($item['uri'])) ? 'disabled' : null)) }}
 					{{ Lang::line('menus::menus.general.secure') }}
 				</label>
 

@@ -16,7 +16,9 @@
 			newItemFieldContainerSelector: '.control-group',
 
 			// Slug input selector
-			slugInputSelector: '.item-slug',
+			slugInputSelector:   '.item-slug',
+			uriInputSelector:    '.item-uri',
+			secureInputSelector: '.item-secure',
 
 			// Root menu item slug
 			rootSlug: null,
@@ -31,8 +33,14 @@
 			rootSlugSelector: '#menu-slug',
 
 			// New item selectors
-			newItemNameSelector: '#new-item-name',
-			newItemSlugSelector: '#new-item-slug',
+			newItemNameSelector:   '#new-item-name',
+			newItemSlugSelector:   '#new-item-slug',
+			newItemUriSelector:    '#new-item-uri',
+			newItemSecureSelector: '#new-item-secure',
+
+			// Item selectors
+			itemSelector: '.item',
+
 
 			// Nesty sortable settings
 			nestySortable: {
@@ -76,7 +84,8 @@
 
 			self.validateNewItems()
 			    .validateSlugs()
-			    .helpNewName();
+			    .helpNewName()
+			    .helpSecureUris();
 		},
 
 		validateNewItems: function() {
@@ -146,15 +155,6 @@
 				if ($(this).val().indexOf(self.settings.rootSlug+self.settings.rootSlugAppend) !== 0) {
 					$(this).val(self.settings.rootSlug+self.settings.rootSlugAppend+$(this).val());
 				}
-
-				// // Remove old value from array
-				// var index = $.inArray($(this).data('old-value'), self.settings.slugs);
-				// if (index > -1) {
-				// 	self.settings.slugs.splice(index, 1);
-				// }
-
-				// // Set the old value for comparison next time
-				// $(this).data('old-value', $(this).val());
 			});
 
 			// Trigger a change on the root item which
@@ -169,10 +169,73 @@
 
 			// Autofill the slug based on the name
 			$(self.settings.newItemNameSelector).on('focus keyup change', function() {
-				$(self.settings.newItemSlugSelector).val(self.settings.rootSlug+self.settings.rootSlugAppend+$(this).slugify());
+				$(self.settings.newItemSlugSelector).val(self.settings.rootSlug+self.settings.rootSlugAppend+$(this).slugify()).trigger('change');
+
+				// And the URI
+				$(self.settings.newItemUriSelector).val($(this).slugify('/')).trigger('change');				
 			});
 
 			return this;
+		},
+
+		helpSecureUris: function() {
+			var self = this;
+
+			// New items
+			$(self.settings.newItemUriSelector).on('focus keyup change', function(e) {
+
+				// Full URL, disable the chekcbox
+				if (self.isFullUrl($(this).val())) {
+					$(self.settings.newItemSecureSelector).attr('disabled', 'disabled');
+					$(self.settings.newItemSecureSelector)[self.isSecureUrl($(this).val()) ? 'attr' : 'removeAttr']('checked', 'checked');
+				}
+
+				// Relative, give option
+				else {
+
+					$(self.settings.newItemSecureSelector).removeAttr('disabled');
+				}
+			});
+
+			// Existing items
+			$('body').on('focus keyup change', self.elem.selector+' '+self.settings.uriInputSelector, function() {
+
+				var $secure = $(this).closest(self.settings.itemSelector).find(self.settings.secureInputSelector);
+
+				// Full URL
+				if (self.isFullUrl($(this).val())) {
+					$secure.attr('disabled', 'disabled');
+					$secure[self.isSecureUrl($(this).val()) ? 'attr' : 'removeAttr']('checked', 'checked');
+				}
+
+				// Relative URI
+				else {
+					$secure.removeAttr('disabled');
+				}
+			});
+
+			return this;
+		},
+
+		/**
+		 * Tests a URL to see if it's a full
+		 * url
+		 *
+		 * @param   string  uri
+		 * @return  bool
+		 */
+		isFullUrl: function(uri) {
+			return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(uri);
+		},
+
+		/**
+		 * Tests a URL to see if it's secure
+		 *
+		 * @param   string  uri
+		 * @return  bool
+		 */
+		isSecureUrl: function(uri) {
+			return /https:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(uri);
 		}
 	}
 
@@ -184,50 +247,7 @@
 })(jQuery);
 
 
-// $(document).ready(function() {
 
-// 	/*
-// 	|-------------------------------------
-// 	| New menu items
-// 	|-------------------------------------
-// 	|
-// 	| Helpers for when adding new menu
-// 	| items.
-// 	*/
-// 	$('body').on('hover', '.platform-new-item .control-group.error', function() {
-// 		$(this).removeClass('error');
-// 	})
-
-// 	$('#new-item-name').on('focus keyup change', function(e) {
-// 		$('#new-item-slug').val($(this).slugify());
-// 	});
-
-// 	$('#new-item-uri').on('focus keyup change', function(e) {
-
-// 		// Full URL, disable the chekcbox
-// 		if (isFullUrl($(this).val())) {
-// 			$('#new-item-secure').attr('disabled', 'disabled');
-// 			$('#new-item-secure')[isSecureUrl($(this).val()) ? 'attr' : 'removeAttr']('checked', 'checked');
-// 		}
-
-// 		// Relative, give option
-// 		else {
-
-// 			$('#new-item-secure').removeAttr('disabled');
-// 		}
-// 	});
-
-// 	/*
-// 	|-------------------------------------
-// 	| Menu itself
-// 	|-------------------------------------
-// 	|
-// 	| Helpers for when editing the menu
-// 	| options
-// 	*/
-// 	$('#menu-name').on('focus keyup change', function(e) {
-// 		$('#menu-slug').val($(this).slugify());
-// 	});
 
 // 	/*
 // 	|-------------------------------------
@@ -239,38 +259,5 @@
 // 	*/
 // 	$('body').on('focus keyup change', '.menu-item-uri', function(e) {
 
-// 		var $secure = $(this).closest('.item').find('.menu-item-secure');
 
-// 		// Full URL
-// 		if (isFullUrl($(this).val())) {
-// 			$secure.attr('disabled', 'disabled');
-// 			$secure[isSecureUrl($(this).val()) ? 'attr' : 'removeAttr']('checked', 'checked');
-// 		}
-
-// 		// Relative URI
-// 		else {
-// 			$secure.removeAttr('disabled');
-// 		}
 // 	});
-
-// 	/**
-// 	 * Tests a URL to see if it's a full
-// 	 * url
-// 	 *
-// 	 * @param   string  uri
-// 	 * @return  bool
-// 	 */
-// 	function isFullUrl(uri) {
-// 		return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(uri);
-// 	}
-
-// 	/**
-// 	 * Tests a URL to see if it's secure
-// 	 *
-// 	 * @param   string  uri
-// 	 * @return  bool
-// 	 */
-// 	function isSecureUrl(uri) {
-// 		return /https:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(uri);
-// 	}
-// });
