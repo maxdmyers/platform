@@ -19,32 +19,35 @@
 	<script>
 	$(document).ready(function() {
 
-		// Nesty Sortable
-		$('#platform-menu').nestySortable({
-			sortableSelector : '.platform-menu',
-			ajax             : false,
-			fields           : [
-				{
-					name        : 'name',
-					newSelector : '#new-item-name'
-				},
-				{
-					name        : 'slug',
-					newSelector : '#new-item-slug'
-				},
-				{
-					name        : 'uri',
-					newSelector : '#new-item-uri'
-				},
-				{
-					name        : 'secure',
-					newSelector : '#new-item-secure'
-				}
-			],
-			itemTemplate         : {{ $item_template }},
-			lastItemId           : {{ $last_item_id }},
-			invalidFieldCallback : function(field, value) {
-				$(field.newSelector).closest('.control-group').addClass('error');
+		$('#platform-menu').menuSortable({
+
+			// Array of ALL existing
+			// slugs. Just so we don't
+			// have any clashes
+			slugs : {{ $slugs }},
+
+			// Define Nesty Sortable dependency for the menu sortable.
+			nestySortable: {
+				fields           : [
+					{
+						name        : 'name',
+						newSelector : '#new-item-name'
+					},
+					{
+						name        : 'slug',
+						newSelector : '#new-item-slug'
+					},
+					{
+						name        : 'uri',
+						newSelector : '#new-item-uri'
+					},
+					{
+						name        : 'secure',
+						newSelector : '#new-item-secure'
+					}
+				],
+				itemTemplate         : {{ $item_template }},
+				lastItemId           : {{ $last_item_id }}
 			}
 		});
 	});
@@ -60,8 +63,6 @@
 				<p>{{ Lang::line('menus::menus.update.description') }}</p>
 			</div>
 		</header>
-
-		<pre><?php print_R($slugs) ?></pre>
 
 		<hr>
 
@@ -97,7 +98,7 @@
 
 									<div class="control-group">
 										{{ Form::label('new-item-slug', Lang::line('menus::menus.general.slug')) }}
-										{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'required')) }}
+										{{ Form::text(null, null, array('class' => 'input-block-level item-slug', 'id' => 'new-item-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'required')) }}
 									</div>
 
 									<div class="control-group">
@@ -132,10 +133,10 @@
 					<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
 						
 						{{ Form::label('menu-name', Lang::line('menus::menus.general.name')) }}
-						{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => Lang::line('menus::menus.general.name'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : null)) }}
+						{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => Lang::line('menus::menus.general.name'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : 'required')) }}
 
 						{{ Form::label('menu-slug', Lang::line('menus::menus.general.slug')) }}
-						{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : null)) }}
+						{{ Form::text('slug', isset($menu['slug']) ? $menu['slug'] : null, array('id' => 'menu-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : 'required')) }}
 
 					</div>
 				</div>

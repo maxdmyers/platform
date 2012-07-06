@@ -15,7 +15,7 @@
 				<?php echo Form::text('item_fields[{{id}}][name]', null, array('id' => 'menu-items-{{id}}-name', 'placeholder' => Lang::line('menus::menus.general.name'), '{{field.name}}')); ?>
 
 				<?php echo Form::label('menu-items-{{id}}-slug', Lang::line('menus::menus.general.slug')); ?>
-				<?php echo Form::text('item_fields[{{id}}][slug]', null, array('id' => 'menu-items-{{id}}-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), '{{field.slug}}')); ?>
+				<?php echo Form::text('item_fields[{{id}}][slug]', null, array('id' => 'menu-items-{{id}}-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'class' => 'item-slug', '{{field.slug}}')); ?>
 
 				<?php echo Form::label('menu-items-{{id}}-uri', Lang::line('menus::menus.general.uri')); ?>
 				<?php echo Form::text('item_fields[{{id}}][uri]', null, array('id' => 'menu-items-{{id}}-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), 'class' => 'menu-item-uri', '{{field.uri}}')); ?>

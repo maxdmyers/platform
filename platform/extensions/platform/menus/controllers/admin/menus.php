@@ -63,7 +63,8 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		            ->with('menu_id', (isset($menu['id'])) ? $menu['id'] : false)
 		            ->with('item_template', json_encode(Theme::make('menus::edit/item_template')->render()))
 		            ->with('last_item_id', $last_item_id)
-		            ->with('slugs', $slugs);
+		            ->with('root_slug', isset($menu['slug']) ? $menu['slug'] : null)
+		            ->with('slugs', json_encode($slugs));
 	}
 
 	public function post_edit($id = false)

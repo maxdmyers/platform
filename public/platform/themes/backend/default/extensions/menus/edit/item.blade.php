@@ -15,7 +15,7 @@
 				{{ Form::text('item_fields['.$item['id'].'][name]', $item['name'], array('id' => 'menu-items-'.$item['id'].'-name', 'placeholder' => Lang::line('menus::menus.general.name'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
 				{{ Form::label('menu-items-'.$item['id'].'-slug', Lang::line('menus::menus.general.slug')) }}
-				{{ Form::text('item_fields['.$item['id'].'][slug]', $item['slug'], array('id' => 'menu-items-'.$item['id'].'-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), ( ! $item['user_editable']) ? 'disabled' : null)) }}
+				{{ Form::text('item_fields['.$item['id'].'][slug]', $item['slug'], array('id' => 'menu-items-'.$item['id'].'-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'class' => 'item-slug', ( ! $item['user_editable']) ? 'disabled' : null)) }}
 
 				{{ Form::label('menu-items-'.$item['id'].'-uri', Lang::line('menus::menus.general.uri')) }}
 				{{ Form::text('item_fields['.$item['id'].'][uri]', $item['uri'], array('id' => 'menu-items-'.$item['id'].'-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), ( ! $item['user_editable']) ? 'disabled' : null, 'class' => 'menu-item-uri')) }}
