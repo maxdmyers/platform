@@ -26,18 +26,15 @@
 			fields           : [
 				{
 					name        : 'name',
-					newSelector : '#new-item-name',
-					required    : true
+					newSelector : '#new-item-name'
 				},
 				{
 					name        : 'slug',
-					newSelector : '#new-item-slug',
-					required    : true
+					newSelector : '#new-item-slug'
 				},
 				{
 					name        : 'uri',
-					newSelector : '#new-item-uri',
-					required    : true
+					newSelector : '#new-item-uri'
 				},
 				{
 					name        : 'secure',
@@ -47,8 +44,8 @@
 			itemTemplate         : {{ $item_template }},
 			lastItemId           : {{ $last_item_id }},
 			invalidFieldCallback : function(field, value) {
-				alert('Field [' + field.name + '] is required.');
-			},
+				$(field.newSelector).closest('.control-group').addClass('error');
+			}
 		});
 	});
 	</script>
@@ -63,6 +60,8 @@
 				<p>{{ Lang::line('menus::menus.update.description') }}</p>
 			</div>
 		</header>
+
+		<pre><?php print_R($slugs) ?></pre>
 
 		<hr>
 
@@ -91,19 +90,25 @@
 									<h3>{{ Lang::line('menus::menus.general.new_item') }}</h3>
 									<hr>
 
-									{{ Form::label('new-item-name', Lang::line('menus::menus.general.name')) }}
-									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-name', 'placeholder' => Lang::line('menus::menus.general.name'))) }}
+									<div class="control-group">
+										{{ Form::label('new-item-name', Lang::line('menus::menus.general.name')) }}
+										{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-name', 'placeholder' => Lang::line('menus::menus.general.name'), 'required')) }}
+									</div>
 
-									{{ Form::label('new-item-slug', Lang::line('menus::menus.general.slug')) }}
-									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-slug', 'placeholder' => Lang::line('menus::menus.general.slug'))) }}
+									<div class="control-group">
+										{{ Form::label('new-item-slug', Lang::line('menus::menus.general.slug')) }}
+										{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-slug', 'placeholder' => Lang::line('menus::menus.general.slug'), 'required')) }}
+									</div>
 
-									{{ Form::label('new-item-uri', Lang::line('menus::menus.general.uri')) }}
-									{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-uri', 'placeholder' => Lang::line('menus::menus.general.uri'))) }}
+									<div class="control-group">
+										{{ Form::label('new-item-uri', Lang::line('menus::menus.general.uri')) }}
+										{{ Form::text(null, null, array('class' => 'input-block-level', 'id' => 'new-item-uri', 'placeholder' => Lang::line('menus::menus.general.uri'), 'required')) }}
 
-									<label class="checkbox">
-										{{ Form::checkbox(null, 1, false, array('id' => 'new-item-secure')) }}
-										{{ Lang::line('menus::menus.general.secure') }}
-									</label>
+										<label class="checkbox">
+											{{ Form::checkbox(null, 1, false, array('id' => 'new-item-secure')) }}
+											{{ Lang::line('menus::menus.general.secure') }}
+										</label>
+									</div>
 
 									<hr>
 

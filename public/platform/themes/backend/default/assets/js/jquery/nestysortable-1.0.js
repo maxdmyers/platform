@@ -151,31 +151,39 @@
 				// the template variables with the value of each
 				// field's selector.
 				for (i in self.settings.fields) {
-					var field = self.settings.fields[i];
 
-					var $formElement = $(field.newSelector),
-					           value = null;
+					// Get some variables
+					var field        = self.settings.fields[i],
+					    $formElement = $(field.newSelector);
 
-					// Checkboxes are special
+					// Checkboxes have a boolean attribute
 					if ($formElement.is(':checkbox')) {						
-						value = $formElement.attr('checked') ? 'checked="checked"' : false;
+						fieldValue = $formElement.attr('checked') ? 'checked="checked"' : '';
+						rawValue   = $formElement.attr('checked') ? $formElement.attr('value') : 0;
 					}
 					else {
-						value = $(field.newSelector).val();
+						fieldValue = 'value="'+$formElement.val()+'"';
+						rawValue   = $formElement.val();
 					}
 
-					if (typeof field.required !== 'undefined' && field.required === true && (typeof value === 'undefined' || ! value)) {
-
-						result = self.settings.invalidFieldCallback(field, value);
+					// Validate form element
+					if ($formElement.is(':invalid')) {
+						result = self.settings.invalidFieldCallback(field, rawValue);
 
 						if (typeof result !== 'undefiend' && valid === true) {
 							valid = Boolean(result);
 						}
+
+						continue;
 					}
 
-					// Replace the name with the actual value
-					var regex    = new RegExp('\{\{'+field.name+'\}\}', 'gi');
-					itemTemplate = itemTemplate.replace(regex, value);
+					// Replace all field values. These change depending on the input type
+					var fieldRegex = new RegExp('\{\{field\.'+field.name+'\}\}', 'gi');
+					var rawRegex   = new RegExp('\{\{raw\.'+field.name+'\}\}', 'gi');
+
+					// Replace all values
+					itemTemplate = itemTemplate.replace(fieldRegex, fieldValue);
+					itemTemplate = itemTemplate.replace(rawRegex, rawValue);
 				}
 
 				if (valid !== true) {

@@ -8,6 +8,10 @@ $(document).ready(function() {
 	| Helpers for when adding new menu
 	| items.
 	*/
+	$('body').on('hover', '.platform-new-item .control-group.error', function() {
+		$(this).removeClass('error');
+	})
+
 	$('#new-item-name').on('focus keyup change', function(e) {
 		$('#new-item-slug').val($(this).slugify());
 	});

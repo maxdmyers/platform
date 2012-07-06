@@ -405,4 +405,25 @@ class Menus_API_Menus_Controller extends API_Controller
 		}
 	}
 
+	/**
+	 * Returns an array of menu slugs.
+	 *
+	 * @return  array
+	 */
+	public function get_slugs()
+	{
+		// Get an array of slugs
+		$slugs = array();
+		foreach (Menu::all(null, array('slug')) as $item)
+		{
+			$slugs[] = $item->slug;
+		}
+
+		// We can't really go wrong, can we?
+		return array(
+			'status' => true,
+			'slugs'  => $slugs,
+		);
+	}
+
 }

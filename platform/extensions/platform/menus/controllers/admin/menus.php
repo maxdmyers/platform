@@ -48,17 +48,22 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		$result = API::get('menus/menu', array(
 			'id' => $id,
 		));
-		$menu = $result['menu'];
+		$menu   = $result['menu'];
 
 		// Get last item ID
-		$result = API::get('menus/last_item_id');
+		$result       = API::get('menus/last_item_id');
 		$last_item_id = $result['last_item_id'];
+
+		// Get
+		$result = API::get('menus/slugs');
+		$slugs  = $result['slugs'];
 
 		return Theme::make('menus::edit')
 		            ->with('menu', $menu)
 		            ->with('menu_id', (isset($menu['id'])) ? $menu['id'] : false)
 		            ->with('item_template', json_encode(Theme::make('menus::edit/item_template')->render()))
-		            ->with('last_item_id', $last_item_id);
+		            ->with('last_item_id', $last_item_id)
+		            ->with('slugs', $slugs);
 	}
 
 	public function post_edit($id = false)
