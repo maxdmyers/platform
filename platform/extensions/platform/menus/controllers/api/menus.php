@@ -414,7 +414,24 @@ class Menus_API_Menus_Controller extends API_Controller
 	{
 		// Get an array of slugs
 		$slugs = array();
-		foreach (Menu::all(null, array('slug')) as $item)
+
+		// The ID of the menu to not include
+		// when fetching slugs. This is used
+		// in the menu scaffolding
+		$not_id = Input::get('not_id', false);
+
+		// Get items
+		$items = Menu::all(function($query) use ($not_id)
+		{
+			if ($not_id !== false)
+			{
+				$query->where(Menu::nesty_col('tree'), '!=', $not_id);
+			}
+
+			return $query;
+		}, array('slug'));
+
+		foreach ($items as $item)
 		{
 			$slugs[] = $item->slug;
 		}

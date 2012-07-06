@@ -55,8 +55,10 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		$last_item_id = $result['last_item_id'];
 
 		// Get
-		$result = API::get('menus/slugs');
-		$slugs  = $result['slugs'];
+		$result = API::get('menus/slugs', array(
+			'not_id' => isset($menu['id']) ? $menu['id'] : false,
+		));
+		$persisted_slugs  = $result['slugs'];
 
 		return Theme::make('menus::edit')
 		            ->with('menu', $menu)
@@ -64,7 +66,7 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 		            ->with('item_template', json_encode(Theme::make('menus::edit/item_template')->render()))
 		            ->with('last_item_id', $last_item_id)
 		            ->with('root_slug', isset($menu['slug']) ? $menu['slug'] : null)
-		            ->with('slugs', json_encode($slugs));
+		            ->with('persisted_slugs', json_encode($persisted_slugs));
 	}
 
 	public function post_edit($id = false)

@@ -14,7 +14,7 @@
 	{{ Theme::asset('js/jquery/ui-1.8.18.min.js') }}
 	{{ Theme::asset('js/jquery/nestedsortable-1.3.4.js') }}
 	{{ Theme::asset('js/jquery/nestysortable-1.0.js') }}
-	{{ Theme::asset('menus::js/menus.js') }}
+	{{ Theme::asset('menus::js/menussortable-1.0.js') }}
 
 	<script>
 	$(document).ready(function() {
@@ -24,7 +24,7 @@
 			// Array of ALL existing
 			// slugs. Just so we don't
 			// have any clashes
-			slugs : {{ $slugs }},
+			persistedSlugs : {{ $persisted_slugs }},
 
 			// Define Nesty Sortable dependency for the menu sortable.
 			nestySortable: {
@@ -66,7 +66,7 @@
 
 		<hr>
 
-		{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off')) }}
+		{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off', 'novalidate')) }}
 			
 			{{ Form::token() }}
 

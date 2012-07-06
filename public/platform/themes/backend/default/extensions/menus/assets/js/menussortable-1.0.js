@@ -13,7 +13,9 @@
 
 			// New item selectors
 			newItemContainerSelector: '.platform-new-item',
-			newItemFieldContainerSelector: '.control-group',
+
+			// Control group for items
+			itemControlGroupSelector: '.control-group',
 
 			// Slug input selector
 			slugInputSelector:   '.item-slug',
@@ -41,6 +43,11 @@
 			// Item selectors
 			itemSelector: '.item',
 
+			// An array of slugs persisted to the
+			// database already. We use to make sure
+			// our slugs are unique and the user doesn't
+			// get an error when saving.
+			persistedSlugs: [],
 
 			// Nesty sortable settings
 			nestySortable: {
@@ -95,7 +102,7 @@
 			$(self.settings.newItemContainerSelector).find('input, textarea, select').on('focus keyup change', function(e) {
 
 				if ($(this).is(':valid')) {
-					$(this).closest(self.settings.newItemFieldContainerSelector).removeClass('error');
+					$(this).closest(self.settings.itemControlGroupSelector).removeClass('error');
 				}
 			});
 
@@ -157,6 +164,31 @@
 				}
 			});
 
+			// On blur from a slug field, check against DB slugs 
+			// console.log(self.settings.persistedSlugs);
+			$('body').on('blur', self.elem.selector+' '+self.settings.slugInputSelector, function(e) {
+
+				// Temp array of taken slugs
+				var takenSlugs = self.settings.persistedSlugs;
+
+				// Add all taken slugs
+				self.elem.find(self.settings.slugInputSelector).not($(this)).each(function() {
+					takenSlugs.push($(this).val());
+				});
+
+				// Check our value against array
+				if ($.inArray($(this).val(), takenSlugs) > -1) {
+					$(this).closest(self.settings.itemControlGroupSelector).addClass('error');
+				}
+
+				$(this).on('focus', function(e) {
+					e.stopPropagation();
+					$(this).closest(self.settings.itemControlGroupSelector).removeClass('error');
+				});
+
+				console.log(takenSlugs);
+			});
+
 			// Trigger a change on the root item which
 			// populates our cached root slug
 			$(self.settings.rootSlugSelector).trigger('change');
@@ -169,7 +201,7 @@
 
 			// Autofill the slug based on the name
 			$(self.settings.newItemNameSelector).on('focus keyup change', function() {
-				$(self.settings.newItemSlugSelector).val(self.settings.rootSlug+self.settings.rootSlugAppend+$(this).slugify()).trigger('change');
+				$(self.settings.newItemSlugSelector).val(self.settings.rootSlug+self.settings.rootSlugAppend+$(this).slugify()).trigger('change').trigger('blur');
 
 				// And the URI
 				$(self.settings.newItemUriSelector).val($(this).slugify('/')).trigger('change');				
