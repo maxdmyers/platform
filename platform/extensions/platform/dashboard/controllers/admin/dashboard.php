@@ -31,7 +31,7 @@ class Dashboard_Admin_Dashboard_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('dashboard');
+		$this->active_menu('admin-dashboard');
 	}
 
 	public function get_index()

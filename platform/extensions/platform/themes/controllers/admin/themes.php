@@ -28,7 +28,7 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('themes');
+		$this->active_menu('admin-themes');
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	public function get_frontend()
 	{
 		$data = $this->theme_data('frontend');
-		$this->active_menu('frontend');
+		$this->active_menu('admin-frontend');
 
 		return Theme::make('themes::index', $data);
 	}
@@ -63,7 +63,7 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	public function get_backend()
 	{
 		$data = $this->theme_data('backend');
-		$this->active_menu('backend');
+		$this->active_menu('admin-backend');
 
 		return Theme::make('themes::index', $data);
 	}

@@ -29,7 +29,7 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('extensions');
+		$this->active_menu('admin-extensions');
 	}
 
 	public function get_index()

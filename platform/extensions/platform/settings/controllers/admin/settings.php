@@ -38,7 +38,7 @@ class Settings_Admin_Settings_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('settings');
+		$this->active_menu('admin-settings');
 	}
 
 	/**

@@ -28,7 +28,7 @@ class Menus_Admin_Menus_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('menus');
+		$this->active_menu('admin-menus');
 	}
 
 	public function get_index()

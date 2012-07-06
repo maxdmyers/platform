@@ -41,7 +41,7 @@ class Dashboard_Install
 		$dashboard = new Menu(array(
 			'name'          => 'Dashboard',
 			'extension'     => 'dashboard',
-			'slug'          => 'dashboard',
+			'slug'          => 'admin-dashboard',
 			'uri'           => 'dashboard',
 			'user_editable' => 0,
 			'status'        => 1,

@@ -48,14 +48,14 @@ class Settings_Install
 		// Find the system menu
 		$system = Menu::find(function($query)
 		{
-			return $query->where('slug', '=', 'system');
+			return $query->where('slug', '=', 'admin-system');
 		});
 
 		// Create settings link
 		$settings = new Menu(array(
 			'name'          => 'Settings',
 			'extension'     => 'settings',
-			'slug'          => 'settings',
+			'slug'          => 'admin-settings',
 			'uri'           => 'settings',
 			'user_editable' => 0,
 			'status'        => 1,

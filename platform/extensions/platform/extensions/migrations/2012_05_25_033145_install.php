@@ -37,14 +37,14 @@ class Extensions_Install
 		// Find the system menu
 		$system = Menu::find(function($query)
 		{
-			return $query->where('slug', '=', 'system');
+			return $query->where('slug', '=', 'admin-system');
 		});
 
 		// Create extensions link
 		$extensions = new Menu(array(
 			'name'          => 'Extensions',
 			'extension'     => 'extensions',
-			'slug'          => 'extensions',
+			'slug'          => 'admin-extensions',
 			'uri'           => 'extensions',
 			'user_editable' => 0,
 			'status'        => 1,

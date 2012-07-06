@@ -64,7 +64,7 @@ class Users_Install
 		$users = new Menu(array(
 			'name'          => 'Users',
 			'extension'     => 'users',
-			'slug'          => 'users',
+			'slug'          => 'admin-users',
 			'uri'           => 'users',
 			'user_editable' => 0,
 			'status'        => 1,
@@ -76,7 +76,7 @@ class Users_Install
 		$users_list = new Menu(array(
 			'name'          => 'Users',
 			'extension'     => 'users',
-			'slug'          => 'users-list',
+			'slug'          => 'admin-users-list',
 			'uri'           => 'users',
 			'user_editable' => 0,
 			'status'        => 1,
@@ -88,7 +88,7 @@ class Users_Install
 		$groups = new Menu(array(
 			'name'          => 'Groups',
 			'extension'     => 'users',
-			'slug'          => 'groups-list',
+			'slug'          => 'admin-groups-list',
 			'uri'           => 'users/groups',
 			'user_editable' => 0,
 			'status'        => 1,

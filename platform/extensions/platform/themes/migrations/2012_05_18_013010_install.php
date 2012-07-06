@@ -48,14 +48,14 @@ class Themes_Install
 		// Find the system menu
 		$system = Menu::find(function($query)
 		{
-			return $query->where('slug', '=', 'system');
+			return $query->where('slug', '=', 'admin-system');
 		});
 
 		// Create themes link
 		$themes = new Menu(array(
 			'name'          => 'Themes',
 			'extension'     => 'themes',
-			'slug'          => 'themes',
+			'slug'          => 'admin-themes',
 			'uri'           => 'themes',
 			'user_editable' => 0,
 			'status'        => 1,
@@ -67,7 +67,7 @@ class Themes_Install
 		$frontend = new Menu(array(
 			'name'          => 'Frontend',
 			'extension'     => 'themes',
-			'slug'          => 'frontend',
+			'slug'          => 'admin-frontend',
 			'uri'           => 'themes/frontend',
 			'user_editable' => 0,
 			'status'        => 1,
@@ -79,7 +79,7 @@ class Themes_Install
 		$backend = new Menu(array(
 			'name'          => 'Backend',
 			'extension'     => 'themes',
-			'slug'          => 'backend',
+			'slug'          => 'admin-backend',
 			'uri'           => 'themes/backend',
 			'user_editable' => 0,
 			'status'        => 1,

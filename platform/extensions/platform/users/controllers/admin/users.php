@@ -36,7 +36,7 @@ class Users_Admin_Users_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('users-list');
+		$this->active_menu('admin-users-list');
 	}
 
 	/**

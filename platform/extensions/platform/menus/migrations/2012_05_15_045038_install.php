@@ -58,7 +58,7 @@ class Menus_Install
 		$system = new Menu(array(
 			'name'          => 'System',
 			'extension'     => '',
-			'slug'          => 'system',
+			'slug'          => 'admin-system',
 			'uri'           => 'settings',
 			'user_editable' => 0,
 			'status'        => 1,
@@ -70,7 +70,7 @@ class Menus_Install
 		$menus = new Menu(array(
 			'name'          => 'Menus',
 			'extension'     => 'menus',
-			'slug'          => 'menus',
+			'slug'          => 'admin-menus',
 			'uri'           => 'menus',
 			'user_editable' => 0,
 			'status'        => 1,

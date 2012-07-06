@@ -29,7 +29,7 @@ class Users_Admin_Groups_Controller extends Admin_Controller
 	public function before()
 	{
 		parent::before();
-		$this->active_menu('groups-list');
+		$this->active_menu('admin-groups-list');
 	}
 
 	/**
