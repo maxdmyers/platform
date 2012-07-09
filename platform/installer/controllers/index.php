@@ -59,7 +59,19 @@ class Installer_Index_Controller extends Base_Controller
 
 		$data['permissions'] = Installer::permissions();
 
+		$data['enabled'] = '';
+
+		foreach ($data['permissions'] as $perm => $val)
+		{
+			if ( ! $val) $data['enabled'] = 'disabled';
+		}
+
 		return View::make('installer::step_1', $data);
+	}
+
+	public function post_step_1()
+	{
+		return Redirect::to('installer/step_2');
 	}
 
 	public function get_step_2()
@@ -153,6 +165,15 @@ class Installer_Index_Controller extends Base_Controller
 		return View::make('installer::step_4')
 		           ->with('key', Config::get('application.key'));
 	}
+
+	/**
+	 * Confirm Writable files
+	 */
+	public function post_confirm_writable()
+	{
+		return json_encode(Installer::permissions());
+	}
+
 
 	/**
 	 * Confirm database - Step 1
