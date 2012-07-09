@@ -39,6 +39,12 @@ return array(
 		'location' => 'path: '.__DIR__,
 	),
 
+	'events' => array(
+		'theme.create',
+		'theme.update',
+		'theme.delete',
+	),
+
 	'listeners' => function() {
 
 	},

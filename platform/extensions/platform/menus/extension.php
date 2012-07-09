@@ -34,6 +34,12 @@ return array(
 		'location' => 'path: '.__DIR__,
 	),
 
+	'events' => array(
+		'menu.create',
+		'menu.update',
+		'menu.delete',
+	),
+
 	'listeners' => function() {
 
 	},
