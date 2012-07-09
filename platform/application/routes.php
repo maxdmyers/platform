@@ -52,6 +52,11 @@
 
 Route::any(ADMIN.'/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
 
+	if ( ! Bundle::exists($bundle))
+	{
+		return Response::error('404');
+	}
+
 	// check if the controller exists
 	if (Controller::resolve($bundle, 'admin.'.$controller))
 	{
@@ -75,6 +80,11 @@ Route::any(ADMIN.'/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard
 // Re-route api controllers
 Route::any('api/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
 
+	if ( ! Bundle::exists($bundle))
+	{
+		return Response::error('404');
+	}
+	
 	// check if the controller exists
 	if (Controller::resolve($bundle, 'api.'.$controller))
 	{
