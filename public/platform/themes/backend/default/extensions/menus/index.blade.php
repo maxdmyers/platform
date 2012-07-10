@@ -41,10 +41,10 @@
 								{{ $menu['name'] }}
 							</td>
 							<td>
-								{{ HTML::link_to_secure('admin/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
+								{{ HTML::link_to_secure(ADMIN.'/menus/edit/'.$menu['id'], 'Edit', array('class' => 'btn')) }}
 
 								@if ($menu['user_editable'])
-									{{ HTML::link_to_secure('admin/menus/delete/'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
+									{{ HTML::link_to_secure(ADMIN.'/menus/delete/'.$menu['id'], 'Delete', array('class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this menu? This cannot be undone.\');')) }}
 								@endif
 							</td>
 						</tr>
