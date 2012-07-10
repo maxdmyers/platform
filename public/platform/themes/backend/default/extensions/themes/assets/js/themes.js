@@ -6,7 +6,7 @@
 		$.ajax({
 			type:     'POST',
 			url:      self.attr("href"),
-			data:     { type: self.attr("data-type"), theme: self.attr("data-theme") },
+			data:     { type: self.attr("data-type"), theme: self.attr("data-theme"), csrf_token: self.attr("data-token") },
 			success: function(data) {
 
 					window.location.reload(true);

@@ -39,7 +39,7 @@ class Themes_Admin_Themes_Controller extends Admin_Controller
 	 */
 	public function get_index()
 	{
-		return Redirect::to_secure('admin/themes/frontend');
+		return Redirect::to_secure(ADMIN.'/themes/frontend');
 	}
 
 	/**
