@@ -7,12 +7,6 @@
 [submodule "platform/application/bundles/theme"]
 	path = platform/application/bundles/theme
 	url = git@github.com:cartalyst/theme.git
-[submodule "platform/application/bundles/gitsy"]
-	path = platform/application/bundles/gitsy
-	url = git@github.com:cartalyst/gitsy.git
 [submodule "platform/application/bundles/crud"]
 	path = platform/application/bundles/crud
 	url = git@github.com:cartalyst/crud.git
-[submodule "platform/storage/manuals"]
-	path = platform/storage/manuals
-	url = git@github.com:cartalyst/manuals.git
