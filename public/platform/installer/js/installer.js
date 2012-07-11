@@ -110,6 +110,47 @@ $(document).ready(function() {
 		}
 	}
 
+	if ($('.step1-refresh').length)
+	{
+		var $files = $('.files code');
+
+		$('.step1-refresh').on('click', function(e) {
+			e.preventDefault();
+
+			$.ajax({
+				type     : 'POST',
+				url      : platform.url.base('installer/confirm_writable'),
+				data     : $('#writable-form').serialize(),
+				dataType : 'JSON',
+				success  : function(data, textStatus, jqXHR) {
+					var i = 0;
+					var enabled = true;
+					$.each(data, function(idx, val) {
+						file = $($files[i]);
+						if (val) {
+							file.removeClass('alert-error').addClass('alert-success');
+						}
+						else {
+							file.removeClass('alert-success').addClass('alert-error');
+							enabled = false;
+						}
+						i++;
+					});
+
+					if (enabled) {
+						$('#writable-form button:submit').removeAttr('disabled');
+					}
+					else {
+						$('#writable-form button:submit').attr('disabled', 'disabled');
+					}
+				},
+				error    : function(jqXHR, textStatus, errorThrown) {
+
+				}
+		});
+		})
+	}
+
 	if ($('#database-form').length)
 	{
 		checkDBCredentials();

@@ -81,6 +81,7 @@ Autoloader::map(array(
 Autoloader::directories(array(
 	path('app').'models',
 	path('app').'libraries',
+	path('app').'platform'.DS.'core',
 	path('app').'platform',
 ));
 
@@ -203,7 +204,7 @@ Bundle::start('crud');
 
 $installed = Platform::is_installed();
 
-if (is_dir(path('base').'installer'))
+if (is_dir(path('base').'installer') and ! Request::cli())
 {
 	Bundle::register('installer', array(
 		'location' => 'path: '.path('installer'),

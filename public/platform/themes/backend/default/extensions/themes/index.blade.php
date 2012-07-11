@@ -58,7 +58,7 @@
 					<p>{{ $theme['description'] }}</p>
 					<p>{{ Lang::line('themes::themes.general.version') }} {{ $theme['version'] }}</p>
 					<p>{{ Lang::line('themes::themes.general.author') }}  {{ $theme['author'] }}</p>
-					<a href="activate/{{ URI::segment(3).'/'.$theme['dir'] }}" class="btn activate" data-theme="{{ $theme['dir'] }}" data-type="{{ URI::segment(3) }}">Activate</a>
+					<a href="activate/{{ URI::segment(3).'/'.$theme['dir'] }}" class="btn activate" data-token="{{ Session::token() }}" data-theme="{{ $theme['dir'] }}" data-type="{{ URI::segment(3) }}">Activate</a>
 				</div>
 			</div>
 		</div>

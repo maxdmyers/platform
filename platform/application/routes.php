@@ -52,6 +52,11 @@
 
 Route::any(ADMIN.'/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
 
+	if ( ! Bundle::exists($bundle))
+	{
+		return Response::error('404');
+	}
+
 	// check if the controller exists
 	if (Controller::resolve($bundle, 'admin.'.$controller))
 	{
@@ -75,6 +80,11 @@ Route::any(ADMIN.'/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard
 // Re-route api controllers
 Route::any('api/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', $controller = null, $action = null, $params = null) {
 
+	if ( ! Bundle::exists($bundle))
+	{
+		return Response::error('404');
+	}
+	
 	// check if the controller exists
 	if (Controller::resolve($bundle, 'api.'.$controller))
 	{
@@ -170,7 +180,7 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-	// if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
+	if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
 });
 
 Route::filter('admin_auth', function()

@@ -31,11 +31,18 @@ return array(
 
 	'dependencies' => array(
 		'menus',
+		'settings',
 	),
 
 	'bundles' => array(
 		'handles'  => 'themes',
 		'location' => 'path: '.__DIR__,
+	),
+
+	'events' => array(
+		'theme.create',
+		'theme.update',
+		'theme.delete',
 	),
 
 	'listeners' => function() {

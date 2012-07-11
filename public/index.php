@@ -3,7 +3,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @version  3.2.0 Beta 1
+ * @version  3.2.3
  * @author   Taylor Otwell <taylorotwell@gmail.com>
  * @link     http://laravel.com
  */
@@ -27,19 +27,6 @@ require '../platform/paths.php';
 // Unset the temporary web variable.
 // --------------------------------------------------------------
 unset($web);
-
-/*
-|--------------------------------------------------------------------------
-| Set the Admin route
-|--------------------------------------------------------------------------
-|
-| We set the admin route here so extensions.php files have access to
-| the constant.  If we set it in routes, they do not have access to it
-| since they would load before the define is set
-|
-*/
-
-define('ADMIN', 'admin');
 
 // --------------------------------------------------------------
 // Launch Laravel.
