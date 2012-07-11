@@ -58,10 +58,10 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		if (Request::ajax())
 		{
 			return json_encode(array(
-				"content"        => Theme::make('users::partials.table_users', $data)->render(),
-				"count"          => $datatable['count'],
-				"count_filtered" => $datatable['count_filtered'],
-				"paging"         => $datatable['paging'],
+				'content'        => Theme::make('users::partials.table_users', $data)->render(),
+				'count'          => $datatable['count'],
+				'count_filtered' => $datatable['count_filtered'],
+				'paging'         => $datatable['paging'],
 			));
 		}
 
