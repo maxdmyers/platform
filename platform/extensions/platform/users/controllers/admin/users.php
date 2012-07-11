@@ -20,13 +20,10 @@
 
 class Users_Admin_Users_Controller extends Admin_Controller
 {
-
-	public function __construct()
-	{
-		// Whitelist login methods
-		$this->filter('before', 'admin_auth')->except(array('login', 'logout', 'reset_password', 'reset_password_confirm'));
-		$this->filter('before', 'csrf')->on('post');
-	}
+	/**
+	 * @var  array  List of routes to whitelist from auth filter
+	 */
+	protected $whitelist = array('login', 'logout', 'reset_password', 'reset_password_confirm');
 
 	/**
 	 * This function is called before the action is executed.
