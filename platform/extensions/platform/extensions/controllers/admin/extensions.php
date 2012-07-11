@@ -61,6 +61,11 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 	{
 		$result = API::post('extensions/install', array('slug' => $slug));
 
+		if ( ! $result['status'])
+		{
+			Platform::messages()->error($result['message']);
+		}
+
 		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
@@ -78,21 +83,36 @@ class Extensions_Admin_Extensions_Controller extends Admin_Controller
 
 	public function get_enable($id)
 	{
-		API::post('extensions/enable', array('id' => $id));
+		$result = API::post('extensions/enable', array('id' => $id));
+
+		if ( ! $result['status'])
+		{
+			Platform::messages()->error($result['message']);
+		}
 
 		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
 	public function get_disable($id)
 	{
-		API::post('extensions/disable', array('id' => $id));
+		$result = API::post('extensions/disable', array('id' => $id));
+
+		if ( ! $result['status'])
+		{
+			Platform::messages()->error($result['message']);
+		}
 
 		return Redirect::to_secure(ADMIN.'/extensions');
 	}
 
 	public function get_update($id)
 	{
-		API::post('extensions/update', array('id' => $id));
+		$result = API::post('extensions/update', array('id' => $id));
+
+		if ( ! $result['status'])
+		{
+			Platform::messages()->error($result['message']);
+		}
 
 		return Redirect::to_secure(ADMIN.'/extensions');
 	}
