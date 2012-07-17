@@ -20,10 +20,14 @@
 
 class Authorized_Controller extends Base_Controller
 {
+	/**
+	 * @var  array  List of routes to whitelist from auth filter
+	 */
+	protected $whitelist = array();
 
 	public function __construct()
 	{
-		$this->filter('before', 'auth');
+		$this->filter('before', 'auth')->except($this->whitelist);
 		parent::__construct();
 	}
 
