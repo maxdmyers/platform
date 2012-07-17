@@ -19,5 +19,5 @@
  */
 
 Autoloader::namespaces(array(
-	'Dashboard' => Bundle::path('dashbaord').'models',
+	'Dashboard' => Bundle::path('dashboard').'models',
 ));
