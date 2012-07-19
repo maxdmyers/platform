@@ -1,6 +1,6 @@
 @layout('templates.default')
 
-<!-- Page Title-->
+<!-- Page Title -->
 @section('title')
 	@get.settings.general.title
 @endsection

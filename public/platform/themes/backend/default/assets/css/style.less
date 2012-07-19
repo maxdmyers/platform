@@ -61,17 +61,13 @@ html, body {
 }
 
 hr {
-	margin: 18px 0;
+	margin: 8px 0 18px 0;
 	border: 0;
 	border-top: 1px solid @etch;
 	border-bottom: 1px solid @white;
 }
 #base {
 	padding: 20px;
-}
-
-#page .actions {
-	text-align:right;
 }
 
 
@@ -183,9 +179,14 @@ hr {
 		margin-top:-1px;
 	}
 
-	#page .head {
+	#page section > header {
 		max-height:100px;
 		overflow: hidden;
+	}
+
+	#page .actions {
+		text-align:right;
+		margin-top:20px;
 	}
 
 
