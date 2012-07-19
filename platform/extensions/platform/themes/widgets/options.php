@@ -51,19 +51,9 @@ class Options
 
 		$status = (isset($active_custom['options']['status'])) ? $active_custom['options']['status'] : 0;
 
-		if ( ! $status)
-		{
-			return '';
-		}
-
-		// lets find the compile dir path
-		$compile_dir = str_finish(\Config::get('theme::theme.compile_directory'), DS);
-
-		$path = path('public').\Theme::get_directory().$compile_dir.\Theme::get_active().DS.'assets'.DS.'css'.DS.'theme_options.css';
-		$path = str_replace(path('public'), str_finish(\URL::base(), DS), $path);
-
-		return '<link rel="stylesheet" href="'.$path.'">';
-		//return Theme::make('themes::widgets.theme_options_css', $data);
+		return Theme::make('themes::widgets.theme_options_css')
+		            ->with('css_file', Theme::active_path().str_finish(Theme::assets_directory(), DS).'css'.DS.'theme_options.css')
+		            ->with('status', $status);
 	}
 
 }

@@ -27,10 +27,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<!-- Links -->
-	{{ Theme::asset('css/style.less') }}
 	@widget('platform.themes::options.css')
-
-	@yield('links')
+	{{ Theme::queue_asset('style', 'css/style.less') }}
+	{{ Theme::release_assets('styles') }}
 
 	@yield('head_scripts')
 

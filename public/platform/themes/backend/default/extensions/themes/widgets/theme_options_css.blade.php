@@ -1,3 +1,3 @@
 @if ($status)
-	{{ Theme::asset('css/theme_options.css') }}
+	{{ Theme::queue_asset('theme_options', 'css/theme_options.css', 'style') }}
 @endif
