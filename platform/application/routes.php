@@ -84,7 +84,7 @@ Route::any('api/(:any?)/(:any?)/(:any?)(/.*)?', function($bundle = 'dashboard', 
 	{
 		return Response::error('404');
 	}
-	
+
 	// check if the controller exists
 	if (Controller::resolve($bundle, 'api.'.$controller))
 	{
@@ -180,13 +180,13 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-	if ( ! Sentry::check()) return Redirect::to(ADMIN.'/login');
+	if ( ! Sentry::check()) return Redirect::to('login');
 });
 
 Route::filter('admin_auth', function()
 {
 	if ( ! Sentry::check() or ! Sentry::user()->has_access('is_admin') )
 	{
-		return Redirect::to(ADMIN.'/login');
+		return Redirect::to('login');
 	}
 });

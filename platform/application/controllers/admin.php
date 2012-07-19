@@ -23,7 +23,7 @@ class Admin_Controller extends Authorized_Controller
 
 	public function __construct()
 	{
-		$this->filter('before', 'admin_auth')->except($this->whitelist);;
+		$this->filter('before', 'admin_auth')->except($this->whitelist);
 		parent::__construct();
 	}
 
