@@ -10,39 +10,38 @@
 	<!-- Basic Page Needs -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-	<meta name="description" content="an ecommerce engine">
+	<meta name="description" content="@get.settings.site.tagline">
 	<meta name="author" content="Cartalyst LLC">
-	<meta name="base_url" content="{{ URL::to_secure() }}">
+	<meta name="base_url" content="{{ url() }}">
 	<meta name="admin_url" content="{{ URL::to_secure(ADMIN) }}">
+
+	<!-- Page Title -->
+	<title>
+		@yield('title')
+	</title>
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
 	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- Links -->
-	@widget('platform.themes::options.css')
+	<!-- Queue Links -->
 	{{ Theme::queue_asset('style', 'css/style.less') }}
+	<!-- Release Links -->
 	{{ Theme::release_assets('styles') }}
-
-	@yield('head_scripts')
-
-	<title>
-	@yield('title')
-	</title>
+	<!-- Apply Options -->
+	@widget('platform.themes::options.css')
 
 	<link rel="shortcut icon" href="{{ Theme::asset('img/favicon.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="{{ Theme::asset('img/apple-touch-icon-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ Theme::asset('img/apple-touch-icon-72x72-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ Theme::asset('img/apple-touch-icon-114x114-precomposed.png') }}">
+
 </head>
 <body>
+
 	<div id="base" class="grid">
 		<header class="rows">
 			<div class="brand">
@@ -114,8 +113,12 @@
 		</div>
 	</div>
 
-	{{ Theme::asset('js/jquery-1.7.2.min.js', 'js/admin.js', 'js/url.js') }}
-	@yield('body_scripts')
+<!-- Queue Scripts -->
+{{ Theme::queue_asset('jquery', 'js/jquery-1.7.2.min.js') }}
+{{ Theme::queue_asset('admin', 'js/admin.js') }}
+{{ Theme::queue_asset('url', 'js/url.js') }}
 
+<!-- Release Scripts -->
+{{ Theme::release_assets('scripts') }}
 </body>
 </html>

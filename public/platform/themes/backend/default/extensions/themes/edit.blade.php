@@ -1,4 +1,4 @@
-@layout('templates.template')
+@layout('templates.default')
 
 @section('title')
 	{{ Lang::line('themes::themes.general.title') }}
@@ -29,7 +29,7 @@
 
 			@if (count($theme['options']))
 				{{ Form::open(null, 'POST', array('id' => 'theme-options', 'class' => 'form-horizontal')) }}
-					
+
 					{{ Form::token() }}
 
 					<div class="well">

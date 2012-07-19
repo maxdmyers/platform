@@ -1,4 +1,4 @@
-@layout('templates.template')
+@layout('templates.default')
 
 @section ('content')
 

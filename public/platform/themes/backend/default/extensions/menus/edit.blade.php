@@ -1,4 +1,4 @@
-@layout('templates.template')
+@layout('templates.default')
 
 @section('title')
 	menus.title
@@ -67,7 +67,7 @@
 		<hr>
 
 		{{ Form::open(ADMIN.'/menus/edit/'.$menu_id ?: null, 'POST', array('id' => 'platform-menu', 'autocomplete' => 'off', 'novalidate')) }}
-			
+
 			{{ Form::token() }}
 
 			<div class="tabbable">
@@ -131,7 +131,7 @@
 
 					</div>
 					<div class="tab-pane {{ ( ! $menu_id) ? 'active' : null }}" id="menus-edit-menu-options">
-						
+
 						{{ Form::label('menu-name', Lang::line('menus::menus.general.name')) }}
 						{{ Form::text('name', isset($menu['name']) ? $menu['name'] : null, array('id' => 'menu-name', 'placeholder' => Lang::line('menus::menus.general.name'), (isset($menu['user_editable']) and ! $menu['user_editable']) ? 'disabled' : 'required')) }}
 

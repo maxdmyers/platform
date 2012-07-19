@@ -55,7 +55,7 @@
 
 			<h1>@get.settings.site.title</h1>
 
-			<h2>Platform is an application base, a bootstrap if you will, on Laravel. The fundamentals <span>+</span> a few essentials included. It's well documented, feature awesome, and open source.</h2>
+			<h2>Platform is an application base, a bootstrap for Laravel. The fundamentals <span>+</span> a few essentials included. It's well documented, feature awesome, and open source.</h2>
 
 		</div>
 
