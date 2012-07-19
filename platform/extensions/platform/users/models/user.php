@@ -42,7 +42,8 @@ class User extends Crud
 		'metadata.first_name'   => 'required',
 		'metadata.last_name'    => 'required',
 		'email'                 => 'required|unique:users',
-		'password_confirmation' => 'same:password',
+		'password'              => 'required',
+		'password_confirmation' => 'required|same:password',
 	);
 
 	// we use this to set metdata
@@ -78,6 +79,9 @@ class User extends Crud
 				return false;
 			}
 		}
+
+		// see if creation is a registration
+		$register = (isset($attributes['register'])) ? $attributes['register'] : false;
 
 		// prep attribute values after validation is done
 		$attributes = $this->prep_attributes($attributes);
@@ -167,19 +171,33 @@ class User extends Crud
 			try
 			{
 				list($query, $attributes) = $this->before_insert(null, $attributes);
-				$result = Sentry::user()->create($attributes);
-				$result = $this->after_insert($result);
 
-				$user = Sentry::user((int) $result);
+				if ($register)
+				{
+					$result = Sentry::user()->register($attributes);
+					$result['id'] = $this->after_insert($result);
+
+					$user_id = (int) $result['id'];
+				}
+				else
+				{
+					$result = Sentry::user()->create($attributes);
+					$result = $this->after_insert($result);
+
+					$user_id = (int) $result;
+				}
+
+				$user = Sentry::user($user_id);
+
 				// add user to groups
 				foreach ($groups as $group)
 				{
 					$user->add_to_group($group);
 				}
 
-				$this->is_new( ! (bool) $result);
+				$this->is_new( ! (bool) $user_id);
 
-				$attributes['id'] = (int) $result;
+				$attributes['id'] = (int) $user_id;
 				$this->fill($attributes);
 
 				if (static::$_events)
@@ -241,6 +259,8 @@ class User extends Crud
 	{
 		// unset confirmation values
 		unset($attributes['password_confirmation']);
+		unset($attributes['email_confirmation']);
+		unset($attributes['register']);
 
 		if ( ! $this->is_new() and empty($attributes['password']))
 		{
@@ -323,6 +343,7 @@ class User extends Crud
 	 */
 	protected function before_validation($data, $rules)
 	{
+		// if not new, adjust rules
 		if ( ! $this->is_new())
 		{
 			// add id to the unique clause to prevent errors if same email
@@ -332,9 +353,18 @@ class User extends Crud
 			if (empty($data['password']))
 			{
 				unset($rules['password']);
+				unset($rules['password_confirmation']);
 			}
 		}
 
+		// if registering, add email confirm
+		if (isset($data['register']) and $data['register'])
+		{
+			$rules['email'] = 'required|email';
+			$rules['email_confirmation'] = 'required|email|same:email';
+		}
+
+		// if just updating permissions, remove rules
 		if (isset($data['id']) and isset($data['permissions']) and count($data) == 2)
 		{
 			$rules = array();

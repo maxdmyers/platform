@@ -53,10 +53,12 @@ return array(
 	},
 
 	'global_routes' => function() {
-		Route::any(ADMIN.'/login', 'users::admin.users@login');
-		Route::any(ADMIN.'/logout', 'users::admin.users@logout');
-		Route::any(ADMIN.'/reset_password', 'users::admin.users@reset_password');
-		Route::any(ADMIN.'/reset_password_confirm/(:any)/(:any)', 'users::admin.users@reset_password_confirm');
+		Route::any('register', 'users::auth@register');
+		Route::any('activate/(:any)/(:any)', 'users::auth@activate');
+		Route::any('login', 'users::auth@login');
+		Route::any('logout', 'users::auth@logout');
+		Route::any('reset_password', 'users::auth@reset_password');
+		Route::any('reset_password_confirm/(:any)/(:any)', 'users::auth@reset_password_confirm');
 	},
 
 	'rules' => array(

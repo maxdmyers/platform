@@ -22,22 +22,10 @@ namespace Platform\Users\Widgets;
 
 use Theme;
 
-class Form
+class Menu
 {
-
-	public function login()
+	public function profile()
 	{
-		return Theme::make('users::widgets.login');
+		return Theme::make('users::widgets.profile.menu');
 	}
-
-	public function register()
-	{
-		return Theme::make('users::widgets.register');
-	}
-
-	public function reset()
-	{
-		return Theme::make('users::widgets.reset');
-	}
-
 }

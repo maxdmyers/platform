@@ -21,7 +21,7 @@
 class Users_Admin_Users_Controller extends Admin_Controller
 {
 	/**
-	 * @var  array  List of routes to whitelist from auth filter
+	 * Whitelisted Auth Routes
 	 */
 	protected $whitelist = array('login', 'logout', 'reset_password', 'reset_password_confirm');
 
@@ -55,10 +55,10 @@ class Users_Admin_Users_Controller extends Admin_Controller
 		if (Request::ajax())
 		{
 			return json_encode(array(
-				'content'        => Theme::make('users::partials.table_users', $data)->render(),
-				'count'          => $datatable['count'],
-				'count_filtered' => $datatable['count_filtered'],
-				'paging'         => $datatable['paging'],
+				"content"        => Theme::make('users::partials.table_users', $data)->render(),
+				"count"          => $datatable['count'],
+				"count_filtered" => $datatable['count_filtered'],
+				"paging"         => $datatable['paging'],
 			));
 		}
 
@@ -244,134 +244,6 @@ class Users_Admin_Users_Controller extends Admin_Controller
 			Platform::messages()->error($update_user['message']);
 			return Redirect::to_secure(ADMIN.'/users/edit/'.$id)->with_input();
 		}
-	}
-
-	/**
-	 * Auth Methods
-	 */
-
-	/**
-	 * Login Form
-	 *
-	 * @return  View
-	 */
-	public function get_login()
-	{
-		API::get('users/logout');
-
-		return Theme::make('users::auth/login');
-	}
-
-	/**
-	 * Login Form Processing
-	 */
-	public function post_login()
-	{
-		$login = API::post('users/login', array(
-			'email'    => Input::get('email'),
-			'password' => Input::get('password'),
-			'is_admin' => true
-		));
-
-		if ($login['status'])
-		{
-			$data = array(
-				'status'   => true,
-				'redirect' => (\Session::get('last_url')) ?: URL::to_secure(ADMIN)
-			);
-		}
-		else
-		{
-			$data = array(
-				'status' => false,
-				'message' => $login['message']
-			);
-		}
-
-		// TODO - Show Login Error
-
-		// send json response
-		return json_encode($data);
-	}
-
-	/**
-	 * Log user out
-	 *
-	 * @return  Redirect
-	 */
-	 public function get_logout()
-	 {
-	 	$logout = API::get('users/logout');
-	 	if ($logout['status'])
-	 	{
-	 		return Redirect::to_secure(ADMIN.'/login');
-	 	}
-	 }
-
-	/**
-	 * Reset Password Form
-	 *
-	 * @return View
-	 */
-	public function get_reset_password()
-	{
-		return Theme::make('users::auth/reset_password');
-	}
-
-	/**
-	 * Reset Password Processing
-	 *
-	 * @return object  json
-	 */
-	public function post_reset_password()
-	{
-		$reset = API::post('users/reset_password', array(
-			'email'    => Input::get('email'),
-			'password' => Input::get('password')
-		));
-
-		if ($reset['status'])
-		{
-			$data = array(
-				'status'   => true,
-				'redirect' => URL::to_secure(ADMIN)
-			);
-		}
-		else
-		{
-			$data = array(
-				'status' => false,
-				'message' => $reset['message']
-			);
-		}
-
-		return json_encode($data);
-	}
-
-	/**
-	 * Reset Password Confirmation
-	 *
-	 * @param   string  users encoded email
-	 * @param   string  encoded confirmation hash
-	 * @return  View
-	 */
-	public function get_reset_password_confirm($email = null, $password = null)
-	{
-		$data = array();
-
-		$reset = API::post('users/reset_password_confirm', array(
-			'email'    => $email,
-			'password' => $password,
-		));
-
-		if ($reset['status'])
-		{
-			// TODO: - Set Success message
-			return Redirect::to_secure(ADMIN.'/login');
-		}
-
-		// TODO: - Set error message
-		return Redirect::to_secure(ADMIN.'/reset_password');
 	}
 
 }

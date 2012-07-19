@@ -1,17 +1,11 @@
 @layout('templates.default')
 
+<!-- Page Title-->
 @section('title')
 	@get.settings.general.title
 @endsection
 
-@section('links')
-
-@endsection
-
-@section('body_scripts')
-
-@endsection
-
+<!-- Page Content -->
 @section('content')
 <section id="home">
 	<div class="features row-fluid">
@@ -38,50 +32,43 @@
 	<hr>
 	<div class="points row-fluid">
 		<div class="span4">
-			<span class="ico-drawer"></span>
 			<h3>Modular Extensions</h3>
 			<p>
 				Every extension in Platform is completely modular and found in one place.
 			</p>
 		</div>
 		<div class="span4">
-			<span class="ico-cog"></span>
 			<h3>Awesome API</h3>
 			<p>
 				Create, read, update and delete from any extension with a powerful internal API.
 			</p>
 		</div>
 		<div class="span4">
-			<span class="ico-thumbs-up"></span>
-			<h3>Expressivly Awesome</h3>
+			<h3>Widgets &amp; Plugins</h3>
 			<p>
-				We aim to be as expressive as possible whenever possible using simple, expressive syntax.
+				Create simple or complex widgets and call them from anywhere within your views.
 			</p>
 		</div>
 	</div>
 	<div class="points row-fluid">
 		<div class="span4">
-			<span class="ico-key"></span>
 			<h3>Authentication and Authorization</h3>
 			<p>
 				 A complete, feature rich auth system with a simple yet powerful permission system.
 			</p>
 		</div>
 		<div class="span4">
-			<span class="ico-equalizer"></span>
 			<h3>Dashboard Ready</h3>
 			<p>
 				A powerful and default admin UI with all the bells and whistles using Twitter bootstrap.
 			</p>
 		</div>
 		<div class="span4">
-			<span class="ico-cube"></span>
-			<h3>Widget here, widget there!</h3>
+			<h3>Boodstrap Ready</h3>
 			<p>
-				Create simple or complex widgets and call them from anywhere within your views.
+				We chose bootstrap for both our front and backend themes. But use whatever you want.
 			</p>
 		</div>
 	</div>
 </section>
-
 @endsection

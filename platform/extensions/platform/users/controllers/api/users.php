@@ -56,10 +56,99 @@ class Users_API_Users_Controller extends API_Controller
 		);
 	}
 
+	public function post_register()
+	{
+		$user_data = Input::get() + array(
+			'register' => true,
+		);
+
+		$user = new User($user_data);
+
+		// save user
+		try
+		{
+			$result = $user->save();
+			if ($result['id'])
+			{
+				// send email
+				$hash = $result['hash'];
+
+				// Get the Swift Mailer instance
+				Bundle::start('swiftmailer');
+				$mailer = IoC::resolve('mailer');
+
+				$body = file_get_contents(path('public').'platform/emails'.DS.'register.html');
+				$body = preg_replace('/{{SITE_TITLE}}/', Platform::get('settings.general.title'), $body);
+				$body = preg_replace('/{{ACTIVATION_LINK}}/', URL::to_secure('activate/'.$hash), $body);
+
+				// Construct the message
+				$message = Swift_Message::newInstance(Platform::get('settings.general.title').' - Activate Account')
+				    ->setFrom(Platform::get('settings.general.email'), Platform::get('settings.general.title'))
+				    ->setTo(Input::get('email'))
+				    ->setBody($body,'text/html');
+
+				// Send the email
+				$mailer->send($message);
+				echo $hash;
+				    exit;
+				// respond
+				return array(
+					'status'  => true,
+					'message' => Lang::line('users::users.create.success')->get()
+				);
+			}
+			else
+			{
+				return array(
+					'status'  => false,
+					'message' => ($user->validation()->errors->has()) ? $user->validation()->errors->all() : Lang::line('user::users.create.error')->get()
+				);
+			}
+		}
+		catch (\Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}
+	}
+
+	public function post_activate()
+	{
+		$data = Input::get();
+
+		try
+		{
+			if (Sentry::activate_user($data['email'], $data['code']))
+			{
+				return array(
+					'status'  => true,
+					'message' => 'User Successfully Activated.'
+				);
+			}
+
+			return array(
+				'status'  => false,
+				'message' => 'Could not activate user.'
+			);
+		}
+		catch (\Exception $e)
+		{
+			return array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}
+	}
+
 	public function post_create()
 	{
 		// set user data
 		$user_data = Input::get();
+
+		// remove register just incase
+		unset($user_data['register']);
 
 		$user = new User($user_data);
 
@@ -253,26 +342,12 @@ class Users_API_Users_Controller extends API_Controller
 
 		try
 		{
-			// check for admin only login
-			if (Input::get('is_admin') === true)
-			{
-				// check if user is an admin
-				if ( ! Sentry::user(Input::get('email'))->has_access())
-				{
-					// user was not an admin - return false
-					return array(
-						'status'  => false,
-						'message' => Lang::line('users::users.general.not_admin')->get()
-					);
-				}
-
-			}
-
 			// log the user in
 			if (Sentry::login(Input::get('email'), Input::get('password'), Input::get('remember')))
 			{
 				return array(
-					'status'  => true
+					'status'   => true,
+					'is_admin' => Sentry::user()->has_access('is_admin')
 				);
 			}
 
