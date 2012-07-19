@@ -1,19 +1,13 @@
 @layout('templates.default')
 
+<!-- Page Title -->
 @section('title')
-	{{ Lang::line('extensions::extensions.general.title') }}
+	{{ Lang::line('extensions::extensions.title') }}
 @endsection
 
-@section('links')
-
-@endsection
-
-@section('body_scripts')
-
-@endsection
-
+<!-- Page Content -->
 @section('content')
-<section id="extensions">
+<div id="extensions">
 
 	<header class="head row">
 		<div class="span6">
@@ -104,6 +98,5 @@
 			</div>
 		</div>
 
-</section>
-
+</div>
 @endsection
